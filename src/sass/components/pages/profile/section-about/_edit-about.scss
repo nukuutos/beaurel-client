@@ -1,0 +1,53 @@
+.edit-about {
+  // grid-template-columns: repeat(3, minmax(min-content, max-content)) repeat(2, min-content);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 3rem 8rem 4rem;
+
+  &__header {
+    align-self: start;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    word-spacing: 0.1rem;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 50%;
+      margin: 1rem 0 3rem;
+      background: #ccc;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text-area {
+    // width: 72rem;
+    height: 34rem;
+    font-size: 2rem;
+    padding: 1rem;
+    max-width: 72rem;
+    min-width: 72rem;
+  }
+
+  &__pen {
+    height: 2rem;
+    transform: translateY(-1.5rem);
+  }
+
+  &__button {
+    align-self: flex-end;
+  }
+}

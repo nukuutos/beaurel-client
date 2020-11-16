@@ -1,0 +1,38 @@
+$diameter: 13rem;
+
+.avatar {
+  position: relative;
+
+  &__image {
+    width: $diameter;
+    border-radius: 50%;
+  }
+
+  &__change-image {
+    opacity: 0;
+
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.2s opacity, 0.2s background;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &__pen-icon {
+    height: 3rem;
+    color: #ad60e2;
+  }
+}

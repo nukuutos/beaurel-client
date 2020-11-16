@@ -1,0 +1,49 @@
+@use "../../abstracts/colors" as *;
+
+.spinner {
+  // &__loader {
+  border: 4px solid #7b0ec6;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  background-image: none;
+  font-size: 0;
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  animation: spin 1s linear infinite;
+  cursor: default;
+
+  &--tiny {
+    $size: 1.5rem;
+    width: $size;
+    height: $size;
+  }
+
+  &--edge {
+    position: absolute;
+    top: 7%;
+    right: -9%;
+  }
+
+  // &--button {
+  //   background: none;
+  //   outline: 0;
+
+  //   &:hover {
+  //     background: none;
+  //     cursor: default;
+  //   }
+  // }
+  // }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,26 @@
+@use "../../abstracts/colors" as *;
+
+.alert {
+  width: 100vw;
+  color: #fff;
+  font-size: 1.9rem;
+  position: fixed;
+  bottom: 0;
+  padding: 1.5rem 0;
+  padding-left: 30%;
+  transform: translateY(100%);
+  transition: transform 1s;
+  z-index: 40;
+
+  &--show {
+    transform: translateY(0);
+  }
+
+  &--success {
+    background-color: $color-success;
+  }
+
+  &--fail {
+    background-color: $color-fail;
+  }
+}

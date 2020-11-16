@@ -1,0 +1,20 @@
+.star-profile {
+  position: relative;
+  height: 3rem;
+  align-self: start;
+  justify-self: end;
+  color: #954ec5;
+  cursor: pointer;
+  z-index: 10;
+
+  &--unstar {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &--invisible {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,66 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-decoration: none;
+    font-weight: 400;
+    position: relative;
+    backface-visibility: hidden;
+    cursor: pointer;
+    border: none;
+    border-color: transparent;
+    outline: none;
+    background-color: transparent;
+    // letter-spacing: 0.05em;
+  }
+
+  &--primary {
+    &,
+    &:link,
+    &:visited {
+      border-radius: 3rem;
+      letter-spacing: 0.05rem;
+      padding: 0.8rem 1.6rem;
+      font-size: 1.2rem;
+      border: 1px solid #c321ff;
+      color: #c321ff;
+      transition: all 0.2s;
+
+      &:hover {
+        font-weight: 400;
+        color: #f8f8f8;
+        background-color: #c321ff;
+      }
+    }
+  }
+
+  &--secondary {
+    font-size: 2rem;
+    padding: 1.2rem 4rem;
+    // background: #c321ff;
+    // color: #f8f8f8;
+    font-weight: 300;
+    align-self: flex-end;
+    //
+    // padding: 1rem 2rem;
+    background: #7b0ec6;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    transition: 0.2s box-shadow;
+
+    &:hover {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  &--submited {
+    background: #964dc8;
+    pointer-events: none;
+    cursor: default;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}

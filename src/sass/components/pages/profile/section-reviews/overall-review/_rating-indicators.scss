@@ -1,0 +1,6 @@
+.rating-indicators {
+  display: grid;
+  grid-template-columns: 15vw max-content max-content;
+  align-items: center;
+  column-gap: 1.5rem;
+}

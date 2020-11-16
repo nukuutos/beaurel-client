@@ -1,0 +1,25 @@
+@use "../../abstracts/colors" as *;
+
+.content {
+  grid-column: content-start / content-end;
+  grid-row: 1/3;
+  background: #fff;
+  padding: 4rem 0 6rem;
+
+  display: grid;
+  grid-template-columns:
+    minmax(4rem, 1fr) [center-start] repeat(12, [col-start] minmax(min-content, 9rem) [col-end]) [center-end]
+    minmax(4rem, 1fr);
+
+  // to var
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(#000, 0.2);
+
+  position: relative;
+
+  &--profile {
+    grid-template-rows: min-content min-content;
+
+    // row-gap: 1rem;
+  }
+}

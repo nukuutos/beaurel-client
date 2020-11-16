@@ -1,0 +1,114 @@
+.master-works {
+  display: grid;
+  max-width: 60vw;
+  background: #fff;
+  grid-template-columns: minmax(27rem, max-content) minmax(min-content, max-content);
+  grid-template-rows: minmax(45rem, 70rem);
+
+  &--first {
+    border-radius: 10px;
+    border-radius: 10px;
+    height: 50rem;
+    width: 45rem;
+    color: #666;
+  }
+
+  &__camera {
+    height: 15rem;
+    margin: 5rem 0;
+  }
+
+  &__main {
+    height: 100%;
+    position: relative;
+
+    &--first {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__image {
+    height: 100%;
+  }
+
+  &__navbar {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  &__item {
+    color: #281535; // to var
+    width: 100%;
+    padding: 1rem 2.5rem; // 1.5 3.0
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+    justify-content: space-between;
+    transition: 0.2s background;
+
+    &:not(:first-of-type) {
+      margin-top: 1rem;
+    }
+
+    &:hover {
+      background: #f7ecff; // to var
+    }
+
+    &--active {
+      background: rgba(140, 26, 218, 0.722); // to var
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(140, 26, 218, 0.722); // to var
+      }
+    }
+
+    &--add {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
+      border-top: 1px solid #ccc;
+      color: #bbb;
+      // cursor: default;
+
+      transition: 0.2s color, 0.2s background;
+
+      &:hover {
+        background: #eee;
+        color: #7c3ba8;
+      }
+    }
+
+    &--add-first {
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+
+  &__plus {
+    height: 3rem;
+  }
+
+  &__first-text {
+    font-size: 2.5rem;
+    text-align: center;
+    width: 70%;
+    // padding: 0 10rem;
+  }
+
+  &__trash {
+    height: 2rem;
+    color: #ccc;
+    transition: 0.2s color;
+
+    &:hover {
+      color: #281535;
+    }
+  }
+}

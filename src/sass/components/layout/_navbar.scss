@@ -1,0 +1,49 @@
+@use "../../abstracts/colors" as *;
+
+.navbar {
+  grid-column: navbar-start / navbar-end;
+  background: #fff;
+  font-size: 1.9rem;
+  padding: 1.5rem 0;
+  // to var
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(#000, 0.2);
+
+  &__link {
+    color: #281535; // to var
+
+    &:not(:first-of-type) {
+      margin-top: 0.5rem;
+    }
+
+    &:hover {
+      background: #f7ecff; // to var
+    }
+
+    &--active {
+      background: rgba(140, 26, 218, 0.722); // to var
+      color: #fff;
+      pointer-events: none;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(140, 26, 218, 0.722); // to var
+      }
+    }
+
+    a:visited,
+    a:link {
+      width: 100%;
+      padding: 1rem 2.5rem; // 1.5 3.0
+      display: flex;
+      align-items: center;
+      color: inherit;
+      font-weight: 400;
+    }
+  }
+
+  &__icon {
+    height: 2rem;
+    margin-right: 2rem;
+  }
+}

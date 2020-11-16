@@ -1,0 +1,48 @@
+.public-view {
+  align-self: start;
+
+  display: flex;
+  align-items: center;
+
+  padding: 1rem 2rem;
+
+  background: #ac5ae4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.2s box-shadow;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  }
+
+  &__icon {
+    height: 2.3rem;
+    margin-left: 1rem;
+
+    &--out {
+      height: 3rem;
+    }
+  }
+
+  &--out {
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: #ac5ae4;
+    transform: translate(-150%, 150%);
+    padding: 1rem;
+    background: #fff;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    transition: 0.2s color, 0.2s background;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background: #ac5ae4;
+    }
+  }
+}
