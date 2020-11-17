@@ -27,6 +27,12 @@
     right: -9%;
   }
 
+  // grid center
+  &--gc {
+    justify-self: center;
+    align-self: center;
+  }
+
   // &--button {
   //   background: none;
   //   outline: 0;

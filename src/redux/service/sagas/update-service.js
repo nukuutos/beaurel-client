@@ -15,7 +15,7 @@ export function* updateService({ payload }) {
     const { title, ...serviceProps } = service;
     const serviceWithoutTitle = { ...serviceProps };
 
-    // parameter - service with sub services (in payload: service.title)
+    // parameter - service with sub services (in payload: service.title and service.oldTitle)
     // service (in payload: service.id)
     // sub service (in payload: service.id and service.parentId)
     const { data } = yield axios.put(

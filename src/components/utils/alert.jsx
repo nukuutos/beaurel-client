@@ -38,13 +38,27 @@ const Alert = () => {
   // const isSuccess = alerts[0].type === 'success' ? 'alert--success' : 'alert--fail';
   // const isShow = ;
 
+  // for animation not using {alerts[0] && component}
+  // for correct work not using ternary operator (Success alert and when it gone it becomes red because of duration to gone)
+  // className = type === 'success' ? 'alert--success' : 'alert--fail
+
   return (
-    <div
-      className={`alert ${state.isShow ? 'alert--show' : ''} ${
-        alerts[0] && alerts[0].type === 'success' ? 'alert--success' : 'alert--fail'
-      }`}>
-      {alerts[0] && alerts[0].message}
-    </div>
+    <>
+      /
+      <div
+        className={`alert ${
+          alerts[0] && alerts[0].type === 'success' && state.isShow ? 'alert--show' : ''
+        } alert--success`}>
+        {alerts[0] && alerts[0].message}
+      </div>
+      {/* )} */}
+      {/* {alerts[0] && alerts[0].type === 'fail' && ( */}
+      <div
+        className={`alert ${alerts[0] && alerts[0].type === 'fail' && state.isShow ? 'alert--show' : ''} alert--fail`}>
+        {alerts[0] && alerts[0].message}
+      </div>
+      {/* )} */}
+    </>
   );
 };
 

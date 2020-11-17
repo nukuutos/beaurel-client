@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Service from './service';
-import ParameterService from './parameter-service';
+import Service from './service/service';
+import ParameterService from './parameter-service/parameter-service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { getServicesStart } from '../../../../redux/service/actions';
@@ -28,21 +28,6 @@ const DisplayServices = ({ setIsAddService }) => {
       ) : (
         <p className="services__first-service mb-s">Add your first service!</p>
       )}
-
-      {/* <Service service={{ title: 'title', duration: 'duration', price: 'price' }} />
-      <Service service={{ title: 'title', duration: 'duration', price: 'price' }} />
-      <ParameterService
-        parameterService={{
-          title: 'title',
-          subServices: [
-            { parameter: 'parameter', duration: 'duration', price: 'price' },
-            { parameter: 'parameter', duration: 'duration', price: 'price' },
-          ],
-        }}
-      />
-      <Service service={{ title: 'title', duration: 'duration', price: 'price' }} /> */}
-
-      {/* {!services.length && <p className="services__first-service mb-s">Add your first service!</p>} */}
 
       <div className="service--add mb-m mt-m" onClick={() => setIsAddService(true)}>
         <FontAwesomeIcon icon="plus" />

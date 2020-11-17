@@ -4,10 +4,13 @@ import * as Yup from 'yup';
 import InputCustom from '../../../form/input-custom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
-import { addServiceStart } from '../../../../redux/service/actions';
+import { addServiceStart, addServiceSuccess } from '../../../../redux/service/actions';
+import asyncCall from '../../../../utils/async-call';
+import { setAlert } from '../../../../redux/alert/actions';
+import Spinner from '../../../utils/spinner';
 
 const AddSubServicesForm = () => {
-  const { sessionTime } = useSelector((state) => state.timetable);
+  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
   const dispatch = useDispatch();
 
   const addSubServicesSchema = Yup.object().shape({
@@ -51,8 +54,27 @@ const AddSubServicesForm = () => {
         date: null,
       }}
       validationSchema={addSubServicesSchema}
-      onSubmit={(values) => dispatch(addServiceStart(values))}>
-      {({ values, errors }) => (
+      onSubmit={async (values, { resetForm }) => {
+        const { date, ...service } = values;
+
+        const config = {
+          method: 'post',
+          url: '/profile/5eb849b81c2ccc21306ced34/service',
+          data: { date, service },
+          accessToken,
+        };
+
+        const data = await asyncCall(dispatch, config);
+        // dispatch(addServiceStart(values));
+
+        if (data) {
+          const { ids, ...alert } = data;
+          dispatch(addServiceSuccess({ service: { ids, ...service } }));
+          dispatch(setAlert(alert));
+          resetForm();
+        }
+      }}>
+      {({ values, isSubmitting }) => (
         <Form
           className={`services--add-service ${
             values.type === 'parameters' && values.subServices.length !== 1 && 'services--add-sub-service'
@@ -132,9 +154,15 @@ const AddSubServicesForm = () => {
               </>
             )}
           </FieldArray>
-          <button className="g-cf btn btn--secondary mt-m mb-h" type="submit">
-            Save
-          </button>
+          <div className="mt-m display-flex g-cf p-r">
+            {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
+            <button
+              disabled={isSubmitting}
+              className={`w-f btn btn--secondary mt-m mb-h ${isSubmitting ? 'btn--submited' : ''}`}
+              type="submit">
+              Save
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

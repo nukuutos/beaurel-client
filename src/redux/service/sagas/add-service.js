@@ -28,7 +28,7 @@ export function* addService({ payload }) {
     yield put(setAlert(alert));
   } catch (error) {
     yield put(addServiceFailure());
-    yield put(setAlert({ message: error.response.data.message, type: 'fail' }));
+    yield put(setAlert({ ...error.response.data }));
   }
 }
 

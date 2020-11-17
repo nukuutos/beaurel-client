@@ -1,14 +1,18 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import InputCustom from '../../../form/input-custom';
+import InputCustom from '../../../../../form/input-custom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux';
-import { updateServiceStart } from '../../../../redux/service/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateServiceStart, updateServiceSuccess } from '../../../../../../redux/service/actions';
 import * as Yup from 'yup';
+import asyncCall from '../../../../../../utils/async-call';
+import Spinner from '../../../../../utils/spinner';
+import { setAlert } from '../../../../../../redux/alert/actions';
 
-const EditSubService = ({ subService, title, isLastService, setIsSubServiceEdit }) => {
+const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
   const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
+  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
 
   const editSubServiceSchema = Yup.object().shape({
     parameter: Yup.string()
@@ -37,8 +41,25 @@ const EditSubService = ({ subService, title, isLastService, setIsSubServiceEdit 
         id,
       }}
       validationSchema={editSubServiceSchema}
-      onSubmit={(values) => console.log('sent')}>
-      {({ values }) => (
+      onSubmit={async (values) => {
+        const { date, ...service } = values;
+
+        const config = {
+          method: 'put',
+          url: `/profile/5eb849b81c2ccc21306ced34/service/${id}`,
+          data: { date, service },
+          accessToken,
+        };
+
+        const alert = await asyncCall(dispatch, config);
+
+        if (alert) {
+          dispatch(updateServiceSuccess({ updatedService: { title, ...values }, updatedServiceType: 'sub-service' }));
+          dispatch(setAlert(alert));
+          setIsEdit(false);
+        }
+      }}>
+      {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
             <span
@@ -57,16 +78,23 @@ const EditSubService = ({ subService, title, isLastService, setIsSubServiceEdit 
               <InputCustom className="service__cell service__price" type="text" name="price" id="price" />
             </span>
           </Form>
-          <div
-            onClick={() =>
-              dispatch(updateServiceStart({ service: { title, ...values }, date: null, type: 'sub-service' }))
-            }
-            className="service__icon service__icon--manage">
-            <FontAwesomeIcon icon="check" />
-          </div>
-          <div onClick={() => setIsSubServiceEdit(false)} className="service__icon service__icon--manage">
-            <FontAwesomeIcon icon="times" />
-          </div>
+          {isSubmitting ? (
+            <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+          ) : (
+            <>
+              <div
+                onClick={() => {
+                  if (dirty) submitForm();
+                  else setIsEdit(false);
+                }}
+                className="service__icon service__icon--manage">
+                <FontAwesomeIcon icon="check" />
+              </div>
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage">
+                <FontAwesomeIcon icon="times" />
+              </div>
+            </>
+          )}
         </>
       )}
     </Formik>

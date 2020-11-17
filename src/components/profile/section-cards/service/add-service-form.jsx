@@ -5,10 +5,12 @@ import InputCustom from '../../../form/input-custom';
 import Spinner from '../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
-import { addServiceStart } from '../../../../redux/service/actions';
+import { addServiceStart, addServiceSuccess } from '../../../../redux/service/actions';
+import asyncCall from '../../../../utils/async-call';
+import { setAlert } from '../../../../redux/alert/actions';
 
 const AddServiceForm = () => {
-  const [sessionTime, isLoading] = useSelector((state) => [state.timetable.sessionTime, state.services.isLoading]);
+  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
   const dispatch = useDispatch();
 
   const addServiceSchema = Yup.object().shape({
@@ -40,8 +42,26 @@ const AddServiceForm = () => {
         date: null,
       }}
       validationSchema={addServiceSchema}
-      onSubmit={(values) => dispatch(addServiceStart(values))}>
-      {({ dirty }) => (
+      onSubmit={async (values, { resetForm }) => {
+        const { date, ...service } = values;
+
+        const config = {
+          method: 'post',
+          url: '/profile/5eb849b81c2ccc21306ced34/service',
+          data: { date, service },
+          accessToken,
+        };
+
+        const data = await asyncCall(dispatch, config);
+
+        if (data) {
+          const { ids, ...alert } = data;
+          dispatch(addServiceSuccess({ service: { ids, ...service } }));
+          dispatch(setAlert(alert));
+          resetForm();
+        }
+      }}>
+      {({ dirty, isSubmitting }) => (
         <Form className="services--add-service">
           <label className="service__label" htmlFor="title">
             Title
@@ -62,9 +82,10 @@ const AddServiceForm = () => {
           <ErrorMessage name="price">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage>
 
           <div className="mt-m display-flex g-cf p-r">
-            {isLoading && <Spinner className="spinner--edge spinner--tiny mr-s" />}
+            {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
             <button
-              className={`w-f btn btn--secondary mt-m mb-h ${isLoading || !dirty ? 'btn--submited' : ''}`}
+              disabled={isSubmitting}
+              className={`w-f btn btn--secondary mt-m mb-h ${isSubmitting ? 'btn--submited' : ''}`}
               type="submit">
               Save
             </button>

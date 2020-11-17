@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { deleteServiceStart } from '../../../../redux/service/actions';
+import { deleteServiceStart } from '../../../../../../redux/service/actions';
 
-const DisplaySubService = ({ subService, isLastService, setIsSubServiceEdit, title }) => {
+const DisplaySubService = ({ subService, isLastService, setIsEdit, title }) => {
   const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
 
@@ -22,7 +22,7 @@ const DisplaySubService = ({ subService, isLastService, setIsSubServiceEdit, tit
           {price}
         </span>
       </div>
-      <div onClick={() => setIsSubServiceEdit(true)} className="service__icon service__icon--manage">
+      <div onClick={() => setIsEdit(true)} className="service__icon service__icon--manage">
         <FontAwesomeIcon icon="pen" />
       </div>
       <div
