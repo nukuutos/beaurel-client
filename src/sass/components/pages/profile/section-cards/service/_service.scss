@@ -8,17 +8,19 @@
   }
 
   &--add {
-    padding: 1.5rem 0;
     grid-column: 1 / 4;
-    border-radius: 5px;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 1.5rem 0;
+    border-radius: 5px;
+    color: #bbb;
+    background: #f8f8f8;
+
     transition: 0.2s background, 0.2s color;
     cursor: pointer;
-
-    background: rgb(248, 248, 248);
-    color: #bbb;
 
     &:hover {
       background: #eee;
@@ -30,11 +32,8 @@
     }
   }
 
-  &--add-sub-service {
-    grid-column: 1 / -1;
-  }
-
-  &__cell {
+  // for title, parameter, duration, price (all!)
+  & > * {
     $padding: 1rem;
 
     padding-top: $padding;
@@ -46,14 +45,13 @@
 
   &__title {
     grid-column: 1 / 2;
+
     padding-left: 4rem;
-    margin-top: 1.5rem; // trick with margin and column gap
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 
     &--parameter {
       grid-column: 1 / 4;
-      border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       border-bottom-left-radius: 0;
 
@@ -72,28 +70,26 @@
       }
     }
 
-    &--hidden-parameters {
+    &--hidden {
       border-bottom-right-radius: 5px;
       border-bottom-left-radius: 5px;
     }
-
-    // for input (edit service)
   }
 
   &__parameter {
     grid-column: 1 / 2;
     padding-left: 3rem;
 
-    &--last-parameter {
+    // last in params
+    &--last {
       border-bottom-left-radius: 5px;
     }
 
+    // add-form
     &--adding:before {
       content: '';
       display: block;
       height: 2px;
-      // width: 200%;
-      // transform: translateX(25%);
       background: #7b0ec6;
       margin: 0.5rem 0 2.5rem;
       grid-column: 1 / -1;
@@ -101,9 +97,11 @@
   }
 
   &__duration {
+    $padding: 6rem;
     grid-column: 2 / 3;
-    padding-left: 6rem;
-    padding-right: 6rem;
+
+    padding-left: $padding;
+    padding-right: $padding;
   }
 
   &__price {
@@ -118,12 +116,14 @@
       border-bottom-right-radius: 0;
     }
 
-    &--last-parameter {
+    // last in params
+    &--last {
       border-top-right-radius: 0;
       border-bottom-right-radius: 5px;
     }
   }
 
+  // edit mode
   &--edit {
     & > * {
       background: #e7e7e7;
@@ -150,6 +150,7 @@
     }
   }
 
+  // form add
   &__label {
     grid-column: 1 / 2;
   }
@@ -170,19 +171,37 @@
     }
   }
 
+  // switch container between param and noparam service
+  &__switch {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  // form errors
+  &__error {
+    color: $color-fail;
+    border-top: 1px solid $color-fail;
+    grid-column: 1 / -1;
+    font-size: 1.5rem;
+  }
+
+  // icons
   &__icon {
     $size: 2.5rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: $size;
     height: $size;
-    cursor: pointer;
 
     border: 2px solid transparent;
     border-radius: 50%;
+
     transition: 0.2s border-color;
+    cursor: pointer;
 
     &:hover {
       border-color: #7c3ba8;
@@ -191,10 +210,8 @@
     &--manage {
       $size: 3rem;
       align-self: center;
-      margin-left: 2rem; // d
       width: $size;
       height: $size;
-      transform: translateY(30%); // d
       opacity: 0.4;
       transition: 0.2s opacity;
 
@@ -208,13 +225,16 @@
     }
 
     &--reveal {
-      height: 2.2rem;
-      cursor: pointer;
-      transition: 0.2s color;
-      transform: translateX(20%);
+      & > * {
+        height: 2.2rem;
+        transition: 0.2s color;
+        transform: translateX(20%);
+      }
 
       &-rotated {
-        transform: translate(0%, 8%) rotateZ(90deg);
+        & > * {
+          transform: translate(0%, 8%) rotateZ(90deg);
+        }
       }
     }
 
@@ -222,8 +242,8 @@
       grid-column: 3 / 4;
       align-self: center;
       transform: translateY(0);
-      margin: 0;
-      margin-left: 1rem;
+      // margin: 0; // !!!!!
+      // margin-left: 1rem; // !!
     }
 
     &--back {
@@ -237,26 +257,10 @@
       }
     }
   }
-
-  &__switch {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  &__error {
-    color: $color-fail;
-    border-top: 1px solid $color-fail;
-    grid-column: 1 / -1;
-    font-size: 1.5rem;
-  }
 }
 
 .switch {
-  // $height: 5rem;
   justify-self: center;
-  // width: 150px;
-  // height: $height;
   text-align: center;
   background: #eee;
   transition: all 0.1s;
@@ -283,10 +287,12 @@
   }
 }
 
+// handle validation
 .form__input {
   &--success {
     border: 2px solid $color-success;
   }
+
   &--error {
     border: 2px solid $color-fail;
   }

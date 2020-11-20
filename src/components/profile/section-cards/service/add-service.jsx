@@ -16,7 +16,9 @@ const AddService = ({ setIsAddService }) => {
 
   return (
     <div className="services__container">
-      <div onClick={() => setIsAddService(false)} className="service__icon service__icon--manage service__icon--back">
+      <div
+        onClick={() => setIsAddService(false)}
+        className="service__icon service__icon--manage ml-m mt-s service__icon--back">
         <FontAwesomeIcon icon="long-arrow-alt-left" />
       </div>
       <h2 className="services__heading mb-m">Add new service</h2>

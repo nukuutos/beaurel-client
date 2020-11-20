@@ -1,24 +1,22 @@
 import React from 'react';
+import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
+
 import InputCustom from '../../../../../form/input-custom';
 import Spinner from '../../../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import asyncCall from '../../../../../../utils/async-call';
 import { updateServiceSuccess } from '../../../../../../redux/service/actions';
 import { setAlert } from '../../../../../../redux/alert/actions';
+import { titleField } from '../../utils';
 
 const EditTitle = ({ title, setIsEdit }) => {
-  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
+  const { accessToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const editTitleSchema = Yup.object().shape({
-    title: Yup.string()
-      .trim()
-      .min(3, 'Minimum length is 3 characters')
-      .max(30, 'Maximum length is 30 characters')
-      .required('Field is required'),
+    title: titleField,
   });
 
   return (
@@ -50,7 +48,7 @@ const EditTitle = ({ title, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span className="service__cell service__title service__title--parameter">
+            <span className="service__title service__title--parameter mt-s">
               <InputCustom className="service--edit-title" type="text" name="title" id="title" />
             </span>
           </Form>
@@ -63,10 +61,10 @@ const EditTitle = ({ title, setIsEdit }) => {
                   if (dirty) submitForm();
                   else setIsEdit(false);
                 }}
-                className="service__icon service__icon--manage">
+                className="service__icon service__icon--manage ml-m mt-s">
                 <FontAwesomeIcon icon="check" />
               </div>
-              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage">
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s">
                 <FontAwesomeIcon icon="times" />
               </div>
             </>

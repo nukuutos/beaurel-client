@@ -8,30 +8,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addServiceStart, addServiceSuccess } from '../../../../redux/service/actions';
 import asyncCall from '../../../../utils/async-call';
 import { setAlert } from '../../../../redux/alert/actions';
+// import { titleField, durationField, priceField } from './parameter-service/utils';
+import serviceSchema from './utils';
 
 const AddServiceForm = () => {
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
   const dispatch = useDispatch();
-
-  const addServiceSchema = Yup.object().shape({
-    // service: Yup.object().shape({
-    title: Yup.string()
-      .trim()
-      .min(3, 'Minimum length is 3 characters')
-      .max(30, 'Maximum length is 30 characters')
-      .required('Field is required'),
-    duration: Yup.number()
-      .positive('Duration can not be negative')
-      .integer('Duration must be an integer')
-      .max(700, 'Duration can not be more than 8 hours') // change it next time
-      .test('duration', 'This duration is not suitable for session time', (duration) => duration % sessionTime === 0)
-      .required('Duration is required'),
-    price: Yup.number()
-      .positive('Price can not be negative')
-      .integer('Price must be an integer')
-      .max(30000, 'Price is too big'),
-    // }),
-  });
 
   return (
     <Formik
@@ -41,7 +23,7 @@ const AddServiceForm = () => {
         price: '',
         date: null,
       }}
-      validationSchema={addServiceSchema}
+      validationSchema={serviceSchema(sessionTime)}
       onSubmit={async (values, { resetForm }) => {
         const { date, ...service } = values;
 
@@ -61,7 +43,7 @@ const AddServiceForm = () => {
           resetForm();
         }
       }}>
-      {({ dirty, isSubmitting }) => (
+      {({ isSubmitting }) => (
         <Form className="services--add-service">
           <label className="service__label" htmlFor="title">
             Title
@@ -81,7 +63,7 @@ const AddServiceForm = () => {
           <InputCustom className="service__input" type="number" name="price" id="price" />
           <ErrorMessage name="price">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage>
 
-          <div className="mt-m display-flex g-cf p-r">
+          <div className="mt-m display-flex gc-f p-r">
             {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
             <button
               disabled={isSubmitting}

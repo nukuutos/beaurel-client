@@ -8,30 +8,13 @@ import { setAlert } from '../../../../../redux/alert/actions';
 import asyncCall from '../../../../../utils/async-call';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import serviceSchema from '../utils';
 
 const EditService = ({ service, setIsEdit }) => {
-  const { title, duration, price, id } = service;
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
   const dispatch = useDispatch();
 
-  const editServiceSchema = Yup.object().shape({
-    title: Yup.string()
-      .trim()
-      .min(3, 'Minimum length is 3 characters')
-      .max(30, 'Maximum length is 30 characters')
-      .required('Field is required'),
-    duration: Yup.number()
-      .positive('Duration can not be negative')
-      .integer('Duration must be an integer')
-      .max(700, 'Duration can not be more than 8 hours') // change it next time
-      .test('duration', 'This duration is not suitable for session time', (duration) => duration % 312 === 0) // redux
-      .required('Duration is required'),
-    price: Yup.number()
-      .positive('Price can not be negative')
-      .integer('Price must be an integer')
-      .max(30000, 'Price is too big'),
-    // }),
-  });
+  const { title, duration, price, id } = service;
 
   return (
     <Formik
@@ -41,7 +24,7 @@ const EditService = ({ service, setIsEdit }) => {
         price,
         date: null,
       }}
-      validationSchema={editServiceSchema}
+      validationSchema={serviceSchema(sessionTime)}
       onSubmit={async (values) => {
         const { date, ...service } = values;
 
@@ -55,7 +38,6 @@ const EditService = ({ service, setIsEdit }) => {
         const alert = await asyncCall(dispatch, config);
 
         if (alert) {
-          // const { alert } = data;
           dispatch(updateServiceSuccess({ updatedService: { ...service, id }, updatedServiceType: 'service' }));
           dispatch(setAlert(alert));
           setIsEdit(false);
@@ -64,14 +46,14 @@ const EditService = ({ service, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span className="service__cell service__title ">
+            <span className="service__title mt-s">
               <InputCustom className="service--edit-title" type="text" name="title" id="title" />
             </span>
-            <span className="service__cell service__duration">
+            <span className="service__duration">
               <InputCustom type="number" name="duration" id="duration" />
             </span>
-            <span className="service__cell service__price">
-              <InputCustom className="service__cell service__price" type="text" name="price" id="price" />
+            <span className="service__price">
+              <InputCustom className="service__price" type="text" name="price" id="price" />
             </span>
           </Form>
           {isSubmitting ? (
@@ -83,10 +65,10 @@ const EditService = ({ service, setIsEdit }) => {
                   if (dirty) submitForm();
                   else setIsEdit(false);
                 }}
-                className="service__icon service__icon--manage">
+                className="service__icon service__icon--manage ml-m mt-s">
                 <FontAwesomeIcon icon="check" />
               </div>
-              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage">
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s">
                 <FontAwesomeIcon icon="times" />
               </div>
             </>

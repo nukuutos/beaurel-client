@@ -8,43 +8,11 @@ import { addServiceStart, addServiceSuccess } from '../../../../redux/service/ac
 import asyncCall from '../../../../utils/async-call';
 import { setAlert } from '../../../../redux/alert/actions';
 import Spinner from '../../../utils/spinner';
+import { parameterServiceSchema } from './utils';
 
 const AddSubServicesForm = () => {
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
   const dispatch = useDispatch();
-
-  const addSubServicesSchema = Yup.object().shape({
-    title: Yup.string()
-      .trim()
-      .min(3, 'Minimum length is 3 characters')
-      .max(30, 'Maximum length is 30 characters')
-      .required('Field is required'),
-
-    subServices: Yup.array().of(
-      Yup.object().shape({
-        parameter: Yup.string()
-          .trim()
-          .min(2, 'Minimum length is 2 characters')
-          .max(20, 'Maximum length is 20 characters')
-          .required('Field is required'),
-        duration: Yup.number()
-          .positive('Duration can not be negative')
-          .integer('Duration must be an integer')
-          .max(480, 'Duration can not be more than 8 hours')
-          .test(
-            'duration',
-            'This duration is not suitable for session time',
-            (duration) => duration % sessionTime === 0
-          )
-
-          .required('Duration is required'),
-        price: Yup.number()
-          .positive('Price can not be negative')
-          .integer('Price must be an integer')
-          .max(30000, 'Price is too big'),
-      })
-    ),
-  });
 
   return (
     <Formik
@@ -53,7 +21,7 @@ const AddSubServicesForm = () => {
         subServices: [{ parameter: '', duration: '', price: '' }],
         date: null,
       }}
-      validationSchema={addSubServicesSchema}
+      validationSchema={parameterServiceSchema(sessionTime)}
       onSubmit={async (values, { resetForm }) => {
         const { date, ...service } = values;
 
@@ -123,7 +91,7 @@ const AddSubServicesForm = () => {
                       {i !== 0 && (
                         <div
                           onClick={() => remove(i)}
-                          className="service__icon service__icon--manage service__icon--delete">
+                          className="service__icon service__icon--manage ml-s service__icon--delete">
                           <FontAwesomeIcon icon="trash" />
                         </div>
                       )}
@@ -146,15 +114,13 @@ const AddSubServicesForm = () => {
                     </Fragment>
                   );
                 })}
-                <div
-                  className="service--add service--add-sub-service"
-                  onClick={() => push({ parameter: '', duration: '', price: '' })}>
+                <div className="service--add gc-f" onClick={() => push({ parameter: '', duration: '', price: '' })}>
                   <FontAwesomeIcon icon="plus" />
                 </div>
               </>
             )}
           </FieldArray>
-          <div className="mt-m display-flex g-cf p-r">
+          <div className="mt-m display-flex gc-f p-r">
             {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
             <button
               disabled={isSubmitting}

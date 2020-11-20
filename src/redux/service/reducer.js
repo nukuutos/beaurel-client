@@ -80,6 +80,7 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
       // to switch? switch in switch? heze
       if (serviceType === 'service') {
+        console.log(deletedService);
         const newServices = state.services.filter((service) => service.id !== deletedService.id);
         return { ...state, services: newServices };
       }

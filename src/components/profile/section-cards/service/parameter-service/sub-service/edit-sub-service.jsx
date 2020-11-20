@@ -8,29 +8,12 @@ import * as Yup from 'yup';
 import asyncCall from '../../../../../../utils/async-call';
 import Spinner from '../../../../../utils/spinner';
 import { setAlert } from '../../../../../../redux/alert/actions';
+import { subServiceSchema } from '../../utils';
 
 const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
   const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
-
-  const editSubServiceSchema = Yup.object().shape({
-    parameter: Yup.string()
-      .trim()
-      .min(2, 'Minimum length is 2 characters')
-      .max(20, 'Maximum length is 20 characters')
-      .required('Field is required'),
-    duration: Yup.number()
-      .positive('Duration can not be negative')
-      .integer('Duration must be an integer')
-      .max(480, 'Duration can not be more than 8 hours')
-      .test('duration', 'This duration is not suitable for session time', (duration) => duration % 312 === 0)
-      .required('Duration is required'),
-    price: Yup.number()
-      .positive('Price can not be negative')
-      .integer('Price must be an integer')
-      .max(30000, 'Price is too big'),
-  });
 
   return (
     <Formik
@@ -40,7 +23,7 @@ const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
         price,
         id,
       }}
-      validationSchema={editSubServiceSchema}
+      validationSchema={subServiceSchema(sessionTime)}
       onSubmit={async (values) => {
         const { date, ...service } = values;
 
@@ -62,20 +45,14 @@ const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span
-              className={`service__cell service__parameter ${
-                isLastService ? 'service__parameter--last-parameter' : ''
-              }`}>
+            <span className={`service__parameter ${isLastService ? 'service__parameter--last' : ''}`}>
               <InputCustom className="service--edit-title" type="text" name="parameter" id="parameter" />
             </span>
-            <span className="service__cell service__duration">
+            <span className="service__duration">
               <InputCustom type="number" name="duration" id="duration" />
             </span>
-            <span
-              className={`service__cell service__price service__price--parameter ${
-                isLastService ? 'service__price--last-parameter' : ''
-              }`}>
-              <InputCustom className="service__cell service__price" type="text" name="price" id="price" />
+            <span className={`service__price service__price--parameter ${isLastService ? 'service__price--last' : ''}`}>
+              <InputCustom className="service__price" type="text" name="price" id="price" />
             </span>
           </Form>
           {isSubmitting ? (
@@ -87,10 +64,10 @@ const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
                   if (dirty) submitForm();
                   else setIsEdit(false);
                 }}
-                className="service__icon service__icon--manage">
+                className="service__icon service__icon--manage ml-m">
                 <FontAwesomeIcon icon="check" />
               </div>
-              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage">
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m">
                 <FontAwesomeIcon icon="times" />
               </div>
             </>

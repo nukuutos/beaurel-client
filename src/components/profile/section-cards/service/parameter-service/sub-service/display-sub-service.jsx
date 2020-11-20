@@ -1,35 +1,70 @@
-import React, { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { deleteServiceStart } from '../../../../../../redux/service/actions';
+import { deleteServiceStart, deleteServiceSuccess } from '../../../../../../redux/service/actions';
+import asyncCall from '../../../../../../utils/async-call';
+import { setAlert } from '../../../../../../redux/alert/actions';
+import Spinner from '../../../../../utils/spinner';
 
 const DisplaySubService = ({ subService, isLastService, setIsEdit, title }) => {
+  const [IsLoading, setIsLoading] = useState(false);
+  const { accessToken } = useSelector((state) => state.auth);
+
+  const isCancelled = useRef(false);
   const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
+
+  const deleteService = async () => {
+    const config = {
+      method: 'delete',
+      url: `/profile/5eb849b81c2ccc21306ced34/service/${id}`,
+      accessToken,
+    };
+
+    setIsLoading(true);
+
+    const alert = await asyncCall(dispatch, config);
+
+    if (alert) {
+      console.log(id, title);
+      dispatch(deleteServiceSuccess({ deletedService: { id, title }, serviceType: 'sub-service' }));
+      dispatch(setAlert(alert));
+    }
+
+    if (!isCancelled.current) setIsLoading(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      isCancelled.current = true;
+    };
+  }, []);
 
   return (
     <>
       <div className="service">
-        <span
-          className={`service__cell service__parameter ${isLastService ? 'service__parameter--last-parameter' : ''}`}>
-          {parameter}
-        </span>
-        <span className="service__cell service__duration">{duration}</span>
-        <span
-          className={`service__cell service__price service__price--parameter ${
-            isLastService ? 'service__price--last-parameter' : ''
-          }`}>
+        <span className={`service__parameter ${isLastService ? 'service__parameter--last' : ''}`}>{parameter}</span>
+        <span className="service__duration">{duration}</span>
+        <span className={`service__price service__price--parameter ${isLastService ? 'service__price--last' : ''}`}>
           {price}
         </span>
       </div>
-      <div onClick={() => setIsEdit(true)} className="service__icon service__icon--manage">
-        <FontAwesomeIcon icon="pen" />
-      </div>
-      <div
-        onClick={() => dispatch(deleteServiceStart({ type: 'sub-service', service: { id, title } }))}
-        className="service__icon service__icon--manage">
-        <FontAwesomeIcon icon="trash" />
-      </div>
+
+      {IsLoading ? (
+        <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+      ) : (
+        <>
+          <div onClick={() => setIsEdit(true)} className="service__icon service__icon--manage ml-m">
+            <FontAwesomeIcon icon="pen" />
+          </div>
+          <div
+            // onClick={() => dispatch(deleteServiceStart({ type: 'sub-service', service: { id, title } }))}
+            onClick={() => deleteService()}
+            className="service__icon service__icon--manage ml-m">
+            <FontAwesomeIcon icon="trash" />
+          </div>{' '}
+        </>
+      )}
     </>
   );
 };

@@ -15,7 +15,6 @@ export function* deleteService({ payload }) {
     // parameter - service with sub services (in payload: service.title)
     // service (in payload: service.id)
     // sub service (in payload: service.id and service.parentId)
-    console.log(payload);
     const { data } = yield axios.delete(
       `/profile/5eb849b81c2ccc21306ced34/service/${type === 'parameter' ? service.title : service.id}`,
       {
