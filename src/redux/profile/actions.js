@@ -5,6 +5,7 @@ import {
   UPDATE_ABOUT_START,
   UPDATE_ABOUT_SUCCESS,
   UPDATE_ABOUT_FAILURE,
+  CHANGE_IS_PUBLIC_VIEW,
 } from './types';
 
 // GET PROFILE
@@ -36,4 +37,9 @@ export const updateAboutSuccess = (aboutText) => ({
 export const updateAboutFailure = (error) => ({
   type: UPDATE_ABOUT_FAILURE,
   payload: error,
+});
+
+// CHANGE PUBLIC VIEW
+export const changeIsPublicView = () => ({
+  type: CHANGE_IS_PUBLIC_VIEW,
 });

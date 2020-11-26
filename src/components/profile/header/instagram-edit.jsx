@@ -28,7 +28,7 @@ const InstagramEdit = ({ onClickClose, instagramUsername = '' }) => {
                 // onFocus={(e) => e.target.removeAttribute('readonly')}
                 // readOnly
               />
-              <button className="btn btn--secondary mt-m">Update</button>
+              <button className="btn btn--secondary mt-s-6">Update</button>
             </Form>
           )}
         </Formik>

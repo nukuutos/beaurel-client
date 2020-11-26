@@ -1,6 +1,6 @@
-import { GET_PROFILE_SUCCESS, UPDATE_ABOUT_SUCCESS, UPDATE_ABOUT_START, UPDATE_ABOUT_FAILURE } from './types';
+import { GET_PROFILE_SUCCESS, UPDATE_ABOUT_SUCCESS, UPDATE_ABOUT_START, CHANGE_IS_PUBLIC_VIEW } from './types';
 
-const INITIAL_STATE = { isLoadingAbout: false }; // try every props get null (redirect)
+const INITIAL_STATE = { isLoadingAbout: false, isPublicView: false, ratingStats: {}, lastName: '' }; // try every props get null (redirect)
 
 const profileReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
@@ -25,6 +25,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...state,
         aboutText: payload,
         isLoadingAbout: false,
+      };
+
+    case CHANGE_IS_PUBLIC_VIEW:
+      console.log(state.isPublicView, !state.isPublicView);
+      return {
+        ...state,
+        isPublicView: !state.isPublicView,
       };
 
     default:

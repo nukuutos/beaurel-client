@@ -1,58 +1,41 @@
 @use "../../../../../abstracts/colors" as *;
 
+$border-radius: 0.3rem;
+$background-color: #eee;
+$background-hover-color: #eae8f1;
+
 .service {
   display: contents;
 
-  &:hover > * {
-    background: #e7e7e7; // ededed
-  }
-
-  &--add {
-    grid-column: 1 / 4;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 1.5rem 0;
-    border-radius: 5px;
-    color: #bbb;
-    background: #f8f8f8;
-
-    transition: 0.2s background, 0.2s color;
-    cursor: pointer;
-
-    &:hover {
-      background: #eee;
-      color: #7c3ba8;
-    }
-
-    & > * {
-      height: 2.5rem;
-    }
-  }
-
   // for title, parameter, duration, price (all!)
   & > * {
-    $padding: 1rem;
+    $padding: 1.3rem;
 
     padding-top: $padding;
     padding-bottom: $padding;
-    background: #f4f4f4;
+    background: $background-color;
     transition: 0.2s transform, 0.2s background;
     cursor: pointer;
+
+    &:not(:first-child) {
+      text-align: center;
+    }
+  }
+
+  &:hover > * {
+    background: $background-hover-color; // ededed
   }
 
   &__title {
     grid-column: 1 / 2;
 
-    padding-left: 4rem;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    padding-left: 2rem;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
 
     &--parameter {
       grid-column: 1 / 4;
-      border-top-right-radius: 5px;
+      border-top-right-radius: $border-radius;
       border-bottom-left-radius: 0;
 
       display: flex;
@@ -62,7 +45,7 @@
       transition: 0.2s background;
 
       &:hover {
-        background: #ededed;
+        background: $background-hover-color;
       }
 
       &:hover .service__icon {
@@ -71,8 +54,8 @@
     }
 
     &--hidden {
-      border-bottom-right-radius: 5px;
-      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
     }
   }
 
@@ -82,7 +65,7 @@
 
     // last in params
     &--last {
-      border-bottom-left-radius: 5px;
+      border-bottom-left-radius: $border-radius;
     }
 
     // add-form
@@ -91,25 +74,25 @@
       display: block;
       height: 2px;
       background: #7b0ec6;
-      margin: 0.5rem 0 2.5rem;
+      margin: 0 0 3rem;
       grid-column: 1 / -1;
+    }
+
+    &--edit {
+      width: 15rem;
+      padding-left: 1rem;
     }
   }
 
   &__duration {
-    $padding: 6rem;
     grid-column: 2 / 3;
-
-    padding-left: $padding;
-    padding-right: $padding;
   }
 
   &__price {
     grid-column: 3 / 4;
-    padding-right: 4rem;
 
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
 
     &--parameter {
       border-top-right-radius: 0;
@@ -119,25 +102,25 @@
     // last in params
     &--last {
       border-top-right-radius: 0;
-      border-bottom-right-radius: 5px;
+      border-bottom-right-radius: $border-radius;
     }
   }
 
   // edit mode
   &--edit {
     & > * {
-      background: #e7e7e7;
-      padding-left: 0rem;
+      background: $background-hover-color;
+      cursor: default;
       padding-right: 0rem;
+      // padding-left: 2rem;
       text-align: center;
 
       & > * {
         border: none;
         padding: 0.5rem;
-        width: 50%;
-        border-radius: 0.5rem;
-
-        // title
+        width: 7rem;
+        border-radius: 0.3rem;
+        text-align: center;
 
         &:focus {
           outline: none;
@@ -145,30 +128,84 @@
       }
     }
 
-    &-title {
-      width: 85%;
+    // service-edit > title span
+    & > *:first-of-type {
+      padding-right: 1rem;
+
+      // & > title input
+      & > * {
+        width: 15rem;
+        text-align: left;
+      }
     }
   }
 
+  &--add {
+    // grid-column: 1 / 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem 0;
+    border-radius: $border-radius;
+    color: #aaa;
+    background: $background-color;
+
+    transition: 0.2s background, 0.2s color;
+    cursor: pointer;
+
+    &:hover {
+      color: #7c3ba8;
+      background: $background-hover-color;
+    }
+
+    & > * {
+      height: 2.2rem;
+    }
+  }
+
+  // form go to form file? form--service or something else
   // form add
   &__label {
     grid-column: 1 / 2;
+    font-size: 1.8rem;
+    align-self: center;
   }
 
   &__input {
     grid-column: 2 / 3;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 300;
     background-color: #eee;
     transition: background-color 0.3s;
     border-radius: 0.25rem;
-    padding: 0.8rem;
+    padding: 1rem;
     outline: none;
     border: none;
+    border-bottom: 2px solid transparent;
 
     &:focus {
       background-color: #f7f7f7;
+      border-bottom-color: #7c3ba8;
     }
+
+    &--edit {
+      font-size: 1.4rem;
+      padding: 0.8rem;
+      background-color: #fff;
+
+      &:focus {
+        background-color: #fff;
+      }
+    }
+  }
+  // form errors
+  &__error {
+    color: $color-fail;
+    grid-column: 2 / 3;
+    font-size: 1.3rem;
+    margin-top: -1.5rem;
   }
 
   // switch container between param and noparam service
@@ -176,17 +213,10 @@
     grid-column: 1 / -1;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
   }
 
-  // form errors
-  &__error {
-    color: $color-fail;
-    border-top: 1px solid $color-fail;
-    grid-column: 1 / -1;
-    font-size: 1.5rem;
-  }
-
-  // icons
+  // icons go to icons file?)
   &__icon {
     $size: 2.5rem;
 
@@ -220,13 +250,13 @@
       }
 
       & > * {
-        height: 1.6rem;
+        height: 1.5rem;
       }
     }
 
     &--reveal {
       & > * {
-        height: 2.2rem;
+        height: 1.8rem;
         transition: 0.2s color;
         transform: translateX(20%);
       }
@@ -250,50 +280,11 @@
       position: absolute;
       top: 0;
       left: 0;
-      transform: translate(35%, 65%);
+      transform: translate(55%, 45%);
 
       & > * {
         height: 2.4rem;
       }
     }
-  }
-}
-
-.switch {
-  justify-self: center;
-  text-align: center;
-  background: #eee;
-  transition: all 0.1s;
-  border-radius: 25px;
-  display: inline-flex;
-  justify-content: space-between;
-
-  &__radio {
-    display: none;
-  }
-
-  &__label {
-    font-size: 1.9rem;
-    cursor: pointer;
-    color: #bbb;
-    padding: 0.4rem 1.5rem;
-    // width: 60px;
-    // line-height: 50px;
-    transition: all 0.1s;
-
-    &--active {
-      color: #7b0ec6;
-    }
-  }
-}
-
-// handle validation
-.form__input {
-  &--success {
-    border: 2px solid $color-success;
-  }
-
-  &--error {
-    border: 2px solid $color-fail;
   }
 }

@@ -10,13 +10,14 @@ import StarProfile from './star-profile';
 import PublicView from './public-view';
 import Maps from './maps';
 
-const Header = ({ publicView }) => {
+const Header = () => {
   const [isMaps, setIsMaps] = useState(false);
 
-  const { firstName, lastName, avatarImage, ratingStats, specialization, placeOfwork } = useSelector(
+  const { firstName, lastName, avatarImage, ratingStats, specialization, placeOfwork, isPublicView } = useSelector(
     (state) => state.profile
   );
-  const [isPublicView, setIsPublicView] = publicView;
+
+  // const [isPublicView, setIsPublicView] = publicView;
 
   return (
     <header className="profile__header">
@@ -49,7 +50,7 @@ const Header = ({ publicView }) => {
       </div>
 
       {isPublicView && <StarProfile initialIsStarred />}
-      <PublicView isPublicView={isPublicView} setIsPublicView={setIsPublicView} />
+      <PublicView />
     </header>
   );
 };

@@ -29,7 +29,7 @@ const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
 
         const config = {
           method: 'put',
-          url: `/profile/5eb849b81c2ccc21306ced34/service/${id}`,
+          url: `/profile/5eb849b81c2ccc21306ced34/service/parameter/${title}/sub-service/${id}`,
           data: { date, service },
           accessToken,
         };
@@ -46,17 +46,27 @@ const EditSubService = ({ subService, title, isLastService, setIsEdit }) => {
         <>
           <Form className="service service--edit">
             <span className={`service__parameter ${isLastService ? 'service__parameter--last' : ''}`}>
-              <InputCustom className="service--edit-title" type="text" name="parameter" id="parameter" />
+              <InputCustom
+                className="service__input service__input--edit"
+                type="text"
+                name="parameter"
+                id="parameter"
+              />
             </span>
             <span className="service__duration">
-              <InputCustom type="number" name="duration" id="duration" />
+              <InputCustom
+                className="service__input service__input--edit"
+                type="number"
+                name="duration"
+                id="duration"
+              />
             </span>
             <span className={`service__price service__price--parameter ${isLastService ? 'service__price--last' : ''}`}>
-              <InputCustom className="service__price" type="text" name="price" id="price" />
+              <InputCustom className="service__input service__input--edit" type="text" name="price" id="price" />
             </span>
           </Form>
           {isSubmitting ? (
-            <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+            <Spinner className="spinner--tiny spinner--gc ml-s mt-s-3" />
           ) : (
             <>
               <div

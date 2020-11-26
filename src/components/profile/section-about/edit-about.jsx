@@ -37,7 +37,7 @@ const EditAbout = ({ aboutText, onClickClose }) => {
                 // readOnly
               />
               {/* {isLoadingAbout && <Spinner />} */}
-              <div className="align-self-end mt-m display-flex">
+              <div className="align-self-end mt-s-6 display-flex">
                 {isLoadingAbout && <Spinner className="spinner--tiny mr-s" />}
                 <button
                   type="submit"

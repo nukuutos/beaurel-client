@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const titleField = Yup.string()
   .trim()
   .min(2, 'Minimum length is 2 characters')
-  .max(20, 'Maximum length is 20 characters')
+  .max(30, 'Maximum length is 30 characters')
   .required('Field is required'); // wth???
 
 export const durationField = (sessionTime) =>

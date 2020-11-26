@@ -1,83 +1,68 @@
 .services {
-  // display: grid;
-  // grid-template-columns: repeat(3, minmax(min-content, max-content)) repeat(2, min-content);
+  position: relative;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 0.3rem;
   overflow-y: auto;
   max-height: 75rem;
-  // padding: 3rem 8rem 6rem;
-  // font-size: 2rem;
-  // justify-content: center;
-  // align-items: self-end;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 5rem 0;
+  color: #222;
+
+  &::after {
+    content: '';
+    display: block;
+    grid-column: 1 / -1;
+    height: 3rem;
+  }
 
   &--display {
     display: grid;
-    // grid-template-columns: repeat(3, minmax(min-content, max-content)) repeat(2, min-content);
-    grid-template-columns: repeat(5, max-content);
+    grid-template-columns: repeat(3, minmax(10rem, max-content)) repeat(2, min-content);
     justify-content: center;
     align-items: self-end;
-    padding: 3rem 8rem 0;
-  }
-
-  &--add-service {
-    display: grid;
-    grid-template-columns: min-content min-content;
-    grid-gap: 2rem;
-    font-size: 2.2rem;
-    position: relative;
-    justify-content: center;
-    align-items: self-end;
-  }
-
-  &--add-sub-service {
-    padding: 3rem 4rem 0 8rem;
-    max-height: 80vh;
-  }
-
-  &__container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 1rem;
-    padding: 3rem 8rem 0;
-    font-size: 2rem;
-    overflow-y: auto;
-    max-height: 75rem;
   }
 
   &__heading {
-    grid-column: 1/-1;
-    // justify-self: center;
-    font-size: 3rem;
+    font-size: 2.3rem;
     letter-spacing: 0.1rem;
     font-weight: 400;
-    color: #555;
+    color: #444;
     text-transform: uppercase;
     text-align: center;
-
-    // text-transform: uppercase;
-    // word-spacing: 0.1rem;
 
     &::after {
       content: '';
       display: block;
       height: 1px;
-      width: 50%;
+      // width: 50%;
       margin: 1rem auto 0;
-      background: #ccc;
+      background: #777;
     }
+  }
 
-    // &--add {
-    //   font-size: 3rem;
+  &__table-title {
+    justify-self: center;
+    font-size: 2rem;
+  }
 
-    //   &:after {
-    //     margin: 0;
-    //   }
-    // }
+  &__form {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    grid-gap: 2rem;
+    font-size: 1.8rem;
+    position: relative;
+    justify-content: center;
+    align-items: self-end;
+
+    &--sub-service {
+      padding: 0 2rem 0 4rem;
+    }
   }
 
   &__first-service {
-    font-size: 2rem;
+    justify-self: center;
+    font-size: 2.2rem;
   }
 }

@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import { FieldArray, Formik, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import InputCustom from '../../../form/input-custom';
+import InputCustom from '../../../../form/input-custom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
-import { addServiceStart, addServiceSuccess } from '../../../../redux/service/actions';
-import asyncCall from '../../../../utils/async-call';
-import { setAlert } from '../../../../redux/alert/actions';
-import Spinner from '../../../utils/spinner';
-import { parameterServiceSchema } from './utils';
+import { addServiceSuccess } from '../../../../../redux/service/actions';
+import asyncCall from '../../../../../utils/async-call';
+import { setAlert } from '../../../../../redux/alert/actions';
+import Spinner from '../../../../utils/spinner';
+import { parameterServiceSchema } from '../utils';
 
 const AddSubServicesForm = () => {
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
@@ -27,13 +26,12 @@ const AddSubServicesForm = () => {
 
         const config = {
           method: 'post',
-          url: '/profile/5eb849b81c2ccc21306ced34/service',
+          url: '/profile/5eb849b81c2ccc21306ced34/service/parameter',
           data: { date, service },
           accessToken,
         };
 
         const data = await asyncCall(dispatch, config);
-        // dispatch(addServiceStart(values));
 
         if (data) {
           const { ids, ...alert } = data;
@@ -43,17 +41,12 @@ const AddSubServicesForm = () => {
         }
       }}>
       {({ values, isSubmitting }) => (
-        <Form
-          className={`services--add-service ${
-            values.type === 'parameters' && values.subServices.length !== 1 && 'services--add-sub-service'
-          }`}>
+        <Form className={`services__form ${values.subServices.length !== 1 ? 'services__form--sub-service' : ''}`}>
           <label className="service__label" htmlFor="title">
             Title
           </label>
           <InputCustom className="service__input" type="text" name="title" id="title" />
           <ErrorMessage name="title">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage>
-
-          {/* {errors.service && errors.service.title && <div>{errors.service.title}</div>} */}
 
           <FieldArray name="subServices">
             {({ remove, push }) => (
@@ -76,9 +69,7 @@ const AddSubServicesForm = () => {
                       <ErrorMessage name={`subServices.${i}.parameter`}>
                         {(msg) => <div className="service__error">{msg}</div>}
                       </ErrorMessage>
-                      {/* {errors.subServices && errors.subServices[i] && errors.subServices[i].parameter && (
-                        <div>{errors.subServices[i].parameter}</div>
-                      )} */}
+
                       <label className="service__label" htmlFor={`subServices.${i}.duration`}>
                         Duration
                       </label>
@@ -104,7 +95,7 @@ const AddSubServicesForm = () => {
                       </label>
                       <InputCustom
                         className="service__input"
-                        type="text"
+                        type="number"
                         name={`subServices.${i}.price`}
                         id={`subServices.${i}.price`}
                       />
@@ -114,17 +105,19 @@ const AddSubServicesForm = () => {
                     </Fragment>
                   );
                 })}
-                <div className="service--add gc-f" onClick={() => push({ parameter: '', duration: '', price: '' })}>
+                <div
+                  className="service--add mt-s-3 gc-f"
+                  onClick={() => push({ parameter: '', duration: '', price: '' })}>
                   <FontAwesomeIcon icon="plus" />
                 </div>
               </>
             )}
           </FieldArray>
-          <div className="mt-m display-flex gc-f p-r">
-            {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
+          <div className="mt-s-3  display-flex gc-f p-r">
+            {isSubmitting && <Spinner className="spinner--edge spinner--tiny" />}
             <button
               disabled={isSubmitting}
-              className={`w-f btn btn--secondary mt-m mb-h ${isSubmitting ? 'btn--submited' : ''}`}
+              className={`w-f btn btn--secondary ${isSubmitting ? 'btn--submited' : ''}`}
               type="submit">
               Save
             </button>

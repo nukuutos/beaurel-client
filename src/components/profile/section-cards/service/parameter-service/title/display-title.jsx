@@ -8,7 +8,7 @@ import Spinner from '../../../../../utils/spinner';
 
 const DisplayTitle = ({ title, setIsEdit, shownState }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { accessToken } = useSelector((state) => state.auth);
+  const [{ accessToken }, { isPublicView }] = useSelector((state) => [state.auth, state.profile]);
 
   const isCancelled = useRef(false);
 
@@ -18,7 +18,7 @@ const DisplayTitle = ({ title, setIsEdit, shownState }) => {
   const deleteService = async () => {
     const config = {
       method: 'delete',
-      url: `/profile/5eb849b81c2ccc21306ced34/service/${title}`,
+      url: `/profile/5eb849b81c2ccc21306ced34/service/parameter/${title}`,
       accessToken,
     };
 
@@ -45,7 +45,7 @@ const DisplayTitle = ({ title, setIsEdit, shownState }) => {
       <div className="service">
         <span
           onClick={() => setIsShown(!isShown)}
-          className={`service__title service__title--parameter mt-s ${!isShown ? 'service__title--hidden' : ''}`}>
+          className={`service__title service__title--parameter mt-s-3 ${!isShown ? 'service__title--hidden' : ''}`}>
           <div className={`service__icon service__icon--reveal ${isShown ? 'service__icon--reveal-rotated' : ''} mr-s`}>
             <FontAwesomeIcon className={` `} icon="caret-right" />
           </div>
@@ -54,15 +54,19 @@ const DisplayTitle = ({ title, setIsEdit, shownState }) => {
       </div>
 
       {isLoading ? (
-        <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+        <Spinner className="spinner--tiny spinner--gc ml-s mt-s-3" />
       ) : (
         <>
-          <div onClick={() => setIsEdit(true)} className="service__icon service__icon--manage ml-m mt-s">
-            <FontAwesomeIcon className="service__manage-icon " icon="pen" />
-          </div>
-          <div onClick={() => deleteService()} className="service__icon service__icon--manage ml-m mt-s">
-            <FontAwesomeIcon className="service__manage-icon" icon="trash" />
-          </div>
+          {!isPublicView && (
+            <>
+              <div onClick={() => setIsEdit(true)} className="service__icon service__icon--manage ml-m mt-s-3">
+                <FontAwesomeIcon icon="pen" />
+              </div>
+              <div onClick={() => deleteService()} className="service__icon service__icon--manage ml-m mt-s-3">
+                <FontAwesomeIcon icon="trash" />
+              </div>
+            </>
+          )}
         </>
       )}
     </>

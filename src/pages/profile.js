@@ -13,15 +13,13 @@ import SectionCards from '../components/profile/section-cards/section-cards';
 import SectionReviews from '../components/profile/section-reviews/section-reviews';
 
 const Profile = () => {
-  const [isPublicView, setIsPublicView] = useState(false);
-
   return (
     <Layout>
       <div className="content content--profile">
-        <Header publicView={[isPublicView, setIsPublicView]}></Header>
+        <Header />
 
         <main className="profile__main">
-          <SectionAbout isPublicView={isPublicView} />
+          <SectionAbout />
           <SectionCards />
           <SectionReviews />
         </main>

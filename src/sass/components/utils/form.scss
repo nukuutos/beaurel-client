@@ -1,0 +1,21 @@
+@use "../../abstracts/colors" as *;
+
+.form {
+  &__input {
+    &--success {
+      border-bottom: 2px solid $color-success;
+
+      // &:focus {
+      //   border-bottom-color: $color-success;
+      // }
+    }
+
+    &--error {
+      border-bottom: 2px solid $color-fail;
+
+      // &:focus {
+      //   border-bottom-color: $color-fail;
+      // }
+    }
+  }
+}

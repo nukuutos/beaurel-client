@@ -32,7 +32,7 @@ const EditTitle = ({ title, setIsEdit }) => {
 
         const config = {
           method: 'put',
-          url: `/profile/5eb849b81c2ccc21306ced34/service/${oldTitle}`,
+          url: `/profile/5eb849b81c2ccc21306ced34/service/parameter/${oldTitle}`,
           data: { date, service: { oldTitle, title } },
           accessToken,
         };
@@ -48,12 +48,12 @@ const EditTitle = ({ title, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span className="service__title service__title--parameter mt-s">
-              <InputCustom className="service--edit-title" type="text" name="title" id="title" />
+            <span className="service__title service__title--parameter mt-s-3">
+              <InputCustom className="service__input service__input--edit" type="text" name="title" id="title" />
             </span>
           </Form>
           {isSubmitting ? (
-            <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+            <Spinner className="spinner--tiny spinner--gc ml-s mt-s-3" />
           ) : (
             <>
               <div
@@ -61,10 +61,10 @@ const EditTitle = ({ title, setIsEdit }) => {
                   if (dirty) submitForm();
                   else setIsEdit(false);
                 }}
-                className="service__icon service__icon--manage ml-m mt-s">
+                className="service__icon service__icon--manage ml-m mt-s-3">
                 <FontAwesomeIcon icon="check" />
               </div>
-              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s">
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s-3">
                 <FontAwesomeIcon icon="times" />
               </div>
             </>

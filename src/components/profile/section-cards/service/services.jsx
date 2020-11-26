@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import DisplayServices from './display-services';
-import AddService from './add-service';
+import AddService from './add-service/add-service';
 
 import Modal from '../../../utils/modal';
 
@@ -10,13 +10,11 @@ const Services = ({ onClickClose }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      <main>
-        {isAddService ? (
-          <AddService setIsAddService={setIsAddService} />
-        ) : (
-          <DisplayServices setIsAddService={setIsAddService} />
-        )}
-      </main>
+      {isAddService ? (
+        <AddService setIsAddService={setIsAddService} />
+      ) : (
+        <DisplayServices setIsAddService={setIsAddService} />
+      )}
     </Modal>
   );
 };

@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import * as Yup from 'yup';
+import React from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
-import InputCustom from '../../../form/input-custom';
-import Spinner from '../../../utils/spinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InputCustom from '../../../../form/input-custom';
+import Spinner from '../../../../utils/spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { addServiceStart, addServiceSuccess } from '../../../../redux/service/actions';
-import asyncCall from '../../../../utils/async-call';
-import { setAlert } from '../../../../redux/alert/actions';
+import asyncCall from '../../../../../utils/async-call';
+import { addServiceSuccess } from '../../../../../redux/service/actions';
+import { setAlert } from '../../../../../redux/alert/actions';
 // import { titleField, durationField, priceField } from './parameter-service/utils';
-import serviceSchema from './utils';
+import serviceSchema from './../utils';
 
 const AddServiceForm = () => {
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
@@ -43,8 +41,8 @@ const AddServiceForm = () => {
           resetForm();
         }
       }}>
-      {({ isSubmitting }) => (
-        <Form className="services--add-service">
+      {({ isSubmitting, dirty, isValidating }) => (
+        <Form className="services__form">
           <label className="service__label" htmlFor="title">
             Title
           </label>
@@ -63,11 +61,11 @@ const AddServiceForm = () => {
           <InputCustom className="service__input" type="number" name="price" id="price" />
           <ErrorMessage name="price">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage>
 
-          <div className="mt-m display-flex gc-f p-r">
-            {isSubmitting && <Spinner className="spinner--edge spinner--tiny mr-s" />}
+          <div className="mt-s-5 mb-s-2 display-flex gc-f p-r ">
+            {isSubmitting && <Spinner className="spinner--edge spinner--tiny" />}
             <button
               disabled={isSubmitting}
-              className={`w-f btn btn--secondary mt-m mb-h ${isSubmitting ? 'btn--submited' : ''}`}
+              className={`w-f btn btn--secondary ${isSubmitting ? 'btn--submited' : ''}`}
               type="submit">
               Save
             </button>

@@ -3,7 +3,7 @@ import {
   ADD_SERVICE_SUCCESS,
   DELETE_SERVICE_SUCCESS,
   UPDATE_SERVICE_SUCCESS,
-  ADD_SERVICE_START,
+  GET_SERVICES_START,
 } from './types';
 
 const INITIAL_STATE = { isLoading: false, services: [] };
@@ -12,25 +12,24 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_SERVICES_START:
+      return { ...state, isLoading: true };
+
     case GET_SERVICES_SUCCESS:
       const { services } = payload;
-      return { ...state, services };
-
-    case ADD_SERVICE_START:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: false, services };
 
     case ADD_SERVICE_SUCCESS: // ordinary service, parameter service
       const { service } = payload;
       const { ids, ...serviceProps } = service; // ids can be one or many
       // ordinary service
-      if (typeof ids === 'string')
-        return { ...state, isLoading: false, services: [...state.services, { ...serviceProps, id: ids }] }; // ...state убрать?
+      if (typeof ids === 'string') return { ...state, services: [...state.services, { ...serviceProps, id: ids }] }; // ...state убрать?
 
       // parameter service(object)
       const { subServices, title } = service;
       const subServicesWithIds = subServices.map((subService, i) => ({ id: ids[i], ...subService }));
       const addedService = { title, subServices: subServicesWithIds };
-      return { ...state, isLoading: false, services: [...state.services, addedService] }; // ...state убрать?
+      return { ...state, services: [...state.services, addedService] }; // ...state убрать?
 
     case UPDATE_SERVICE_SUCCESS:
       const { updatedServiceType, updatedService } = payload;

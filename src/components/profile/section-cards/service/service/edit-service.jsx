@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import InputCustom from '../../../../form/input-custom';
 import Spinner from '../../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,18 +46,24 @@ const EditService = ({ service, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span className="service__title mt-s">
-              <InputCustom className="service--edit-title" type="text" name="title" id="title" />
+            <span className="service__title mt-s-3">
+              <InputCustom className="service__input service__input--edit" type="text" name="title" id="title" />
             </span>
             <span className="service__duration">
-              <InputCustom type="number" name="duration" id="duration" />
+              <InputCustom
+                className="service__input service__input--edit"
+                type="number"
+                name="duration"
+                id="duration"
+              />
             </span>
             <span className="service__price">
-              <InputCustom className="service__price" type="text" name="price" id="price" />
+              <InputCustom className="service__input service__input--edit" type="number" name="price" id="price" />
             </span>
           </Form>
+
           {isSubmitting ? (
-            <Spinner className="spinner--tiny spinner--gc ml-s mt-s" />
+            <Spinner className="spinner--tiny spinner--gc ml-s mt-s-3" />
           ) : (
             <>
               <div
@@ -65,10 +71,10 @@ const EditService = ({ service, setIsEdit }) => {
                   if (dirty) submitForm();
                   else setIsEdit(false);
                 }}
-                className="service__icon service__icon--manage ml-m mt-s">
+                className="service__icon service__icon--manage ml-m mt-s-3">
                 <FontAwesomeIcon icon="check" />
               </div>
-              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s">
+              <div onClick={() => setIsEdit(false)} className="service__icon service__icon--manage ml-m mt-s-3">
                 <FontAwesomeIcon icon="times" />
               </div>
             </>
