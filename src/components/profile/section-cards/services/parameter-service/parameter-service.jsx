@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Title from './title/title';
+import Title from './title';
 import SubService from './sub-service/sub-service';
 
 const ParameterService = ({ service, onClick = null }) => {

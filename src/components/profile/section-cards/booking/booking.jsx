@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Modal from '../../../utils/modal';
-import ServicesBook from '../services/services-book';
+import BookingServices from '../services/booking-services/booking-services';
 import BookingResult from './booking-result';
 import Timetable from '../timetable/timetable';
 
@@ -11,7 +11,7 @@ const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      {step.isService && <ServicesBook stepState={[step, setStep]} />}
+      {step.isService && <BookingServices stepState={[step, setStep]} />}
       {step.isTimetable && <Timetable stepState={[step, setStep]} />}
       {step.isResult && <BookingResult setStep={setStep} />}
     </Modal>

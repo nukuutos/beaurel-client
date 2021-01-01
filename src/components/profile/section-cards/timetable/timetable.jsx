@@ -6,6 +6,7 @@ import { getTimetableAndAppointmentsStart } from '../../../../redux/timetable/ac
 import { useSelector, useDispatch } from 'react-redux';
 import { searchFreeAppointmentsTime } from './utils/appointment';
 import displayDuration from '../services/utils/display-duration';
+import disable from '../utils/disable';
 
 const convertStringDate = (date) => {
   const day = date.getDate();
@@ -13,16 +14,6 @@ const convertStringDate = (date) => {
   const year = date.getFullYear();
 
   return day + '-' + month + '-' + year;
-};
-
-const computeDisabled = (startAt, availableAppointments, sessionTime, duration) => {
-  const endAt = startAt + duration;
-
-  for (let i = startAt; i < endAt; i += sessionTime) {
-    if (!availableAppointments.includes(i)) return true;
-  }
-
-  return false;
 };
 
 const Timetable = ({ stepState }) => {
@@ -90,7 +81,7 @@ const Timetable = ({ stepState }) => {
         const { duration } = service;
 
         availableAppointments = availableAppointments.filter(
-          (time) => !computeDisabled(time, availableAppointments, sessionTime, duration)
+          (time) => !disable(time, availableAppointments, sessionTime, duration)
         );
       }
 

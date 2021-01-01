@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import MastersServicesView from './masters-services-view';
+import MastersServicesView from './master-services/master-services';
 import Booking from '../booking/booking';
 
 const Services = ({ onClickClose }) => {
