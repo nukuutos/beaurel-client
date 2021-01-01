@@ -8,11 +8,11 @@ import axios from '../../../utils/axios';
 function* signIn({ payload }) {
   try {
     const {
-      data: { accessToken, role },
+      data: { accessToken, role, id },
     } = yield axios.post('http://localhost:5000/api/v1/auth/sign-in', payload);
 
-    yield put(signInSuccess({ accessToken, role }));
-    yield call(Router.push, '/profile');
+    yield put(signInSuccess({ accessToken, role, id }));
+    yield call(Router.push, `/profile/${id}`);
   } catch (error) {
     yield put(signInFailure(error));
   }

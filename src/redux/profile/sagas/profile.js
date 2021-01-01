@@ -7,17 +7,17 @@ import { getProfileSuccess, getProfileFailure } from '../actions';
 
 import getToken from '../../utils/get-token';
 
-function* getProfile() {
+function* getProfile({ payload: { id } }) {
   try {
     const accessToken = yield select(getToken);
 
-    const { data } = yield axios.get('/profile/5eb849b81c2ccc21306ced34', {
+    const { data } = yield axios.get(`/profile/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    yield put(getProfileSuccess({ profile: data }));
+    yield put(getProfileSuccess({ profile: { ...data, id } }));
   } catch (error) {
     yield put(getProfileFailure(error));
   }

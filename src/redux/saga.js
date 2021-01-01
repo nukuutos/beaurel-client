@@ -5,7 +5,8 @@ import authSagas from './auth/sagas';
 // import reviewSagas from './review/sagas';
 import serviceSagas from './service/sagas';
 import timetableSagas from './timetable/sagas';
+import workSagas from './work/sagas';
 
 export default function* rootSaga() {
-  yield all([call(serviceSagas), call(profileSagas), call(authSagas), call(timetableSagas)]);
+  yield all([call(serviceSagas), call(profileSagas), call(authSagas), call(timetableSagas), call(workSagas)]);
 }

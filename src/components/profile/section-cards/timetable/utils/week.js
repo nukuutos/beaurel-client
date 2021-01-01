@@ -15,5 +15,10 @@ exports.MONTHS = [
   'Декабря',
 ];
 
+// 25
 exports.getStartDayOfWeek = (date, day, weekDay) =>
-  new Date(date.getFullYear(), date.getMonth(), day - weekDay).getDate();
+  new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()).getDate();
+
+// 22-12-20
+exports.getStartDateOfWeek = (date, day, weekDay) =>
+  new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());

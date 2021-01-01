@@ -6,10 +6,13 @@ import { setAlert } from '../../alert/actions';
 
 import { UPDATE_SERVICE_START } from '../types';
 import getToken from '../../utils/get-token';
+import getProfileId from '../../utils/get-profile-id';
 
 export function* updateService({ payload }) {
   try {
     const accessToken = yield select(getToken);
+    const profileId = yield select(getProfileId);
+
     const { type, service, date } = payload; // !!!(how it goes in components)
 
     const { title, ...serviceProps } = service;
@@ -19,7 +22,7 @@ export function* updateService({ payload }) {
     // service (in payload: service.id)
     // sub service (in payload: service.id and service.parentId)
     const { data } = yield axios.put(
-      `/profile/5eb849b81c2ccc21306ced34/service/${type === 'parameter' ? service.oldTitle : service.id}`,
+      `/profile/${profileId}/service/${type === 'parameter' ? service.oldTitle : service.id}`,
       { service: type === 'sub-service' ? serviceWithoutTitle : service, date },
       {
         headers: {

@@ -1,5 +1,5 @@
 import RatingIndicators from './rating-indicators';
-import Stars from '../../../utils/stars';
+import Stars from '../../../utils/stars/stars';
 
 const decimaFormat = (num) => (Number.isInteger(num) ? num + '.0' : num);
 

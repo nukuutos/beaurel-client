@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Avatar from './avatar';
+import Avatar from './avatar/avatar';
 // import InstagramEdit from '../instagram-edit';
 import ProfileRating from './profile-rating';
 import ButtonMarker from '../../utils/button-marker';
@@ -13,35 +13,19 @@ import Maps from './maps';
 const Header = () => {
   const [isMaps, setIsMaps] = useState(false);
 
-  const { firstName, lastName, avatarImage, ratingStats, specialization, placeOfwork, isPublicView } = useSelector(
+  const { firstName, lastName, ratingStats, specialization, placeOfwork, isPublicView } = useSelector(
     (state) => state.profile
   );
 
-  // const [isPublicView, setIsPublicView] = publicView;
-
   return (
     <header className="profile__header">
-      <Avatar image={avatarImage} className="profile__avatar" />
-      {
-        // instagramm to own component?
-      }
-      {/* {(isInstagram || !isPublicView) && (
-        <FontAwesomeIcon
-          className={`profile__instagram ${!isInstagram ? 'profile__instagram--inactive' : ''}`}
-          icon={['fab', 'instagram']}
-          onClick={() => setIsInstagramEdit(true)}
-        />
-      )}
-      {isInstagramEdit && <InstagramEdit onClickClose={() => setIsInstagramEdit(false)} />} */}
+      <Avatar className="profile__avatar" />
 
       <ProfileRating ratingScore={ratingStats.avgRating} />
 
       <h1 className="profile__name">{firstName + ' ' + lastName[0] + '.'}</h1>
       <h2 className="profile__specialization">{specialization}</h2>
 
-      {
-        // instagramm to own component?
-      }
       <div className="profile__geoposition">
         <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
         {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}

@@ -27,6 +27,7 @@ const rootReducer = (state, action) => {
     if (!payload.auth.accessToken) {
       nextState.auth.accessToken = state.auth.accessToken;
       nextState.auth.role = state.auth.role;
+      nextState.auth.id = state.auth.id;
     }
 
     return nextState;

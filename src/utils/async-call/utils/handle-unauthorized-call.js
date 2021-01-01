@@ -20,6 +20,7 @@ const handleUnauthorizedCall = async (dispatch, config) => {
       },
     });
 
+    console.log(data);
     return data;
   } catch (error) {
     return Router.push('/sign-in');

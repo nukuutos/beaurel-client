@@ -54,6 +54,15 @@
     }
   }
 
+  &--mini {
+    font-size: 1.5rem;
+    padding: 1.1rem 2.5rem;
+  }
+
+  &--success {
+    background: #5cb85c;
+  }
+
   &--submited {
     background: #964dc8;
     pointer-events: none;

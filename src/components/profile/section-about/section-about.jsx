@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ButtonMarker from '../../utils/button-marker';
 import TextMore from '../../utils/text-more/text-more';
-import EditAbout from './edit-about';
+import AboutEdit from './about-edit';
 import { useSelector } from 'react-redux';
 
 const SectionAbout = () => {
@@ -32,7 +32,7 @@ const SectionAbout = () => {
         </section>
       )}
 
-      {isAboutUpdate && <EditAbout onClickClose={() => setIsAboutUpdate(false)} aboutText={aboutText} />}
+      {isAboutUpdate && <AboutEdit onClickClose={() => setIsAboutUpdate(false)} aboutText={aboutText} />}
     </>
   );
 };

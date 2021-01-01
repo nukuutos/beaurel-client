@@ -6,6 +6,8 @@ import authReducer from './auth/reducer';
 import alertReducer from './alert/reducer';
 import serviceReducer from './service/reducer';
 import timetableReducer from './timetable/reducer';
+import workReducer from './work/reducer';
+import appointmentsReducer from './appointments/reducer';
 
 export default combineReducers({
   profile: profileReducer,
@@ -14,4 +16,6 @@ export default combineReducers({
   alerts: alertReducer,
   services: serviceReducer,
   timetable: timetableReducer,
+  work: workReducer,
+  appointments: appointmentsReducer,
 });

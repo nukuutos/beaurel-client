@@ -6,17 +6,20 @@ import { setAlert } from '../../alert/actions';
 
 import { DELETE_SERVICE_START } from '../types';
 import getToken from '../../utils/get-token';
+import getProfileId from '../../utils/get-profile-id';
 
 export function* deleteService({ payload }) {
   try {
     const accessToken = yield select(getToken);
+    const profileId = yield select(getProfileId);
+
     const { type, service } = payload;
 
     // parameter - service with sub services (in payload: service.title)
     // service (in payload: service.id)
     // sub service (in payload: service.id and service.parentId)
     const { data } = yield axios.delete(
-      `/profile/5eb849b81c2ccc21306ced34/service/${type === 'parameter' ? service.title : service.id}`,
+      `/profile/${profileId}/service/${type === 'parameter' ? service.title : service.id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

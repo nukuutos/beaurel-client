@@ -11,6 +11,9 @@ import {
   UPDATE_SERVICE_START,
   UPDATE_SERVICE_SUCCESS,
   UPDATE_SERVICE_FAILURE,
+  REODER_SERVICES,
+  REODER_SUB_SERVICES,
+  SET_INITIAL_ORDER,
 } from './types';
 
 export const getServicesStart = () => ({
@@ -72,4 +75,21 @@ export const deleteServiceSuccess = (service) => ({
 
 export const deleteServiceFailure = () => ({
   type: DELETE_SERVICE_FAILURE,
+});
+
+////
+
+export const reoderServices = (result) => ({
+  type: REODER_SERVICES,
+  payload: result,
+});
+
+export const reoderSubServices = (result) => ({
+  type: REODER_SUB_SERVICES,
+  payload: result,
+});
+
+export const setInitialOrder = (order) => ({
+  type: SET_INITIAL_ORDER,
+  payload: order,
 });

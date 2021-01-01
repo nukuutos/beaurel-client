@@ -6,11 +6,15 @@ import {
   UPDATE_ABOUT_SUCCESS,
   UPDATE_ABOUT_FAILURE,
   CHANGE_IS_PUBLIC_VIEW,
+  UPDATE_AVATAR_SUCCESS,
+  UPDATE_AVATAR_FAILURE,
+  UPDATE_AVATAR_START,
 } from './types';
 
 // GET PROFILE
-export const getProfileStart = () => ({
+export const getProfileStart = (id) => ({
   type: GET_PROFILE_START,
+  payload: id,
 });
 
 export const getProfileSuccess = (profile) => ({
@@ -36,6 +40,22 @@ export const updateAboutSuccess = (aboutText) => ({
 
 export const updateAboutFailure = (error) => ({
   type: UPDATE_ABOUT_FAILURE,
+  payload: error,
+});
+
+// UPDATE AVATAR
+export const updateAvatarStart = (avatar) => ({
+  type: UPDATE_AVATAR_START,
+  payload: avatar,
+});
+
+export const updateAvatarSuccess = (avatar) => ({
+  type: UPDATE_AVATAR_SUCCESS,
+  payload: avatar,
+});
+
+export const updateAvatarFailure = (error) => ({
+  type: UPDATE_AVATAR_FAILURE,
   payload: error,
 });
 

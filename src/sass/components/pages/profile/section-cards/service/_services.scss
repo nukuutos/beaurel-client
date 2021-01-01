@@ -19,12 +19,18 @@
 
   &--display {
     display: grid;
-    grid-template-columns: repeat(3, minmax(10rem, max-content)) repeat(2, min-content);
+    grid-template-columns: repeat(3, minmax(10rem, max-content)) repeat(2, max-content);
     justify-content: center;
     align-items: self-end;
   }
 
+  &__droppable {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__heading {
+    grid-row: 1 / 2;
     font-size: 2.3rem;
     letter-spacing: 0.1rem;
     font-weight: 400;
@@ -64,5 +70,128 @@
   &__first-service {
     justify-self: center;
     font-size: 2.2rem;
+  }
+
+  &__switcher {
+    grid-column: 5 / 6;
+    grid-row: 1 / 2;
+    align-self: flex-start;
+  }
+}
+
+.switcher {
+  $animationDuration: 0.15s;
+  position: relative;
+  // position: absolute;
+  // top: 3rem;
+  // right: 5rem;
+
+  display: inline-block;
+  user-select: none;
+
+  &__radio {
+    display: none;
+
+    &--no:checked ~ .switcher__label--yes .switcher__text,
+    &--yes:checked ~ .switcher__label--no .switcher__text {
+      opacity: 0;
+    }
+
+    &--yes:checked ~ .switcher__label:before {
+      background: #7c3ba8;
+    }
+
+    &--yes:checked ~ .switcher__label--no:after {
+      // 100% - ballWidth - .5rem
+      left: calc(100% - 2.6rem);
+      background: #fff;
+    }
+
+    &--no:checked ~ .switcher__label--yes:before,
+    &--yes:checked ~ .switcher__label--no:before {
+      z-index: 1;
+    }
+
+    &--yes:checked ~ .switcher__label--yes {
+      color: #fff;
+      // color: #f0f0f0;
+    }
+  }
+
+  &__label {
+    $paddingOut: 0.75rem;
+    $paddingIn: 0.5rem;
+
+    padding: 0.55rem $paddingOut;
+    padding-right: $paddingIn;
+    display: inline-flex;
+    color: #7c3ba8;
+    cursor: pointer;
+    transition: color $animationDuration ease-in-out;
+
+    & + & {
+      padding-left: $paddingIn;
+      padding-right: $paddingOut;
+    }
+
+    // container
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      // background: #eee;
+      background: #eae8f1;
+      border-radius: 1.7rem;
+      box-shadow: inset 0 0.0715rem 0.3572rem rgba(43, 43, 43, 0.05);
+      transition: background $animationDuration ease-in-out;
+    }
+
+    // ball
+    &--no:after {
+      content: '';
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 0.5rem;
+      width: 2.1rem;
+      height: 2.1rem;
+      background: #fff;
+      border-radius: 50%;
+      transform: translateY(-50%);
+
+      pointer-events: none;
+      box-shadow: 0 0.1429rem 0.2143rem rgba(43, 43, 43, 0.2), 0 0.3572rem 0.3572rem rgba(43, 43, 43, 0.1);
+      transition: left $animationDuration ease-in-out, background $animationDuration ease-in-out;
+    }
+  }
+
+  &__text {
+    position: relative;
+    z-index: 2;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity $animationDuration ease-in-out;
+  }
+
+  &__icon {
+    $size: 1.6rem;
+    width: $size;
+    height: $size;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > * {
+      height: 1.3rem;
+    }
+
+    &--reoder > * {
+      height: 1.35rem;
+    }
   }
 }

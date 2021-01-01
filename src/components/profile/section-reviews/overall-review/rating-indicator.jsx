@@ -1,4 +1,4 @@
-import Stars from '../../../utils/stars';
+import Stars from '../../../utils/stars/stars';
 
 const RatingIndicator = ({ score, width, rewiesCount }) => {
   return (

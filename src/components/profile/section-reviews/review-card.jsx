@@ -1,5 +1,5 @@
 import React from 'react';
-import Stars from '../../utils/stars';
+import Stars from '../../utils/stars/stars';
 import TextMore from '../../utils/text-more/text-more';
 
 const ReviewCard = ({ review, customer }) => {

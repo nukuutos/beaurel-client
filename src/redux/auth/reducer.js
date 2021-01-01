@@ -3,6 +3,7 @@ import { SIGN_IN_SUCCESS, REFRESH_TOKEN_SUCCESS, REFRESH_TOKEN_FAILURE, SIGN_IN_
 const INITIAL_STATE = {
   accessToken: null,
   role: null,
+  id: null,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -18,10 +19,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
     case SIGN_IN_FAILURE:
     case REFRESH_TOKEN_FAILURE:
-      return { ...state, accessToken: null, role: null };
+      return { ...state, accessToken: null, role: null, id: null };
 
     case SIGN_OUT:
-      return { ...state, accessToken: null, role: null };
+      return { ...state, accessToken: null, role: null, id: null };
 
     default:
       return state;

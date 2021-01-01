@@ -5,25 +5,57 @@ $background-color: #eee;
 $background-hover-color: #eae8f1;
 
 .service {
-  display: contents;
+  position: relative;
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 17rem 10rem 10rem;
+  cursor: pointer;
+  $padding: 1.3rem;
+
+  padding-top: $padding;
+  padding-bottom: $padding;
+  background: $background-color;
+  transition: 0.2s background;
 
   // for title, parameter, duration, price (all!)
   & > * {
-    $padding: 1.3rem;
-
-    padding-top: $padding;
-    padding-bottom: $padding;
-    background: $background-color;
-    transition: 0.2s transform, 0.2s background;
-    cursor: pointer;
-
-    &:not(:first-child) {
-      text-align: center;
-    }
+    text-align: center;
   }
 
-  &:hover > * {
+  &:hover {
     background: $background-hover-color; // ededed
+  }
+
+  &--droppable {
+    grid-template-columns: 5rem 12rem 10rem 10rem;
+    grid-column: 1 / 5;
+  }
+
+  &--disabled {
+    cursor: default;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &__draggable-lines {
+    grid-column: 1 / 2;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #7c3ba8;
+    border-right: 1px solid #d8d8d8;
+
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+
+    & > * {
+      height: 2.5rem;
+    }
+
+    &--disabled {
+      color: #ccc;
+    }
   }
 
   &__title {
@@ -32,6 +64,7 @@ $background-hover-color: #eae8f1;
     padding-left: 2rem;
     border-top-left-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
+    text-align: start;
 
     &--parameter {
       grid-column: 1 / 4;
@@ -53,15 +86,26 @@ $background-hover-color: #eae8f1;
       }
     }
 
+    &--draggable-parameter {
+      grid-column: 2 / 4;
+    }
+
     &--hidden {
       border-bottom-right-radius: $border-radius;
       border-bottom-left-radius: $border-radius;
+    }
+
+    &--draggable {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      grid-column: 2 / 3;
     }
   }
 
   &__parameter {
     grid-column: 1 / 2;
     padding-left: 3rem;
+    text-align: start;
 
     // last in params
     &--last {
@@ -82,10 +126,20 @@ $background-hover-color: #eae8f1;
       width: 15rem;
       padding-left: 1rem;
     }
+
+    &--draggable {
+      grid-column: 2 / 3;
+    }
   }
 
   &__duration {
+    position: relative;
+    // display: flex;
     grid-column: 2 / 3;
+
+    &--draggable {
+      grid-column: 3 / 4;
+    }
   }
 
   &__price {
@@ -104,10 +158,16 @@ $background-hover-color: #eae8f1;
       border-top-right-radius: 0;
       border-bottom-right-radius: $border-radius;
     }
+
+    &--draggable {
+      grid-column: 4 / 5;
+    }
   }
 
   // edit mode
   &--edit {
+    position: relative;
+
     & > * {
       background: $background-hover-color;
       cursor: default;
@@ -118,7 +178,7 @@ $background-hover-color: #eae8f1;
       & > * {
         border: none;
         padding: 0.5rem;
-        width: 7rem;
+        width: 7.5rem;
         border-radius: 0.3rem;
         text-align: center;
 
@@ -237,6 +297,17 @@ $background-hover-color: #eae8f1;
       border-color: #7c3ba8;
     }
 
+    &--display {
+      color: #555;
+      height: 1.1rem;
+      margin-left: 0.5rem;
+    }
+
+    &--select {
+      position: absolute;
+      right: 0;
+    }
+
     &--manage {
       $size: 3rem;
       align-self: center;
@@ -246,7 +317,7 @@ $background-hover-color: #eae8f1;
       transition: 0.2s opacity;
 
       &:hover {
-        opacity: 0.95;
+        opacity: 0.88;
       }
 
       & > * {

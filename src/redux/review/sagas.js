@@ -4,14 +4,16 @@ import axios from '../../utils/axios';
 import { getReviewsFailure, getReviewsSuccess } from './actions';
 
 import { GET_REVIEWS_START } from './types';
+import getProfileId from '../utils/get-profile-id';
 
 const getToken = (state) => state.auth.accessToken;
 
 export function* getReviews() {
   try {
     const accessToken = yield select(getToken);
+    const profileId = yield select(getProfileId);
 
-    const { data } = yield axios.get('/profile/5eb849b81c2ccc21306ced34/rating', {
+    const { data } = yield axios.get(`/profile/${profileId}/rating`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

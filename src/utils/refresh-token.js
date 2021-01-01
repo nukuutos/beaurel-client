@@ -26,7 +26,7 @@ const refreshToken = async (req, res, store) => {
           },
         });
 
-        store.dispatch(refreshTokenSuccess({ accessToken: data.accessToken, role: data.role }));
+        store.dispatch(refreshTokenSuccess(data));
       } catch (error) {
         store.dispatch(refreshTokenFailure(error));
         store.dispatch(END);

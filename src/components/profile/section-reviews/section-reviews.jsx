@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { getReviewsStart } from '../../../redux/reviews/actions';
 import OverallReview from './overall-review/overall-review';
 import ReviewCard from './review-card';
-import Stars from '../../utils/stars';
+import Stars from '../../utils/stars/stars';
 import axios from '../../../utils/axios';
 
 const SectionReviews = () => {
   const [reviews, setReviews] = useState([]);
-  const { ratingStats } = useSelector((state) => state.profile);
+  const { ratingStats, id: profileId } = useSelector((state) => state.profile);
 
   // const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ const SectionReviews = () => {
     const getReviews = async () => {
       const {
         data: { reviews },
-      } = await axios.get('/profile/5eb849b81c2ccc21306ced34/review');
+      } = await axios.get(`/profile/${profileId}/review`);
 
       setReviews(reviews);
     };

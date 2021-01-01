@@ -6,16 +6,19 @@ import { setAlert } from '../../alert/actions';
 
 import { ADD_SERVICE_START } from './../types';
 import getToken from '../../utils/get-token';
+import getProfileId from '../../utils/get-profile-id';
 
 export function* addService({ payload }) {
   try {
     const accessToken = yield select(getToken);
+    const profileId = yield select(getProfileId);
+
     const { date, ...service } = payload;
 
     const {
       data: { ids, ...alert },
     } = yield axios.post(
-      '/profile/5eb849b81c2ccc21306ced34/service',
+      `/profile/${profileId}/service`,
       { service, date },
       {
         headers: {
