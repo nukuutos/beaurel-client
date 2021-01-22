@@ -3,7 +3,7 @@ import DraggableTitle from './draggable-title';
 import DraggableSubService from './draggable-sub-service';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import { reoderSubServices } from '../../../../../../../redux/service/actions';
+import { reoderSubServices } from '../../../../../../../redux/service/actions/service';
 
 const DraggableParameterService = ({ service, index }) => {
   const [isShown, setIsShown] = useState(false);

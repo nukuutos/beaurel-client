@@ -1,9 +1,11 @@
+@use "../../abstracts/colors" as *;
+
 .btn {
   &,
   &:link,
   &:visited {
     text-decoration: none;
-    font-weight: 400;
+    font-weight: 500;
     position: relative;
     backface-visibility: hidden;
     cursor: pointer;
@@ -11,65 +13,112 @@
     border-color: transparent;
     outline: none;
     background-color: transparent;
-    // letter-spacing: 0.05em;
+    letter-spacing: 0.1px;
+    padding: 1.2rem 2.4rem;
+    border-radius: 0.3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s background, 0.2s color;
   }
 
   &--primary {
-    &,
-    &:link,
-    &:visited {
-      border-radius: 3rem;
-      letter-spacing: 0.05rem;
-      padding: 0.8rem 1.6rem;
-      font-size: 1.2rem;
-      border: 1px solid #c321ff;
-      color: #c321ff;
-      transition: all 0.2s;
-
-      &:hover {
-        font-weight: 400;
-        color: #f8f8f8;
-        background-color: #c321ff;
-      }
-    }
+    color: $color-white;
+    background: $color-primary;
   }
 
   &--secondary {
-    font-size: 2rem;
-    padding: 1.2rem 4rem;
-    // background: #c321ff;
-    // color: #f8f8f8;
-    font-weight: 300;
-    align-self: flex-end;
-    //
-    // padding: 1rem 2rem;
-    background: #7b0ec6;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-    transition: 0.2s box-shadow;
-
-    &:hover {
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
-    }
+    border: 1px solid $color-primary;
+    color: $color-primary;
   }
 
-  &--mini {
-    font-size: 1.5rem;
-    padding: 1.1rem 2.5rem;
+  &--flat {
+    padding: 0.8rem 2.4rem;
   }
 
   &--success {
-    background: #5cb85c;
+    color: $color-white;
+    background: $color-success;
+    border: 1px solid $color-success;
   }
 
-  &--submited {
-    background: #964dc8;
-    pointer-events: none;
-    cursor: default;
+  &--fail {
+    border: 1px solid $color-fail;
+    color: $color-fail;
 
     &:hover {
-      box-shadow: none;
+      background: $color-fail;
+      color: $color-white;
     }
   }
+
+  &--edit {
+    & > * {
+      height: 1.6rem; // (1.2)
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    $size: 3.2rem; // (2.4)
+    height: $size;
+    width: $size;
+
+    border: 1px solid $color-gray-light-1;
+    color: $color-gray-light-1;
+
+    border-radius: 50%;
+
+    transition: 0.2s color, 0.2s border, 0.2s box-shadow;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid $color-primary;
+      color: $color-primary;
+      box-shadow: 0 0 5px rgba($color-black, 0.25);
+    }
+  }
+
+  // &--primary {
+  //   &,
+  //   &:link,
+  //   &:visited {
+  //     border-radius: 3rem;
+  //     letter-spacing: 0.05rem;
+  //     padding: 0.8rem 1.6rem;
+  //     font-size: 1.2rem;
+  //     border: 1px solid #c321ff;
+  //     color: #c321ff;
+  //     transition: all 0.2s;
+
+  //     &:hover {
+  //       font-weight: 400;
+  //       color: #f8f8f8;
+  //       background-color: #c321ff;
+  //     }
+  //   }
+  // }
+
+  // &--secondary {
+  //   font-size: 2rem;
+  //   padding: 1.2rem 4rem;
+  //   // background: #c321ff;
+  //   // color: #f8f8f8;
+  //   font-weight: 300;
+  //   align-self: flex-end;
+  //   //
+  //   // padding: 1rem 2rem;
+  //   background: #7b0ec6;
+  //   color: #fff;
+  //   border-radius: 5px;
+  //   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  //   transition: 0.2s box-shadow;
+
+  //   &:hover {
+  //     box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  //   }
+  // }
 }

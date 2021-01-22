@@ -9,7 +9,7 @@ const Navbar = ({ links, isAuth }) => {
   const dispatch = useDispatch();
 
   return (
-    <nav className="navbar">
+    <nav className="navbar card ">
       {links.map((link) => (
         <li className={`navbar__link ${router.pathname === link.path ? 'navbar__link--active' : ''}`} key={link.path}>
           <Link href={link.path}>
@@ -23,7 +23,7 @@ const Navbar = ({ links, isAuth }) => {
         <li className="navbar__link">
           <Link href="/">
             <a onClick={() => dispatch(signOut())}>
-              <FontAwesomeIcon className="navbar__icon" icon="door-open" /> Sign Out
+              <FontAwesomeIcon className="navbar__icon" icon="door-open" /> Выход
             </a>
           </Link>
         </li>

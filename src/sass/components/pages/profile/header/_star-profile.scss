@@ -1,9 +1,11 @@
+@use "../../../../abstracts/colors" as *;
+
 .star-profile {
   position: relative;
-  height: 3rem;
-  align-self: start;
-  justify-self: end;
-  color: #954ec5;
+  height: 2rem;
+  // align-self: start;
+  // justify-self: end;
+  color: $color-secondary-light;
   cursor: pointer;
   z-index: 10;
 

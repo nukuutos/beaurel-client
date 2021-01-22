@@ -1,10 +1,10 @@
 import { takeLatest, put, select } from 'redux-saga/effects';
 import axios from '../../../utils/axios';
 
-import { updateServiceSuccess, updateServiceFailure } from '../actions';
+import { updateServiceSuccess, updateServiceFailure } from '../actions/service';
 import { setAlert } from '../../alert/actions';
 
-import { UPDATE_SERVICE_START } from '../types';
+import { UPDATE_SERVICE_START } from '../types/service';
 import getToken from '../../utils/get-token';
 import getProfileId from '../../utils/get-profile-id';
 

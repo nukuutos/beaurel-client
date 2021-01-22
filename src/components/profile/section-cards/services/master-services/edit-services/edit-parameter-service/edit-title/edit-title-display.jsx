@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteServiceSuccess } from '../../../../../../../../redux/service/actions';
 import asyncCall from '../../../../../../../../utils/async-call';
 import { setAlert } from '../../../../../../../../redux/alert/actions';
 import Spinner from '../../../../../../../utils/spinner';
 import Title from '../../../../parameter-service/title';
+import { deleteServiceParameterSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
 
 const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
     const alert = await asyncCall(dispatch, config);
 
     if (alert) {
-      dispatch(deleteServiceSuccess({ deletedService: { title }, serviceType: 'parameter' }));
+      dispatch(deleteServiceParameterSuccess({ deletedServiceParameter: { title } }));
       dispatch(setAlert(alert));
     }
 

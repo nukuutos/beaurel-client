@@ -1,27 +1,45 @@
+@use "../../../../../abstracts/colors" as *;
+
 .overall-review {
-  width: 49vw;
-  // margin: 0 auto;
   display: grid;
-  grid-template-columns: max-content max-content;
-  row-gap: 1rem;
-  justify-content: space-evenly;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  padding: 3.6rem 1.6rem;
 
-  margin: 5rem auto;
+  background: $color-gray-light-3;
+  color: $color-gray-dark-1;
 
-  background: #ede9ef;
-  border-radius: 10px;
-  padding: 2rem 0;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-
-  &__score {
-    font-size: 7rem;
-    line-height: 1.3;
-    justify-self: center;
-    color: #666;
+  &__result {
+    grid-column: 1 / 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  &__reviews-count {
-    grid-column: 1 / 2;
+  &__score {
+    font-size: 7.2rem;
+    color: $color-gray-dark-2;
+  }
+
+  &__stars {
+    & > * {
+      height: 2rem;
+
+      &:not(:last-of-type) {
+        margin-right: 0.8rem;
+      }
+    }
+  }
+
+  &__rating-indicators {
+    grid-column: 7 / -1;
+  }
+
+  &__line {
+    grid-column: 5 / 6;
     justify-self: center;
+    height: 100%;
+    width: 1px;
+    background: $color-gray-light-1;
   }
 }

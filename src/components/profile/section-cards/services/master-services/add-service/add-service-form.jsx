@@ -4,7 +4,7 @@ import InputCustom from '../../../../../form/input-custom';
 import Spinner from '../../../../../utils/spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import asyncCall from '../../../../../../utils/async-call';
-import { addServiceSuccess } from '../../../../../../redux/service/actions';
+import { addServiceSuccess } from '../../../../../../redux/service/actions/service';
 import { setAlert } from '../../../../../../redux/alert/actions';
 import serviceSchema from '../../utils/schemas';
 import InputSelectCustom from '../../../../../form/input-select-custom';
@@ -40,8 +40,8 @@ const AddServiceForm = () => {
         const data = await asyncCall(dispatch, config);
 
         if (data) {
-          const { ids, ...alert } = data;
-          dispatch(addServiceSuccess({ service: { ids, ...service } }));
+          const { id, ...alert } = data;
+          dispatch(addServiceSuccess({ service: { id, ...service } }));
           dispatch(setAlert(alert));
           resetForm();
         }

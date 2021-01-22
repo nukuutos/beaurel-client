@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { deleteServiceSuccess } from '../../../../../../../redux/service/actions';
+import { deleteServiceSuccess } from '../../../../../../../redux/service/actions/service';
 import { setAlert } from '../../../../../../../redux/alert/actions';
 
 import Spinner from '../../../../../../utils/spinner';
@@ -29,7 +29,7 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
     const alert = await asyncCall(dispatch, config);
 
     if (alert) {
-      dispatch(deleteServiceSuccess({ deletedService: { id }, serviceType: 'service' }));
+      dispatch(deleteServiceSuccess({ deletedService: { id } }));
       dispatch(setAlert(alert));
     }
 

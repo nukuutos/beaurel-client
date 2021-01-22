@@ -1,158 +1,127 @@
+@use "../../../abstracts/colors" as *;
+
 .profile {
   &__header {
-    grid-column: center-start / center-end;
+    grid-column: 1 / -1;
     grid-row: 1 / 2;
 
     display: grid;
-    grid-template-columns: minmax(min-content, 10vw) minmax(max-content, 1fr) max-content;
-    // row-gap: 1rem;
-    column-gap: 6rem;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 1.6rem;
 
-    &::after {
+    &:after {
+      margin-top: 3.2rem;
+      height: 1px;
+      grid-column: 1 / -1;
       display: block;
       content: '';
-      height: 2px;
-      width: 60%;
-      background: #281535;
-      align-self: end;
-      transform: translate(-10%, 0);
-      margin-top: 1rem;
-      grid-column: 2 / 3;
-      grid-row: 4 / 5;
+      background: $color-gray;
     }
   }
 
-  &__avatar {
-    grid-column: 1 / 2;
-    grid-row: 1 / 4;
-    justify-self: center;
-  }
-
-  &__instagram {
-    height: 3.5rem;
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-    justify-self: end;
-    align-self: end;
-    transform: translate(-70%, 30%);
-
-    color: #ac5ae4;
-    background: #fff;
-    padding: 0.1rem 0.25rem;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &--inactive {
-      color: #666;
-    }
-  }
-
-  &__rating {
-    grid-column: 1 / 2;
-    grid-row: 4 / 5;
+  &__identify {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 
-    color: #ffba11;
+    position: relative;
+
+    &:after {
+      height: 13rem;
+      width: 1px;
+      background: $color-gray;
+      margin-top: 2rem;
+      display: block;
+      content: '';
+      position: absolute;
+      right: -2rem;
+    }
   }
 
-  &__rating-score {
-    font-size: 1.7rem; // no
-    margin-right: 0.5rem;
-    font-weight: 500;
-  }
-
-  // &__details {
-  //   grid-column: 2 / 3;
-  //   grid-row: 1 / 2;
-  // }
-
-  &__name {
-    font-size: 3.1rem;
-    font-weight: 300;
-    letter-spacing: 0.1rem;
-
-    grid-column: 2 / 3;
+  &__biography {
+    grid-column: 5 / -1;
     grid-row: 1 / 2;
   }
 
-  &__specialization {
-    font-weight: 500;
-    font-size: 2.4rem;
-    line-height: 2.3rem;
-    color: #7c3ba8;
+  &__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-gold;
 
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    & > *:last-child {
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  &__rating-score {
+    font-weight: 700;
+  }
+
+  &__name {
+    font-size: 2.4rem;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+  }
+
+  &__specialization {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $color-primary;
+    letter-spacing: 0.4px;
   }
 
   &__geoposition {
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
+    color: $color-gray-dark-1;
   }
 
   &__map-marker {
-    height: 1.9rem;
-    margin-top: 2rem;
-    margin-right: 1rem;
-    color: #666;
+    height: 1.6rem;
+    margin-right: 0.4rem;
+  }
+
+  &__about {
+    line-height: 2.4rem;
+    letter-spacing: 0.1px;
   }
 
   &__star-profile {
+    grid-row: 1 / 2;
+    grid-column: 12 / 13;
+    justify-self: end;
+    align-self: start;
     position: relative;
   }
 
-  &__main {
-    grid-column: center-start / center-end;
-    grid-row: 2 / 3;
-  }
-
-  &__heading-tertiary {
-    font-size: 2.7rem;
-    font-weight: 400;
-  }
-
-  &__about-text {
-    width: 95%;
-    margin-left: 1rem;
-  }
-
   &__cards {
-    display: flex;
-    justify-content: space-evenly;
-    width: 90%;
-    margin: 0 auto;
+    display: contents;
+
+    &:after {
+      margin-top: 2.4rem; // because of svg import
+      height: 1px;
+      grid-column: 1 / -1;
+      display: block;
+      content: '';
+      background: $color-gray;
+    }
   }
 
-  &__rating-indicators {
-    grid-column: 2 / 3;
-    grid-row: 1 / 4;
+  &__reviews {
+    display: contents;
   }
 
-  &__noreview-text {
-    text-align: center;
-    width: 50%;
-    margin: 0 auto;
-    font-size: 2.5rem;
-    background: #ede9ef;
-    padding: 3rem;
-    border-radius: 10px;
+  &__noreview {
+    grid-column: 3 / 11;
   }
 
-  &__noreview-stars {
-    justify-content: center;
-    margin-top: 2rem;
+  &__overall-review {
+    grid-column: 1 / -1;
+  }
+
+  &__review-card {
+    grid-column: 3 / 11;
   }
 }
-
-// .icon-button {
-//   background: #ede9ef;
-//   border-radius: 50%;
-//   height: 2.8rem;
-//   width: 2.8rem;
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-// }

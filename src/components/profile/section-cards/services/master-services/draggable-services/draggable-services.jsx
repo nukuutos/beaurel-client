@@ -2,7 +2,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import DraggableService from './draggable-service';
 import DraggableParameterService from './draggable-parameter-service/draggable-parameter-service';
 import { useDispatch } from 'react-redux';
-import { reoderServices } from '../../../../../../redux/service/actions';
+import { reoderServices } from '../../../../../../redux/service/actions/service';
 
 const DroppableServices = ({ services }) => {
   const dispatch = useDispatch();

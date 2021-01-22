@@ -8,7 +8,7 @@ import areOrdersEqual from '../utils/are-orders-equal';
 import getIdsAndOrders from '../utils/get-ids-and-orders';
 import { useSelector, useDispatch } from 'react-redux';
 import useSaveBeforeUnload from './hooks/use-save-before-unload';
-import { setInitialOrder, getServicesStart } from '../../../../../redux/service/actions';
+import { setInitialOrder, getServicesStart } from '../../../../../redux/service/actions/service';
 
 const MasterServices = ({ onClickClose }) => {
   const [isAddService, setIsAddService] = useState(false);

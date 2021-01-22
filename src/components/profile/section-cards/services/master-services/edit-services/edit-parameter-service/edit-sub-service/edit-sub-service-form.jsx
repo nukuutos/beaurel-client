@@ -3,13 +3,13 @@ import { Formik, Form } from 'formik';
 import InputCustom from '../../../../../../../form/input-custom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateServiceSuccess } from '../../../../../../../../redux/service/actions';
 import asyncCall from '../../../../../../../../utils/async-call';
 import Spinner from '../../../../../../../utils/spinner';
 import { setAlert } from '../../../../../../../../redux/alert/actions';
 import { subServiceSchema } from '../../../../utils/schemas';
 import InputSelectCustom from '../../../../../../../form/input-select-custom';
 import renderDurationOptions from '../../../../utils/render-duration-options';
+import { updateSubServiceSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
 
 const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => 
         const alert = await asyncCall(dispatch, config);
 
         if (alert) {
-          dispatch(updateServiceSuccess({ updatedService: { title, ...values }, updatedServiceType: 'sub-service' }));
+          dispatch(updateSubServiceSuccess({ updatedSubService: { title, ...values } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }

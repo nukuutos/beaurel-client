@@ -2,16 +2,17 @@ import React from 'react';
 import Stars from '../../utils/stars/stars';
 import TextMore from '../../utils/text-more/text-more';
 
-const ReviewCard = ({ review, customer }) => {
+const ReviewCard = ({ review, customer, date }) => {
   const { comment, value } = review;
   const { avatarImage, firstName, lastName } = customer;
 
   return (
-    <div className="review-card">
-      <img className="review-card__customer-photo" src={'/img/' + avatarImage} alt="Customer rating" />
-      <span className="review-card__customer-name">{firstName + ' ' + lastName[0] + '.'}</span>
-      <Stars score={value} starSize="medium" className="review-card__stars" />
-      <TextMore className="review-card__comment" maxSymbs={15}>
+    <div className="review-card profile__review-card card mt-8">
+      <img className="review-card__customer-photo" src={'/img/' + avatarImage} alt="Customer photo" />
+      <span className="review-card__customer-name mt-1">{firstName + ' ' + lastName[0] + '.'}</span>
+      <span className="review-card__date mt-1">{date}</span>
+      <Stars score={value} className="review-card__stars mt-1" />
+      <TextMore textClassName="review-card__comment" moreClassName="review-card__more mt-4" maxSymbs={15}>
         {comment}
       </TextMore>
     </div>

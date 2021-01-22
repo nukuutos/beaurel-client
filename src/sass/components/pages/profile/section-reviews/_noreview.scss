@@ -1,0 +1,27 @@
+@use "../../../../abstracts/colors" as *;
+
+.noreview {
+  background: $color-gray-light-2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__text {
+    font-size: 2rem;
+    line-height: 2.8rem;
+    font-weight: 700;
+    padding: 0 1.2rem;
+    text-align: center;
+  }
+
+  &__stars {
+    & > * {
+      height: 2rem;
+
+      &:not(:last-of-type) {
+        margin-right: 0.8rem;
+      }
+    }
+  }
+}

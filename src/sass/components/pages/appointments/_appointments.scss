@@ -1,0 +1,24 @@
+@use "../../../abstracts/colors" as *;
+
+.appointments {
+  &__controller {
+    grid-column: 4 / 10;
+    grid-row: 1 / 2;
+  }
+
+  &__appointment-types {
+    grid-column: 3 / 11;
+    grid-row: 2 / 3;
+  }
+
+  &__appointment-card {
+    grid-column: 3 / 11;
+  }
+
+  &__noappointments {
+    grid-column: 3 / 11;
+    padding: 1.6rem 2rem;
+    font-weight: 700;
+    background: $color-gray-light-3;
+  }
+}

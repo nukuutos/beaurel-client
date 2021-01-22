@@ -8,22 +8,17 @@ import Layout from '../../components/layout/layout';
 
 import Header from '../../components/profile/header/header';
 import refreshToken from '../../utils/refresh-token';
-import SectionAbout from '../../components/profile/section-about/section-about';
 import SectionCards from '../../components/profile/section-cards/section-cards';
 import SectionReviews from '../../components/profile/section-reviews/section-reviews';
 
 const Profile = () => {
   return (
     <Layout>
-      <div className="content content--profile">
+      <main className="content card card--layout">
         <Header />
-
-        <main className="profile__main">
-          <SectionAbout />
-          <SectionCards />
-          <SectionReviews />
-        </main>
-      </div>
+        <SectionCards />
+        <SectionReviews />
+      </main>
     </Layout>
   );
 };

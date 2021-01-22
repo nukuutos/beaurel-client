@@ -8,11 +8,22 @@ import {
   REODER_SERVICES,
   REODER_SUB_SERVICES,
   SET_INITIAL_ORDER,
-} from './types';
+} from './types/service';
+
+import {
+  ADD_SERVICE_PARAMETER_SUCCESS,
+  UPDATE_SERVICE_PARAMETER_TITLE_SUCCESS,
+  UPDATE_SUB_SERVICE_SUCCESS,
+  DELETE_SUB_SERVICE_SUCCESS,
+  DELETE_SERVICE_PARAMETER_SUCCESS,
+} from './types/service-parameter';
+
 import getIdsAndOrders from '../../components/profile/section-cards/services/utils/get-ids-and-orders';
 
 const INITIAL_STATE = { isLoading: false, services: [], initialOrder: null };
 
+// how to separete two reducers with one state?
+// a lot of repeated vars, declare here let?
 const serviceReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
@@ -25,118 +36,122 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
       const { services } = payload;
       return { ...state, isLoading: false, services, initialOrder: getIdsAndOrders(services) };
 
+    // ADD_SERVICE
     case ADD_SERVICE_SUCCESS: // ordinary service, parameter service
       const { service } = payload;
-      const { ids, ...serviceProps } = service; // ids can be one or many
+      const { id, ...serviceProps } = service; // ids can be one or many
       // ordinary service
-      if (typeof ids === 'string') return { ...state, services: [...state.services, { ...serviceProps, id: ids }] }; // ...state убрать?
+      return { ...state, services: [...state.services, { ...serviceProps, id }] }; // ...state убрать?
 
-      // parameter service(object)
-      const { subServices, title } = service;
+    case ADD_SERVICE_PARAMETER_SUCCESS:
+      const { serviceParameter, ids } = payload;
+      const { subServices, title } = serviceParameter;
+
       const subServicesWithIds = subServices.map((subService, i) => ({ id: ids[i], ...subService }));
-      const addedService = { title, subServices: subServicesWithIds };
-      return { ...state, services: [...state.services, addedService] }; // ...state убрать?
+      const addedParameterService = { title, subServices: subServicesWithIds };
+      return { ...state, services: [...state.services, addedParameterService] };
 
+    // UPDATE_SERVICE
     case UPDATE_SERVICE_SUCCESS:
-      const { updatedServiceType, updatedService } = payload;
+      const { updatedService } = payload;
 
-      if (updatedServiceType === 'service') {
-        const newServices = state.services.map((service) => {
-          if (service.id && service.id === updatedService.id) return updatedService;
-          return service;
-        });
+      const updatedServices = state.services.map((service) => {
+        if (service.id && service.id === updatedService.id) return updatedService;
+        return service;
+      });
 
-        return { ...state, services: newServices };
-      }
+      return { ...state, services: updatedServices };
 
-      if (updatedServiceType === 'sub-service') {
-        const { title, id, ...restServiceProps } = updatedService; // title for find parent(wrapper of sub services)
-        const copyServices = [...state.services];
+    case UPDATE_SUB_SERVICE_SUCCESS:
+      const { updatedSubService } = payload;
 
-        const parentIndex = copyServices.findIndex((service) => service.title === title); // find service
+      const { ...restSubServiceProps } = updatedSubService; // title for find service parameter(wrapper of sub services)
 
-        const parentService = copyServices[parentIndex];
-        const mappedSubServices = parentService.subServices.map((service) => {
-          if (service.id === updatedService.id) return { id, ...restServiceProps };
-          return service;
-        }); // change subService
-        const mappedParentService = { ...parentService, subServices: mappedSubServices }; // change whole sub services of service parameter
+      const parentIndex = state.services.findIndex((service) => service.title === updatedSubService.title); // find service parameter
 
-        // by order we can replace parameter service in array
-        copyServices[mappedParentService.order] = mappedParentService;
+      const parentService = { ...state.services[parentIndex] };
+      // change subService
+      const mappedSubServices = parentService.subServices.map((service) => {
+        if (service.id === updatedSubService.id) return { id: updatedSubService.id, ...restSubServiceProps };
+        return service;
+      });
+      // change whole sub services of service parameter
+      const updatedServiceParameter = { ...parentService, subServices: mappedSubServices };
 
-        return { ...state, services: copyServices };
-      }
+      // by order we can replace parameter service in array
+      const copiedUpdatedServices = [...state.services];
+      copiedUpdatedServices[updatedServiceParameter.order] = updatedServiceParameter;
 
-      if (updatedServiceType === 'parameter') {
-        const { title, oldTitle } = updatedService;
+      return { ...state, services: copiedUpdatedServices };
 
-        const newServices = state.services.map((service) => {
-          if (service.title === oldTitle) return { ...service, title };
-          return service;
-        });
+    case UPDATE_SERVICE_PARAMETER_TITLE_SUCCESS:
+      const { updatedServiceTitles } = payload;
 
-        return { ...state, services: newServices };
-      }
+      const updatedServicesWithServiceParameter = state.services.map((service) => {
+        if (service.title === updatedServiceTitles.oldTitle) return { ...service, title: updatedServiceTitles.title };
+        return service;
+      });
 
+      return { ...state, services: updatedServicesWithServiceParameter };
+
+    // DELETE_SERVICE
     case DELETE_SERVICE_SUCCESS:
       // serviceType: service, subService, parameter (service with sub services)
       // deletedService (corresponding to types): {id}, {id, parentId}, {title}
 
-      const { serviceType, deletedService } = payload;
+      const { deletedService } = payload;
 
       // to switch? switch in switch? heze
-      if (serviceType === 'service') {
-        console.log(deletedService);
-        const newServices = state.services.filter((service) => service.id !== deletedService.id);
-        return { ...state, services: newServices };
-      }
+      const newServices = state.services.filter((service) => service.id !== deletedService.id);
+      return { ...state, services: newServices };
 
-      if (serviceType === 'sub-service') {
-        const { title, id } = deletedService;
+    case DELETE_SUB_SERVICE_SUCCESS:
+      const { deletedSubService } = payload;
 
-        const parentIndex = state.services.findIndex((service) => service.title === title); // find service
+      const parentIndexN = state.services.findIndex((service) => service.title === deletedSubService.title); // find service
 
-        const parentService = state.services[parentIndex];
-        const filteredSubServices = parentService.subServices.filter((service) => service.id !== id); // delete subService
-        const filteredParentService = { ...parentService, subServices: filteredSubServices };
+      const parentServiceN = state.services[parentIndexN];
+      const filteredSubServices = parentServiceN.subServices.filter((service) => service.id !== deletedSubService.id); // delete subService
+      const filteredParentService = { ...parentServiceN, subServices: filteredSubServices };
 
-        const filteredState = state.services.filter((service) => service.title !== title); // delete old service (parent)
+      const filteredState = state.services.filter((service) => service.title !== deletedSubService.title); // delete old service (parent)
 
-        return filteredParentService.subServices.length !== 0
-          ? { ...state, services: [...filteredState, filteredParentService] }
-          : { ...state, services: filteredState };
-      }
+      return filteredParentService.subServices.length !== 0
+        ? { ...state, services: [...filteredState, filteredParentService] }
+        : { ...state, services: filteredState };
 
-      if (serviceType === 'parameter') {
-        const newServices = state.services.filter((service) => deletedService.title !== service.title);
-        return { ...state, services: newServices };
-      }
+    case DELETE_SERVICE_PARAMETER_SUCCESS:
+      const { deletedServiceParameter } = payload;
 
+      const newServicesD = state.services.filter((service) => deletedServiceParameter.title !== service.title);
+      return { ...state, services: newServicesD };
+
+    // REODER
     case REODER_SERVICES:
       const { source, destination } = payload;
 
       if (!destination) return state;
 
-      let copiedServices = [...state.services];
-      const [removedService] = copiedServices.splice(source.index, 1);
-      copiedServices.splice(destination.index, 0, removedService);
-      copiedServices = copiedServices.map((service, index) => {
-        service.order = index;
-        return service;
-      });
+      const copiedServicesReoder = [...state.services];
+      const [removedService] = copiedServicesReoder.splice(source.index, 1);
 
-      return { ...state, services: copiedServices };
+      copiedServicesReoder.splice(destination.index, 0, removedService);
+
+      return {
+        ...state,
+        services: copiedServicesReoder.map((service, index) => {
+          service.order = index;
+          return service;
+        }),
+      };
 
     case REODER_SUB_SERVICES:
-      // const { source, destination } = payload;
-
       if (!payload.destination) return state;
       // copy state of services
       const copiedServicesR = [...state.services];
       // find parameter service
-      const parentIndexR = copiedServicesR.findIndex((service) => service.title === payload.title); // find service
-      const parentServiceR = copiedServicesR[parentIndexR];
+      const parentIndexR = state.services.findIndex((service) => service.title === payload.title); // find service
+      const parentServiceR = state.services[parentIndexR];
       // copy sub-services of parameter service
       let copiedSubServices = [...parentServiceR.subServices];
       // remove needing sub service
@@ -157,9 +172,6 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
       return { ...state, services: copiedServicesR };
 
     case SET_INITIAL_ORDER:
-      // const { newOrder } = payload;
-      // console.log(payload);
-
       return { ...state, initialOrder: payload };
 
     default:

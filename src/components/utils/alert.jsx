@@ -44,7 +44,6 @@ const Alert = () => {
 
   return (
     <>
-      /
       <div
         className={`alert ${
           alerts[0] && alerts[0].type === 'success' && state.isShow ? 'alert--show' : ''

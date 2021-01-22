@@ -1,10 +1,21 @@
 const cardsData = (state, setState) => {
   return [
-    { icon: ['far', 'calendar-alt'], name: 'Book a Time', onClick: () => setState({ ...state, isTimetable: true }) },
-    { icon: 'stream', name: 'View Services', onClick: () => setState({ ...state, isServices: true }) },
     {
-      icon: ['far', 'calendar-alt'],
-      name: "Master's Works",
+      fileName: 'book-card.svg',
+      cardName: 'Запишись',
+      captionClassName: 'profile-card__name--light-3',
+      onClick: () => setState({ ...state, isTimetable: true }),
+    },
+    {
+      fileName: 'services-card.svg',
+      cardName: 'Услуги',
+      captionClassName: 'profile-card__name--dark-2',
+      onClick: () => setState({ ...state, isServices: true }),
+    },
+    {
+      fileName: 'works-card.svg',
+      cardName: 'Работы',
+      captionClassName: 'profile-card__name--light-2',
       onClick: () => setState({ ...state, isMasterWorks: true }),
     },
   ];

@@ -1,0 +1,21 @@
+.setting-card {
+  padding: 1.6rem;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+
+  &__heading {
+    font-size: 2rem;
+    grid-column: 1 / -1;
+  }
+
+  &__display {
+    grid-column: 1 / 7;
+  }
+
+  &__edit-button {
+    grid-column: 8 / 9;
+    align-self: center;
+  }
+}

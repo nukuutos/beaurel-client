@@ -18,23 +18,30 @@ const Header = () => {
   );
 
   return (
-    <header className="profile__header">
-      <Avatar className="profile__avatar" />
-
-      <ProfileRating ratingScore={ratingStats.avgRating} />
-
-      <h1 className="profile__name">{firstName + ' ' + lastName[0] + '.'}</h1>
-      <h2 className="profile__specialization">{specialization}</h2>
-
-      <div className="profile__geoposition">
-        <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
-        {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}
-        {placeOfwork}
-        {!isPublicView && <ButtonMarker onClick={() => setIsMaps(true)} />}
+    <header className="profile__header mt-6">
+      <div className="profile__identify">
+        <Avatar className="profile__avatar" />
+        <ProfileRating className="mt-4" ratingScore={ratingStats.avgRating} />
+      </div>
+      <div className="profile__biography ">
+        <h1 className="profile__name mt-2">{firstName + ' ' + lastName[0] + '.'}</h1>
+        <h2 className="profile__specialization mt-2">{specialization}</h2>
+        <div className="profile__geoposition mt-2">
+          <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
+          {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}
+          {placeOfwork}
+          {/* {!isPublicView && <ButtonMarker onClick={() => setIsMaps(true)} />} */}
+        </div>
+        <p className="profile__about mt-2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus
+          magna fringilla urna, porttitor rhoncus do
+        </p>
       </div>
 
-      {isPublicView && <StarProfile initialIsStarred />}
-      <PublicView />
+      <StarProfile initialIsStarred />
+
+      {/* {isPublicView && <StarProfile initialIsStarred />}
+      <PublicView /> */}
     </header>
   );
 };

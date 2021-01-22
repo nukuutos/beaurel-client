@@ -6,7 +6,8 @@ import {
   faCalendarAlt,
   faBell, // not used
   faCalendarTimes,
-  faStar as regStar, // faS
+  // faStar as regStar, // faS
+  faHeart as regHeart,
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-regular-svg-icons';
@@ -38,11 +39,16 @@ import {
   faCheck,
   faGripLinesVertical,
   faRubleSign,
+  faHeart,
+  faCrosshairs,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'; // delete
 
 library.add(
+  faCrosshairs,
+  regHeart,
+  faHeart,
   faClock,
   faRubleSign,
   faUser,
@@ -62,7 +68,6 @@ library.add(
   faStarHalf,
   faInstagram,
   faMapMarkerAlt,
-  regStar,
   faPen,
   faEye,
   faEyeSlash,

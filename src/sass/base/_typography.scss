@@ -1,0 +1,46 @@
+@use "../abstracts/colors" as *;
+
+.heading-primary {
+  font-size: 3.2rem;
+  font-weight: 300;
+  grid-column: 4 / 10;
+  text-align: center;
+
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: $color-gray;
+    margin-top: 2rem;
+  }
+  // letter-spacing: 0.4rem;
+}
+
+// .sub-heading {
+//   &--light {
+//     color: $color-gray-dark-1;
+//   }
+
+//   &--bold {
+//     letter-spacing: 0.4rem;
+//     // bold
+//   }
+
+//   &--color {
+//     color: $color-primary;
+//   }
+// }
+
+// .text-body {
+//   line-height: 2.4rem;
+// }
+
+// // UI
+// .rating {
+//   color: $color-gold;
+
+//   &--profile {
+//     font-size: 7.2rem;
+//   }
+// }

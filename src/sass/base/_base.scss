@@ -17,13 +17,14 @@ html {
 body {
   position: relative;
   box-sizing: border-box;
-  background: $color-background;
+  background: $color-gray-light-3;
 
   font-family: 'Roboto', sans-serif;
-  color: #444;
+  // color: #444;
   // font-weight: 300;
-  font-size: 1.7rem;
-  line-height: 1.7;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: 0.1px;
   text-rendering: optimizeLegibility;
 }
 
@@ -35,18 +36,6 @@ a {
   text-decoration: none;
 }
 
-section {
-  padding: 4rem 0;
-}
-
-// to layout
-.container {
-  min-height: 100vh;
-  max-width: 87vw;
-  margin: 5rem auto;
-  display: grid;
-  grid-template-columns:
-    1fr [navbar-start] minmax(max-content, 15vw) [navbar-end] 1fr [content-start] minmax(min-content, 56vw)
-    [content-end] 1fr;
-  grid-template-rows: repeat(2, min-content);
-}
+// section {
+//   padding: 4rem 0;
+// }

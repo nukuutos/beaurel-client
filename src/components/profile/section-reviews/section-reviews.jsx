@@ -7,41 +7,46 @@ import Stars from '../../utils/stars/stars';
 import axios from '../../../utils/axios';
 
 const SectionReviews = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    {
+      customer: { firstName: 'Никита', lastName: 'Волошин', avatarImage: 'profile-photo.jpeg' },
+      date: '12 окт. 2010',
+      review: {
+        comment:
+          'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus porro quisquam similique delectus consectetur soluta labore temporibus eligendi magni molestiae, aspernatur, placeat aut facere, possimus debitis repudiandae corporis doloribus perspiciatis?',
+        value: 4,
+      },
+    },
+  ]);
   const { ratingStats, id: profileId } = useSelector((state) => state.profile);
 
   // const dispatch = useDispatch();
+  //
+  // useEffect(() => {
+  //   const getReviews = async () => {
+  //     const {
+  //       data: { reviews },
+  //     } = await axios.get(`/profile/${profileId}/review`);
 
-  useEffect(() => {
-    const getReviews = async () => {
-      const {
-        data: { reviews },
-      } = await axios.get(`/profile/${profileId}/review`);
+  //     setReviews(reviews);
+  //   };
 
-      setReviews(reviews);
-    };
-
-    getReviews();
-  }, []);
+  //   getReviews();
+  // }, []);
 
   return (
-    <section className="profile__section-reviews">
-      {ratingStats && (
-        <>
-          <h3 className="profile__heading-tertiary mb-m">Overall Review</h3>
-          <OverallReview ratingStats={ratingStats} />
-        </>
-      )}
+    <section className="profile__reviews">
+      {ratingStats && <OverallReview className="profile__overall-review" ratingStats={ratingStats} />}
 
-      <h3 className="profile__heading-tertiary mb-m mt-h">Reviews</h3>
       {reviews.length ? (
         reviews.map((reviewProps, i) => <ReviewCard {...reviewProps} key={i} />)
       ) : (
-        <p className="profile__noreview-text">
-          Be the first to leave your review here but firstly you need to book an appointment and visit the Master!
-          <br />
-          <Stars score="5" starSize="large" className={'profile__noreview-stars'} />
-        </p>
+        <div className="profile__noreview noreview card mt-8">
+          <p className="noreview__text mt-9">
+            Будь первым, кто оставит свой отзыв! Но для начала тебе нужно побывать на приёме у Мастера, удачи!
+          </p>
+          <Stars score="5" className={'noreview__stars mt-4 mb-8'} />
+        </div>
       )}
     </section>
   );

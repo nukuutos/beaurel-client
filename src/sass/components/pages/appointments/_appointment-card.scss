@@ -1,0 +1,78 @@
+@use "../../../abstracts/colors" as *;
+
+.appointment-card {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  row-gap: 0.8rem;
+  padding: 0.8rem 1.6rem 1.2rem;
+  background: $color-gray-light-3;
+
+  &__avatar {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    $size: 2.6rem;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    background: $color-black;
+    margin-top: 0.2rem;
+  }
+
+  &__name {
+    grid-column: 2 / 6;
+    grid-row: 1 / 2;
+  }
+
+  &__header-line {
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+
+    align-self: end;
+    width: 100%;
+    height: 1px;
+    background: $color-gray;
+  }
+
+  &__service {
+    grid-column: 1 / -1;
+    grid-row: 2 / 5;
+  }
+
+  &__attribute {
+    font-weight: 700;
+    font-size: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    grid-column: 11 / -1;
+
+    & > * {
+      height: 1.2rem;
+      margin-right: 0.4rem;
+    }
+
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid $color-gray;
+  }
+
+  &__date {
+    grid-row: 1 / 2;
+  }
+
+  &__time {
+    grid-row: 2 / 3;
+  }
+
+  &__price {
+    grid-row: 3 / 4;
+  }
+
+  &__buttons {
+    grid-column: 1 / -1;
+    grid-row: 5 / 6;
+    display: flex;
+    align-items: center;
+  }
+}

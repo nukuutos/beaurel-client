@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getServicesStart } from '../../../../../redux/service/actions';
+import { getServicesStart } from '../../../../../redux/service/actions/service';
 import Spinner from '../../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BookingService from './booking-service';

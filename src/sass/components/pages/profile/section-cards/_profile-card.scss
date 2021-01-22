@@ -1,35 +1,97 @@
-$card-size: 10vw;
+@use "../../../../abstracts/colors" as *;
+
+// $card-size: 10vw;
+
+// .profile-card {
+//   width: $card-size;
+//   height: $card-size;
+//   background: #ede9ef; // eee
+
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding-top: 4rem;
+
+//   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+//   cursor: pointer;
+
+//   transform: scale(0.98);
+//   transition: 0.2s transform, 0.2s box-shadow;
+
+//   &:hover {
+//     transform: scale(1);
+//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+//     .profile-card__icon {
+//       color: #7c3ba8;
+//     }
+//   }
+
+//   &__icon {
+//     height: 5.5rem;
+//     margin-bottom: 3rem;
+//     color: #666;
+
+//     transition: 0.2s color;
+//   }
+// }
 
 .profile-card {
-  width: $card-size;
-  height: $card-size;
-  background: #ede9ef; // eee
+  grid-column: span 4;
+  margin-left: -1rem; //  it's bigger on 20px than i expected because of export of svg scene form figma
+  position: relative;
+  margin-top: 2.4rem;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 4rem;
+  &__name {
+    font-size: 1.2rem;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
 
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
+    position: absolute;
+    bottom: 1.2rem + 1.2rem; // font size + margin-bottom
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0.5rem; // add half of 10px
 
-  transform: scale(0.98);
-  transition: 0.2s transform, 0.2s box-shadow;
+    &--dark-2 {
+      color: $color-gray-dark-2;
+    }
 
-  &:hover {
-    transform: scale(1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    &--light-2 {
+      color: $color-gray-light-2;
+    }
 
-    .profile-card__icon {
-      color: #7c3ba8;
+    &--light-3 {
+      color: $color-gray-light-3;
     }
   }
 
-  &__icon {
-    height: 5.5rem;
-    margin-bottom: 3rem;
-    color: #666;
+  &__arrow {
+    $size: 2rem;
+    height: $size;
+    width: $size;
+    border: 1px solid $color-primary-dark-1;
+    color: $color-primary-dark-2;
+    border-radius: 50%;
+    background: $color-white;
 
-    transition: 0.2s color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 0.6rem;
+    right: 1.2rem;
+    // bottom: 0;
+    // right: 0;
+    // transform: translate(50%, -50%);
+    transform: translateY(-50%);
+    margin-bottom: 5px; // some corrections because of export of svg scene
+
+    & > * {
+      height: 1rem;
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import InputCustom from '../../../../../../form/input-custom';
 import Spinner from '../../../../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { updateServiceSuccess } from '../../../../../../../redux/service/actions';
+import { updateServiceSuccess } from '../../../../../../../redux/service/actions/service';
 import { setAlert } from '../../../../../../../redux/alert/actions';
 import asyncCall from '../../../../../../../utils/async-call';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
         const alert = await asyncCall(dispatch, config);
 
         if (alert) {
-          dispatch(updateServiceSuccess({ updatedService: { ...service, id }, updatedServiceType: 'service' }));
+          dispatch(updateServiceSuccess({ updatedService: { ...service, id } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }

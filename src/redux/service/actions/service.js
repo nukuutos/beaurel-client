@@ -14,7 +14,7 @@ import {
   REODER_SERVICES,
   REODER_SUB_SERVICES,
   SET_INITIAL_ORDER,
-} from './types';
+} from '../types/service';
 
 export const getServicesStart = () => ({
   type: GET_SERVICES_START,

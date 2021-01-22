@@ -2,6 +2,43 @@
 
 .form {
   &__input {
+    background-color: transparent;
+
+    width: 100%;
+    border-radius: 0.7rem;
+    height: 4rem;
+    padding: 0 0.8rem;
+    border: 1px solid $color-black;
+    font-size: 1.6rem;
+
+    &--icon {
+      display: flex;
+      align-items: center;
+      border: 1px solid $color-black;
+      border-radius: 0.7rem;
+
+      & > *:first-child {
+        height: 2rem;
+        margin: 0 0.4rem 0 0.8rem;
+      }
+
+      & > *:last-child {
+        border: none;
+        outline: none;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &--display {
+      height: 5.6rem;
+      background: $color-gray-light-2;
+      border-radius: 0.5rem;
+      padding: 0.8rem 1.2rem;
+    }
+
     &--success {
       border-bottom: 2px solid $color-success;
 
@@ -18,6 +55,32 @@
       // }
     }
   }
+
+  &__select {
+    appearance: none;
+    background: url('/svg/arrow-dropdown.svg') no-repeat right;
+    background-position: right 0.8rem center;
+  }
+
+  &__label {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+
+    &--primary {
+      color: $color-primary;
+    }
+  }
+
+  // &__left-icon {
+  //   height: 2rem;
+  //   margin: 0 0.4rem 0 0.8rem;
+  // }
+
+  // &__group {
+
+  // }
 }
 
 .select {

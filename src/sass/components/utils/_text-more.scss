@@ -1,11 +1,14 @@
+@use "../../abstracts/colors" as *;
+
 .text-more {
+  display: inline-block;
   font-weight: 500;
-  color: #7c3ba8;
+  color: $color-primary;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: 0.1s border-bottom;
 
   &:hover {
-    border-bottom: 2px solid #7c3ba8;
+    border-bottom: 2px solid $color-primary;
   }
 }

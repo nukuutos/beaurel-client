@@ -1,0 +1,19 @@
+.search {
+  &__heading {
+    grid-row: 1 / 2;
+  }
+
+  &__specialization {
+    grid-row: 2 / 3;
+    grid-column: 2 / 6;
+  }
+
+  &__name {
+    grid-row: 2 / 3;
+    grid-column: 6 / 12;
+  }
+
+  &__master-card {
+    grid-column: 2 / 12;
+  }
+}

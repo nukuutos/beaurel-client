@@ -3,13 +3,13 @@ import { FieldArray, Formik, Form, ErrorMessage } from 'formik';
 import InputCustom from '../../../../../form/input-custom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
-import { addServiceSuccess } from '../../../../../../redux/service/actions';
 import asyncCall from '../../../../../../utils/async-call';
 import { setAlert } from '../../../../../../redux/alert/actions';
 import Spinner from '../../../../../utils/spinner';
 import { parameterServiceSchema } from '../../utils/schemas';
 import InputSelectCustom from '../../../../../form/input-select-custom';
 import renderDurationOptions from '../../utils/render-duration-options';
+import { addServiceParameterSuccess } from '../../../../../../redux/service/actions/service-parameter';
 
 const AddSubServicesForm = () => {
   const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
@@ -37,7 +37,7 @@ const AddSubServicesForm = () => {
 
         if (data) {
           const { ids, ...alert } = data;
-          dispatch(addServiceSuccess({ service: { ids, ...service } }));
+          dispatch(addServiceParameterSuccess({ service: { ids, ...service } }));
           dispatch(setAlert(alert));
           resetForm();
         }

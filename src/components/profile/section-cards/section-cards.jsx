@@ -13,13 +13,12 @@ const SectionCards = () => {
   const onTimetableClickClose = () => setState({ ...state, isTimetable: false });
 
   return (
-    <section className="profile__section-cards">
-      <h3 className="profile__heading-tertiary mb-m">Sevices and Timetable</h3>
-      <div className="profile__cards">
-        {cardsData(state, setState).map((props, i) => (
-          <Card {...props} key={i} />
-        ))}
-      </div>
+    <section className="profile__cards">
+      {/* <div className="profile__cards"> */}
+      {cardsData(state, setState).map((props, i) => (
+        <Card {...props} key={i} />
+      ))}
+      {/* </div> */}
       {state.isMasterWorks && <MasterWorks onClickClose={onMasterWorksClickClose} />}
       {state.isServices && <Services onClickClose={onServiceClickClose} />}
       {state.isTimetable && <Wrapper isTimetable onClickClose={onTimetableClickClose} />}

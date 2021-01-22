@@ -6,10 +6,10 @@ const StarProfile = ({ initialIsStarred }) => {
 
   return (
     <div className="profile__star-profile">
-      <FontAwesomeIcon className="star-profile star-profile--unstar" icon={['far', 'star']} />
+      <FontAwesomeIcon className="star-profile star-profile--unstar" icon={['far', 'heart']} />
       <FontAwesomeIcon
         className={`star-profile ${isStarred ? '' : 'star-profile--invisible'}`}
-        icon="star"
+        icon="heart"
         onClick={() => setIsStarred(!isStarred)}
       />
     </div>

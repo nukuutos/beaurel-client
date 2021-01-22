@@ -7,7 +7,6 @@ import Spinner from '../../../../../../../utils/spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import asyncCall from '../../../../../../../../utils/async-call';
-import { updateServiceSuccess } from '../../../../../../../../redux/service/actions';
 import { setAlert } from '../../../../../../../../redux/alert/actions';
 import { titleField } from '../../../../utils/schemas';
 
@@ -40,7 +39,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
         const alert = await asyncCall(dispatch, config);
 
         if (alert) {
-          dispatch(updateServiceSuccess({ updatedService: { oldTitle, title }, updatedServiceType: 'parameter' }));
+          dispatch(updateServiceParameterTitleSuccess({ updatedServiceTitles: { oldTitle, title } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }
