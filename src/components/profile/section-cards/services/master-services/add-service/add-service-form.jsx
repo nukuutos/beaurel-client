@@ -7,7 +7,7 @@ import asyncCall from '../../../../../../utils/async-call';
 import { addServiceSuccess } from '../../../../../../redux/service/actions/service';
 import { setAlert } from '../../../../../../redux/alert/actions';
 import serviceSchema from '../../utils/schemas';
-import InputSelectCustom from '../../../../../form/input-select-custom';
+import InputSelectCustom from '../../../../../form/select';
 import renderDurationOptions from '../../utils/render-duration-options';
 
 const AddServiceForm = () => {

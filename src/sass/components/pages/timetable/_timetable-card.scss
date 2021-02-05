@@ -1,0 +1,74 @@
+@use "../../../abstracts/colors" as *;
+
+// what about min/max-content of cards' labels?
+
+.timetable-card {
+  grid-column: 2 / 12;
+
+  display: grid;
+  grid-template-columns: max-content minmax(min-content, max-content) repeat(10, 1fr);
+  column-gap: 0.8rem;
+  padding: 1.6rem 1.6rem 2rem;
+
+  &--edit {
+    grid-template-columns: max-content minmax(min-content, 6rem) repeat(10, 1fr);
+  }
+
+  &__heading {
+    font-size: 2rem;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    align-self: center; // for last heading (change password)
+  }
+
+  &__label {
+    font-weight: 700;
+    align-self: center;
+    grid-column: 1 / 2;
+  }
+
+  &__value {
+    align-self: center;
+  }
+
+  &__input {
+    width: unset;
+    padding: 0.4rem 0.8rem;
+    width: 6rem;
+  }
+
+  &__tip {
+    grid-column: 1 / -1;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: $color-gray-dark-2;
+
+    &--primary {
+      color: $color-primary;
+    }
+
+    &--gray {
+      color: $color-gray;
+    }
+  }
+
+  &__select {
+    height: 2.8rem;
+    width: 6rem;
+    padding-left: 0.4rem;
+  }
+
+  &__btn-edit {
+    grid-column: 12 / 13;
+    justify-self: flex-end;
+
+    &--primary {
+      grid-column: 11 / 12;
+      justify-self: flex-end;
+    }
+
+    &--bottom {
+      align-self: end;
+    }
+  }
+}

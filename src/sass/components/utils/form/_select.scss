@@ -1,0 +1,13 @@
+@use "../../../abstracts/colors" as *;
+
+.select {
+  appearance: none;
+  background: url('/svg/arrow-dropdown.svg') no-repeat right;
+  background-position: right 0.8rem center;
+  outline: none;
+  border-radius: 1rem;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}

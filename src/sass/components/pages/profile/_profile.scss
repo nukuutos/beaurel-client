@@ -124,4 +124,15 @@
   &__review-card {
     grid-column: 3 / 11;
   }
+
+  &__edit {
+    color: $color-gray-light-1;
+    transition: 0.2s color;
+    height: 1.6rem;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
 }

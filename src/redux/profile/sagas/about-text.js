@@ -7,12 +7,12 @@ import { updateAboutSuccess, updateAboutFailure } from '../actions';
 import { setAlert } from '../../alert/actions';
 
 import getToken from '../../utils/get-token';
-import getProfileId from '../../utils/get-profile-id';
+import getAuthId from '../../utils/get-auth-id';
 
 function* updateAboutText({ payload }) {
   try {
     const accessToken = yield select(getToken);
-    const profileId = yield select(getProfileId);
+    const profileId = yield select(getAuthId);
 
     const { data } = yield axios.patch(
       `/profile/${profileId}`,

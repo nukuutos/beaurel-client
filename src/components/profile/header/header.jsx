@@ -9,11 +9,13 @@ import ButtonMarker from '../../utils/button-marker';
 import StarProfile from './star-profile';
 import PublicView from './public-view';
 import Maps from './maps';
+import AboutEdit from './about-edit';
 
 const Header = () => {
-  const [isMaps, setIsMaps] = useState(false);
+  const [{ isMaps, isEditAbout }, setState] = useState({ isMaps: false, isEditAbout: false });
+  // const [isMaps, setIsMaps] = useState(false);
 
-  const { firstName, lastName, ratingStats, specialization, placeOfwork, isPublicView } = useSelector(
+  const { firstName, lastName, ratingStats, specialization, placeOfwork, isPublicView, aboutText } = useSelector(
     (state) => state.profile
   );
 
@@ -28,20 +30,30 @@ const Header = () => {
         <h2 className="profile__specialization mt-2">{specialization}</h2>
         <div className="profile__geoposition mt-2">
           <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
-          {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}
+          {isMaps && <Maps onClickClose={() => setState((state) => ({ ...state, isMaps: false }))} />}
           {placeOfwork}
-          {/* {!isPublicView && <ButtonMarker onClick={() => setIsMaps(true)} />} */}
+          {!isPublicView && (
+            <FontAwesomeIcon
+              onClick={() => setState((state) => ({ ...state, isMaps: true }))}
+              className="profile__edit ml-4"
+              icon="pen"
+            />
+          )}
         </div>
         <p className="profile__about mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus
-          magna fringilla urna, porttitor rhoncus do
+          {aboutText}
+          {!isPublicView && (
+            <FontAwesomeIcon
+              onClick={() => setState((state) => ({ ...state, isEditAbout: true }))}
+              className="profile__edit ml-4"
+              icon="pen"
+            />
+          )}
         </p>
+        {isEditAbout && <AboutEdit onClickClose={() => setState((state) => ({ ...state, isEditAbout: false }))} />}
       </div>
 
       <StarProfile initialIsStarred />
-
-      {/* {isPublicView && <StarProfile initialIsStarred />}
-      <PublicView /> */}
     </header>
   );
 };

@@ -16,6 +16,7 @@
     letter-spacing: 0.1px;
     padding: 1.2rem 2.4rem;
     border-radius: 0.3rem;
+    font-size: 1.6rem;
 
     display: flex;
     align-items: center;
@@ -32,6 +33,12 @@
   &--secondary {
     border: 1px solid $color-primary;
     color: $color-primary;
+    transition: 0.2s color, 0.2s background;
+
+    &:hover {
+      color: $color-white;
+      background: $color-primary;
+    }
   }
 
   &--flat {
@@ -82,43 +89,34 @@
     }
   }
 
-  // &--primary {
-  //   &,
-  //   &:link,
-  //   &:visited {
-  //     border-radius: 3rem;
-  //     letter-spacing: 0.05rem;
-  //     padding: 0.8rem 1.6rem;
-  //     font-size: 1.2rem;
-  //     border: 1px solid #c321ff;
-  //     color: #c321ff;
-  //     transition: all 0.2s;
+  &--hover-fail {
+    &:hover {
+      color: $color-fail;
+      border-color: $color-fail;
+    }
+  }
 
-  //     &:hover {
-  //       font-weight: 400;
-  //       color: #f8f8f8;
-  //       background-color: #c321ff;
-  //     }
-  //   }
-  // }
+  &--hover-success {
+    &:hover {
+      color: $color-success;
+      border-color: $color-success;
+    }
+  }
 
-  // &--secondary {
-  //   font-size: 2rem;
-  //   padding: 1.2rem 4rem;
-  //   // background: #c321ff;
-  //   // color: #f8f8f8;
-  //   font-weight: 300;
-  //   align-self: flex-end;
-  //   //
-  //   // padding: 1rem 2rem;
-  //   background: #7b0ec6;
-  //   color: #fff;
-  //   border-radius: 5px;
-  //   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-  //   transition: 0.2s box-shadow;
+  &--upload {
+    position: relative;
+    cursor: pointer;
+    ::-webkit-file-upload-button {
+      cursor: pointer;
+    }
 
-  //   &:hover {
-  //     box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
-  //   }
-  // }
+    & > * {
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      top: 0;
+      position: absolute;
+      cursor: pointer;
+    }
+  }
 }

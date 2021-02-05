@@ -8,7 +8,7 @@ import { setAlert } from '../../../../../../../redux/alert/actions';
 import asyncCall from '../../../../../../../utils/async-call';
 import { useDispatch, useSelector } from 'react-redux';
 import serviceSchema from '../../../utils/schemas';
-import InputSelectCustom from '../../../../../../form/input-select-custom';
+import InputSelectCustom from '../../../../../../form/select';
 import renderDurationOptions from '../../../utils/render-duration-options';
 
 const EditServiceForm = ({ service, setIsEdit }) => {

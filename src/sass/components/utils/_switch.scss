@@ -1,25 +1,40 @@
+@use "../../abstracts/colors" as *;
+
 .switch {
   justify-self: center;
   text-align: center;
-  background: #eee;
   transition: all 0.1s;
-  border-radius: 25px;
+  border-radius: 5px;
   display: inline-flex;
   justify-content: space-between;
+  border: 1px solid $color-gray;
 
   &__radio {
     display: none;
   }
 
   &__label {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     cursor: pointer;
     color: #bbb;
-    padding: 0.4rem 1.5rem;
+    padding: 1.2rem 1.6rem;
     transition: all 0.1s;
+    position: relative;
+
+    &:first-of-type::after {
+      height: 100%;
+      width: 1px;
+      content: '';
+      display: block;
+      margin: auto 0;
+      background: $color-gray;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
 
     &--active {
-      color: #7b0ec6;
+      color: $color-primary;
     }
   }
 }

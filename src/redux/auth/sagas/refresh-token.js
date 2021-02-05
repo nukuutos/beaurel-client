@@ -7,7 +7,6 @@ import axios from '../../../utils/axios';
 function* refreshToken() {
   try {
     const { data } = yield axios.post('/auth/refresh-token');
-    console.log(data);
     yield put(refreshTokenSuccess(data));
   } catch (error) {
     yield put(refreshTokenFailure(error));

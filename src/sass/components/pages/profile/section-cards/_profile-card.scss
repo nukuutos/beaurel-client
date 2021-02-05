@@ -41,6 +41,18 @@
   margin-left: -1rem; //  it's bigger on 20px than i expected because of export of svg scene form figma
   position: relative;
   margin-top: 2.4rem;
+  cursor: pointer;
+
+  transition: 0.2s transform;
+
+  &:hover {
+    // transform: scale(1.02);
+    transform: translateY(-0.5rem);
+
+    // .profile-card__arrow {
+    //   transform: translate(15%, -50%);
+    // }
+  }
 
   &__name {
     font-size: 1.2rem;
@@ -89,6 +101,7 @@
     // transform: translate(50%, -50%);
     transform: translateY(-50%);
     margin-bottom: 5px; // some corrections because of export of svg scene
+    transition: 0.2s transform;
 
     & > * {
       height: 1rem;

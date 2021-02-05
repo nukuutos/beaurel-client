@@ -1,0 +1,36 @@
+@use "../../../abstracts/colors" as *;
+
+.weekends {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 34.8rem;
+  column-gap: 1.6rem;
+  background: $color-white;
+  padding: 2.4rem 1.6rem;
+
+  &__heading {
+    grid-column: 2 / 12;
+  }
+
+  &__text {
+    grid-column: 2 / -1;
+    color: $color-gray;
+  }
+
+  &__days {
+    grid-column: 2 / 12;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.6rem;
+  }
+
+  &__day {
+    justify-self: center;
+  }
+
+  &__button {
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+}

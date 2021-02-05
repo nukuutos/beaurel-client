@@ -7,7 +7,7 @@ import asyncCall from '../../../../../../../../utils/async-call';
 import Spinner from '../../../../../../../utils/spinner';
 import { setAlert } from '../../../../../../../../redux/alert/actions';
 import { subServiceSchema } from '../../../../utils/schemas';
-import InputSelectCustom from '../../../../../../../form/input-select-custom';
+import InputSelectCustom from '../../../../../../../form/select';
 import renderDurationOptions from '../../../../utils/render-duration-options';
 import { updateSubServiceSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
 

@@ -1,0 +1,56 @@
+@use "../../../abstracts/colors" as *;
+
+.service-parameter {
+  border-top: 1px solid $color-gray-light-1;
+
+  &:hover &__icon {
+    color: $color-gray-dark-2;
+  }
+
+  &__title {
+    grid-row: 1 / 2;
+    grid-column: 1 / 11;
+  }
+
+  &__icon {
+    grid-column: 11 / -1;
+    grid-row: 1 / 2;
+    justify-self: center;
+    align-self: center;
+    color: $color-gray;
+    transition: 0.2s color, 0.2s transform;
+
+    &--rotated {
+      transform: rotate(-90deg);
+      color: $color-gray-dark-2;
+    }
+
+    & > * {
+      height: 2.8rem;
+    }
+  }
+
+  // &__attribute {
+  //   grid-column: 9 / -1;
+
+  //   &--edit {
+  //     grid-column: 8 / -1;
+  //   }
+  // }
+
+  &__horizontal-line {
+    grid-column: 6 / 12;
+  }
+
+  // &--draggable {
+  //   padding: 1.6rem 0;
+  // }
+
+  &__btn {
+    align-self: center;
+
+    &--first {
+      justify-self: center;
+    }
+  }
+}

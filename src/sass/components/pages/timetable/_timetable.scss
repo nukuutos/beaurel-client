@@ -1,0 +1,17 @@
+.timetable {
+  padding: 1.6rem;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  // row-gap: 1.2rem;
+
+  &__form {
+    display: contents;
+  }
+
+  &__button {
+    grid-column: 10 / 12;
+    justify-content: end;
+  }
+}

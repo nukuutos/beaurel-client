@@ -1,0 +1,174 @@
+@use "../../../abstracts/colors" as *;
+
+// change service must be a wrapper
+// service can have content (service__content)
+
+.service {
+  // grid-column: 4 / 10;
+  position: relative;
+  grid-column: 1 / 7;
+  background: $color-gray-light-3;
+  padding: 1.6rem;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  color: $color-black;
+  cursor: pointer;
+
+  // min-height: 8.8rem;
+  min-height: 9.7rem;
+
+  &__wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 1.6rem;
+  }
+
+  &--add {
+    grid-column: 1 / 7;
+    transition: 0.2s color;
+    color: $color-gray;
+
+    // icon
+    & > * {
+      grid-column: 1 / -1;
+      justify-self: center;
+      align-self: center;
+      height: 2.4rem;
+      color: inherit;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__title {
+    grid-column: 1 / 8;
+    grid-row: 1 / 5;
+    line-height: 2.4rem;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    &::after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      content: '';
+      display: block;
+      height: 100%;
+      width: 1px;
+      background: $color-gray-light-1;
+      // trick to justify self right
+      margin-left: auto;
+    }
+
+    &--draggable {
+      grid-column: 2 / 8;
+
+      &:before {
+        height: 100%;
+        width: 1px;
+        content: '';
+        display: block;
+        background: $color-gray-light-1;
+        position: absolute;
+        left: -0.8rem;
+        top: 0;
+      }
+    }
+  }
+
+  &__duration {
+    grid-row: 1 / 2;
+  }
+
+  &__price {
+    grid-row: 3 / 4;
+  }
+
+  // кoстыль
+  &__price-area {
+    grid-column: 8/-1;
+    justify-self: center;
+  }
+
+  &__attribute {
+    grid-column: 10 / -1;
+
+    justify-self: start;
+
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+
+    & > * {
+      height: 1.2rem;
+      margin-right: 0.4rem;
+    }
+
+    &--edit {
+      width: 8rem;
+      grid-column: 8 / -1;
+      justify-self: center;
+      height: 2.8rem;
+    }
+  }
+
+  &__horizontal-line {
+    grid-row: 2 / 3;
+    grid-column: 8 / 12;
+
+    background: $color-gray-light-1;
+    width: 6.4rem;
+    height: 1px;
+    justify-self: center;
+    transform: translateX(50%);
+
+    &--edit {
+      grid-column: 8 / -1;
+      transform: translateX(0);
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    // size of btn is 3.2rem, 2rem is margin
+    right: -3.2rem - 2rem - 3.2rem - 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    // align-self: center;
+
+    &--first {
+      // size of btn is 3.2rem, 2rem is margin
+      right: -3.2rem - 2rem;
+    }
+  }
+
+  &__textarea {
+    $width: 90%;
+    $height: 6.5rem;
+
+    max-width: $width;
+    min-width: $width;
+    min-height: $height; // 6.4 rem + 0.1rem
+    max-height: $height;
+    padding: 0.2rem;
+  }
+
+  &__draggable-icon {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    align-self: center;
+    position: relative;
+  }
+}

@@ -1,0 +1,28 @@
+.services {
+  &__heading {
+    grid-row: 1 / 2;
+  }
+
+  &__reoder-controller {
+    grid-column: 4 / 10;
+    grid-row: 2 / 3;
+    justify-self: end;
+  }
+
+  &__container {
+    grid-column: 4 / 10;
+    display: flex;
+    flex-direction: column;
+
+    &--droppable {
+      grid-column: 4 / 10;
+    }
+  }
+
+  &__droppable {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: column;
+  }
+}

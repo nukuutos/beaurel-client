@@ -6,9 +6,11 @@ import { getTimetableSuccess } from '../../timetable/actions';
 
 import { GET_SERVICES_START } from '../types/service';
 import getProfileId from '../../utils/get-profile-id';
+import getState from '../../utils/get-auth-id';
+import getAuthId from '../../utils/get-auth-id';
 
 export function* getServices() {
-  const profileId = yield select(getProfileId);
+  const profileId = yield select(getAuthId);
 
   try {
     const {

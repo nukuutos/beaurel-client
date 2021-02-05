@@ -1,0 +1,18 @@
+@use "../../../../../abstracts/colors" as *;
+
+.upload-avatar {
+  background: $color-white;
+  padding: 4rem 4rem 2rem;
+
+  &__uploaded-image {
+    $size: 48rem;
+
+    max-height: $size;
+    max-width: $size;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,10 @@
+.timetable-visual {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  &__weekday {
+    grid-column: span 1;
+  }
+}

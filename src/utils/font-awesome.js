@@ -31,6 +31,7 @@ import {
   faCamera,
   faTrash,
   faCaretRight,
+  faCaretLeft,
   faChevronLeft, // хз
   faChevronRight, // хз
   faChevronCircleLeft,
@@ -46,6 +47,7 @@ import {
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'; // delete
 
 library.add(
+  faCaretLeft,
   faCrosshairs,
   regHeart,
   faHeart,

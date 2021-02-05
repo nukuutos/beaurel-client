@@ -4,10 +4,13 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.6rem;
+  row-gap: 1.2rem;
 
   &__heading {
     font-size: 2rem;
     grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    align-self: center; // for last heading (change password)
   }
 
   &__display {
@@ -17,5 +20,25 @@
   &__edit-button {
     grid-column: 8 / 9;
     align-self: center;
+  }
+
+  &__success-button {
+    grid-column: 8 / 9;
+    align-self: center;
+  }
+
+  &__fail-button {
+    grid-column: 9 / 10;
+    align-self: center;
+  }
+
+  &__input {
+    grid-column: 1 / 7;
+  }
+
+  &__change-password {
+    grid-column: 8 / -1;
+    grid-row: 1 / 2;
+    justify-self: end;
   }
 }

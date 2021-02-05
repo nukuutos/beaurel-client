@@ -16,4 +16,8 @@
   &__master-card {
     grid-column: 2 / 12;
   }
+
+  &__form {
+    display: contents;
+  }
 }

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 import { END } from 'redux-saga';
-import { wrapper } from '../../redux/store';
-import { getProfileStart } from '../../redux/profile/actions';
+import { wrapper } from '../redux/store';
+import { getProfileStart } from '../redux/profile/actions';
 
-import Layout from '../../components/layout/layout';
+import Layout from '../components/layout/layout';
 
-import Header from '../../components/profile/header/header';
-import refreshToken from '../../utils/refresh-token';
-import SectionCards from '../../components/profile/section-cards/section-cards';
-import SectionReviews from '../../components/profile/section-reviews/section-reviews';
+import Header from '../components/profile/header/header';
+import refreshToken from '../utils/refresh-token';
+import SectionCards from '../components/profile/section-cards/section-cards';
+import SectionReviews from '../components/profile/section-reviews/section-reviews';
 
 const Profile = () => {
   return (

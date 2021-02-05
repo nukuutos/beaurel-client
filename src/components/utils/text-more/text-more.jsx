@@ -1,10 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-const TextMore = ({ textClassName, moreClassName, maxSymbs = 30, children }) => {
+const cutText = (text) => {
+  const maxSymbs = 150;
+
+  if (text.length <= maxSymbs) return text;
+
+  const words = text.split(' ');
+
+  while (text.length > maxSymbs) {
+    words.pop();
+    text = words.join(' ');
+  }
+
+  return text + '...';
+};
+
+const TextMore = ({ textClassName, moreClassName, children }) => {
+  const maxSymbs = 150;
+
   const [state, setState] = useState({
     text: children,
-    isTextLong: children.split(' ').length > maxSymbs,
-    shortText: children.split(' ').length > maxSymbs ? children.split(' ').splice(0, maxSymbs).join(' ') + '...' : null, // to utils
+    isTextLong: children.length > maxSymbs,
+    shortText: children.length > maxSymbs ? cutText(children) : null, // to utils
     isExpand: false,
   });
 
@@ -12,9 +29,8 @@ const TextMore = ({ textClassName, moreClassName, maxSymbs = 30, children }) => 
     setState({
       ...state,
       text: children,
-      isTextLong: children.split(' ').length > maxSymbs,
-      shortText:
-        children.split(' ').length > maxSymbs ? children.split(' ').splice(0, maxSymbs).join(' ') + '...' : null,
+      isTextLong: children.length > maxSymbs,
+      shortText: children.length > maxSymbs ? cutText(children) : null,
     });
   }, [children]);
 
@@ -25,7 +41,7 @@ const TextMore = ({ textClassName, moreClassName, maxSymbs = 30, children }) => 
         <span
           className={`text-more ${moreClassName}`}
           onClick={() => setState({ ...state, isExpand: !state.isExpand })}>
-          {state.isExpand ? 'less' : 'more'}
+          {state.isExpand ? 'свернуть' : 'развернуть'}
         </span>
       )}
     </>

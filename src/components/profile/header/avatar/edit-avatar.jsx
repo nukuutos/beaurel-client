@@ -34,12 +34,6 @@ const EditAvatar = ({ setIsEdit }) => {
 
   const cropperRef = useRef(null);
 
-  const onCrop = () => {
-    // const imageElement = cropperRef.current;
-    // const cropper = imageElement.cropper;
-    // setCanvas(cropper.getCroppedCanvas());
-  };
-
   const updateAvatar = () => {
     // await canvas;
 
@@ -61,8 +55,7 @@ const EditAvatar = ({ setIsEdit }) => {
         const { avatar, ...alert } = data;
         dispatch(updateAvatarSuccess({ avatar }));
         dispatch(setAlert(alert));
-        // resetForm();
-        // setIsAddWork(false);
+        setIsEdit(false);
       }
 
       if (!isCancelled.current) setIsLoading(false);
@@ -77,11 +70,11 @@ const EditAvatar = ({ setIsEdit }) => {
 
   return (
     <Modal onClickClose={() => setIsEdit(false)}>
-      <div className="master-works master-works--add">
+      <div className="upload-avatar card">
         <Cropper
           src={src}
           // style={{ height: 400, width: '100%' }}
-          className="mt-s-6 master-works__image--add"
+          className="upload-avatar__uploaded-image"
           // Cropper.js options
           initialAspectRatio={1 / 1}
           aspectRatio={1 / 1}
@@ -102,19 +95,20 @@ const EditAvatar = ({ setIsEdit }) => {
 
         {/* <img src={src} alt="Uploaded image" className="mt-s-6 master-works__image--add" /> */}
 
-        <div className="select gc-f mt-s-6 mb-s-2">
+        <div className="upload-avatar__buttons mt-9">
           {isLoading && <Spinner className="spinner--edge spinner--tiny" />}
-          <button className={`btn btn--secondary btn--mini`}>Select Image</button>
-          <input type="file" onChange={(e) => handleFileUpload(e)} className="select__input" />
-          {/* <button disabled={isSubmitting} type="submit" className="btn btn--secondary btn--mini btn--success ml-s-6"> */}
+          <div className="btn btn--secondary btn--upload mr-4">
+            Выбрать
+            <input type="file" onChange={(e) => handleFileUpload(e)} title=" " className="select__input" />
+          </div>
           <button
             onClick={() => {
               updateAvatar();
             }}
             type="submit"
             disabled={isLoading}
-            className={`btn btn--secondary ${isLoading ? 'btn--submited' : ''} btn--mini btn--success ml-s-6`}>
-            Upload
+            className={`btn btn--primary ${isLoading ? 'btn--submited' : ''}`}>
+            Сохранить
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import refreshToken from '../utils/refresh-token';
 import { wrapper } from '../redux/store';
 import { END } from 'redux-saga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SettingInput from '../components/settings/setting-input/setting-input';
 
 const Search = () => {
   return (
@@ -10,18 +11,18 @@ const Search = () => {
       <main className="content card card--layout">
         <h1 className="settings__heading heading-primary mt-8 ">Настройки</h1>
         <div className="settings__setting-card setting-card mt-8 card">
-          <div className="setting-card__heading mt-4 mb-4 ">Информация о Вас</div>
-          {/* 
-          <label className="form__label">Ваш Id</label>
-          <input className="form__input" value="nukuutos" type="text" /> */}
-
-          <div className="setting-card__display form__input--display">
-            <label className="form__label">Ваш Id</label>
-            nukuutos
-          </div>
-          <div className="setting-card__edit-button btn--edit">
-            <FontAwesomeIcon icon="pen" />
-          </div>
+          <div className="setting-card__heading mb-2 ">Информация о Вас</div>
+          <SettingInput label="Ваш Id" data="nukuutos" />
+          <SettingInput label="Имя" data="Никита Волошин" />
+        </div>
+        <div className="settings__setting-card setting-card mt-8 card">
+          <div className="setting-card__heading mb-2 ">Контактные данные</div>
+          <SettingInput label="Email" data="nukuutos@gmail.com" />
+          <SettingInput label="Телефон" data="+79243240760" />
+        </div>
+        <div className="settings__setting-card setting-card mt-8 card">
+          <div className="setting-card__heading">Изменить пароль</div>
+          <div className="setting-card__change-password btn btn--secondary btn--flat">Изменить</div>
         </div>
       </main>
     </Layout>

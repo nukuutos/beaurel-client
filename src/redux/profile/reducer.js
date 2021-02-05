@@ -4,9 +4,18 @@ import {
   UPDATE_ABOUT_START,
   CHANGE_IS_PUBLIC_VIEW,
   UPDATE_AVATAR_SUCCESS,
+  GET_MASTERS_SUCCESS,
+  ADD_MASTER,
+  DELETE_MASTER,
 } from './types';
 
-const INITIAL_STATE = { isLoadingAbout: false, isPublicView: false, ratingStats: { ratingCounters: [] }, lastName: '' }; // try every props get null (redirect)
+const INITIAL_STATE = {
+  isLoadingAbout: false,
+  isPublicView: false,
+  ratingStats: { ratingCounters: [] },
+  lastName: '',
+  masters: [],
+}; // try every props get null (redirect)
 
 const profileReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
@@ -45,6 +54,32 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isPublicView: !state.isPublicView,
+      };
+
+    case GET_MASTERS_SUCCESS:
+      const { data } = payload;
+      console.log(data);
+
+      return {
+        ...state,
+        masters: data.favoriteMasters[0].masters,
+      };
+
+    case ADD_MASTER:
+      const { newMasterId } = payload;
+      console.log(payload);
+      return {
+        ...state,
+        masters: [...state.masters, newMasterId],
+      };
+
+    case DELETE_MASTER:
+      const { deletedMasterId } = payload;
+      console.log(payload);
+
+      return {
+        ...state,
+        masters: state.masters.filter((id) => id !== deletedMasterId),
       };
 
     default:

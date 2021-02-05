@@ -1,0 +1,120 @@
+@use "../../../abstracts/colors" as *;
+
+.add-service {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  background: $color-white;
+  width: 42rem;
+  padding: 2.8rem 1.6rem 0;
+  overflow-y: auto;
+  max-height: 75rem;
+
+  // do scrollbar nicer ?
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  &__heading {
+    grid-column: 2 / 12;
+  }
+
+  &__switch {
+    grid-column: 2 / 12;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > *:first-child {
+      margin: 0;
+    }
+  }
+
+  &__switch-label {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  &__form {
+    display: contents;
+
+    &:after {
+      display: block;
+      content: '';
+      grid-column: 1 / -1;
+      height: 2.8rem;
+      padding-right: 5rem;
+    }
+  }
+
+  &__title {
+    grid-column: 2 / 12;
+    // grid-row: 1 / 2;
+  }
+
+  &__parameter {
+    &::before {
+      display: block;
+      content: '';
+      width: 100%;
+      height: 1px;
+      background: $color-gray-light-1;
+      margin-bottom: 1.6rem;
+    }
+  }
+
+  &__price-and-duration {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 1.6rem;
+  }
+
+  &__duration {
+    grid-column: 2 / 7;
+    // grid-row: 2 / 3;
+  }
+
+  &__price {
+    grid-column: 7 / 12;
+    // grid-row: 2 / 3;
+  }
+
+  &__button {
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+
+  &__add {
+    grid-column: 2 / 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $color-gray-light-3;
+    height: 5.6rem;
+    color: $color-gray;
+    transition: 0.2s color;
+    cursor: pointer;
+
+    // icon
+    & > * {
+      grid-column: 1 / -1;
+      justify-self: center;
+      align-self: center;
+      height: 2rem;
+      color: inherit;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__delete {
+    grid-column: 12 / 13;
+    align-self: flex-end;
+    justify-self: center;
+  }
+}

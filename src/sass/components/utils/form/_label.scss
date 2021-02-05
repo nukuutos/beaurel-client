@@ -1,0 +1,17 @@
+@use "../../../abstracts/colors" as *;
+
+.label {
+  display: block;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+
+  &--primary {
+    color: $color-primary;
+  }
+
+  &--l {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+}
