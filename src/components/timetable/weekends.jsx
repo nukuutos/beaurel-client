@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const translateWeekdaysFromRU = { пн: 'mon', вт: 'tue', ср: 'wen', чт: 'thu', пт: 'fri', сб: 'sat', вс: 'sun' };
 const translateWeekdaysFromEN = { mon: 'пн', tue: 'вт', wen: 'ср', thu: 'чт', fri: 'пт', sat: 'сб', sun: 'вс' };
 
-const Weekends = ({ weekends }) => {
+const Weekends = ({ weekends, update }) => {
   const [isModalWeekends, setIsModalWeekends] = useState(false);
 
   return (
@@ -60,9 +60,11 @@ const Weekends = ({ weekends }) => {
         />
       )}
 
-      <div onClick={() => setIsModalWeekends(true)} className="timetable-card__btn-edit btn--edit">
-        <FontAwesomeIcon icon="pen" />
-      </div>
+      {!update && (
+        <div onClick={() => setIsModalWeekends(true)} className="timetable-card__btn-edit btn--edit">
+          <FontAwesomeIcon icon="pen" />
+        </div>
+      )}
     </>
   );
 };

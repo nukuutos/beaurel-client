@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import RadioButton from '../form/radio-button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const TimetableType = ({ type }) => {
-  const [isDisabled, setIsDisabled] = useState(true);
+const TimetableType = ({ type, isDisabled }) => {
+  // const [isDisabled, setIsDisabled] = useState(update ? true : false);
 
   return (
     <div className="timetable__timetable-card timetable-card mt-8 card">
@@ -18,7 +18,7 @@ const TimetableType = ({ type }) => {
         value="auto"
       />
 
-      {isDisabled ? (
+      {/* {isDisabled ? (
         <div
           onClick={() => {
             setIsDisabled(false);
@@ -37,7 +37,7 @@ const TimetableType = ({ type }) => {
             <FontAwesomeIcon icon="times" />
           </div>
         </>
-      )}
+      )} */}
 
       <span className="timetable-card__value timetable-card__label mt-2">Вручную:</span>
 

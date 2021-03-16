@@ -4,7 +4,7 @@ import renderDurationOptions from '../services/utils/render-duration-options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from '../services/utils/display-duration';
 
-const WorkingDay = ({ workingDay, sessionTime }) => {
+const WorkingDay = ({ workingDay, sessionTime, update }) => {
   const [isWorkingDayEdit, setIsWorkingDayEdit] = useState(false);
 
   return (
@@ -37,11 +37,13 @@ const WorkingDay = ({ workingDay, sessionTime }) => {
           <span className="timetable-card__value ml-1 mt-5">
             {`${displayDuration(workingDay.startAt)} - ${displayDuration(workingDay.endAt)}`}
           </span>
-          <div
-            onClick={() => setIsWorkingDayEdit(true)}
-            className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn--edit">
-            <FontAwesomeIcon icon="pen" />
-          </div>
+          {!update && (
+            <div
+              onClick={() => setIsWorkingDayEdit(true)}
+              className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn--edit">
+              <FontAwesomeIcon icon="pen" />
+            </div>
+          )}
         </>
       )}
     </>

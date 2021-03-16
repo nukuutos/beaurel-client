@@ -1,0 +1,29 @@
+@use "../../../abstracts/colors" as *;
+
+.updated-date {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 35.6rem;
+  column-gap: 1.6rem;
+  background: $color-white;
+  padding: 2.4rem 1.6rem;
+
+  &__heading {
+    grid-column: 2 / 12;
+  }
+
+  &__text {
+    line-height: 2.4rem;
+    grid-column: 2 / 12;
+    color: $color-gray;
+  }
+
+  &__input {
+    grid-column: 2 / 12;
+  }
+
+  &__button {
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+}
