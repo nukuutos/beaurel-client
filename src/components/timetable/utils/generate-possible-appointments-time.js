@@ -1,7 +1,6 @@
-import React from 'react';
 import displayDuration from '../../services/utils/display-duration';
 
-// return time like 10:00 and value in minutes 600
+// return for example time 10:00 and value in minutes 600
 const generatePossibleAppointmentsTime = (workingDay, sessionTime) => {
   const { startAt, endAt } = workingDay;
 

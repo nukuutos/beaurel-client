@@ -1,10 +1,7 @@
 import Layout from '../components/layout/layout';
 import refreshToken from '../utils/refresh-token';
 import { wrapper } from '../redux/store';
-import { END } from 'redux-saga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProfileRating from '../components/profile/header/profile-rating';
-import StarProfile from '../components/profile/header/star-profile';
 import Select from '../components/form/select';
 import { Formik, Form } from 'formik';
 import Input from '../components/form/input';
@@ -12,12 +9,16 @@ import { useState } from 'react';
 import asyncCall from '../utils/async-call';
 import { useDispatch } from 'react-redux';
 import MasterCard from '../components/search/master-card';
-import { getMastersStart, getMastersSuccess } from '../redux/profile/actions';
-import axios from '../utils/axios';
+import { getMastersSuccess } from '../redux/profile/actions';
+import getAccessToken from '../utils/get-access-token';
+import getMasters from '../utils/pages/search';
+import User from '../server/models/user';
+import handlePublicPageAuth from '../utils/handle-public-page-auth';
+import useAsyncAction from '../hooks/useAsyncAction';
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);
-  const dispatch = useDispatch();
+  const [asyncAction, isLoading] = useAsyncAction();
 
   return (
     <Layout>
@@ -36,14 +37,11 @@ const Search = ({ masters }) => {
               accessToken: 'nothing',
             };
 
-            const data = await asyncCall(dispatch, config);
+            const data = await asyncAction(config);
 
-            if (data) {
-              console.log(data);
-              setData(data.masters);
-            }
+            if (data) setData(data.masters);
           }}>
-          {({ values, dirty, isValid, submitForm, handleChange }) => (
+          {({ submitForm, handleChange }) => (
             <Form className="search__form">
               <div className="search__specialization mt-7">
                 <label className="label label--primary">Специализация</label>
@@ -86,25 +84,18 @@ const Search = ({ masters }) => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  // через жопу поменяй всё(бек тоже) и с елай нормально
-  await refreshToken(req, res, store);
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+  const getMastersFromDb = async (userId) => {
+    if (userId) return await User.findMastersWithFavorites(userId);
+    return await User.findMasters();
+  };
 
-  const {
-    auth: { accessToken, id },
-  } = store.getState();
+  const { masters, favoriteMasters } = await handlePublicPageAuth(getMastersFromDb, { req, res, store });
 
-  const { data } = await axios.get(`/profile/${id}/master`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  // dispatch to favorite
+  store.dispatch(getMastersSuccess({ favoriteMasters }));
 
-  store.dispatch(getMastersSuccess(data));
-  store.dispatch(END);
-
-  await store.sagaTask.toPromise();
-  return { props: { masters: data.data.masters || [] } };
+  return { props: { masters } }; // every master
 });
 
 export default Search;

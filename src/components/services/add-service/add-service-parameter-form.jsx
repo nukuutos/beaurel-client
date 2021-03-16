@@ -3,27 +3,18 @@ import { FieldArray, Formik, Form, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { parameterServiceSchema } from '../../profile/section-cards/services/utils/schemas';
-import asyncCall from '../../../utils/async-call';
 import { addServiceParameterSuccess } from '../../../redux/service/actions/service-parameter';
 import { setAlert } from '../../../redux/alert/actions';
-import InputCustom from '../../form/input-custom';
-import Spinner from '../../utils/spinner';
 import renderDurationOptions from '../../profile/section-cards/services/utils/render-duration-options';
 import Input from '../../form/input';
 import Select from '../../form/select';
 import InputIcon from '../../form/input-icon';
-
-// import InputCustom from '../../../../../form/input-custom';
-// import asyncCall from '../../../../../../utils/async-call';
-// import { setAlert } from '../../../../../../redux/alert/actions';
-// import Spinner from '../../../../../utils/spinner';
-// import InputSelectCustom from '../../../../../form/input-select-custom';
-// import { parameterServiceSchema } from '../../utils/schemas';
-// import renderDurationOptions from '../../utils/render-duration-options';
-// import { addServiceParameterSuccess } from '../../../../../../redux/service/actions/service-parameter';
+import useAsyncAction from '../../../hooks/useAsyncAction';
 
 const AddSubServicesForm = () => {
-  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
+  const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
+  const [asyncAction, isLoading] = useAsyncAction();
+
   const dispatch = useDispatch();
 
   return (
@@ -39,12 +30,12 @@ const AddSubServicesForm = () => {
 
         const config = {
           method: 'post',
-          url: '/profile//service/parameter',
+          url: `/profile/${profileId}/service/parameter`,
           data: { date, service },
           accessToken,
         };
 
-        const data = await asyncCall(dispatch, config);
+        const data = await asyncAction(config);
 
         if (data) {
           const { ids, ...alert } = data;
@@ -63,11 +54,6 @@ const AddSubServicesForm = () => {
             <Input className="input" type="text" name="title" id="title" />
             <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
           </div>
-          {/* <label className="service__label" htmlFor="title">
-            Title
-          </label>
-          <InputCustom className="service__input" type="text" name="title" id="title" />
-          <ErrorMessage name="title">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage> */}
 
           <FieldArray name="subServices">
             {({ remove, push }) => (
@@ -75,22 +61,6 @@ const AddSubServicesForm = () => {
                 {values.subServices.map((subService, i) => {
                   return (
                     <Fragment key={i}>
-                      {/* <label
-                        className="service__label service__parameter--adding"
-                        htmlFor="parameter"
-                        htmlFor={`subServices.${i}.parameter`}>
-                        Parameter
-                      </label>
-                      <InputCustom
-                        className="service__input align-self-end"
-                        type="text"
-                        name={`subServices.${i}.parameter`}
-                        id={`subServices.${i}.parameter`}
-                      />
-                      <ErrorMessage name={`subServices.${i}.parameter`}>
-                        {(msg) => <div className="service__error">{msg}</div>}
-                      </ErrorMessage> */}
-
                       <div className="add-service__title add-service__parameter mt-4">
                         <label className="label " htmlFor="title">
                           Параметр
@@ -114,48 +84,22 @@ const AddSubServicesForm = () => {
                         </div>
                       )}
 
-                      {/* <label className="service__label" htmlFor={`subServices.${i}.duration`}>
-                        Duration
-                      </label>
-                      <InputSelectCustom className="service__input " name="duration" as="select">
-                        {renderDurationOptions(sessionTime)}
-                      </InputSelectCustom>
-                      {i !== 0 && (
-                        <div
-                          onClick={() => remove(i)}
-                          className="service__icon service__icon--manage ml-s-4 service__icon--delete">
-                          <FontAwesomeIcon icon="trash" />
-                        </div>
-                      )}
-                      <ErrorMessage name={`subServices.${i}.duration`}>
-                        {(msg) => <div className="service__error">{msg}</div>}
-                      </ErrorMessage> */}
-
                       <div className="add-service__duration mt-6">
                         <label className="label" htmlFor={`subServices.${i}.duration`}>
                           Длительность
                         </label>
                         <div className="input--icon">
                           <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
-                          <Select className="input" name={`subServices.${i}.duration`} as="select">
+                          <Select
+                            value={subService.duration}
+                            className="input"
+                            name={`subServices.${i}.duration`}
+                            as="select">
                             {renderDurationOptions(sessionTime)}
                           </Select>
                         </div>
                         {/* <ErrorMessage name="duration">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage> */}
                       </div>
-
-                      {/* <label className="service__label" htmlFor={`subServices.${i}.price`}>
-                        Price
-                      </label>
-                      <InputCustom
-                        className="service__input"
-                        type="number"
-                        name={`subServices.${i}.price`}
-                        id={`subServices.${i}.price`}
-                      />
-                      <ErrorMessage name={`subServices.${i}.price`}>
-                        {(msg) => <div className="service__error">{msg}</div>}
-                      </ErrorMessage> */}
 
                       <div className="add-service__price mt-6">
                         <label className="label " htmlFor={`subServices.${i}.price`}>
@@ -185,7 +129,7 @@ const AddSubServicesForm = () => {
           </FieldArray>
           <button
             disabled={isSubmitting}
-            className={`add-service__button mt-9 btn btn--primary ${isSubmitting ? 'btn--submited' : ''}`}
+            className={`add-service__button mt-9 btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}
             type="submit">
             Добавить
           </button>

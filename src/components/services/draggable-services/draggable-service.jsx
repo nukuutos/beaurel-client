@@ -11,7 +11,7 @@ const DraggableService = ({ service, index }) => {
         return (
           <div ref={innerRef} {...draggableProps} {...dragHandleProps} className="service card mt-6">
             <span className="service__draggable-icon">
-              <FontAwesomeIcon icon="grip-lines-vertical" />
+              <FontAwesomeIcon icon="grip-vertical" />
             </span>
             <Service service={service} isDraggable />
           </div>

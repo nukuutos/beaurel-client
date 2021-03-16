@@ -10,14 +10,17 @@ import StarProfile from './star-profile';
 import PublicView from './public-view';
 import Maps from './maps';
 import AboutEdit from './about-edit';
+import { useRouter } from 'next/router';
 
 const Header = () => {
   const [{ isMaps, isEditAbout }, setState] = useState({ isMaps: false, isEditAbout: false });
-  // const [isMaps, setIsMaps] = useState(false);
 
-  const { firstName, lastName, ratingStats, specialization, placeOfwork, isPublicView, aboutText } = useSelector(
-    (state) => state.profile
-  );
+  const [
+    { firstName, lastName, ratingStats, specialization, placeOfwork, isPublicView, aboutText },
+    { id: userId },
+  ] = useSelector((state) => [state.profile, state.auth]);
+
+  const router = useRouter();
 
   return (
     <header className="profile__header mt-6">
@@ -53,7 +56,7 @@ const Header = () => {
         {isEditAbout && <AboutEdit onClickClose={() => setState((state) => ({ ...state, isEditAbout: false }))} />}
       </div>
 
-      <StarProfile initialIsStarred />
+      {router.asPath !== '/' + userId && <StarProfile initialIsStarred />}
     </header>
   );
 };

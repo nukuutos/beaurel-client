@@ -1,7 +1,7 @@
 const Appointment = ({ time, onClick }) => {
   return (
-    <div onClick={onClick} className="appointment">
-      <button className="btn btn--primary">{time}</button>
+    <div onClick={onClick} className="booking-timetable__appointment ml-5">
+      {time}
     </div>
   );
 };

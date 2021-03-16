@@ -7,31 +7,34 @@ import Stars from '../../utils/stars/stars';
 import axios from '../../../utils/axios';
 
 const SectionReviews = () => {
-  const [reviews, setReviews] = useState([
-    // {
-    //   customer: { firstName: 'Никита', lastName: 'Волошин', avatarImage: 'profile-photo.jpeg' },
-    //   date: '12 окт. 2010',
-    //   review: {
-    //     comment:
-    //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus porro quisquam similique delectus consectetur soluta labore temporibus eligendi magni molestiae, aspernatur, placeat aut facere, possimus debitis repudiandae corporis doloribus perspiciatis?',
-    //     value: 4,
-    //   },
-    // },
-  ]);
-  const { ratingStats, id: profileId } = useSelector((state) => state.profile);
+  // const [reviews, setReviews] = useState([
+  // {
+  //   customer: { firstName: 'Никита', lastName: 'Волошин', avatarImage: 'profile-photo.jpeg' },
+  //   date: '12 окт. 2010',
+  //   review: {
+  //     comment:
+  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus porro quisquam similique delectus consectetur soluta labore temporibus eligendi magni molestiae, aspernatur, placeat aut facere, possimus debitis repudiandae corporis doloribus perspiciatis?',
+  //     value: 4,
+  //   },
+  // },
+  // ]);
+  const { ratingStats, reviews } = useSelector((state) => state.profile);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const getReviews = async () => {
-      const {
-        data: { reviews },
-      } = await axios.get(`/profile/${profileId}/review`);
-      setReviews(reviews);
-    };
+  // useEffect(() => {
+  //   const getReviews = async () => {
+  //     console.log(profileId);
+  //     console.log(profileId);
+  //     console.log(profileId);
+  //     const {
+  //       data: { reviews },
+  //     } = await axios.get(`/profile/${profileId}/review`);
+  //     setReviews(reviews);
+  //   };
 
-    getReviews();
-  }, []);
+  //   getReviews();
+  // }, []);
 
   return (
     <section className="profile__reviews">

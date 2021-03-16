@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MasterWorks from './master-work/master-works';
-import Services from './services/services';
-import Wrapper from './booking/booking';
+import Booking from './booking/booking';
 import cardsData from './utils/cards-data';
 import Card from './card';
 
@@ -14,14 +13,12 @@ const SectionCards = () => {
 
   return (
     <section className="profile__cards">
-      {/* <div className="profile__cards"> */}
       {cardsData(state, setState).map((props, i) => (
         <Card {...props} key={i} />
       ))}
-      {/* </div> */}
       {state.isMasterWorks && <MasterWorks onClickClose={onMasterWorksClickClose} />}
-      {state.isServices && <Services onClickClose={onServiceClickClose} />}
-      {state.isTimetable && <Wrapper isTimetable onClickClose={onTimetableClickClose} />}
+      {state.isServices && <Booking isService onClickClose={onServiceClickClose} />}
+      {state.isTimetable && <Booking isTimetable onClickClose={onTimetableClickClose} />}
     </section>
   );
 };

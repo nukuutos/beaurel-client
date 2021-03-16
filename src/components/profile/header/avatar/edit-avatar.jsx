@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Modal from '../../../utils/modal';
 import Cropper from 'react-cropper';
-// import 'cropperjs/dist/cropper.css';
 import Spinner from '../../../utils/spinner';
 import asyncCall from '../../../../utils/async-call';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,14 +15,14 @@ const EditAvatar = ({ setIsEdit }) => {
   const dispatch = useDispatch();
   // get avatar from redux
   const [cropper, setCropper] = useState(null);
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
   const [src, setSrc] = useState(`http://localhost:5000/${avatar}`);
 
   const handleFileUpload = (event) => {
     const reader = new FileReader();
     const file = event.target.files[0];
 
-    setFile(file);
+    // setFile(file);
 
     reader.onloadend = () => {
       setSrc(reader.result);
@@ -51,6 +50,7 @@ const EditAvatar = ({ setIsEdit }) => {
       };
 
       const data = await asyncCall(dispatch, config);
+
       if (data) {
         const { avatar, ...alert } = data;
         dispatch(updateAvatarSuccess({ avatar }));
@@ -97,9 +97,15 @@ const EditAvatar = ({ setIsEdit }) => {
 
         <div className="upload-avatar__buttons mt-9">
           {isLoading && <Spinner className="spinner--edge spinner--tiny" />}
-          <div className="btn btn--secondary btn--upload mr-4">
+          <div className={`btn btn--secondary btn--upload  ${isLoading ? 'btn--disabled' : ''} mr-4`}>
             Выбрать
-            <input type="file" onChange={(e) => handleFileUpload(e)} title=" " className="select__input" />
+            <input
+              type="file"
+              disabled={isLoading}
+              onChange={(e) => handleFileUpload(e)}
+              title=" "
+              className="select__input"
+            />
           </div>
           <button
             onClick={() => {
@@ -107,7 +113,7 @@ const EditAvatar = ({ setIsEdit }) => {
             }}
             type="submit"
             disabled={isLoading}
-            className={`btn btn--primary ${isLoading ? 'btn--submited' : ''}`}>
+            className={`btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}>
             Сохранить
           </button>
         </div>

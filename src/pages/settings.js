@@ -1,9 +1,13 @@
 import Layout from '../components/layout/layout';
-import refreshToken from '../utils/refresh-token';
+import refreshToken from '../utils/refresh-token-auth';
 import { wrapper } from '../redux/store';
 import { END } from 'redux-saga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SettingInput from '../components/settings/setting-input/setting-input';
+import NameInput from '../components/settings/name-input/name-input';
+import IdInput from '../components/settings/id-input/id-input';
+import EmailInput from '../components/settings/email-input/email-input';
+import TelephoneInput from '../components/settings/telephone-input/telephone-input';
 
 const Search = () => {
   return (
@@ -12,13 +16,13 @@ const Search = () => {
         <h1 className="settings__heading heading-primary mt-8 ">Настройки</h1>
         <div className="settings__setting-card setting-card mt-8 card">
           <div className="setting-card__heading mb-2 ">Информация о Вас</div>
-          <SettingInput label="Ваш Id" data="nukuutos" />
-          <SettingInput label="Имя" data="Никита Волошин" />
+          <IdInput data="nukuutos" />
+          <NameInput data="Никита Волошин" />
         </div>
         <div className="settings__setting-card setting-card mt-8 card">
           <div className="setting-card__heading mb-2 ">Контактные данные</div>
-          <SettingInput label="Email" data="nukuutos@gmail.com" />
-          <SettingInput label="Телефон" data="+79243240760" />
+          <EmailInput data="nukuutos@gmail.com" />
+          <TelephoneInput data="+79243240760" />
         </div>
         <div className="settings__setting-card setting-card mt-8 card">
           <div className="setting-card__heading">Изменить пароль</div>

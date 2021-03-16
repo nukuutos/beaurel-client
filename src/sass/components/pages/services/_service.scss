@@ -66,21 +66,24 @@
       background: $color-gray-light-1;
       // trick to justify self right
       margin-left: auto;
+
+      transition: 0.2s background; // for booking-service
     }
 
     &--draggable {
       grid-column: 2 / 8;
+      // padding-left: 1.6rem;
 
-      &:before {
-        height: 100%;
-        width: 1px;
-        content: '';
-        display: block;
-        background: $color-gray-light-1;
-        position: absolute;
-        left: -0.8rem;
-        top: 0;
-      }
+      // &:before {
+      //   height: 100%;
+      //   width: 1px;
+      //   content: '';
+      //   display: block;
+      //   background: $color-gray-light-1;
+      //   position: absolute;
+      //   left: -0.8rem;
+      //   top: 0;
+      // }
     }
   }
 
@@ -133,6 +136,8 @@
     justify-self: center;
     transform: translateX(50%);
 
+    transition: 0.2s background; // for booking-service
+
     &--edit {
       grid-column: 8 / -1;
       transform: translateX(0);
@@ -170,5 +175,9 @@
     grid-row: 1/4;
     align-self: center;
     position: relative;
+
+    & > * {
+      height: 2.4rem;
+    }
   }
 }

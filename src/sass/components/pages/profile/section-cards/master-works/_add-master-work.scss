@@ -1,0 +1,71 @@
+@use "../../../../../abstracts/colors" as *;
+
+.add-master-work {
+  width: 45rem;
+  // max-width: 68rem; // 65 rem of image + 3rem for padding
+  background: $color-white;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  padding: 2rem 1.6rem;
+
+  &__heading {
+    grid-column: 1 / 13;
+  }
+
+  &__svg {
+    grid-column: 1 / 7;
+    justify-self: flex-start;
+  }
+
+  &__text {
+    grid-column: 7 / -1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__choose-image {
+    position: relative;
+  }
+
+  &__upload-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+
+    &::-webkit-file-upload-button {
+      cursor: pointer;
+    }
+  }
+
+  &__uploaded-image {
+    max-width: 41.8rem;
+    grid-column: 1 /-1;
+  }
+
+  &__form {
+    display: contents;
+  }
+
+  &__input {
+    grid-column: 1 / -1;
+  }
+
+  &__error {
+    grid-column: 1 / -1;
+  }
+
+  &__buttons {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+  }
+}

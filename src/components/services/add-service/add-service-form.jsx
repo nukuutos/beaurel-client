@@ -2,24 +2,20 @@ import React from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import serviceSchema from '../../profile/section-cards/services/utils/schemas';
-import asyncCall from '../../../utils/async-call';
 import { addServiceSuccess } from '../../../redux/service/actions/service';
 import { setAlert } from '../../../redux/alert/actions';
-import InputCustom from '../../form/input-custom';
-import Spinner from '../../utils/spinner';
-import renderDurationOptions from '../../profile/section-cards/services/utils/render-duration-options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Input from '../../form/input';
 import Select from '../../form/select';
 import InputIcon from '../../form/input-icon';
+import renderDurationOptions from '../utils/render-duration-options';
+import useAsyncAction from '../../../hooks/useAsyncAction';
 
 const AddServiceForm = () => {
-  const [{ sessionTime }, { accessToken }, { id: profileId }] = useSelector((state) => [
-    state.timetable,
-    state.auth,
-    state.profile,
-  ]);
+  const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
   const dispatch = useDispatch();
+
+  const [asyncAction, isLoading] = useAsyncAction();
 
   return (
     <Formik
@@ -40,7 +36,7 @@ const AddServiceForm = () => {
           accessToken,
         };
 
-        const data = await asyncCall(dispatch, config);
+        const data = await asyncAction(config);
 
         if (data) {
           const { id, ...alert } = data;
@@ -49,7 +45,7 @@ const AddServiceForm = () => {
           resetForm();
         }
       }}>
-      {({ isSubmitting, dirty, isValidating }) => (
+      {({ isSubmitting, dirty, isValidating, values }) => (
         <Form className="add-service__form">
           <div className="add-service__title mt-5">
             <label className="label" htmlFor="title">
@@ -66,11 +62,10 @@ const AddServiceForm = () => {
               </label>
               <div className="input--icon input--mini">
                 <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
-                <Select className="input" name="duration" as="select">
-                  {renderDurationOptions(sessionTime)}
+                <Select value={values.duration} className="input" name="duration" as="select">
+                  {sessionTime ? renderDurationOptions(sessionTime) : ''}
                 </Select>
               </div>
-              {/* <ErrorMessage name="duration">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage> */}
             </div>
 
             <div className="add-service__price">
@@ -88,15 +83,12 @@ const AddServiceForm = () => {
             </div>
           </div>
 
-          {/* <div className="add-service__buttons mt-9 mb-7"> */}
-          {/* {isSubmitting && <Spinner className="spinner--edge spinner--tiny" />} */}
           <button
             disabled={isSubmitting}
-            className={`add-service__button btn btn--primary mt-9 ${isSubmitting ? 'btn--submited' : ''}`}
+            className={`add-service__button btn btn--primary mt-9 ${isLoading ? 'btn--submitted btn--spinner' : ''}`}
             type="submit">
             Добавить
           </button>
-          {/* </div> */}
         </Form>
       )}
     </Formik>

@@ -26,12 +26,16 @@ const BookingResult = ({ setStep }) => {
 
     setIsLoading(true);
 
-    const alert = await asyncCall(dispatch, config);
+    // const alert = await asyncCall(dispatch, config);
 
-    if (alert) {
+    // if (alert) {
+    if (true) {
       // const { ids, ...alert } = data;
       // dispatch(addServiceSuccess({ service: { ids, ...service } }));
-      dispatch(setAlert(alert));
+      // dispatch(setAlert(alert));
+      setStep((state) => {
+        return { ...state, isResult: false, isSuccess: true, step: state.step + 1 };
+      });
     }
 
     if (!isCancelled.current) setIsLoading(false);
@@ -44,39 +48,41 @@ const BookingResult = ({ setStep }) => {
   }, []);
 
   return (
-    <Modal>
-      <main className="services services--display">
-        <header className="gc-f mb-s-5">
-          <div
-            onClick={() =>
-              setStep((state) => {
-                if (state.lastStepName === 'service') {
-                  return { ...state, isResult: false, isService: true, step: state.step - 1 };
-                }
-                return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
-              })
-            }
-            className="service__icon service__icon--manage service__icon--back">
-            <FontAwesomeIcon icon="long-arrow-alt-left" />
-          </div>
-          <h2 className="services__heading">Booking Result</h2>
-          <span className="week__fraction mr-s-4">3/3</span>
-        </header>
-        Date: {date.getDay()}
-        Time: {displayDuration(time)}
-        Service: {service.title} {service.duration}
-        <div className="mt-s-5 mb-s-2 display-flex gc-f p-r ">
-          {isLoading && <Spinner className="spinner--edge spinner--tiny" />}
-          <button
-            disabled={isLoading}
-            onClick={onSubmit}
-            className={`w-f btn btn--secondary ${isLoading ? 'btn--submited' : ''}`}
-            type="submit">
-            Save
-          </button>
-        </div>
-      </main>
-    </Modal>
+    <div className="booking-result card">
+      <h2 className="booking-result__heading heading-primary">Информация о записи</h2>
+      <img className="booking-result__svg mt-8" src="/svg/appointment.svg" alt="Appointment image" />
+      <span className="booking-result__label mt-6">Услуга:</span>
+      <div className="booking-result__value mt-6">
+        {service.title} {service.duration}
+      </div>
+      <span className="booking-result__label mt-2">Время:</span>
+      <div className="booking-result__value mt-2">
+        {date.getDay()} {displayDuration(time)}
+      </div>
+      <div className="booking-result__buttons mt-6">
+        {/* {isLoading && <Spinner className="spinner--edge spinner--tiny" />} */}
+        <button
+          onClick={() =>
+            setStep((state) => {
+              if (state.lastStepName === 'service') {
+                return { ...state, isResult: false, isService: true, step: state.step - 1 };
+              }
+              return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
+            })
+          }
+          className={`btn btn--secondary btn--gray mr-4`}
+          type="submit">
+          Назад
+        </button>
+        <button
+          disabled={isLoading}
+          onClick={onSubmit}
+          className={`btn btn--primary ${isLoading ? 'btn--submitted' : ''}`}
+          type="submit">
+          Записаться
+        </button>
+      </div>
+    </div>
   );
 };
 

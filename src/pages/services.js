@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import StarProfile from '../components/profile/header/star-profile';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProfileRating from '../components/profile/header/profile-rating';
+import React, { useState } from 'react';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import refreshToken from '../utils/refresh-token';
-import { END } from 'redux-saga';
-import Modal from '../components/utils/modal';
-import AddService from '../components/profile/section-cards/services/master-services/add-service/add-service';
-import DragAndEditServices from '../components/services/drag-and-edit-services';
 import { useSelector, useDispatch } from 'react-redux';
 import useSaveBeforeUnload from '../components/profile/section-cards/services/master-services/hooks/use-save-before-unload';
-import { getServicesStart } from '../redux/service/actions/service';
+import { getServicesSuccess } from '../redux/service/actions/service';
 import EditServices from '../components/services/edit-services/edit-services';
 import DraggableServices from '../components/services/draggable-services/draggable-services';
+import ServiceModel from '../server/models/service';
+import handleAuth from '../utils/handle-auth';
+import { getTimetableSuccess } from '../redux/timetable/actions';
 
 const Services = () => {
   const [isAddService, setIsAddService] = useState(false);
@@ -27,26 +22,6 @@ const Services = () => {
   const [isReoder, setIsReoder] = useState(false);
 
   useSaveBeforeUnload();
-
-  // change this
-  // const handleOnClick = () => {
-  //   const newOrder = getIdsAndOrders(services);
-
-  //   if (!areOrdersEqual(initialOrder, newOrder)) {
-  //     // spec
-  //     dispatch(setInitialOrder(newOrder));
-  //     const config = {
-  //       method: 'patch',
-  //       url: `/profile/${profileId}/service/order`,
-  //       data: { newOrder },
-  //       accessToken,
-  //     };
-
-  //     asyncCall(dispatch, config);
-  //   }
-
-  //   onClickClose();
-  // };
 
   return (
     <Layout>
@@ -76,24 +51,24 @@ const Services = () => {
             {isReoder ? <DraggableServices services={services} /> : <EditServices services={services} />}
           </>
         )}
-
-        {/* // ) : ( */}
-        {/* <DragAndEditServices setIsAddService={setIsAddService} /> */}
-        {/* // )}/ */}
       </main>
     </Layout>
   );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { id } = query;
+  const userId = await handleAuth(req, res, store);
 
-  await refreshToken(req, res, store); // dispatch this?
-  store.dispatch(getServicesStart());
+  const { services, timetable } = await ServiceModel.getServices(userId);
+
+  // await refreshToken(req, res, store); // dispatch this?
+  // add session time
+  store.dispatch(getServicesSuccess({ services }));
+  store.dispatch(getTimetableSuccess({ timetable }));
 
   // store.dispatch(getProfileStart({ id }));
-  store.dispatch(END);
-  await store.sagaTask.toPromise();
+  // store.dispatch(END);
+  // await store.sagaTask.toPromise();
   return { props: { custom: 'custom' } };
 });
 

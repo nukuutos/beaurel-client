@@ -116,7 +116,7 @@ const AddSubServicesForm = () => {
             {isSubmitting && <Spinner className="spinner--edge spinner--tiny" />}
             <button
               disabled={isSubmitting}
-              className={`w-f btn btn--secondary ${isSubmitting ? 'btn--submited' : ''}`}
+              className={`w-f btn btn--secondary ${isSubmitting ? 'btn--submitted' : ''}`}
               type="submit">
               Save
             </button>

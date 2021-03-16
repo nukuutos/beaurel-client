@@ -42,11 +42,13 @@ import {
   faRubleSign,
   faHeart,
   faCrosshairs,
+  faGripVertical,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'; // delete
 
 library.add(
+  faGripVertical,
   faCaretLeft,
   faCrosshairs,
   regHeart,

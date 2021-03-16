@@ -41,6 +41,16 @@
     }
   }
 
+  &--gray {
+    border: 1px solid $color-gray-dark-1;
+    color: $color-gray-dark-1;
+
+    &:hover {
+      color: $color-white;
+      background: $color-gray-dark-1;
+    }
+  }
+
   &--flat {
     padding: 0.8rem 2.4rem;
   }
@@ -118,5 +128,46 @@
       position: absolute;
       cursor: pointer;
     }
+  }
+
+  &--spinner {
+    &::after {
+      position: absolute;
+      top: -36%;
+      right: -12%;
+      display: block;
+      content: '';
+      border: 3px solid $color-primary;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      background-image: none;
+      font-size: 0;
+      width: 1.2rem;
+      height: 1.2rem;
+      padding: 0;
+      border-radius: 50%;
+      -webkit-appearance: none;
+      animation: spin 1s linear infinite;
+      cursor: default;
+    }
+  }
+
+  &--submitted {
+    background-color: rgba($color-primary, 0.8);
+    pointer-events: none;
+  }
+
+  &--disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

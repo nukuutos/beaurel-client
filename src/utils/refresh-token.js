@@ -1,38 +1,30 @@
 import cookie from 'cookie';
-import axios from '../utils/axios';
+import axios from './axios';
 
 import { refreshTokenSuccess, refreshTokenFailure } from '../redux/auth/actions';
-import { END } from 'redux-saga';
+
+// it returns boolean: refreshed or not
 
 const refreshToken = async (req, res, store) => {
+  // do we need if(req)?
   if (req) {
-    const publicUrls = ['/sign-in', '/sign-up']; // public urls
+    const { cookie: headersCookie } = req.headers;
+    const { refreshToken } = cookie.parse(headersCookie || ' '); // parsing string not undefined
 
-    const { headers, url } = req;
-    const { refreshToken } = cookie.parse(headers.cookie || ' '); // parsing string not undefined
-    const isPublicUrl = publicUrls.includes(url);
+    if (!refreshToken) return false;
 
-    if (!refreshToken && !isPublicUrl) {
-      res.writeHead(302, { location: 'http://localhost:3000/sign-in' });
-      res.end();
-    }
+    try {
+      const { data } = await axios('/auth/refresh-token', {
+        method: 'POST',
+        headers: {
+          cookie: 'refreshToken=' + refreshToken,
+        },
+      });
 
-    if (refreshToken && !isPublicUrl) {
-      try {
-        const { data } = await axios('/auth/refresh-token', {
-          method: 'POST',
-          headers: {
-            cookie: 'refreshToken=' + refreshToken,
-          },
-        });
-
-        store.dispatch(refreshTokenSuccess(data));
-      } catch (error) {
-        store.dispatch(refreshTokenFailure(error));
-        store.dispatch(END);
-        res.writeHead(302, { location: 'http://localhost:3000/sign-in' });
-        res.end();
-      }
+      store.dispatch(refreshTokenSuccess(data));
+      return data.id;
+    } catch (error) {
+      return false;
     }
   }
 };

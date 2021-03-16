@@ -54,10 +54,14 @@ const EditMasterWorkDisplay = ({ work, setIsEdit, setActiveLink, isActiveLink, i
             e.stopPropagation();
             setIsEdit(true);
           }}
-          className="master-works__trash"
+          className="master-works__icon mr-3 "
           icon="pen"
         />
-        <FontAwesomeIcon onClick={(e) => deleteWork(e, work._id)} className="master-works__trash ml-s-4" icon="trash" />
+        <FontAwesomeIcon
+          onClick={(e) => deleteWork(e, work._id)}
+          className="master-works__icon master-works__icon--trash"
+          icon="trash"
+        />
       </div>
     </li>
   );

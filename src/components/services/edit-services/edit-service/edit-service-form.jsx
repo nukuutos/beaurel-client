@@ -12,9 +12,12 @@ import renderDurationOptions from '../../../profile/section-cards/services/utils
 import Textarea from '../../../form/textarea';
 import Select from '../../../form/select';
 import Input from '../../../form/input';
+import useAsyncAction from '../../../../hooks/useAsyncAction';
+import InputIcon from '../../../form/input-icon';
 
 const EditServiceForm = ({ service, setIsEdit }) => {
-  const [sessionTime, accessToken] = useSelector((state) => [state.timetable.sessionTime, state.auth.accessToken]);
+  const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
+  const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
 
   const { title, duration, price, id } = service;
@@ -30,23 +33,20 @@ const EditServiceForm = ({ service, setIsEdit }) => {
       validationSchema={serviceSchema(sessionTime)}
       onSubmit={async (values) => {
         const { date, ...service } = values;
-
         const config = {
           method: 'put',
-          url: `/profile/5eb849b81c2ccc21306ced34/service/${id}`,
+          url: `/profile/${profileId}/service/${id}`,
           data: { date, service },
           accessToken,
         };
-
-        const alert = await asyncCall(dispatch, config);
-
+        const alert = await asyncAction(config);
         if (alert) {
           dispatch(updateServiceSuccess({ updatedService: { ...service, id } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }
       }}>
-      {({ submitForm, isSubmitting, dirty }) => (
+      {({ submitForm, values, dirty }) => (
         <>
           <Form className="service">
             {/* избавиться от спанов? */}
@@ -57,7 +57,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
 
             <div className="service__duration service__attribute--edit input--icon">
               <FontAwesomeIcon className="input__icon input__icon--s" icon="clock" />
-              <Select className="input input--mini" name="duration" as="select">
+              <Select value={values.duration} className="input input--mini" name="duration" as="select">
                 {renderDurationOptions(sessionTime)}
               </Select>
             </div>
@@ -66,11 +66,6 @@ const EditServiceForm = ({ service, setIsEdit }) => {
 
             {/* change service__attribute--edit to one */}
             <div className="service__price service__price-area">
-              {/* <div className="input--icon service__attribute--edit">
-                <FontAwesomeIcon className="input__icon input__icon--s" icon="ruble-sign" />
-                <Input className="input input--mini" type="number" name="price" />
-              </div> */}
-
               <InputIcon
                 type="number"
                 name="price"
@@ -82,8 +77,9 @@ const EditServiceForm = ({ service, setIsEdit }) => {
             <ErrorMessage name="price">
               {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
             </ErrorMessage>
-            {isSubmitting ? (
-              <Spinner className="spinner--tiny spinner--gc ml-s-4 mb-s-4" />
+            {isLoading ? (
+              // <Spinner className="spinner--tiny spinner--gc ml-s-4 mb-s-4" />
+              <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (
               <>
                 <div

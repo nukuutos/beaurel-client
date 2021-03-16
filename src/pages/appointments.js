@@ -1,5 +1,5 @@
 import Layout from '../components/layout/layout';
-import refreshToken from '../utils/refresh-token';
+import refreshToken from '../utils/refresh-token-auth';
 import { wrapper } from '../redux/store';
 import { END } from 'redux-saga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,9 +55,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   const { id } = query;
 
   await refreshToken(req, res, store); // dispatch this?
-  // store.dispatch(getProfileStart({ id }));
-  store.dispatch(END);
-  await store.sagaTask.toPromise();
+
   return { props: { custom: 'custom' } };
 });
 

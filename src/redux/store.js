@@ -1,10 +1,10 @@
 import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+// import createSagaMiddleware from 'redux-saga';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 
 import combinedReducer from './reducer';
-import rootSaga from './saga';
+// import rootSaga from './saga';
 
 const bindMiddleware = (middleware) => {
   // if (process.env.NODE_ENV !== 'production') {
@@ -37,10 +37,10 @@ const rootReducer = (state, action) => {
 };
 
 export const makeStore = (context) => {
-  const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, bindMiddleware([logger, sagaMiddleware]));
+  // const sagaMiddleware = createSagaMiddleware();
+  const store = createStore(rootReducer, bindMiddleware([logger]));
 
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+  // store.sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;
 };

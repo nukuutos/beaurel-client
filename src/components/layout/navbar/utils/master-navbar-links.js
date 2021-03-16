@@ -1,5 +1,5 @@
-export default [
-  { name: 'Профиль', path: '/profile', icon: 'user-alt' },
+const masterNavbarLinks = (masterId) => [
+  { name: 'Профиль', path: `/${masterId}`, icon: 'user-alt' },
   { name: 'Поиск', path: '/search', icon: 'search' },
   { name: 'Записи', path: '/appointments', icon: ['far', 'calendar-alt'] },
   { name: 'Услуги', path: '/services', icon: 'stream' },
@@ -7,3 +7,5 @@ export default [
   { name: 'Твои Мастера', path: '/masters', icon: 'star' },
   { name: 'Настройки', path: '/settings', icon: 'cog' },
 ];
+
+export default masterNavbarLinks;

@@ -8,6 +8,7 @@ import {
   ADD_MASTER,
   DELETE_MASTER,
 } from './types';
+import favoriteMasters from '../../server/pipelines/user/favorite-masters';
 
 const INITIAL_STATE = {
   isLoadingAbout: false,
@@ -15,6 +16,8 @@ const INITIAL_STATE = {
   ratingStats: { ratingCounters: [] },
   lastName: '',
   masters: [],
+  reviews: [],
+  id: null,
 }; // try every props get null (redirect)
 
 const profileReducer = (state = INITIAL_STATE, action) => {
@@ -57,12 +60,12 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       };
 
     case GET_MASTERS_SUCCESS:
-      const { data } = payload;
-      console.log(data);
+      // wtf with destrucutre?
+      // instead of array of strings I get array of aggregation fucntions after destructuring
 
       return {
         ...state,
-        masters: data.favoriteMasters[0].masters,
+        masters: payload.favoriteMasters,
       };
 
     case ADD_MASTER:

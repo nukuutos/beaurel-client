@@ -1,0 +1,30 @@
+@use "../../../../../abstracts/colors" as *;
+
+.booking-success {
+  width: 45.2rem;
+  background: $color-white;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.6rem;
+  padding: 2.4rem 0;
+
+  &__heading {
+    grid-column: 3 / 11;
+  }
+
+  &__svg {
+    grid-column: 4 / 10;
+    justify-self: center;
+  }
+
+  &__text {
+    grid-column: 3 / 11;
+    line-height: 2.4rem;
+  }
+
+  &__button {
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+}

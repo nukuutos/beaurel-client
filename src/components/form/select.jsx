@@ -4,6 +4,7 @@ import { useField, Field } from 'formik';
 export const Select = ({ className, children, ...props }) => {
   // i don't understand how to do it with useField
   const [field, meta] = useField(props);
+
   // console.log(props);
 
   // const errorClass = meta.error && meta.touched ? ' form__input--error' : '';

@@ -12,9 +12,9 @@ const DraggableSubService = ({ subService, isLastService, index }) => {
       {({ innerRef, draggableProps, dragHandleProps }) => {
         return (
           <div ref={innerRef} {...draggableProps} {...dragHandleProps} className="service service-parameter">
-            {/* <span className="service__draggable-icon">
-              <FontAwesomeIcon icon="grip-lines-vertical" />
-            </span> */}
+            <span className="service__draggable-icon">
+              <FontAwesomeIcon icon="grip-vertical" />
+            </span>
             <SubService subService={subService} isLastService={isLastService} isDraggable />
           </div>
         );

@@ -10,6 +10,7 @@ import InputCustom from '../../../../form/input-custom';
 import Spinner from '../../../../utils/spinner';
 import { titleField } from '../../../utils/schemas';
 import Textarea from '../../../../form/textarea';
+import useAsyncAction from '../../../../../hooks/useAsyncAction';
 
 // import InputCustom from '../../../../../../../form/input-custom';
 // import Spinner from '../../../../../../../utils/spinner';
@@ -18,7 +19,8 @@ import Textarea from '../../../../form/textarea';
 // import { titleField } from '../../../../utils/schemas';
 
 const EditTitleForm = ({ title, setIsEdit }) => {
-  const [{ accessToken }, { id: profileId }] = useSelector((state) => [state.auth, state.profile]);
+  const { accessToken, id: profileId } = useSelector((state) => state.auth);
+  const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
 
   const editTitleSchema = Yup.object().shape({
@@ -43,7 +45,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
           accessToken,
         };
 
-        const alert = await asyncCall(dispatch, config);
+        const alert = await asyncAction(config);
 
         if (alert) {
           dispatch(updateServiceParameterTitleSuccess({ updatedServiceTitles: { oldTitle, title } }));
@@ -61,8 +63,8 @@ const EditTitleForm = ({ title, setIsEdit }) => {
             <div className={`service-parameter__icon mr-s`}>
               <FontAwesomeIcon icon="caret-left" />
             </div>
-            {isSubmitting ? (
-              <Spinner className="spinner--tiny spinner--gc ml-s-4" />
+            {isLoading ? (
+              <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (
               <>
                 <div

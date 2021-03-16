@@ -1,0 +1,53 @@
+@use "../../../../../abstracts/colors" as *;
+
+.booking-service {
+  position: relative;
+  border: 1px solid transparent;
+  transition: 0.2s border-color;
+  border-radius: 0.5rem;
+
+  &:hover {
+    border-color: $color-primary;
+
+    .service__title::after {
+      background: $color-primary;
+    }
+
+    .service__horizontal-line {
+      background: $color-primary;
+    }
+
+    .booking-service__arrow {
+      opacity: 1;
+      transform: translate(1.2rem, -50%);
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    right: -5.2rem; // - arrow size(3.2) - margin(2)
+    transform: translateY(-50%);
+    opacity: 0;
+
+    & > * {
+      height: 1.6rem;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    $size: 3.2rem;
+    height: $size;
+    width: $size;
+
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    box-shadow: 0 0 5px rgba($color-black, 0.25);
+
+    border-radius: 50%;
+
+    transition: 0.2s opacity, 0.2s transform;
+  }
+}

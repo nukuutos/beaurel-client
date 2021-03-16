@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Service from '../../service';
-import asyncCall from '../../../../utils/async-call';
 import { deleteServiceSuccess } from '../../../../redux/service/actions/service';
 import { setAlert } from '../../../../redux/alert/actions';
 import Spinner from '../../../utils/spinner';
+import useAsyncAction from '../../../../hooks/useAsyncAction';
 
 const EditServiceDisplay = ({ service, setIsEdit }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const isCancelled = useRef(false); // for api call
-  const [{ accessToken }, { id: profileId }] = useSelector((state) => [state.auth, state.profile]);
+  const [asyncAction, isLoading] = useAsyncAction();
+
+  const { accessToken, id: profileId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const { id } = service;
@@ -23,30 +22,20 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
       accessToken,
     };
 
-    setIsLoading(true);
-
-    const alert = await asyncCall(dispatch, config);
+    const alert = await asyncAction(config);
 
     if (alert) {
       dispatch(deleteServiceSuccess({ deletedService: { id } }));
       dispatch(setAlert(alert));
     }
-
-    if (!isCancelled.current) setIsLoading(false);
   };
-
-  useEffect(() => {
-    return () => {
-      isCancelled.current = true;
-    };
-  }, []);
 
   return (
     <>
       <div className="service">
         <Service service={service} />
         {isLoading ? (
-          <Spinner className="spinner--tiny spinner--gc" />
+          <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
         ) : (
           <>
             <div onClick={() => setIsEdit(true)} className="service__btn service__btn service__btn--first btn--edit">

@@ -27,9 +27,7 @@ const EditMasterWorks = ({ setIsAddWork }) => {
   const { works, isLoading } = useSelector((state) => state.work);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (works === null) dispatch(getWorksStart());
-  }, []);
+  useEffect(() => {}, []);
 
   return isLoading ? (
     <div className="wrapper">
@@ -37,6 +35,15 @@ const EditMasterWorks = ({ setIsAddWork }) => {
     </div>
   ) : works.length > 0 ? (
     <div className="master-works">
+      <main className="master-works__main">
+        <div className="master-works__background">
+          <img
+            className="master-works__image"
+            src={`http://localhost:5000/images/works/${works[activeLink]._id}.png`}
+            alt="Master's Work"
+          />
+        </div>
+      </main>
       <nav className="master-works__navbar">
         {works.map((work, i) => (
           <EditMasterWork
@@ -50,18 +57,9 @@ const EditMasterWorks = ({ setIsAddWork }) => {
         ))}
 
         <li onClick={() => setIsAddWork(true)} className="master-works__item master-works__item--add">
-          <FontAwesomeIcon className="master-works__plus" icon="plus" />
+          <FontAwesomeIcon icon="plus" />
         </li>
       </nav>
-      <main className="master-works__main">
-        <div className="master-works__background">
-          <img
-            className="master-works__image"
-            src={`http://localhost:5000/images/works/${works[activeLink]._id}.png`}
-            alt="Master's Work"
-          />
-        </div>
-      </main>
     </div>
   ) : (
     <FirstRender setIsAddWork={setIsAddWork} />

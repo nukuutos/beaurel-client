@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,12 +9,12 @@ import Spinner from '../../utils/spinner';
 import Textarea from '../../form/textarea';
 import asyncCall from '../../../utils/async-call';
 import { setAlert } from '../../../redux/alert/actions';
+import useAsyncAction from '../../../hooks/useAsyncAction';
 
 const AboutEdit = ({ onClickClose }) => {
   const dispatch = useDispatch();
   const [{ aboutText }, { id, accessToken }] = useSelector((state) => [state.profile, state.auth]);
-
-  const updateAboutText = (aboutText) => dispatch(updateAboutStart(aboutText));
+  const [asyncAction, isLoading] = useAsyncAction();
 
   return (
     <Modal onClickClose={onClickClose}>
@@ -31,13 +31,25 @@ const AboutEdit = ({ onClickClose }) => {
               accessToken,
             };
 
-            const alert = await asyncCall(dispatch, config);
+            const alert = await asyncAction(config);
 
             if (alert) {
               dispatch(updateAboutSuccess(values.aboutText)); // add work success
               dispatch(setAlert(alert));
               onClickClose();
             }
+
+            // setIsLoading(true);
+
+            // const alert = await asyncCall(dispatch, config);
+
+            // if (alert) {
+            //   dispatch(updateAboutSuccess(values.aboutText)); // add work success
+            //   dispatch(setAlert(alert));
+            //   onClickClose();
+            // }
+
+            // if (!isCancelled.current) setIsLoading(false);
           }}>
           {({ values, dirty, isValid, submitForm }) => (
             <Form className="edit-about__form">
@@ -52,7 +64,7 @@ const AboutEdit = ({ onClickClose }) => {
                     else onClickClose();
                   }}
                   type="submit"
-                  className={`btn btn--primary`}>
+                  className={`btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}>
                   Сохранить
                 </button>
               </div>

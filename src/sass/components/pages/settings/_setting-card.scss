@@ -32,6 +32,10 @@
     align-self: center;
   }
 
+  &__form {
+    display: contents;
+  }
+
   &__input {
     grid-column: 1 / 7;
   }

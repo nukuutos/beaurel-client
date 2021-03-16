@@ -21,34 +21,27 @@
     height: $size;
   }
 
-  &--edge {
-    position: absolute;
-    top: -40%;
-    right: -7%;
-  }
+  // &--edge {
+  //   position: absolute;
+  //   top: -40%;
+  //   right: -7%;
+  // }
 
-  &--btn-mini {
-    position: absolute;
-    top: -47%;
-    right: -12%;
-  }
+  // &--btn-mini {
+  //   position: absolute;
+  //   top: -47%;
+  //   right: -12%;
+  // }
 
   // grid center
-  &--gc {
-    justify-self: center;
-    align-self: center;
+  // &--gc {
+  //   justify-self: center;
+  //   align-self: center;
+  // }
+
+  &--absolute {
+    animation: spinWithAbsolutePosition 1s linear infinite;
   }
-
-  // &--button {
-  //   background: none;
-  //   outline: 0;
-
-  //   &:hover {
-  //     background: none;
-  //     cursor: default;
-  //   }
-  // }
-  // }
 }
 
 @keyframes spin {
@@ -57,5 +50,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes spinWithAbsolutePosition {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
   }
 }

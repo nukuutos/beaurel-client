@@ -58,6 +58,12 @@
     padding-left: 0.4rem;
   }
 
+  &__exceptions {
+    & > *:not(:first-child) {
+      margin-top: 0.4rem;
+    }
+  }
+
   &__btn-edit {
     grid-column: 12 / 13;
     justify-self: flex-end;

@@ -10,36 +10,42 @@ const Day = ({ setStep, date, availableAppointments = [] }) => {
   const formatedAvailableTimes = availableAppointments.map((time) => displayDuration(time));
 
   return (
-    <div className="day">
-      <div className="day__header">
-        {DAYS_OF_THE_WEEK[date.getDay()]}
-        <br />
-        <div className="day__subheader">
+    <>
+      <div className="booking-timetable__weekday">
+        <span>{DAYS_OF_THE_WEEK[date.getDay()]}</span>
+        <span className="mt-3">
           {date.getDate()} {MONTHS[date.getMonth()]}
-        </div>
+        </span>
       </div>
-
-      {formatedAvailableTimes.map((time, i) => (
-        <Appointment
-          onClick={() => {
-            setStep((state) => {
-              if (state.step === 1)
+      <div className="booking-timetable__appointments">
+        {formatedAvailableTimes.map((time, i) => (
+          <Appointment
+            onClick={() => {
+              setStep((state) => {
+                if (state.step === 1)
+                  return {
+                    ...state,
+                    isTimetable: false,
+                    isService: true,
+                    step: state.step + 1,
+                    lastStepName: 'timetable',
+                  };
                 return {
                   ...state,
                   isTimetable: false,
-                  isService: true,
+                  isResult: true,
                   step: state.step + 1,
                   lastStepName: 'timetable',
                 };
-              return { ...state, isTimetable: false, isResult: true, step: state.step + 1, lastStepName: 'timetable' };
-            });
-            dispatch(setAppointmentDate({ date, time: timeData[i], availableAppointments }));
-          }}
-          key={i}
-          time={time}
-        />
-      ))}
-    </div>
+              });
+              dispatch(setAppointmentDate({ date, time: availableAppointments[i], availableAppointments }));
+            }}
+            key={i}
+            time={time}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

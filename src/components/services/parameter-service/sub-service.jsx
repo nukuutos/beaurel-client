@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const SubService = ({ subService, isLastService = false, isDraggable = false }) => {
   const { parameter, duration, price } = subService;
 
-  const parameterClassName = `service__title ${isDraggable ? 'service__parameter--draggable' : ''} ${
+  const parameterClassName = `service__title ${isDraggable ? 'service__title--draggable' : ''} ${
     isLastService ? 'service__parameter--last' : ''
   }`;
 

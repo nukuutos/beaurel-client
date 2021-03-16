@@ -32,9 +32,10 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isLoading: true };
 
     case GET_SERVICES_SUCCESS:
-    case SET_SERVICES:
+    case SET_SERVICES: {
       const { services } = payload;
       return { ...state, isLoading: false, services, initialOrder: getIdsAndOrders(services) };
+    }
 
     // ADD_SERVICE
     case ADD_SERVICE_SUCCESS: // ordinary service, parameter service

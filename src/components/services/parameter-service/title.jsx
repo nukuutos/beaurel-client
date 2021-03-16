@@ -1,10 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Title = ({ shownState, title, children, isDroppable = false }) => {
+const Title = ({ shownState, title, children, isDraggable = false }) => {
   const [isShown, setIsShown] = shownState;
-
-  const classNameParameter = `service__title service-parameter__title ${!isShown ? 'service__title--hidden' : ''}`;
+  // service__title--draggable
+  const classNameParameter = `service__title  ${isDraggable ? 'service__title--draggable' : ''} ${
+    !isShown ? 'service__title--hidden' : ''
+  }`;
 
   return (
     <>

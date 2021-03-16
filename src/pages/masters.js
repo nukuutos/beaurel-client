@@ -4,16 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProfileRating from '../components/profile/header/profile-rating';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import refreshToken from '../utils/refresh-token';
+import refreshToken from '../utils/refresh-token-auth';
 import { END } from 'redux-saga';
 import { getMastersSuccess } from '../redux/profile/actions';
 import { useSelector } from 'react-redux';
 import axios from '../utils/axios';
 import MasterCard from '../components/search/master-card';
+import getAccessToken from '../utils/get-access-token';
+import verifyToken from '../server/utils/verify-token';
+import User from '../server/models/user';
+import handleAuth from '../utils/handle-auth';
 
 const Masters = ({ masters }) => {
-  // const [masters, setMasters] = useState(masters);
-  console.log(masters);
   return (
     <Layout>
       <main className="content card card--layout">
@@ -28,26 +30,14 @@ const Masters = ({ masters }) => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  await refreshToken(req, res, store); // dispatch this?
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+  const userId = await handleAuth(req, res, store);
 
-  const {
-    auth: { accessToken, id },
-  } = store.getState();
+  const data = await User.getFavoriteMasters(userId);
 
-  // unnecessarily data (not favorite masters)
+  store.dispatch(getMastersSuccess({ favoriteMasters: data.masterIds }));
 
-  const { data } = await axios.get(`/profile/${id}/master/favorites`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  console.log(data);
-  store.dispatch(getMastersSuccess({ data: { favoriteMasters: [{ masters: data.data.ids }] } }));
-
-  store.dispatch(END);
-  await store.sagaTask.toPromise();
-  return { props: { masters: data.data.masters } };
+  return { props: { masters: data.masters || [] } };
 });
 
 export default Masters;

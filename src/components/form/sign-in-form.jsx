@@ -1,23 +1,39 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { useRouter } from 'next/router';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { signInStart } from '../../redux/auth/actions';
+import { signInStart, signInSuccess } from '../../redux/auth/actions';
 
 import InputCustom from './input-custom';
+import useAsyncAction from '../../hooks/useAsyncAction';
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const signIn = (user) => dispatch(signInStart(user));
+  const [asyncAction, isLoading] = useAsyncAction();
+  const router = useRouter();
 
   return (
     <section>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={async (data, { setSubmitting }) => {
+          const config = {
+            method: 'post',
+            url: `/auth/sign-in`,
+            data,
+            accessToken: null,
+          };
+
+          const { id, accessToken, role } = await asyncAction(config);
+
+          if (id) {
+            dispatch(signInSuccess({ id, accessToken, role })); // add work success
+            router.push(`/${id}`);
+          }
           // setSubmitting(true);
-          signIn(data);
+          // signIn(data);
         }}>
         {({ isSubmitting }) => (
           <Form>

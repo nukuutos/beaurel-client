@@ -1,17 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MastersWorksView from './masters-works-view';
 import { useSelector, useDispatch } from 'react-redux';
-import { getWorksStart } from '../../../../redux/work/actions';
+import { getWorksStart, getWorksSuccess } from '../../../../redux/work/actions';
 import UsersMasterWorksView from './users-master-works-view';
 import Modal from '../../../utils/modal';
 import Spinner from '../../../utils/spinner';
+import useAsyncAction from '../../../../hooks/useAsyncAction';
 
 const MasterWorks = ({ onClickClose }) => {
-  const [{ works, isLoading }, { isPublicView }] = useSelector((state) => [state.work, state.profile]);
+  const [{ works }, { isPublicView, id: profileId }] = useSelector((state) => [state.work, state.profile]);
+  const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
 
+  const getWorks = async () => {
+    const config = {
+      method: 'get',
+      url: `/profile/${profileId}/work`,
+      accessToken: null,
+    };
+
+    const works = await asyncAction(config);
+    if (works) dispatch(getWorksSuccess(works));
+  };
+
   useEffect(() => {
-    if (!works.length) dispatch(getWorksStart());
+    if (!works.length) getWorks();
   }, []);
 
   return (
