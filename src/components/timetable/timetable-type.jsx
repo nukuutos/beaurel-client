@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RadioButton from '../form/radio-button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const TimetableType = ({ type, isDisabled }) => {
+const TimetableType = ({ type, update, isEditing }) => {
   // const [isDisabled, setIsDisabled] = useState(update ? true : false);
 
   return (
@@ -11,9 +11,10 @@ const TimetableType = ({ type, isDisabled }) => {
 
       <span className="timetable-card__label mt-3">Автоматически:</span>
       <RadioButton
-        disabled={isDisabled}
-        defaultChecked={type === 'auto'}
-        className={`timetable-card__value mt-3 ml-1 ${isDisabled ? 'radio-button--disabled' : ''}`}
+        disabled={update || isEditing}
+        // defaultChecked={type === 'auto'}
+        checked={type === 'auto'}
+        className={`timetable-card__value mt-3 ml-1 ${update || isEditing ? 'radio-button--disabled' : ''}`}
         name="type"
         value="auto"
       />
@@ -42,10 +43,11 @@ const TimetableType = ({ type, isDisabled }) => {
       <span className="timetable-card__value timetable-card__label mt-2">Вручную:</span>
 
       <RadioButton
-        disabled={isDisabled}
-        className={`timetable-card__value mt-2 ml-1 ${isDisabled ? 'radio-button--disabled' : ''}`}
+        disabled={update || isEditing}
+        className={`timetable-card__value mt-2 ml-1 ${update || isEditing ? 'radio-button--disabled' : ''}`}
         name="type"
-        defaultChecked={type === 'manually'}
+        // defaultChecked={type === 'manually'}
+        checked={type === 'manually'}
         value="manually"
       />
     </div>

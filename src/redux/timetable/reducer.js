@@ -1,16 +1,20 @@
-import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE } from './types';
+import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE, UNSET_TIMETABLE_UPDATE } from './types';
 
 const INITIAL_STATE = {
   sessionTime: null,
   type: null,
+
   auto: {
     possibleAppointmentsTime: [],
     weekends: [],
-    workingDay: null,
-    exception: null,
+    workingDay: {
+      startAt: null,
+      endAt: null,
+    },
+    exceptions: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
   },
   manually: {
-    appointments: {},
+    appointments: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
   },
   update: null,
 };
@@ -35,6 +39,10 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
         ...state,
         update,
       };
+    }
+
+    case UNSET_TIMETABLE_UPDATE: {
+      return { ...state, update: null };
     }
 
     default:

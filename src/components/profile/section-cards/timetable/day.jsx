@@ -1,7 +1,7 @@
 import Appointment from './appointment';
 import { useDispatch } from 'react-redux';
 import { setAppointmentDate } from '../../../../redux/appointments/actions';
-import { MONTHS, DAYS_OF_THE_WEEK } from './utils/week';
+import { MONTHS, DAYS_OF_THE_WEEK, getWeekDayRU } from './utils/week';
 import displayDuration from '../services/utils/display-duration';
 
 const Day = ({ setStep, date, availableAppointments = [] }) => {
@@ -12,7 +12,7 @@ const Day = ({ setStep, date, availableAppointments = [] }) => {
   return (
     <>
       <div className="booking-timetable__weekday">
-        <span>{DAYS_OF_THE_WEEK[date.getDay()]}</span>
+        <span>{DAYS_OF_THE_WEEK[getWeekDayRU(date.getDay())]}</span>
         <span className="mt-3">
           {date.getDate()} {MONTHS[date.getMonth()]}
         </span>

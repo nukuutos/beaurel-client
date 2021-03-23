@@ -4,13 +4,16 @@ import renderDurationOptions from '../services/utils/render-duration-options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from '../services/utils/display-duration';
 
-const WorkingDay = ({ workingDay, sessionTime, update }) => {
-  const [isWorkingDayEdit, setIsWorkingDayEdit] = useState(false);
+const WorkingDay = ({ workingDay, sessionTime, update, editParentState }) => {
+  // const [isWorkingDayEdit, setIsWorkingDayEdit] = useState(false);
+  const [editState, setEditState] = editParentState;
+  const { isEditing, element } = editState;
+  const isDisabled = update || (isEditing && !element.workingDay);
 
   return (
     <>
       <label className="timetable-card__label  mt-5">Рабочий день:</label>
-      {isWorkingDayEdit ? (
+      {element.workingDay ? (
         <>
           <span className="timetable-card__value ml-1 mt-5 ">
             <Select className="timetable-card__select select mr-1" name="auto.workingDay.startAt" as="select">
@@ -22,12 +25,16 @@ const WorkingDay = ({ workingDay, sessionTime, update }) => {
             </Select>
           </span>
           <div
-            onClick={() => setIsWorkingDayEdit(false)}
+            onClick={() => {
+              setEditState({ isEditing: false, element: { ...editState, workingDay: false } });
+            }}
             className="timetable-card__btn-edit--primary btn--edit btn--hover-success timetable-card__btn-edit--bottom">
             <FontAwesomeIcon icon="check" />
           </div>
           <div
-            onClick={() => setIsWorkingDayEdit(false)}
+            onClick={() => {
+              setEditState({ isEditing: false, element: { ...editState, workingDay: false } });
+            }}
             className="timetable-card__btn-edit btn--edit btn--hover-fail timetable-card__btn-edit--bottom">
             <FontAwesomeIcon icon="times" />
           </div>
@@ -37,9 +44,11 @@ const WorkingDay = ({ workingDay, sessionTime, update }) => {
           <span className="timetable-card__value ml-1 mt-5">
             {`${displayDuration(workingDay.startAt)} - ${displayDuration(workingDay.endAt)}`}
           </span>
-          {!update && (
+          {!isDisabled && (
             <div
-              onClick={() => setIsWorkingDayEdit(true)}
+              onClick={() => {
+                setEditState({ isEditing: true, element: { ...editState, workingDay: true } });
+              }}
               className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn--edit">
               <FontAwesomeIcon icon="pen" />
             </div>

@@ -18,7 +18,11 @@
     font-size: 2rem;
     grid-column: 1 / -1;
     grid-row: 1 / 2;
-    align-self: center; // for last heading (change password)
+    // align-self: center; // for last heading (change password)
+    //  for updated timetable
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__label {

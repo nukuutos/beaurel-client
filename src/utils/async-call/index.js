@@ -18,7 +18,7 @@ const asyncCall = async (dispatch, config) => {
 
     return data;
   } catch (error) {
-    const { response } = error.response;
+    const { response } = error;
 
     // handle unauthorized error
     let data = null;

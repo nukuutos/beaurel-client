@@ -7,56 +7,32 @@ import Weekends from '../components/timetable/weekends';
 import WorkingDay from '../components/timetable/working-day';
 import Exceptions from '../components/timetable/exceptions';
 import VisualTimetableAuto from '../components/timetable/visual-timetable-auto';
-import VisualUpdatedTimetableAuto from '../components/timetable/visual-updated-timetable-auto';
 import VisualTimetableManually from '../components/timetable/visual-timetable-manually';
 import ManuallyAppointments from '../components/timetable/manually-appointments';
-import VisualUpdatedTimetableManually from '../components/timetable/visual-updated-timetable-manually';
 import TimetableModel from '../server/models/timetable';
 import handleAuth from '../utils/handle-auth';
 import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import UpdatedDate from '../components/timetable/updated-date';
+import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable';
+import useAsyncAction from '../hooks/useAsyncAction';
+import { setAlert } from '../redux/alert/actions';
 
-const Timetable = () => {
-  // const timetable = {
-  //   sessionTime: 60,
-  //   type: 'auto',
-  //   auto: {
-  //     weekends: ['sat', 'sun'],
-  //     workingDay: {
-  //       startAt: 600,
-  //       endAt: 1020,
-  //     },
-  //     exceptions: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-  //   },
-  //   manually: {
-  //     appointments: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-  //     // time: 60, // input for add appointment manually (add it on the client for timetable structure)
-  //   },
-  //   update: {
-  //     date: null,
-  //     sessionTime: 60,
-  //     type: 'auto',
-  //     auto: {
-  //       weekends: ['sat', 'sun'],
-  //       workingDay: {
-  //         startAt: 600,
-  //         endAt: 1020,
-  //       },
-  //       exceptions: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-  //       //possibleAppointmetnsTimes ?
-  //     },
-  //     manually: {
-  //       appointments: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-  //       // time: 60, // input for add appointment manually (add it on the client for timetable structure)
-  //     },
-  //   },
-  // };
+const Timetable = ({}) => {
+  const [asyncAction, isLoading] = useAsyncAction();
   const [isDatePicker, setIsDatePicker] = useState(false);
-  const timetable = useSelector((state) => state.timetable);
-  const { manually, update, ...restTimetableProps } = timetable;
+  // if we've got update => disable edit every element
+  // we editing something => disable other elements
+  const [editState, setEditState] = useState({
+    isEditing: false,
+    element: { sessionTime: false, weekends: false, workingDay: false },
+  });
+  const [timetable, { accessToken, id: profileId, role }] = useSelector((state) => [state.timetable, state.auth]);
   const dispatch = useDispatch();
+
+  const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
+
   return (
     <Layout>
       <main className="content card card--layout">
@@ -78,42 +54,68 @@ const Timetable = () => {
             // }
             {
               ...restTimetableProps,
+              editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
+              sessionTime, // main purpose of this session time is rendering auto timetable
               manually: { ...manually, time: timetable.sessionTime },
-              date: new Date('2020-12-30T23:00:00.000Z'), // it's null
+              date: new Date('2021-12-30T23:00:00.000Z'), // it's null
             }
           }
-          onSubmit={async (values) => {
-            const update = { ...values };
+          // submit is calling in UpdatedDate component
+          enableReinitialize
+          onSubmit={async ({ editingSessionTime, manually, ...values }, { resetForm }) => {
+            const update = { manually: { appointments: manually.appointments }, ...values };
 
             const config = {
-              method: 'put',
-              // url: `/profile/${profileId}/service/parameter/${oldTitle}`,
-              // data: { date, service: { oldTitle, title } },
-              // accessToken,
+              method: 'post',
+              url: `/profile/${profileId}/timetable/${timetableId}/update`,
+              data: update,
+              accessToken,
+              role,
             };
 
-            // const alert = await asyncCall(dispatch, config);
-            dispatch(setTimetableUpdate({ update }));
-            // if (alert) {
-            //   dispatch(updateServiceParameterTitleSuccess({ updatedServiceTitles: { oldTitle, title } }));
-            //   dispatch(setAlert(alert));
-            //   setIsEdit(false);
-            // }
+            const alert = await asyncAction(config);
+
+            if (alert) {
+              dispatch(setTimetableUpdate({ update }));
+              resetForm();
+              setIsDatePicker(false);
+              dispatch(setAlert(alert));
+            }
           }}>
-          {({ values }) => (
+          {({ values, dirty, initialValues, setFieldValue }) => (
             <Form className="timetable__form">
-              <BaseSettings sessionTime={values.sessionTime} update={update} />
-              <TimetableType type={values.type} isDisabled={update} />
+              <BaseSettings
+                sessionTime={values.sessionTime}
+                exceptions={values.auto.exceptions}
+                startAt={values.auto.workingDay.startAt}
+                editingSessionTime={values.editingSessionTime}
+                initialValues={initialValues}
+                setFieldValue={setFieldValue}
+                update={update}
+                editParentState={[editState, setEditState]}
+              />
+              <TimetableType type={values.type} update={update} isEditing={editState.isEditing} />
 
               {values.type === 'auto' ? (
                 <>
                   <div className="timetable__timetable-card timetable-card mt-8 card">
                     <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
-                    <Weekends weekends={values.auto.weekends} update={update} />
-                    <WorkingDay workingDay={values.auto.workingDay} sessionTime={values.sessionTime} update={update} />
-                    <Exceptions exceptions={values.auto.exceptions} update={update} />
+                    <Weekends
+                      weekends={values.auto.weekends}
+                      update={update}
+                      editParentState={[editState, setEditState]}
+                      initialValues={initialValues}
+                      setFieldValue={setFieldValue}
+                    />
+                    <WorkingDay
+                      workingDay={values.auto.workingDay}
+                      sessionTime={values.sessionTime}
+                      update={update}
+                      editParentState={[editState, setEditState]}
+                    />
+                    <Exceptions exceptions={values.auto.exceptions} />
                   </div>
-                  <VisualTimetableAuto values={values} />
+                  <VisualTimetableAuto values={values} update={update} isEditing={editState.isEditing} />
                 </>
               ) : (
                 <>
@@ -121,28 +123,24 @@ const Timetable = () => {
                     <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
                     <ManuallyAppointments appointments={values.manually.appointments} />
                   </div>
-                  <VisualTimetableManually values={values} />
+                  <VisualTimetableManually update={update} isEditing={editState.isEditing} values={values} />
                 </>
               )}
 
               {!update && (
-                <div onClick={() => setIsDatePicker(true)} className="btn btn--primary timetable__button mt-8">
+                <div
+                  onClick={() => setIsDatePicker(true)}
+                  className={`btn btn--primary ${dirty ? '' : 'btn--disabled'} timetable__button mt-8`}>
                   Сохранить
                 </div>
               )}
 
-              {isDatePicker && <UpdatedDate setIsDatePicker={setIsDatePicker} />}
-
-              {/* add to update property updated timetable(or can i omit it?)*/}
-              {/* after success save on server:  */}
-              {/* reset form to initial values(excepting update)  */}
-              {/* change redux store */}
+              {isDatePicker && <UpdatedDate isLoading={isLoading} setIsDatePicker={setIsDatePicker} />}
             </Form>
           )}
         </Formik>
 
-        {update && update.type === 'auto' && <VisualUpdatedTimetableAuto update={update} />}
-        {update && update.type === 'manually' && <VisualUpdatedTimetableManually update={update} />}
+        {update && <VisualUpdatedTimetable update={update} />}
       </main>
     </Layout>
   );
@@ -151,11 +149,11 @@ const Timetable = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const userId = await handleAuth(req, res, store);
 
-  const timetable = await TimetableModel.findOne({ masterId: userId }, { masterId: 0, _id: 0 });
+  const timetable = await TimetableModel.findOne({ masterId: userId }, { masterId: 0 });
 
   store.dispatch(getTimetableSuccess({ timetable }));
 
-  return { props: { custom: 'custom' } };
+  return { props: { timetable } };
 });
 
 export default Timetable;

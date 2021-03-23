@@ -4,38 +4,33 @@ import { getTimetableSuccess } from '../../../../redux/timetable/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousWeek, getNextWeek } from './utils/get-week';
 import useWeek from './hooks/useWeek';
-import asyncCall from '../../../../utils/async-call';
 import { getAppointmentsSuccess } from '../../../../redux/appointments/actions';
+import useAsyncAction from '../../../../hooks/useAsyncAction';
 
 const Timetable = ({ stepState }) => {
   const [{ step }, setStep] = stepState;
   const [weekDays, setDate] = useWeek(setStep);
-  const isCancelled = useRef(false);
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const { id: profileId } = useSelector((state) => state.profile);
+  const [asyncAction, isLoading] = useAsyncAction();
 
-  const getTimetableAndAppointments = async () => {
+  const getDataForBooking = async () => {
     const config = {
       method: 'get',
-      url: `/profile/${profileId}/timetable/appointment`,
+      url: `/profile/${profileId}/timetable/booking`,
       accessToken: null,
     };
 
-    setIsLoading(true);
-
-    const { timetable, appointments } = await asyncCall(dispatch, config);
+    const { timetable, appointments } = await asyncAction(config);
 
     if (timetable) {
       dispatch(getTimetableSuccess({ timetable }));
       dispatch(getAppointmentsSuccess({ appointments }));
     }
-
-    if (!isCancelled.current) setIsLoading(false);
   };
 
   useEffect(() => {
-    getTimetableAndAppointments();
+    getDataForBooking();
   }, []);
 
   return (

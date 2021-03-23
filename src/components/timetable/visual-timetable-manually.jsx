@@ -1,53 +1,58 @@
 import React, { useState } from 'react';
-import { translateWeekdaysFromRU, translateWeekdaysFromEN } from './utils/translate';
-import generatePossibleAppointmentsTime from './utils/generate-possible-appointments-time';
 import { FieldArray } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from '../services/utils/display-duration';
 import Modal from '../utils/modal';
 import Input from '../form/input';
 
-const VisualTimetableManually = ({ values }) => {
-  const [isModal, setIsModal] = useState({ isOpen: false, weekday: null });
+const weekdaysRU = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+
+const VisualTimetableManually = ({ values, update, isEditing }) => {
+  const [isModal, setIsModal] = useState({ isOpen: false, weekdayIndex: null });
+  const isDisabled = update || isEditing;
 
   return (
     <div className="timetable__timetable-card timetable-card mt-8 card">
       <div className="timetable-card__heading mb-2 ">Расписание</div>
       <div className="timetable-visual mt-4">
         {/* this data is based of sessionTime weekends and */}
-        {['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'].map((russianWeekdayName, i) => {
+        {weekdaysRU.map((russianWeekdayName, weekdayIndex) => {
           const {
             manually: { appointments },
           } = values;
-          const weekday = translateWeekdaysFromRU[russianWeekdayName];
+
+          // const weekday = translateWeekdaysFromRU[russianWeekdayName];
 
           return (
             <>
               <FieldArray
-                key={i}
-                name={`manually.appointments[${weekday}]`}
+                key={weekdayIndex}
+                name={`manually.appointments[${weekdayIndex}]`}
                 render={({ remove }) => (
-                  <>
-                    <div className="timetable-visual__weekday weekday">
-                      <div className="weekday__name">{russianWeekdayName}</div>
-                      <div className="weekday__appointments">
-                        {appointments[weekday].map((time, i) => {
-                          const onClick = () => remove(appointments[weekday].indexOf(time));
+                  // <>
+                  <div key={weekdayIndex} className="timetable-visual__weekday weekday">
+                    <div className="weekday__name">{russianWeekdayName}</div>
+                    <div className="weekday__appointments">
+                      {appointments[weekdayIndex].map((time, i) => {
+                        const onClick = () => remove(appointments[weekdayIndex].indexOf(time));
 
-                          return (
-                            <span onClick={onClick} key={i} className={`weekday__time mt-5`}>
-                              {displayDuration(time)}
-                            </span>
-                          );
-                        })}
-                        <span
-                          onClick={() => setIsModal({ isOpen: true, weekday })}
-                          className={`weekday__time weekday__time--add mt-5`}>
-                          <FontAwesomeIcon icon="plus" />
-                        </span>
-                      </div>
+                        return (
+                          <span
+                            onClick={onClick}
+                            key={i}
+                            className={`weekday__time ${isEditing ? 'btn--disabled' : ''} mt-5`}>
+                            {displayDuration(time)}
+                          </span>
+                        );
+                      })}
+                      <span
+                        onClick={() => setIsModal({ isOpen: true, weekdayIndex })}
+                        className={`weekday__time ${isDisabled ? 'btn--disabled' : ''} weekday__time--add mt-5`}>
+                        <FontAwesomeIcon icon="plus" />
+                      </span>
                     </div>
-                  </>
+                  </div>
+                  // </>
                 )}
               />
             </>
@@ -56,13 +61,13 @@ const VisualTimetableManually = ({ values }) => {
         {/* i need to validate time when user add it */}
         {isModal.isOpen && (
           <FieldArray
-            name={`manually.appointments[${isModal.weekday}]`}
+            name={`manually.appointments[${isModal.weekdayIndex}]`}
             render={({ push }) => (
-              <Modal onClickClose={() => setIsModal({ isOpen: false, weekday: null })}>
+              <Modal onClickClose={() => setIsModal({ isOpen: false, weekdayIndex: null })}>
                 <div className="add-time card">
                   <h2 className="heading-primary add-time__heading">Добавить время</h2>
                   <label className="add-time__label mt-6">День недели:</label>
-                  <div className="add-time__value mt-6">{translateWeekdaysFromEN[isModal.weekday].toUpperCase()}</div>
+                  <div className="add-time__value mt-6">{weekdaysRU[isModal.weekdayIndex].toUpperCase()}</div>
 
                   <label className="add-time__label mt-4">Время:</label>
                   {/* do timepicker */}
@@ -73,7 +78,7 @@ const VisualTimetableManually = ({ values }) => {
                   <div
                     onClick={() => {
                       push(values.manually.time);
-                      setIsModal({ isOpen: false, weekday: null });
+                      setIsModal({ isOpen: false, weekdayIndex: null });
                     }}
                     className="btn btn--primary add-time__button">
                     Добавить

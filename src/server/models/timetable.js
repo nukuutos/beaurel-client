@@ -12,7 +12,12 @@ class Timetable {
 
     if (query.masterId) query.masterId = new ObjectId(query.masterId);
 
-    return await db.collection('timetables').findOne(query, { projection: projection });
+    const data = await db.collection('timetables').findOne(query, { projection: projection });
+
+    if (data._id) data._id = String(data._id);
+    if (data.update && data.update.date) data.update.date = String(data.update.date);
+
+    return data;
   }
 }
 

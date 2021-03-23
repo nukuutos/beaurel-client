@@ -71,6 +71,12 @@
     }
   }
 
+  &--fail-solid {
+    // border: 1px solid $color-fail;
+    color: $color-white;
+    background: $color-fail;
+  }
+
   &--edit {
     & > * {
       height: 1.6rem; // (1.2)
