@@ -57,7 +57,7 @@ const Timetable = ({}) => {
               editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
               sessionTime, // main purpose of this session time is rendering auto timetable
               manually: { ...manually, time: timetable.sessionTime },
-              date: new Date('2021-12-30T23:00:00.000Z'), // it's null
+              date: new Date(Date.UTC(2021, 3, 1, 0, 0, 0, 0)), // it's null
             }
           }
           // submit is calling in UpdatedDate component

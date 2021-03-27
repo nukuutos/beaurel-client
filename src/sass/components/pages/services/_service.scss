@@ -19,6 +19,11 @@
   // min-height: 8.8rem;
   min-height: 9.7rem;
 
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
   &__wrapper {
     width: 100%;
     display: grid;

@@ -20,7 +20,7 @@ import {
 
 import getIdsAndOrders from '../../components/profile/section-cards/services/utils/get-ids-and-orders';
 
-const INITIAL_STATE = { isLoading: false, services: [], initialOrder: null };
+const INITIAL_STATE = { masterId: null, services: [], initialOrder: null };
 
 // how to separete two reducers with one state?
 // a lot of repeated vars, declare here let?
@@ -33,8 +33,8 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
     case GET_SERVICES_SUCCESS:
     case SET_SERVICES: {
-      const { services } = payload;
-      return { ...state, isLoading: false, services, initialOrder: getIdsAndOrders(services) };
+      const { masterId, services } = payload;
+      return { ...state, masterId: masterId || null, services, initialOrder: getIdsAndOrders(services) };
     }
 
     // ADD_SERVICE

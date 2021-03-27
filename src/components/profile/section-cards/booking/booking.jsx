@@ -4,10 +4,13 @@ import BookingServices from './booking-services/booking-services';
 import BookingResult from './booking-result';
 import BookingSuccess from './booking-success';
 import BookingTimetable from '../timetable/timetable';
+import { useDispatch } from 'react-redux';
+import { unsetAppointment } from '../../../../redux/appointments/actions';
 
 // Booking is used in two component.
 // Depended on component it runs, we display firstly ServicesBook or Timetable
 const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
+  const dispatch = useDispatch();
   const [step, setStep] = useState({
     isService,
     isTimetable,
@@ -18,7 +21,11 @@ const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
   });
 
   return (
-    <Modal onClickClose={onClickClose}>
+    <Modal
+      onClickClose={() => {
+        onClickClose();
+        dispatch(unsetAppointment());
+      }}>
       {step.isService && <BookingServices stepState={[step, setStep]} />}
       {step.isTimetable && <BookingTimetable stepState={[step, setStep]} />}
       {step.isResult && <BookingResult setStep={setStep} />}

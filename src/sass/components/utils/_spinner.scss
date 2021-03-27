@@ -21,26 +21,38 @@
     height: $size;
   }
 
-  // &--edge {
-  //   position: absolute;
-  //   top: -40%;
-  //   right: -7%;
-  // }
-
-  // &--btn-mini {
-  //   position: absolute;
-  //   top: -47%;
-  //   right: -12%;
-  // }
-
-  // grid center
-  // &--gc {
-  //   justify-self: center;
-  //   align-self: center;
-  // }
-
   &--absolute {
     animation: spinWithAbsolutePosition 1s linear infinite;
+  }
+}
+
+.spinner-with-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  // background: rgba($color-white, 0.8);
+  background: $color-white;
+  z-index: 100;
+
+  &:after {
+    content: '';
+    position: absolute;
+    border: 4px solid #7b0ec6;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    background-image: none;
+    font-size: 0;
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    animation: spinWithAbsolutePosition 1s linear infinite;
+    cursor: default;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -55,9 +67,9 @@
 
 @keyframes spinWithAbsolutePosition {
   from {
-    transform: translateY(-50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
-    transform: translateY(-50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }

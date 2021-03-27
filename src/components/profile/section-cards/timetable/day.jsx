@@ -4,11 +4,10 @@ import { setAppointmentDate } from '../../../../redux/appointments/actions';
 import { MONTHS, DAYS_OF_THE_WEEK, getWeekDayRU } from './utils/week';
 import displayDuration from '../services/utils/display-duration';
 
-const Day = ({ setStep, date, availableAppointments = [] }) => {
+const Day = ({ setStep, date, availableAppointments = [], unavailableAppointments = [] }) => {
   const dispatch = useDispatch();
 
   const formatedAvailableTimes = availableAppointments.map((time) => displayDuration(time));
-
   return (
     <>
       <div className="booking-timetable__weekday">
@@ -38,7 +37,15 @@ const Day = ({ setStep, date, availableAppointments = [] }) => {
                   lastStepName: 'timetable',
                 };
               });
-              dispatch(setAppointmentDate({ date, time: availableAppointments[i], availableAppointments }));
+
+              dispatch(
+                setAppointmentDate({
+                  date,
+                  time: availableAppointments[i],
+                  availableAppointments,
+                  unavailableAppointments,
+                })
+              );
             }}
             key={i}
             time={time}

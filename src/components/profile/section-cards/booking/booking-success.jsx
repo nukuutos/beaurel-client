@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { unsetAppointment } from '../../../../redux/appointments/actions';
+import { useDispatch } from 'react-redux';
 // import Modal from '../../../utils/modal';
 // import { useSelector, useDispatch } from 'react-redux';
 // import displayDuration from '../services/utils/display-duration';
@@ -8,6 +10,7 @@ import React, { useState, useRef, useEffect } from 'react';
 // import { setAlert } from '../../../../redux/alert/actions';
 
 const BookingSuccess = ({ onClickClose }) => {
+  const dispatch = useDispatch();
   // const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
   //   state.appointments.bookingAppointment,
   //   state.auth,
@@ -22,7 +25,13 @@ const BookingSuccess = ({ onClickClose }) => {
         После подверждения записи мастером Вам придёт уведомление и СМС на Ваш номер телефона.
       </p>
 
-      <button onClick={() => onClickClose()} className={`booking-success__button btn btn--primary mt-6`} type="submit">
+      <button
+        onClick={() => {
+          onClickClose();
+          dispatch(unsetAppointment());
+        }}
+        className={`booking-success__button btn btn--primary mt-6`}
+        type="submit">
         Завершить
       </button>
     </div>

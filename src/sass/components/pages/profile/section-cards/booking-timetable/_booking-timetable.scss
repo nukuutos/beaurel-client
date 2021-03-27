@@ -2,12 +2,13 @@
 
 .booking-timetable {
   background: $color-white;
-
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   min-width: 76.8rem;
   padding-top: 2.8rem;
   overflow: hidden; // for border radius
+  padding-right: 2rem;
 
   &__heading {
     text-transform: uppercase;

@@ -1,6 +1,7 @@
 import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE, UNSET_TIMETABLE_UPDATE } from './types';
 
 const INITIAL_STATE = {
+  masterId: null,
   sessionTime: null,
   type: null,
 

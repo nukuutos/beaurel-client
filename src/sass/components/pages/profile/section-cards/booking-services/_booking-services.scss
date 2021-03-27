@@ -1,7 +1,9 @@
 @use "../../../../../abstracts/colors" as *;
 
 .booking-services {
+  position: relative;
   width: 81.2rem;
+  min-height: 64.8rem;
   max-height: 86rem;
   overflow-y: auto;
 
@@ -15,6 +17,8 @@
     grid-column: 1 / 4;
     justify-self: center;
     align-self: center;
+    position: relative;
+    z-index: 1;
   }
 
   &::after {

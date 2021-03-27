@@ -5,15 +5,16 @@ import SubService from '../../../../services/parameter-service/sub-service';
 import Title from '../../../../services/parameter-service/title';
 import disable from '../../utils/disable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import filterAppointmentsForSevice from '../../utils/filter-appointments-for-sevice';
 
 const BookingParameterService = ({ service, setStep }) => {
   const [isShown, setIsShown] = useState(false);
   const { title, subServices } = service;
 
-  const [{ time, availableAppointments }, { sessionTime }] = useSelector((state) => [
-    state.appointments.bookingAppointment,
-    state.timetable,
-  ]);
+  const [
+    { time, availableAppointments, unavailableAppointments, date },
+    { sessionTime, type, update },
+  ] = useSelector((state) => [state.appointments.bookingAppointment, state.timetable]);
 
   const dispatch = useDispatch();
 
@@ -27,7 +28,23 @@ const BookingParameterService = ({ service, setStep }) => {
         subServices.map((subService, i) => {
           const { duration, id } = subService;
           const isLastService = i === subServices.length - 1;
-          const isDisabled = time ? disable(time, availableAppointments, sessionTime, duration) : false; // for 2 case of wrapper
+          // const isDisabled = time ? disable(time, availableAppointments, sessionTime, duration) : false; // for 2 case of wrapper
+
+          let currentSessionTime = sessionTime;
+          let currentType = type;
+
+          if (update && new Date(update.date).getTime() <= date.getTime()) {
+            [currentSessionTime, currentType] = [update.sessionTime, update.type];
+          }
+
+          let isDisabled;
+
+          if (currentType == 'auto') {
+            isDisabled = time ? disable(time, availableAppointments, currentSessionTime, duration) : false; // for 2 case of wrapper
+          } else {
+            // rendame filterAppointmentsForSevice
+            isDisabled = !filterAppointmentsForSevice(time, duration, unavailableAppointments);
+          }
 
           const handleOnClick = () => {
             dispatch(setAppointmentService({ id, title, duration }));
