@@ -60,7 +60,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   const userId = await handleAuth(req, res, store);
 
   const { services, timetable } = await ServiceModel.getServices(userId);
-
+  console.log('here');
+  console.log('here');
+  console.log('here');
+  console.log('here');
+  console.log('here');
+  console.log(services, timetable);
   // await refreshToken(req, res, store); // dispatch this?
   // add session time
   store.dispatch(getServicesSuccess({ services }));

@@ -77,7 +77,8 @@ const services = (masterId) => [
       masterId: 1,
       timetable: {
         sessionTime: '$sessionTime',
-        update: '$update',
+        // update: { date: '$update.date', sessionTime: '$update.sessionTime' },
+        update: { date: { $convert: { input: '$update.date', to: 'string' } }, sessionTime: '$update.sessionTime' },
       },
     },
   },
