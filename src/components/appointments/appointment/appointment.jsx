@@ -18,9 +18,9 @@ const convertDateToString = (date) => {
 };
 
 const Appointment = ({ appointment, children }) => {
-  const { _id, service, customer, time, date, createdAt } = appointment;
+  const { _id, service, user, time, date, createdAt } = appointment;
 
-  const { firstName, lastName, avatar, _id: customerId } = customer;
+  const { firstName, lastName, avatar, _id: userId } = user; // it can be master or customer
   const { title, duration, price } = service;
   const { startAt } = time;
 

@@ -6,45 +6,53 @@ import {
   UNSET_APPOINTMENT_DATE,
   UNSET_APPOINTMENT_SERVICE,
   BOOK_APPOINTMENT_SUCCESS,
-  SET_MASTER_APPOINTMENTS,
+  SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
 } from './types';
 import { defineCategory } from './utils';
 
+// group state like appointments and booking ?
 const INITIAL_STATE = {
   // appointments for master
-  // onConfirmation => ?, confirmed => ended, (rejected, cancelled, ended/expired) = history, unsuitable
-
   // onConfirmation
   // confirmed
-
-  // HISTORY
-  // rejected by master
-  // cancelled confirmed appointment by master or customer
-  // ended confirmed appointment
-  // expired appointment onConfirmation
-
+  // history
   // unsuitable
 
-  masterAppointments: {
-    onConfirmation: [],
-    confirmed: [],
-    history: [],
-    unsuitable: [],
+  // NOT RENDERED ON THE CIENT
+  // "expired" appointment onConfirmation
+  // "rejected" by master
+  // "cancelled" confirmed appointment by master or customer
+  // appointments
+  appointments: {
+    master: {
+      onConfirmation: { isLoaded: false, appointments: [] },
+      confirmed: { isLoaded: false, appointments: [] },
+      history: { isLoaded: false, appointments: [] },
+      unsuitable: { isLoaded: false, appointments: [] },
+    },
+    customer: {
+      onConfirmation: { isLoaded: false, appointments: [] },
+      confirmed: { isLoaded: false, appointments: [] },
+      history: { isLoaded: false, appointments: [] },
+      unsuitable: { isLoaded: false, appointments: [] },
+    },
   },
 
+  // booking
+  // other reducer??(booking reducer)
   // every property below for booking
-  masterId: null,
-  appointments: {},
-  bookingAppointment: {
-    date: null,
-    time: null,
-    service: null,
-    availableAppointments: null,
-    unavailableAppointments: null,
+  booking: {
+    masterId: null,
+    masterAppointments: {},
+    bookingAppointment: {
+      date: null,
+      time: null,
+      service: null,
+      availableAppointments: null,
+      unavailableAppointments: null,
+    },
   },
-  availableAppointments: null,
-  unavailableAppointments: null,
 };
 
 // ???? in bookingAppointment.availableAppointments and availableAppointments. same unavailableAppointments
@@ -60,25 +68,31 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        ...appointments,
+        booking: {
+          ...state.booking,
+          masterAppointments: appointments,
+        },
       };
 
     case SET_APPOINTMENT_DATE:
       //  date, time, availableAppointments, availableAppointments in payload
       return {
         ...state,
-        bookingAppointment: { ...state.bookingAppointment, ...payload },
+        booking: { ...state.booking, bookingAppointment: { ...state.booking.bookingAppointment, ...payload } },
       };
 
     case UNSET_APPOINTMENT_DATE:
       return {
         ...state,
-        bookingAppointment: {
-          ...state.bookingAppointment,
-          date: null,
-          time: null,
-          availableAppointments: null,
-          unavailableAppointments: null,
+        booking: {
+          ...state.booking,
+          bookingAppointment: {
+            ...state.booking.bookingAppointment,
+            date: null,
+            time: null,
+            availableAppointments: null,
+            unavailableAppointments: null,
+          },
         },
       };
 
@@ -86,71 +100,83 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       // const { id } = payload;
       return {
         ...state,
-        bookingAppointment: { ...state.bookingAppointment, service: { ...payload } },
+        booking: {
+          ...state.booking,
+          bookingAppointment: { ...state.booking.bookingAppointment, service: { ...payload } },
+        },
       };
 
     case UNSET_APPOINTMENT_SERVICE:
       // const { id } = payload;
       return {
         ...state,
-        bookingAppointment: { ...state.bookingAppointment, service: null },
+        booking: {
+          ...state.booking,
+          bookingAppointment: { ...state.booking.bookingAppointment, service: null },
+        },
       };
 
     case UNSET_APPOINTMENT:
       return {
         ...state,
-        bookingAppointment: {
-          date: null,
-          time: null,
-          availableAppointments: null,
-          unavailableAppointments: null,
-          service: null,
+        booking: {
+          ...state.booking,
+          bookingAppointment: {
+            date: null,
+            time: null,
+            availableAppointments: null,
+            unavailableAppointments: null,
+            service: null,
+          },
         },
       };
 
     case BOOK_APPOINTMENT_SUCCESS: {
       const { time, date } = payload;
 
-      const appointments = { ...state.appointments };
+      const masterAppointments = { ...state.booking.masterAppointments };
 
-      if (appointments[date]) appointments[date].push(time);
-      else appointments[date] = [time];
+      if (masterAppointments[date]) masterAppointments[date].push(time);
+      else masterAppointments[date] = [time];
 
-      return { ...state, appointments };
+      return { ...state, booking: { ...state.booking, masterAppointments } };
     }
 
-    case SET_MASTER_APPOINTMENTS: {
-      const { type, appointments } = payload;
+    case SET_APPOINTMENTS: {
+      const { type, appointments, user } = payload;
 
-      const masterAppointments = { ...state.masterAppointments };
-      masterAppointments[type] = appointments;
+      const appointmentsState = { ...state.appointments };
+      appointmentsState[user][type] = { isLoaded: true, appointments };
 
-      return { ...state, masterAppointments };
+      return { ...state, appointments: appointmentsState };
     }
 
     case CHANGE_APPOINTMENT_STATUS: {
-      const { nextStatus, appointment } = payload;
+      const { nextStatus, appointment, user } = payload;
       const { status: currentStatus, _id: appointmentId } = appointment;
 
-      const currentCategory = defineCategory(currentStatus);
-      const nextCategory = defineCategory(nextStatus);
-
-      const masterAppointments = { ...state.masterAppointments };
+      const appointmentsState = { ...state.appointments };
 
       // find index in current category
-      const indexToDelete = masterAppointments[currentCategory].findIndex((appointment) => {
+      const indexToDelete = appointmentsState[user][currentStatus].appointments.findIndex((appointment) => {
         return appointment._id === appointmentId;
       });
 
-      masterAppointments[currentCategory].splice(indexToDelete, 1);
+      appointmentsState[user][currentStatus].appointments.splice(indexToDelete, 1);
 
-      appointment.status = nextStatus;
+      const { isConfirmedLoaded } = appointmentsState['master']['confirmed'];
+      if (user === 'customer' || nextStatus !== 'confirmed' || !isConfirmedLoaded) {
+        return { ...state, appointments: appointmentsState };
+      }
+
+      // next code only for master appointments, confirming appointments and confirmed appointments is not Loaded
+
+      appointment.status = 'confirmed';
       // find index to insert;
       // not push, inserted it correctly (i think default sort is by createdAt time in onConfirmation, in history by apppoitment time, in confirmed by appointment time, unsuitable by appointemnt time)
-      masterAppointments[nextCategory].push(appointment);
-      console.log(masterAppointments);
+      appointmentsState['master']['confirmed'].appointments.push(appointment);
 
-      return { ...state, masterAppointments };
+      return { ...state, appointments: appointmentsState };
     }
 
     default:

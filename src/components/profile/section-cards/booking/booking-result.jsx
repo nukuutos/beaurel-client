@@ -32,7 +32,7 @@ const months = [
 
 const BookingResult = ({ setStep }) => {
   const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
-    state.appointments.bookingAppointment,
+    state.appointments.booking.bookingAppointment,
     state.auth,
   ]);
   // const isCancelled = useRef(false);

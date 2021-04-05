@@ -128,6 +128,7 @@
 .card {
   box-shadow: 0 1px 1rem rgba($color-black, 0.25);
   border-radius: 0.5rem;
+  position: relative;
 
   &--layout {
     box-shadow: 0 0 2rem rgba($color-black, 0.25);

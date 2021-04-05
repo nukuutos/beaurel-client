@@ -8,7 +8,7 @@ import {
   UNSET_APPOINTMENT_DATE,
   UNSET_APPOINTMENT_SERVICE,
   BOOK_APPOINTMENT_SUCCESS,
-  SET_MASTER_APPOINTMENTS,
+  SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
 } from './types';
 
@@ -52,8 +52,8 @@ export const bookAppointmentSuccess = (bookingData) => ({
   payload: bookingData,
 });
 
-export const setMasterAppointments = (appointmentsData) => ({
-  type: SET_MASTER_APPOINTMENTS,
+export const setAppointments = (appointmentsData) => ({
+  type: SET_APPOINTMENTS,
   payload: appointmentsData,
 });
 

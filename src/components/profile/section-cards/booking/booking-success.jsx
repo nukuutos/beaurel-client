@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 const BookingSuccess = ({ onClickClose }) => {
   const dispatch = useDispatch();
   // const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
-  //   state.appointments.bookingAppointment,
+  //   state.appointments.booking.bookingAppointment,
   //   state.auth,
   // ]);
 

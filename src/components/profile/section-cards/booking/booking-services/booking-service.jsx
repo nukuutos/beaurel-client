@@ -12,7 +12,7 @@ const BookingService = ({ service, setStep }) => {
   const [
     { time, availableAppointments, unavailableAppointments, date },
     { sessionTime, type, update },
-  ] = useSelector((state) => [state.appointments.bookingAppointment, state.timetable]);
+  ] = useSelector((state) => [state.appointments.booking.bookingAppointment, state.timetable]);
 
   let currentSessionTime = sessionTime;
   let currentType = type;

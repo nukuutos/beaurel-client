@@ -40,8 +40,8 @@ const useWeek = (setStep) => {
 
       const { sessionTime, type, auto, manually } = timetable;
 
-      const { appointments } = appointmentsState; // appointments from appointmentsState
-      const bookedAppointments = appointments[stringDate] || []; // get booked appointments from server for this date
+      const { masterAppointments } = appointmentsState.booking; // appointments from appointmentsState
+      const bookedAppointments = masterAppointments[stringDate] || []; // get booked appointments from server for this date
       const weekdayIndexRU = getWeekDayRU(date.getDay());
 
       let availableAppointments = [];
@@ -75,7 +75,7 @@ const useWeek = (setStep) => {
         // check for service
         const {
           bookingAppointment: { service },
-        } = appointmentsState;
+        } = appointmentsState.booking;
 
         // if we choose service (if this component is step 2), we find suitable apps for this service
         if (service) {

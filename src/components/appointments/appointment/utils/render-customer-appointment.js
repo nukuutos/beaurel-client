@@ -1,14 +1,14 @@
-import OnConfirmationAppointment from '../on-confirmation-appointment';
-import ConfimedAppointment from '../confirmed-appointment';
+import OnConfirmationAppointment from '../customer/on-confirmation-appointment';
+import ReviewAppointment from '../customer/review-appointment';
 
-const renderApointment = (appointment, category, i) => {
+const renderCustomerAppointment = (appointment, category, i) => {
   switch (category) {
     case 'onConfirmation':
       return <OnConfirmationAppointment appointment={appointment} key={i} />;
     case 'confirmed':
-      return <ConfimedAppointment appointment={appointment} key={i} />;
-    case 'history':
       return <OnConfirmationAppointment appointment={appointment} key={i} />;
+    case 'history':
+      return <ReviewAppointment appointment={appointment} key={i} />;
     case 'unsuitable':
       return <OnConfirmationAppointment appointment={appointment} key={i} />;
 
@@ -17,4 +17,4 @@ const renderApointment = (appointment, category, i) => {
   }
 };
 
-export default renderApointment;
+export default renderCustomerAppointment;

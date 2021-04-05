@@ -23,7 +23,7 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
           },
         },
       ],
-      as: 'customer',
+      as: 'user',
     },
   },
   {
@@ -35,7 +35,7 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   {
     $addFields: {
       _id: { $convert: { input: '$_id', to: 'string' } },
-      customer: { $arrayElemAt: ['$customer', 0] },
+      user: { $arrayElemAt: ['$user', 0] },
       date: { $convert: { input: '$date', to: 'string' } },
       createdAt: { $convert: { input: '$createdAt', to: 'string' } },
     },

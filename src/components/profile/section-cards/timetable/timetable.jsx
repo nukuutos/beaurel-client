@@ -38,7 +38,7 @@ const Timetable = ({ stepState }) => {
   useEffect(() => {
     const queryMasterId = router.query.id;
     const isTimetable = timetable && timetable.masterId === queryMasterId;
-    const isAppointments = appointments && appointments.masterId === queryMasterId;
+    const isAppointments = appointments && appointments.booking.masterId === queryMasterId;
 
     // optimize it
     if (!isTimetable && !isAppointments) getDataForBooking();

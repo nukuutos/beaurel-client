@@ -1,9 +1,9 @@
 import React from 'react';
-import useAsyncAction from '../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/useAsyncAction';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeAppointmentStatus } from '../../../redux/appointments/actions';
-import { setAlert } from '../../../redux/alert/actions';
-import Appointment from './appointment';
+import { changeAppointmentStatus } from '../../../../redux/appointments/actions';
+import { setAlert } from '../../../../redux/alert/actions';
+import Appointment from '../appointment';
 
 const ConfimedAppointment = ({ appointment }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
@@ -16,9 +16,9 @@ const ConfimedAppointment = ({ appointment }) => {
   const cancel = async () => {
     const config = {
       method: 'put',
-      url: `/profile/${profileId}/appointment/${_id}/status`,
+      url: `/profile/${profileId}/appointment/${_id}/status/master`,
       data: {
-        status: 'cancelled',
+        status: 'rejected',
       },
       accessToken,
     };
@@ -26,7 +26,7 @@ const ConfimedAppointment = ({ appointment }) => {
     const alert = await asyncActionCancelled(config);
 
     if (alert) {
-      dispatch(changeAppointmentStatus({ nextStatus: 'cancelled', appointment }));
+      dispatch(changeAppointmentStatus({ nextStatus: 'rejected', appointment, user: 'master' }));
       setAlert(alert);
     }
   };
