@@ -42,6 +42,7 @@ const mastersWithFavorites = (userId) => [
             lastName: 1,
             avatar: 1,
             placeOfwork: 1,
+            specialization: 1,
           },
         },
         // rating
@@ -58,9 +59,14 @@ const mastersWithFavorites = (userId) => [
                 },
               },
               {
+                $group: {
+                  _id: null,
+                  rating: { $avg: '$value' },
+                },
+              },
+              {
                 $project: {
                   _id: 0,
-                  rating: { $avg: '$value' },
                 },
               },
             ],

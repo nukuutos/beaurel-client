@@ -1,17 +1,12 @@
 import Layout from '../components/layout/layout';
-import refreshToken from '../utils/refresh-token';
 import { wrapper } from '../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from '../components/form/select';
 import { Formik, Form } from 'formik';
 import Input from '../components/form/input';
 import { useState } from 'react';
-import asyncCall from '../utils/async-call';
-import { useDispatch } from 'react-redux';
 import MasterCard from '../components/search/master-card';
 import { getMastersSuccess } from '../redux/profile/actions';
-import getAccessToken from '../utils/get-access-token';
-import getMasters from '../utils/pages/search';
 import User from '../server/models/user';
 import handlePublicPageAuth from '../utils/handle-public-page-auth';
 import useAsyncAction from '../hooks/useAsyncAction';
@@ -91,7 +86,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   };
 
   const { masters, favoriteMasters } = await handlePublicPageAuth(getMastersFromDb, { req, res, store });
-
   // dispatch to favorite
   store.dispatch(getMastersSuccess({ favoriteMasters }));
 

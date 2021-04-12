@@ -43,7 +43,7 @@ const UnsuitableAppointment = ({ appointment }) => {
 
     if (alert) {
       dispatch(changeAppointmentStatus({ nextStatus: 'rejected', appointment }));
-      setAlert(alert);
+      dispatch(setAlert(alert));
     }
   };
 

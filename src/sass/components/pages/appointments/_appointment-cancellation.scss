@@ -1,0 +1,29 @@
+@use "../../../abstracts/colors" as *;
+
+.appointment-cancellation {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 39.6rem;
+  column-gap: 1.6rem;
+  background: $color-white;
+  padding: 2.4rem 1.6rem;
+
+  &__heading {
+    grid-column: 2 / 12;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 2rem;
+    grid-column: 2 / 12;
+    line-height: 3.2rem;
+    // color: $color-gray;
+  }
+
+  &__buttons {
+    grid-column: 2 / 12;
+    display: flex;
+    // justify-content: space-between;
+    justify-content: flex-end;
+  }
+}

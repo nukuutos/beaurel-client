@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MasterWorks from './master-work/master-works';
+import MasterWorks from './master-works/master-works';
 import Booking from './booking/booking';
 import cardsData from './utils/cards-data';
 import Card from './card';

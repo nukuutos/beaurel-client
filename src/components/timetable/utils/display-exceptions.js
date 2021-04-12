@@ -1,7 +1,5 @@
 import displayDuration from '../../services/utils/display-duration';
-import { translateWeekdaysFromEN } from './translate';
-
-const weekdaysRU = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+import weekdaysRU from './weekdays-ru';
 
 // rename it
 const displayExceptions = (exceptions) => {

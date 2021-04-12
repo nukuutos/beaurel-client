@@ -1,5 +1,5 @@
 import OnConfirmationAppointment from '../customer/on-confirmation-appointment';
-import ReviewAppointment from '../customer/review-appointment';
+import ReviewAppointment from '../customer/review-appointment/review-appointment';
 
 const renderCustomerAppointment = (appointment, category, i) => {
   switch (category) {

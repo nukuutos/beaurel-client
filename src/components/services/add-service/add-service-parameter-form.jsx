@@ -98,7 +98,6 @@ const AddSubServicesForm = () => {
                             {renderDurationOptions(sessionTime)}
                           </Select>
                         </div>
-                        {/* <ErrorMessage name="duration">{(msg) => <div className="service__error">{msg}</div>}</ErrorMessage> */}
                       </div>
 
                       <div className="add-service__price mt-6">

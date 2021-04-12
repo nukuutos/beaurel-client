@@ -8,8 +8,8 @@ import {
   BOOK_APPOINTMENT_SUCCESS,
   SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
+  UPSERT_APPOINTMENT_REVIEW,
 } from './types';
-import { defineCategory } from './utils';
 
 // group state like appointments and booking ?
 const INITIAL_STATE = {
@@ -44,13 +44,13 @@ const INITIAL_STATE = {
   // every property below for booking
   booking: {
     masterId: null,
-    masterAppointments: {},
+    bookedAppointments: {},
     bookingAppointment: {
       date: null,
       time: null,
       service: null,
-      availableAppointments: null,
-      unavailableAppointments: null,
+      availableAppointments: [],
+      unavailableAppointments: [],
     },
   },
 };
@@ -64,18 +64,18 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case GET_APPOINTMENTS_SUCCESS:
-      const { appointments } = payload;
+      const { appointments, masterId } = payload;
 
       return {
         ...state,
         booking: {
           ...state.booking,
-          masterAppointments: appointments,
+          masterId,
+          bookedAppointments: appointments,
         },
       };
 
     case SET_APPOINTMENT_DATE:
-      //  date, time, availableAppointments, availableAppointments in payload
       return {
         ...state,
         booking: { ...state.booking, bookingAppointment: { ...state.booking.bookingAppointment, ...payload } },
@@ -90,14 +90,13 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
             ...state.booking.bookingAppointment,
             date: null,
             time: null,
-            availableAppointments: null,
-            unavailableAppointments: null,
+            availableAppointments: [],
+            unavailableAppointments: [],
           },
         },
       };
 
     case SET_APPOINTMENT_SERVICE:
-      // const { id } = payload;
       return {
         ...state,
         booking: {
@@ -107,7 +106,6 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UNSET_APPOINTMENT_SERVICE:
-      // const { id } = payload;
       return {
         ...state,
         booking: {
@@ -124,8 +122,8 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
           bookingAppointment: {
             date: null,
             time: null,
-            availableAppointments: null,
-            unavailableAppointments: null,
+            availableAppointments: [],
+            unavailableAppointments: [],
             service: null,
           },
         },
@@ -134,12 +132,12 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
     case BOOK_APPOINTMENT_SUCCESS: {
       const { time, date } = payload;
 
-      const masterAppointments = { ...state.booking.masterAppointments };
+      const bookedAppointments = { ...state.booking.bookedAppointments };
 
-      if (masterAppointments[date]) masterAppointments[date].push(time);
-      else masterAppointments[date] = [time];
+      if (bookedAppointments[date]) bookedAppointments[date].push(time);
+      else bookedAppointments[date] = [time];
 
-      return { ...state, booking: { ...state.booking, masterAppointments } };
+      return { ...state, booking: { ...state.booking, bookedAppointments } };
     }
 
     case SET_APPOINTMENTS: {
@@ -177,6 +175,27 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       appointmentsState['master']['confirmed'].appointments.push(appointment);
 
       return { ...state, appointments: appointmentsState };
+    }
+
+    case UPSERT_APPOINTMENT_REVIEW: {
+      const { appointmentId, review } = payload;
+      const appointments = { ...state.appointments };
+      const customerHistoryAppointments = appointments['customer']['history'];
+
+      const indexToUpdate = customerHistoryAppointments.appointments.findIndex((appointment) => {
+        return appointment._id === appointmentId;
+      });
+
+      const appointmentToUpdate = customerHistoryAppointments.appointments[indexToUpdate];
+      const updatedAppointment = {
+        ...appointmentToUpdate,
+        review: { ...appointmentToUpdate.review, ...review },
+      };
+
+      customerHistoryAppointments.appointments[indexToUpdate] = updatedAppointment;
+      appointments['customer']['history'] = customerHistoryAppointments;
+
+      return { ...state, appointments };
     }
 
     default:

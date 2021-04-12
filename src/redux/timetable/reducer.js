@@ -17,7 +17,27 @@ const INITIAL_STATE = {
   manually: {
     appointments: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
   },
-  update: null,
+
+  update: {
+    date: null,
+
+    sessionTime: null,
+    type: null,
+
+    auto: {
+      possibleAppointmentsTime: [],
+      weekends: [],
+      workingDay: {
+        startAt: null,
+        endAt: null,
+      },
+      exceptions: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
+    },
+
+    manually: {
+      appointments: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
+    },
+  },
 };
 
 const timetableReducer = (state = INITIAL_STATE, action) => {
@@ -25,11 +45,17 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case GET_TIMETABLE_SUCCESS: {
-      const { timetable } = payload;
+      const {
+        timetable: { update, ...currentTimetable },
+      } = payload;
 
       return {
         ...state,
-        ...timetable,
+        ...currentTimetable,
+        update: {
+          ...state.update,
+          ...update,
+        },
       };
     }
 

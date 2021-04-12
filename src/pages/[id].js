@@ -24,12 +24,14 @@ const Profile = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { id } = query;
 
-  const getProfile = async () => await User.getMasterProfile(id);
+  const getProfileCB = async () => await User.getMasterProfile(id);
+  const profile = await handlePublicPageAuth(getProfileCB, { req, res, store });
+  // if no profile => redirect(404 page)
+  // check is public view, add it to dispatched object down below
 
-  const profile = await handlePublicPageAuth(getProfile, { req, res, store });
   store.dispatch(getProfileSuccess({ profile: { ...profile, id } }));
 
-  return { props: { custom: 'custom' } };
+  return { props: {} };
 });
 
 export default Profile;

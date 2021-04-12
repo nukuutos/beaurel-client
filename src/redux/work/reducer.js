@@ -1,26 +1,17 @@
-import {
-  GET_WORKS_SUCCESS,
-  GET_WORKS_START,
-  DELETE_WORK_SUCCESS,
-  ADD_WORK_SUCCESS,
-  UPDATE_WORK_SUCCESS,
-} from './types';
+import { GET_WORKS_SUCCESS, DELETE_WORK_SUCCESS, ADD_WORK_SUCCESS, UPDATE_WORK_SUCCESS } from './types';
 
-const INITIAL_STATE = { isLoading: false, works: [] };
+const INITIAL_STATE = { masterId: null, works: [] };
 
 const workReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_WORKS_START:
-      return { ...state, isLoading: true };
-
     case GET_WORKS_SUCCESS:
-      const { works } = payload;
+      const { works, masterId } = payload;
 
       return {
         ...state,
-        isLoading: false,
+        masterId,
         works,
       };
 

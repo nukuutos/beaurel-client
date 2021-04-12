@@ -2,7 +2,6 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SubService from '../../parameter-service/sub-service';
-// import SubService from '';
 
 const DraggableSubService = ({ subService, isLastService, index }) => {
   const { id } = subService;

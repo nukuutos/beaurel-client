@@ -28,7 +28,7 @@ const OnConfirmationAppointment = ({ appointment }) => {
 
     if (alert) {
       dispatch(changeAppointmentStatus({ nextStatus: 'confirmed', appointment, user: 'master' }));
-      setAlert(alert);
+      dispatch(setAlert(alert));
     }
   };
 
@@ -46,7 +46,7 @@ const OnConfirmationAppointment = ({ appointment }) => {
 
     if (alert) {
       dispatch(changeAppointmentStatus({ nextStatus: 'rejected', appointment }));
-      setAlert(alert);
+      dispatch(setAlert(alert));
     }
   };
 

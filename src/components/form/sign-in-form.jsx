@@ -2,9 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { signInStart, signInSuccess } from '../../redux/auth/actions';
+import { signInSuccess } from '../../redux/auth/actions';
 
 import InputCustom from './input-custom';
 import useAsyncAction from '../../hooks/useAsyncAction';

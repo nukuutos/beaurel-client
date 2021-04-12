@@ -1,47 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Modal from '../../../utils/modal';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import displayDuration from '../services/utils/display-duration';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import asyncCall from '../../../../utils/async-call';
-import Spinner from '../../../utils/spinner';
-import { setAlert } from '../../../../redux/alert/actions';
 import useAsyncAction from '../../../../hooks/useAsyncAction';
-import displayTimeRange from '../services/utils/display-time-range';
 import {
   unsetAppointmentService,
   unsetAppointmentDate,
   bookAppointmentSuccess,
 } from '../../../../redux/appointments/actions';
-import convertDateToString from '../timetable/utils/convert-date-to-string';
-
-const months = [
-  'января',
-  'февраля',
-  'марта',
-  'апреля',
-  'мая',
-  'июня',
-  'июля',
-  'августа',
-  'сентября',
-  'октября',
-  'ноября',
-  'декабря',
-];
+import convertDateToString from './booking-timetable/utils/convert-date-to-string';
+import { MONTHS } from './booking-timetable/utils/week';
 
 const BookingResult = ({ setStep }) => {
   const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
     state.appointments.booking.bookingAppointment,
     state.auth,
   ]);
-  // const isCancelled = useRef(false);
-  // const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const [asyncAction, isLoading] = useAsyncAction();
 
   const bookTime = async () => {
-    // console.log(date, new Date(date.setUTCHours(0, 0, 0, 0)));
     const config = {
       method: 'post',
       url: `/profile/${profileId}/appointment`,
@@ -55,11 +33,9 @@ const BookingResult = ({ setStep }) => {
 
     const alert = await asyncAction(config);
 
-    // if (alert) {
     if (alert) {
       // add this appointment to booking appointments this
       const stringDate = convertDateToString(date);
-      console.log(time);
       dispatch(bookAppointmentSuccess({ date: stringDate, time: { startAt: time, endAt: time + service.duration } }));
 
       setStep((state) => {
@@ -78,7 +54,7 @@ const BookingResult = ({ setStep }) => {
       </div>
       <span className="booking-result__label mt-2">Время:</span>
       <div className="booking-result__value mt-2">
-        {date.getDate()} {months[date.getMonth()]} {date.getFullYear()} в {displayDuration(time)}
+        {date.getDate()} {MONTHS[date.getMonth()].toLowerCase()} {date.getFullYear()} в {displayDuration(time)}
       </div>
       <div className="booking-result__buttons mt-6">
         <button
@@ -88,7 +64,7 @@ const BookingResult = ({ setStep }) => {
                 dispatch(unsetAppointmentService());
                 return { ...state, isResult: false, isService: true, step: state.step - 1 };
               }
-
+              // timetable case
               dispatch(unsetAppointmentDate());
               return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
             })

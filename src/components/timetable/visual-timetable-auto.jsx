@@ -1,48 +1,19 @@
 import React from 'react';
-import { translateWeekdaysFromRU } from './utils/translate';
 import generatePossibleAppointmentsTime from './utils/generate-possible-appointments-time';
 import { FieldArray } from 'formik';
-
-const weekdaysRU = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
-
-const insertElementInSortedArray = (value, array, insert) => {
-  // insertion if array length === 0
-  if (array.length === 0) {
-    insert(0, value);
-    return;
-  }
-
-  // insertion(from 0 to n-1) if array has elements
-  for (let i = 0; i < array.length; i++) {
-    const nextElement = array[i];
-    if (value < nextElement && i === 0) {
-      insert(0, value);
-      return;
-    }
-
-    if (value < nextElement) {
-      insert(i, value);
-      return;
-    }
-  }
-
-  // insertion to the end of the array(n);
-  insert(array.length, value);
-};
+import weekdaysRU from './utils/weekdays-ru';
+import insertElementInSortedArray from './utils/insert-element-in-sorted-array';
 
 const VisualTimetableAuto = ({ values, update, isEditing }) => {
   return (
     <div className="timetable__timetable-card timetable-card mt-8 card">
       <div className="timetable-card__heading mb-2 ">Расписание</div>
       <div className="timetable-visual mt-4">
-        {/* this data is based of sessionTime weekends and */}
         {weekdaysRU.map((russianWeekdayName, weekdayIndex) => {
           const {
             sessionTime,
             auto: { weekends, workingDay, exceptions },
           } = values;
-
-          // const weekday = translateWeekdaysFromRU[russianWeekdayName];
 
           const possibleAppointmentsTime = weekends.includes(weekdayIndex)
             ? []
@@ -52,7 +23,7 @@ const VisualTimetableAuto = ({ values, update, isEditing }) => {
             <FieldArray
               key={weekdayIndex}
               name={`auto.exceptions[${weekdayIndex}]`}
-              render={({ remove, push, insert }) => (
+              render={({ remove, insert }) => (
                 <div className="timetable-visual__weekday weekday" key={weekdayIndex}>
                   <div className="weekday__name">{russianWeekdayName}</div>
                   <div className="weekday__appointments">
@@ -63,7 +34,6 @@ const VisualTimetableAuto = ({ values, update, isEditing }) => {
                       };
 
                       const possibleTime = {
-                        // onClick: () => push(value),
                         onClick: () => insertElementInSortedArray(value, exceptions[weekdayIndex], insert),
                         className: '',
                       };

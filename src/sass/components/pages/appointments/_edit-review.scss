@@ -1,0 +1,75 @@
+@use "../../../abstracts/colors" as *;
+
+.edit-review {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 2.4rem 1.6rem;
+  width: 45.8rem;
+  background: $color-white;
+
+  &__heading {
+    grid-column: 3 / 11;
+  }
+
+  &__form {
+    display: contents;
+  }
+
+  &__star {
+    color: $color-gray-light-1;
+    cursor: pointer;
+    transition: 0.2s color, 0.2s transform;
+
+    &:hover {
+      color: $color-gold;
+      transform: scale(1.2);
+
+      & ~ .edit-review__star {
+        color: $color-gold;
+      }
+    }
+
+    &--active {
+      color: $color-gold;
+      transform: scale(1.2);
+
+      & ~ .edit-review__star {
+        color: $color-gold;
+      }
+    }
+  }
+
+  &__stars {
+    grid-column: 2 / 12;
+    justify-self: center;
+    // flex-direction: row-reverse;
+    direction: rtl;
+  }
+
+  &__textarea {
+    $width: 100%;
+    $height: 13.6rem;
+
+    grid-column: 2 / 12;
+    font-size: 1.6rem;
+    padding: 0.8rem;
+
+    min-width: $width;
+    max-width: $width;
+
+    // max-height: $height;
+    min-height: $height;
+  }
+
+  &__counter {
+    font-size: 1.2rem;
+    color: $color-gray;
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+
+  &__button {
+    grid-column: 2 / 12;
+    justify-self: flex-end;
+  }
+}

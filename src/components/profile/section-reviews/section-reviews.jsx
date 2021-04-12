@@ -1,40 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-// import { getReviewsStart } from '../../../redux/reviews/actions';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import OverallReview from './overall-review/overall-review';
 import ReviewCard from './review-card';
 import Stars from '../../utils/stars/stars';
 import axios from '../../../utils/axios';
 
 const SectionReviews = () => {
-  // const [reviews, setReviews] = useState([
-  // {
-  //   customer: { firstName: 'Никита', lastName: 'Волошин', avatarImage: 'profile-photo.jpeg' },
-  //   date: '12 окт. 2010',
-  //   review: {
-  //     comment:
-  //       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus porro quisquam similique delectus consectetur soluta labore temporibus eligendi magni molestiae, aspernatur, placeat aut facere, possimus debitis repudiandae corporis doloribus perspiciatis?',
-  //     value: 4,
-  //   },
-  // },
-  // ]);
   const { ratingStats, reviews } = useSelector((state) => state.profile);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const getReviews = async () => {
-  //     console.log(profileId);
-  //     console.log(profileId);
-  //     console.log(profileId);
-  //     const {
-  //       data: { reviews },
-  //     } = await axios.get(`/profile/${profileId}/review`);
-  //     setReviews(reviews);
-  //   };
-
-  //   getReviews();
-  // }, []);
 
   return (
     <section className="profile__reviews">

@@ -1,17 +1,14 @@
 import {
   GET_PROFILE_SUCCESS,
   UPDATE_ABOUT_SUCCESS,
-  UPDATE_ABOUT_START,
   CHANGE_IS_PUBLIC_VIEW,
   UPDATE_AVATAR_SUCCESS,
   GET_MASTERS_SUCCESS,
   ADD_MASTER,
   DELETE_MASTER,
 } from './types';
-import favoriteMasters from '../../server/pipelines/user/favorite-masters';
 
 const INITIAL_STATE = {
-  isLoadingAbout: false,
   isPublicView: false,
   ratingStats: { ratingCounters: [] },
   lastName: '',
@@ -32,17 +29,10 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...profile,
       };
 
-    case UPDATE_ABOUT_START:
-      return {
-        ...state,
-        isLoadingAbout: true,
-      };
-
     case UPDATE_ABOUT_SUCCESS:
       return {
         ...state,
         aboutText: payload,
-        isLoadingAbout: false,
       };
 
     case UPDATE_AVATAR_SUCCESS:
@@ -60,7 +50,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       };
 
     case GET_MASTERS_SUCCESS:
-      // wtf with destrucutre?
+      // wtd with destrucutre?
       // instead of array of strings I get array of aggregation fucntions after destructuring
 
       return {
@@ -70,7 +60,6 @@ const profileReducer = (state = INITIAL_STATE, action) => {
 
     case ADD_MASTER:
       const { newMasterId } = payload;
-      console.log(payload);
       return {
         ...state,
         masters: [...state.masters, newMasterId],

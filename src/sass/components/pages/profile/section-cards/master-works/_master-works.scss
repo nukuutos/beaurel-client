@@ -1,9 +1,13 @@
 @use "../../../../../abstracts/colors" as *;
 
 .master-works {
+  position: relative;
   display: grid;
   background: #fff;
   grid-template-columns: min-content minmax(22rem, min-content);
+  // for spinner
+  min-height: 45rem;
+  min-width: 45rem;
 
   // &--add {
   //   display: flex;

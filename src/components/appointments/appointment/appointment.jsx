@@ -1,32 +1,17 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from '../../services/utils/display-duration';
-import useAsyncAction from '../../../hooks/useAsyncAction';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeAppointmentStatus } from '../../../redux/appointments/actions';
-import { setAlert } from '../../../redux/alert/actions';
-
-const convertDateToString = (date) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-
-  const stringDay = String(day).length === 2 ? day : '0' + day;
-  const stringMonth = String(month).length === 2 ? month : '0' + month;
-  const year = String(date.getFullYear());
-
-  return stringDay + '.' + stringMonth + '.' + year[2] + year[3];
-};
+import convertDateToString from './utils/convert-date-to-string';
 
 const Appointment = ({ appointment, children }) => {
-  const { _id, service, user, time, date, createdAt } = appointment;
+  const { service, user, time, date, createdAt } = appointment;
 
   const { firstName, lastName, avatar, _id: userId } = user; // it can be master or customer
-  const { title, duration, price } = service;
+  const { title, price } = service;
   const { startAt } = time;
 
   return (
     <div className="appointments__appointment-card appointment-card card mt-8">
-      {/* <div className="appointment-card__avatar mb-2" /> */}
       <img src={`http://localhost:5000/${avatar}`} alt="Avatar Image" className="appointment-card__avatar mb-2" />
       <span className="appointment-card__name mt-2">{firstName + ' ' + lastName[0] + '.'}</span>
       <div className="appointment-card__header-line" />
@@ -35,8 +20,7 @@ const Appointment = ({ appointment, children }) => {
 
       <div className="appointment-card__date appointment-card__attribute mt-2">
         <FontAwesomeIcon icon={['far', 'calendar']} />
-        {/* {28.12.21} */}
-        {convertDateToString(new Date(date), '.')}
+        {convertDateToString(new Date(date))}
       </div>
       <div className="appointment-card__time appointment-card__attribute mt-4">
         <FontAwesomeIcon icon="clock" />

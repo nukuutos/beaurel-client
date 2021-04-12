@@ -1,20 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { unsetAppointment } from '../../../../redux/appointments/actions';
 import { useDispatch } from 'react-redux';
-// import Modal from '../../../utils/modal';
-// import { useSelector, useDispatch } from 'react-redux';
-// import displayDuration from '../services/utils/display-duration';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import asyncCall from '../../../../utils/async-call';
-// import Spinner from '../../../utils/spinner';
-// import { setAlert } from '../../../../redux/alert/actions';
 
 const BookingSuccess = ({ onClickClose }) => {
   const dispatch = useDispatch();
-  // const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
-  //   state.appointments.booking.bookingAppointment,
-  //   state.auth,
-  // ]);
 
   return (
     <div className="booking-success card">

@@ -6,7 +6,6 @@ const EditParameterService = ({ service }) => {
   const [isShown, setIsShown] = useState(false);
 
   const { title, subServices } = service;
-  // add dragga here
   return (
     <>
       <EditTitle title={title} shownState={[isShown, setIsShown]} />

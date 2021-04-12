@@ -2,16 +2,13 @@ import React from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import asyncCall from '../../../../utils/async-call';
 import { updateServiceSuccess } from '../../../../redux/service/actions/service';
 import { setAlert } from '../../../../redux/alert/actions';
-import InputCustom from '../../../form/input-custom';
 import Spinner from '../../../utils/spinner';
 import serviceSchema from '../../utils/schemas';
 import renderDurationOptions from '../../../profile/section-cards/services/utils/render-duration-options';
 import Textarea from '../../../form/textarea';
 import Select from '../../../form/select';
-import Input from '../../../form/input';
 import useAsyncAction from '../../../../hooks/useAsyncAction';
 import InputIcon from '../../../form/input-icon';
 
@@ -78,7 +75,6 @@ const EditServiceForm = ({ service, setIsEdit }) => {
               {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
             </ErrorMessage>
             {isLoading ? (
-              // <Spinner className="spinner--tiny spinner--gc ml-s-4 mb-s-4" />
               <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (
               <>

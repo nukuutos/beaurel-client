@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import getIdsAndOrders from '../../utils/get-ids-and-orders';
-import areOrdersEqual from '../../utils/are-orders-equal';
-import asyncCall from '../../../../../../utils/async-call';
+import { useSelector } from 'react-redux';
+import getIdsAndOrders from '../utils/get-ids-and-orders';
+import areOrdersEqual from '../utils/are-orders-equal';
+import useAsyncAction from '../../../hooks/useAsyncAction';
 
 const useSaveBeforeUnload = () => {
-  const [{ services, initialOrder }, { accessToken }, { id: profileId }] = useSelector((state) => [
+  const [{ services, initialOrder }, { accessToken, id: profileId }] = useSelector((state) => [
     state.services,
     state.auth,
-    state.profile,
-  ]); // add public view
-  const dispatch = useDispatch();
+  ]);
+  const [asyncAction] = useAsyncAction();
 
   const onBeforeUnLoad = async () => {
     const newOrder = getIdsAndOrders(services);
@@ -23,7 +22,7 @@ const useSaveBeforeUnload = () => {
     };
 
     if (!areOrdersEqual(initialOrder, newOrder)) {
-      await asyncCall(dispatch, config);
+      await asyncAction(config);
     }
   };
 

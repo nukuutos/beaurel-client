@@ -27,7 +27,7 @@ const ConfimedAppointment = ({ appointment }) => {
 
     if (alert) {
       dispatch(changeAppointmentStatus({ nextStatus: 'rejected', appointment, user: 'master' }));
-      setAlert(alert);
+      dispatch(setAlert(alert));
     }
   };
 

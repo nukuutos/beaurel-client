@@ -1,17 +1,15 @@
 import { applyMiddleware, createStore } from 'redux';
-// import createSagaMiddleware from 'redux-saga';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 
 import combinedReducer from './reducer';
-// import rootSaga from './saga';
 
 const bindMiddleware = (middleware) => {
-  // if (process.env.NODE_ENV !== 'production') {
-  const { composeWithDevTools } = require('redux-devtools-extension');
-  return composeWithDevTools(applyMiddleware(...middleware));
-  // }
-  // return applyMiddleware(...middleware);
+  if (process.env.NODE_ENV !== 'production') {
+    const { composeWithDevTools } = require('redux-devtools-extension');
+    return composeWithDevTools(applyMiddleware(...middleware));
+  }
+  return applyMiddleware(...middleware);
 };
 
 const rootReducer = (state, action) => {
@@ -24,11 +22,7 @@ const rootReducer = (state, action) => {
       ...payload,
     };
 
-    if (!payload.auth.accessToken) {
-      nextState.auth.accessToken = state.auth.accessToken;
-      nextState.auth.role = state.auth.role;
-      nextState.auth.id = state.auth.id;
-    }
+    if (!payload.auth.accessToken) nextState.auth = state.auth;
 
     return nextState;
   } else {
@@ -36,13 +30,6 @@ const rootReducer = (state, action) => {
   }
 };
 
-export const makeStore = (context) => {
-  // const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, bindMiddleware([logger]));
+const initStore = () => createStore(rootReducer, bindMiddleware([logger]));
 
-  // store.sagaTask = sagaMiddleware.run(rootSaga);
-
-  return store;
-};
-
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(initStore);

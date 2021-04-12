@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Avatar from './avatar/avatar';
-// import InstagramEdit from '../instagram-edit';
 import ProfileRating from './profile-rating';
-import ButtonMarker from '../../utils/button-marker';
 import StarProfile from './star-profile';
-import PublicView from './public-view';
 import Maps from './maps';
 import AboutEdit from './about-edit';
-import { useRouter } from 'next/router';
 
 const Header = () => {
   const [{ isMaps, isEditAbout }, setState] = useState({ isMaps: false, isEditAbout: false });
@@ -56,7 +53,7 @@ const Header = () => {
         {isEditAbout && <AboutEdit onClickClose={() => setState((state) => ({ ...state, isEditAbout: false }))} />}
       </div>
 
-      {router.asPath !== '/' + userId && <StarProfile initialIsStarred />}
+      {router.asPath !== '/' + userId && <StarProfile />}
     </header>
   );
 };

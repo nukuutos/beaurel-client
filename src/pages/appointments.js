@@ -13,8 +13,6 @@ import renderCustomerAppointment from '../components/appointments/appointment/ut
 
 const Appointments = () => {
   const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });
-  // const [user, setUser] = useState('master');
-  // const [category, setCategory] = useState('onConfirmation');
   const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector((state) => [
     state.appointments,
     state.auth,

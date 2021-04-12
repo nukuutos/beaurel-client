@@ -1,19 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import ProfileRating from '../profile/header/profile-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import StarProfile from '../profile/header/star-profile';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import asyncCall from '../../utils/async-call';
 import { deleteMaster, addMaster } from '../../redux/profile/actions';
+import useAsyncAction from '../../hooks/useAsyncAction';
 
 const MasterCard = ({ master, className }) => {
   const [{ masters }, { accessToken, id: profileId }] = useSelector((state) => [state.profile, state.auth]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { firstName, lastName, rating, placeOfwork, avatar, specialization, _id } = master;
+
+  const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
-  const isCancelled = useRef(false);
   const router = useRouter();
-  const { firstName, lastName, rating, placeOfwork, avatar, _id } = master;
 
   const onClickAddMaster = async (e) => {
     e.stopPropagation();
@@ -24,11 +24,9 @@ const MasterCard = ({ master, className }) => {
       accessToken,
     };
 
-    setIsLoading(true);
+    // for ui
     dispatch(addMaster({ newMasterId: _id }));
-    await asyncCall(dispatch, config);
-
-    if (!isCancelled.current) setIsLoading(false);
+    await asyncAction(config);
   };
 
   const onClickDeleteMaster = async (e) => {
@@ -40,11 +38,9 @@ const MasterCard = ({ master, className }) => {
       accessToken,
     };
 
-    setIsLoading(true);
-    dispatch(deleteMaster({ deletedMasterId: _id })); // trick
-    await asyncCall(dispatch, config);
-
-    if (!isCancelled.current) setIsLoading(false);
+    // for ui
+    dispatch(deleteMaster({ deletedMasterId: _id }));
+    await asyncAction(config);
   };
 
   return (
@@ -55,15 +51,13 @@ const MasterCard = ({ master, className }) => {
       </div>
       <div className="master-card__biography">
         <h1 className="master-card__name mt-3">{firstName + ' ' + lastName[0] + '.'}</h1>
-        <h2 className="master-card__specialization mt-3">Визажист</h2>
+        <h2 className="master-card__specialization mt-3">{specialization}</h2>
         <div className="master-card__geoposition mt-3">
           <FontAwesomeIcon className="master-card__map-marker" icon="map-marker-alt" />
-          {/* Хабаровск, П-р Санитарной 3 */}
           {placeOfwork}
         </div>
       </div>
       <StarProfile
-        // add oadding
         onClick={
           isLoading ? (e) => e.stopPropagation() : masters.includes(_id) ? onClickDeleteMaster : onClickAddMaster
         }

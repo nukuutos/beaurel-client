@@ -1,19 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-
-const cutText = (text) => {
-  const maxSymbs = 150;
-
-  if (text.length <= maxSymbs) return text;
-
-  const words = text.split(' ');
-
-  while (text.length > maxSymbs) {
-    words.pop();
-    text = words.join(' ');
-  }
-
-  return text + '...';
-};
+import React, { useEffect, useState } from 'react';
+import { cutText } from './utils';
 
 const TextMore = ({ textClassName, moreClassName, children }) => {
   const maxSymbs = 150;
@@ -21,7 +7,7 @@ const TextMore = ({ textClassName, moreClassName, children }) => {
   const [state, setState] = useState({
     text: children,
     isTextLong: children.length > maxSymbs,
-    shortText: children.length > maxSymbs ? cutText(children) : null, // to utils
+    shortText: children.length > maxSymbs ? cutText(children) : null,
     isExpand: false,
   });
 

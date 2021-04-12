@@ -6,7 +6,6 @@ const useAsyncAction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const isCancelled = useRef(false);
   const dispatch = useDispatch();
-  // const [state, setState] = useState({ isLoading: false, data: null });
 
   const asyncAction = async (config) => {
     setIsLoading(true);
@@ -24,7 +23,7 @@ const useAsyncAction = () => {
     };
   }, []);
 
-  return [asyncAction, isLoading];
+  return [asyncAction, isLoading, isCancelled];
 };
 
 export default useAsyncAction;

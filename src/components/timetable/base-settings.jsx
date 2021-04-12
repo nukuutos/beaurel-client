@@ -1,43 +1,10 @@
 import Input from '../form/input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import filterExceptions from './utils/filter-exceptions';
+import displayPossibleServiceDuration from './utils/display-possible-service-duration';
 
-// filter excetion
-const filterExceptions = (exceptions, sessionTime, startAt) => {
-  const newExceptions = {};
-
-  for (let day in exceptions) {
-    newExceptions[day] = exceptions[day].filter((time) => {
-      console.log(time, startAt, time - startAt, sessionTime);
-      return (time - startAt) % sessionTime === 0;
-    });
-  }
-
-  return newExceptions;
-};
-
-const displayPossibleServiceDuration = (sessionTime) => {
-  let string = '';
-  for (let i = 1; i <= 3; i++) {
-    const hours = Math.floor((sessionTime * i) / 60);
-    const mins = (sessionTime * i) % 60;
-    string += ` ${hours ? `${hours}ч` : ''}${mins ? ` ${mins}мин` : ''}${i !== 3 ? ',' : ''}`;
-  }
-
-  string += ' и т.д.';
-
-  return string;
-};
-
-const BaseSettings = ({
-  sessionTime,
-  update,
-  initialValues,
-  setFieldValue,
-  editParentState,
-  exceptions,
-  startAt,
-  editingSessionTime,
-}) => {
+const BaseSettings = ({ values, update, initialValues, setFieldValue, editParentState }) => {
+  const { exceptions, startAt, editingSessionTime, sessionTime } = values;
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.sessionTime);

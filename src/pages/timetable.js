@@ -15,11 +15,11 @@ import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/acti
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import UpdatedDate from '../components/timetable/updated-date';
-import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable';
+import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable/visual-updated-timetable';
 import useAsyncAction from '../hooks/useAsyncAction';
 import { setAlert } from '../redux/alert/actions';
 
-const Timetable = ({}) => {
+const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
   const [isDatePicker, setIsDatePicker] = useState(false);
   // if we've got update => disable edit every element
@@ -28,7 +28,7 @@ const Timetable = ({}) => {
     isEditing: false,
     element: { sessionTime: false, weekends: false, workingDay: false },
   });
-  const [timetable, { accessToken, id: profileId, role }] = useSelector((state) => [state.timetable, state.auth]);
+  const [timetable, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
   const dispatch = useDispatch();
 
   const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
@@ -38,30 +38,15 @@ const Timetable = ({}) => {
       <main className="content card card--layout">
         <h1 className="timetable__heading heading-primary mt-8 ">Расписание</h1>
         <Formik
-          initialValues={
-            //   {
-            //   sessionTime: 60,
-            //   weekends: ['sat', 'sun'],
-            //   workingDay: {
-            //     startAt: 600,
-            //     endAt: 1020,
-            //   },
-            //   type: 'auto',
-            //   exceptions: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-            //   appointments: { mon: [], tue: [], wen: [], thu: [], fri: [], sat: [], sun: [] },
-            //   time: 60, // value for add it to appointments
-            //   date: null,
-            // }
-            {
-              ...restTimetableProps,
-              editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
-              sessionTime, // main purpose of this session time is rendering auto timetable
-              manually: { ...manually, time: timetable.sessionTime },
-              date: new Date(Date.UTC(2021, 3, 1, 0, 0, 0, 0)), // it's null
-            }
-          }
-          // submit is calling in UpdatedDate component
+          initialValues={{
+            ...restTimetableProps,
+            editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
+            sessionTime, // main purpose of this session time is rendering auto timetable
+            manually: { ...manually, time: timetable.sessionTime },
+            date: new Date(Date.UTC(2021, 3, 1, 0, 0, 0, 0)), // it's null
+          }}
           enableReinitialize
+          // submit is calling in UpdatedDate component
           onSubmit={async ({ editingSessionTime, manually, ...values }, { resetForm }) => {
             const update = { manually: { appointments: manually.appointments }, ...values };
 
@@ -70,7 +55,6 @@ const Timetable = ({}) => {
               url: `/profile/${profileId}/timetable/${timetableId}/update`,
               data: update,
               accessToken,
-              role,
             };
 
             const alert = await asyncAction(config);
@@ -85,10 +69,7 @@ const Timetable = ({}) => {
           {({ values, dirty, initialValues, setFieldValue }) => (
             <Form className="timetable__form">
               <BaseSettings
-                sessionTime={values.sessionTime}
-                exceptions={values.auto.exceptions}
-                startAt={values.auto.workingDay.startAt}
-                editingSessionTime={values.editingSessionTime}
+                values={values}
                 initialValues={initialValues}
                 setFieldValue={setFieldValue}
                 update={update}
@@ -140,7 +121,7 @@ const Timetable = ({}) => {
           )}
         </Formik>
 
-        {update && <VisualUpdatedTimetable update={update} />}
+        {update && <VisualUpdatedTimetable />}
       </main>
     </Layout>
   );
@@ -149,11 +130,11 @@ const Timetable = ({}) => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const userId = await handleAuth(req, res, store);
 
-  const timetable = await TimetableModel.findOne({ masterId: userId }, { masterId: 0 });
+  const timetable = await TimetableModel.findOne({ masterId: userId });
 
   store.dispatch(getTimetableSuccess({ timetable }));
 
-  return { props: { timetable } };
+  return { props: {} };
 });
 
 export default Timetable;

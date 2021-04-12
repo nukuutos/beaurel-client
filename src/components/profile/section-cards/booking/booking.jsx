@@ -3,7 +3,7 @@ import Modal from '../../../utils/modal';
 import BookingServices from './booking-services/booking-services';
 import BookingResult from './booking-result';
 import BookingSuccess from './booking-success';
-import BookingTimetable from '../timetable/timetable';
+import BookingTimetable from './booking-timetable/booking-timetable';
 import { useDispatch } from 'react-redux';
 import { unsetAppointment } from '../../../../redux/appointments/actions';
 

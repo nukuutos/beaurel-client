@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from '../form/select';
 import renderDurationOptions from '../services/utils/render-duration-options';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from '../services/utils/display-duration';
 
 const WorkingDay = ({ workingDay, sessionTime, update, editParentState }) => {
-  // const [isWorkingDayEdit, setIsWorkingDayEdit] = useState(false);
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.workingDay);
