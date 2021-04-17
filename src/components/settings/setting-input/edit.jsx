@@ -38,10 +38,10 @@ const Edit = ({ label, data, setIsEdit }) => {
         <label className="label">{label}</label>
         <input className="input" value={data} type="text" />
       </div>
-      <div onClick={() => null} className="setting-card__success-button btn--edit mt-3">
+      <div onClick={() => null} className="setting-card__success-button btn-icon mt-3">
         <FontAwesomeIcon icon="check" />
       </div>
-      <div onClick={() => setIsEdit(false)} className="setting-card__fail-button btn--edit mt-3">
+      <div onClick={() => setIsEdit(false)} className="setting-card__fail-button btn-icon mt-3">
         <FontAwesomeIcon icon="times" />
       </div>
     </>

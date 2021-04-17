@@ -5,7 +5,7 @@ import { deleteServiceParameterSuccess } from '../../../../../redux/service/acti
 import { setAlert } from '../../../../../redux/alert/actions';
 import Title from '../../../parameter-service/title';
 import Spinner from '../../../../utils/spinner';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
 const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
@@ -24,7 +24,7 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(deleteServiceParameterSuccess({ deletedServiceParameter: { title } }));
+      dispatch(deleteServiceParameterSuccess({ title }));
       dispatch(setAlert(alert));
     }
   };
@@ -45,10 +45,10 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
               setIsShown(false);
               setIsEdit(true);
             }}
-            className="service__btn service__btn--first btn--edit">
+            className="service__btn service__btn--first btn-icon">
             <FontAwesomeIcon icon="pen" />
           </div>
-          <div onClick={() => deleteService(title)} className="service__btn btn--edit btn--hover-fail">
+          <div onClick={() => deleteService(title)} className="service__btn btn-icon btn-icon--fail">
             <FontAwesomeIcon icon="trash" />
           </div>
         </>

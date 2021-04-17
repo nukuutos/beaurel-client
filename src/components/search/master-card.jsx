@@ -5,7 +5,7 @@ import StarProfile from '../profile/header/star-profile';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteMaster, addMaster } from '../../redux/profile/actions';
-import useAsyncAction from '../../hooks/useAsyncAction';
+import useAsyncAction from '../../hooks/use-async-action/use-async-action';
 
 const MasterCard = ({ master, className }) => {
   const [{ masters }, { accessToken, id: profileId }] = useSelector((state) => [state.profile, state.auth]);

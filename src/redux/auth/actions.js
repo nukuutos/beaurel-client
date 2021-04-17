@@ -16,7 +16,6 @@ export const refreshTokenSuccess = (accessTokenAndRole) => ({
   payload: accessTokenAndRole,
 });
 
-export const refreshTokenFailure = (error) => ({
+export const refreshTokenFailure = () => ({
   type: REFRESH_TOKEN_FAILURE,
-  payload: error,
 });

@@ -25,12 +25,19 @@
       background: $color-gold;
       pointer-events: none;
       cursor: default;
+      &:hover {
+        background: $color-gold;
+      }
     }
 
     &--confirmed {
       background: $color-success;
       pointer-events: none;
       cursor: default;
+
+      &:hover {
+        background: $color-success;
+      }
     }
 
     &--unsuitable {
@@ -38,6 +45,10 @@
       color: $color-gray-light-3;
       pointer-events: none;
       cursor: default;
+
+      &:hover {
+        background: $color-fail;
+      }
     }
 
     &--history {
@@ -45,24 +56,10 @@
       color: $color-gray-dark-3;
       pointer-events: none;
       cursor: default;
+
+      &:hover {
+        background: $color-gray;
+      }
     }
   }
-
-  // background: $color-gray-light-2;
-
-  // font-size: 2rem;
-  // color: $color-primary-dark-2;
-
-  // & > *:not(:last-of-type) {
-  //   margin-right: 2.4rem;
-  // }
-
-  // &__item {
-  //   border-bottom: 1px solid transparent;
-  //   transition: 0.2s border-bottom;
-
-  //   &--active {
-  //     border-bottom: 1px solid $color-primary-dark-2;
-  //   }
-  // }
 }

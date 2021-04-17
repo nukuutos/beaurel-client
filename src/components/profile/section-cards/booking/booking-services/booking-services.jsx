@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import BookingService from './booking-service';
 import BookingParameterService from './booking-parameter-service';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 import { getServicesSuccess } from '../../../../../redux/service/actions/service';
 import { unsetAppointmentDate } from '../../../../../redux/appointments/actions';
 import { useRouter } from 'next/router';
@@ -39,7 +39,7 @@ const BookingServices = ({ stepState }) => {
     <div className="booking-services card">
       {isLoading && <div className="spinner-with-background" />}
 
-      <h2 className="services__heading heading-primary mt-8">Услуги</h2>
+      <h2 className="services__heading heading mt-8">Услуги</h2>
 
       {step === 2 && (
         <div
@@ -55,14 +55,10 @@ const BookingServices = ({ stepState }) => {
       <div className="services__container">
         {services.length ? (
           services.map((service, i) => {
-            return (
-              <div key={i} className="service__wrapper card mt-6">
-                {service.subServices ? (
-                  <BookingParameterService setStep={setStep} service={service} key={i} />
-                ) : (
-                  <BookingService setStep={setStep} service={service} key={i} />
-                )}
-              </div>
+            return service.subServices ? (
+              <BookingParameterService setStep={setStep} service={service} key={i} />
+            ) : (
+              <BookingService setStep={setStep} service={service} key={i} />
             );
           })
         ) : (

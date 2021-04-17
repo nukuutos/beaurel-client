@@ -50,7 +50,6 @@
 
   &__title {
     grid-column: 2 / 12;
-    // grid-row: 1 / 2;
   }
 
   &__parameter {
@@ -74,12 +73,10 @@
 
   &__duration {
     grid-column: 2 / 7;
-    // grid-row: 2 / 3;
   }
 
   &__price {
     grid-column: 7 / 12;
-    // grid-row: 2 / 3;
   }
 
   &__button {

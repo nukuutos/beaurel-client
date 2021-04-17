@@ -48,7 +48,7 @@ const Navbar = ({ links, isAuth }) => {
   // const { id, accessToken } = useSelector((state) => state.auth);
 
   return (
-    <nav className="navbar card ">
+    <nav className="navbar card card--layout">
       {renderNavigation(links)}
       {isAuth && (
         <li className="navbar__link">

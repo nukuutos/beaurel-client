@@ -1,8 +1,8 @@
 @use "../../abstracts/colors" as *;
+@use "../../abstracts/animation" as *;
 
 .spinner {
-  // &__loader {
-  border: 4px solid #7b0ec6;
+  border: 4px solid $color-secondary;
   border-left-color: transparent;
   border-bottom-color: transparent;
   background-image: none;
@@ -37,7 +37,7 @@
   &:after {
     content: '';
     position: absolute;
-    border: 4px solid #7b0ec6;
+    border: 4px solid $color-secondary;
     border-left-color: transparent;
     border-bottom-color: transparent;
     background-image: none;
@@ -53,23 +53,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinWithAbsolutePosition {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
   }
 }

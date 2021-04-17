@@ -1,4 +1,8 @@
 .settings {
+  &__heading {
+    grid-column: 4 / 10;
+  }
+
   &__setting-card {
     grid-column: 3 / 11;
   }

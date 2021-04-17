@@ -9,7 +9,7 @@ import renderDurationOptions from '../../profile/section-cards/services/utils/re
 import Input from '../../form/input';
 import Select from '../../form/select';
 import InputIcon from '../../form/input-icon';
-import useAsyncAction from '../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 
 const AddSubServicesForm = () => {
   const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
@@ -79,7 +79,7 @@ const AddSubServicesForm = () => {
                       {i !== 0 && (
                         <div
                           onClick={() => remove(i)}
-                          className="add-service__delete btn--edit btn--hover-fail mb-1 mr-2">
+                          className="add-service__delete btn-icon btn-icon--fail mb-1 mr-2">
                           <FontAwesomeIcon icon="trash" />
                         </div>
                       )}

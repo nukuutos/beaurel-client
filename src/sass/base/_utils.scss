@@ -126,50 +126,11 @@
 }
 
 .card {
-  box-shadow: 0 1px 1rem rgba($color-black, 0.25);
-  border-radius: 0.5rem;
   position: relative;
+  box-shadow: 0 1px 0.5rem rgba($color-black, 0.25);
+  border-radius: 0.5rem;
 
   &--layout {
-    box-shadow: 0 0 2rem rgba($color-black, 0.25);
+    box-shadow: 0 0 0.5rem rgba($color-black, 0.2);
   }
 }
-
-// .mt-m {
-//   margin-top: 4rem;
-// }
-
-// .mt-h {
-//   margin-top: 8rem;
-// }
-
-// .mr-s {
-//   margin-right: 1rem;
-// }
-// .mr-m {
-//   margin-right: 2rem;
-// }
-
-// .align-self-end {
-//   align-self: flex-end;
-// }
-
-// .js-c {
-//   justify-self: center;
-// }
-
-// .gc-f {
-//   grid-column: 1 / -1;
-// }
-
-// .display-flex {
-//   display: flex;
-// }
-
-// .w-f {
-//   width: 100%;
-// }
-
-// .p-r {
-//   position: relative;
-// }

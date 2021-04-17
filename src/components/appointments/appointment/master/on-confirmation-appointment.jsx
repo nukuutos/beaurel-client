@@ -1,5 +1,5 @@
 import React from 'react';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeAppointmentStatus } from '../../../../redux/appointments/actions';
 import { setAlert } from '../../../../redux/alert/actions';
@@ -55,14 +55,16 @@ const OnConfirmationAppointment = ({ appointment }) => {
       <div className="appointment-card__buttons">
         <div
           onClick={() => confirm()}
-          className={`btn btn--success btn--flat mr-4 ${
+          className={`btn btn--primary btn--success btn--flat mr-4 ${
             isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''
           } ${isConfirmationLoading ? 'btn--spinner' : ''}`}>
           Подтвердить
         </div>
         <div
           onClick={() => reject()}
-          className={`btn btn--flat btn--fail ${isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''} 
+          className={`btn btn--secondary btn--flat btn--fail ${
+            isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''
+          } 
           ${isRejectionLoading ? 'btn--spinner' : ''}`}>
           Отклонить
         </div>

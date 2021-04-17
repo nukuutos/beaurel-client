@@ -32,10 +32,10 @@ const EmailInputEdit = ({ data, setIsEdit }) => {
             <label className="label">Email</label>
             <Input name="email" className="input" type="text" />
           </div>
-          <div onClick={() => null} className="setting-card__success-button btn--edit mt-3">
+          <div onClick={() => null} className="setting-card__success-button btn-icon mt-3">
             <FontAwesomeIcon icon="check" />
           </div>
-          <div onClick={() => setIsEdit(false)} className="setting-card__fail-button btn--edit mt-3">
+          <div onClick={() => setIsEdit(false)} className="setting-card__fail-button btn-icon mt-3">
             <FontAwesomeIcon icon="times" />
           </div>
         </Form>

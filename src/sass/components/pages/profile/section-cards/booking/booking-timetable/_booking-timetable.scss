@@ -1,10 +1,11 @@
-@use "../../../../../abstracts/colors" as *;
+@use "../../../../../../abstracts/colors" as *;
 
 .booking-timetable {
   background: $color-white;
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, min-content);
   min-width: 76.8rem;
   padding-top: 2.8rem;
   overflow: hidden; // for border radius
@@ -40,7 +41,6 @@
   &__appointments {
     grid-column: 3 / -1;
     display: flex;
-
     align-items: center;
   }
 
@@ -63,5 +63,22 @@
     align-self: start;
 
     color: $color-gray;
+  }
+
+  &__no-appointments {
+    grid-column: 3/-1;
+    grid-row: 4;
+    justify-self: center;
+    align-self: flex-end;
+
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: translateY(50%);
   }
 }

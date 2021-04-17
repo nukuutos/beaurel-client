@@ -27,14 +27,14 @@ const WorkingDay = ({ workingDay, sessionTime, update, editParentState }) => {
             onClick={() => {
               setEditState({ isEditing: false, element: { ...editState, workingDay: false } });
             }}
-            className="timetable-card__btn-edit--primary btn--edit btn--hover-success timetable-card__btn-edit--bottom">
+            className="timetable-card__btn-edit--primary btn-icon btn-icon--success timetable-card__btn-edit--bottom">
             <FontAwesomeIcon icon="check" />
           </div>
           <div
             onClick={() => {
               setEditState({ isEditing: false, element: { ...editState, workingDay: false } });
             }}
-            className="timetable-card__btn-edit btn--edit btn--hover-fail timetable-card__btn-edit--bottom">
+            className="timetable-card__btn-edit btn-icon btn-icon--fail timetable-card__btn-edit--bottom">
             <FontAwesomeIcon icon="times" />
           </div>
         </>
@@ -48,7 +48,7 @@ const WorkingDay = ({ workingDay, sessionTime, update, editParentState }) => {
               onClick={() => {
                 setEditState({ isEditing: true, element: { ...editState, workingDay: true } });
               }}
-              className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn--edit">
+              className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn-icon">
               <FontAwesomeIcon icon="pen" />
             </div>
           )}

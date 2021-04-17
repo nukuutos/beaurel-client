@@ -1,5 +1,5 @@
 import Appointment from '../appointment';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeAppointmentStatus } from '../../../../redux/appointments/actions';
 
@@ -59,7 +59,9 @@ const UnsuitableAppointment = ({ appointment }) => {
         </div>
         <div
           onClick={() => reject()}
-          className={`btn btn--flat btn--fail ${isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''} 
+          className={`btn btn--secondary btn--flat btn--fail ${
+            isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''
+          } 
     ${isRejectionLoading ? 'btn--spinner' : ''}`}>
           Отклонить
         </div>

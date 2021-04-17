@@ -5,7 +5,7 @@ import { deleteSubServiceSuccess } from '../../../../../redux/service/actions/se
 import { setAlert } from '../../../../../redux/alert/actions';
 import Spinner from '../../../../utils/spinner';
 import SubService from '../../../parameter-service/sub-service';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
 const EditSubServiceDisplay = ({ subService, isLastService, setIsEdit, title }) => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -24,7 +24,7 @@ const EditSubServiceDisplay = ({ subService, isLastService, setIsEdit, title }) 
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(deleteSubServiceSuccess({ deletedSubService: { id, title } }));
+      dispatch(deleteSubServiceSuccess({ id, title }));
       dispatch(setAlert(alert));
     }
   };
@@ -37,10 +37,10 @@ const EditSubServiceDisplay = ({ subService, isLastService, setIsEdit, title }) 
           <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
         ) : (
           <>
-            <div onClick={() => setIsEdit(true)} className="service__btn service__btn--first btn--edit">
+            <div onClick={() => setIsEdit(true)} className="service__btn service__btn--first btn-icon">
               <FontAwesomeIcon icon="pen" />
             </div>
-            <div onClick={() => deleteService(id)} className="service__btn btn--edit btn--hover-fail">
+            <div onClick={() => deleteService(id)} className="service__btn btn-icon btn-icon--fail">
               <FontAwesomeIcon icon="trash" />
             </div>
           </>

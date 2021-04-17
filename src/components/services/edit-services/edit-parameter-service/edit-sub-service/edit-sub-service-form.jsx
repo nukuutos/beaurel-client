@@ -10,7 +10,7 @@ import renderDurationOptions from '../../../utils/render-duration-options';
 import Textarea from '../../../../form/textarea';
 import Select from '../../../../form/select';
 import InputIcon from '../../../../form/input-icon';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
 const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => 
               <ErrorMessage name="parameter">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
             </div>
 
-            <div className="service__duration service__attribute--edit service-parameter__attribute--edit input--icon">
+            <div className="service__duration service__attribute--edit input--icon">
               <FontAwesomeIcon className="input__icon input__icon--s" icon="clock" />
               <Select value={values.duration} className="input input--mini" name="duration" as="select">
                 {renderDurationOptions(sessionTime)}
@@ -83,10 +83,10 @@ const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => 
                     if (dirty) submitForm();
                     else setIsEdit(false);
                   }}
-                  className="service__btn service__btn--first btn--edit btn--hover-success">
+                  className="service__btn service__btn--first btn-icon btn-icon--success">
                   <FontAwesomeIcon icon="check" />
                 </div>
-                <div onClick={() => setIsEdit(false)} className="service__btn btn--edit btn--hover-fail">
+                <div onClick={() => setIsEdit(false)} className="service__btn btn-icon btn-icon--fail">
                   <FontAwesomeIcon icon="times" />
                 </div>
               </>

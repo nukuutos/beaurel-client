@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import displayDuration from '../services/utils/display-duration';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import {
   unsetAppointmentService,
   unsetAppointmentDate,
@@ -46,7 +46,7 @@ const BookingResult = ({ setStep }) => {
 
   return (
     <div className="booking-result card">
-      <h2 className="booking-result__heading heading-primary">Информация о записи</h2>
+      <h2 className="booking-result__heading heading">Информация о записи</h2>
       <img className="booking-result__svg mt-8" src="/svg/appointment.svg" alt="Appointment image" />
       <span className="booking-result__label mt-6">Услуга:</span>
       <div className="booking-result__value mt-6">

@@ -8,7 +8,7 @@ const DisplayInput = ({ label, data, setIsEdit }) => {
         <label className="label">{label}</label>
         {data}
       </div>
-      <div onClick={() => setIsEdit(true)} className="setting-card__edit-button btn--edit">
+      <div onClick={() => setIsEdit(true)} className="setting-card__edit-button btn-icon">
         <FontAwesomeIcon icon="pen" />
       </div>
     </>

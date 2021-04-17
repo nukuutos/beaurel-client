@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeAppointmentStatus } from '../../../../redux/appointments/actions';
 import { setAlert } from '../../../../redux/alert/actions';
@@ -36,7 +36,7 @@ const OnConfirmationAppointment = ({ appointment }) => {
   return (
     <Appointment appointment={appointment}>
       <div className="appointment-card__buttons">
-        <div onClick={() => setIsConfirmation(true)} className={`btn btn--flat btn--fail`}>
+        <div onClick={() => setIsConfirmation(true)} className={`btn btn--primary btn--flat btn--fail`}>
           Отменить
         </div>
       </div>
@@ -44,18 +44,18 @@ const OnConfirmationAppointment = ({ appointment }) => {
       {isConfirmation && (
         <Modal onClickClose={() => setIsConfirmation(false)}>
           <div className="appointment-cancellation card">
-            <div className="appointment-cancellation__heading heading-primary">Предупреждение</div>
+            <div className="appointment-cancellation__heading heading">Предупреждение</div>
             <p className="appointment-cancellation__text mt-8">Вы действительно хотите отменить запись?</p>
 
             <div className="appointment-cancellation__buttons mt-8">
               <div
                 onClick={() => setIsConfirmation(false)}
-                className={`btn ${isLoading ? 'btn--disabled' : ''} btn--secondary btn--gray mr-4`}>
+                className={`btn  btn--secondary btn--gray ${isLoading ? 'btn--disabled' : ''} mr-4`}>
                 Нет
               </div>
               <div
                 onClick={async () => await cancel()}
-                className={`btn btn--fail-solid ${isLoading ? 'btn--disabled btn--spinner' : ''}`}>
+                className={`btn btn--primary btn--fail ${isLoading ? 'btn--disabled btn--spinner' : ''}`}>
                 Да
               </div>
             </div>

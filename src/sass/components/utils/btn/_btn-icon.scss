@@ -1,0 +1,43 @@
+@use "../../../abstracts/colors" as *;
+
+.btn-icon {
+  & > * {
+    height: 1.6rem;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  $size: 3.2rem;
+  height: $size;
+  width: $size;
+
+  border: 1px solid $color-gray-light-1;
+  color: $color-gray-light-1;
+
+  border-radius: 50%;
+
+  transition: 0.2s color, 0.2s border, 0.2s box-shadow;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    box-shadow: 0 0 5px rgba($color-black, 0.25);
+  }
+
+  &--fail {
+    &:hover {
+      color: $color-fail;
+      border-color: $color-fail;
+    }
+  }
+
+  &--success {
+    &:hover {
+      color: $color-success;
+      border-color: $color-success;
+    }
+  }
+}

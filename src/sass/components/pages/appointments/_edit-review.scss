@@ -42,7 +42,6 @@
   &__stars {
     grid-column: 2 / 12;
     justify-self: center;
-    // flex-direction: row-reverse;
     direction: rtl;
   }
 
@@ -57,7 +56,6 @@
     min-width: $width;
     max-width: $width;
 
-    // max-height: $height;
     min-height: $height;
   }
 

@@ -1,4 +1,7 @@
-@use "../../abstracts/colors" as *;
+@use "mixins" as *;
+
+@use "../../../abstracts/colors" as *;
+@use "../../../abstracts/animation" as *;
 
 .btn {
   &,
@@ -31,97 +34,38 @@
   }
 
   &--secondary {
+    background: $color-white;
+
     border: 1px solid $color-primary;
     color: $color-primary;
     transition: 0.2s color, 0.2s background;
 
     &:hover {
-      color: $color-white;
       background: $color-primary;
+      color: $color-white !important;
     }
   }
 
-  &--gray {
-    border: 1px solid $color-gray-dark-1;
-    color: $color-gray-dark-1;
+  &--fail {
+    @include color-btn($color-fail);
+  }
 
-    &:hover {
-      color: $color-white;
-      background: $color-gray-dark-1;
-    }
+  &--success {
+    @include color-btn($color-success);
+  }
+
+  &--gray {
+    @include color-btn($color-gray);
   }
 
   &--flat {
     padding: 0.8rem 2.4rem;
   }
 
-  &--success {
-    color: $color-white;
-    background: $color-success;
-    border: 1px solid $color-success;
-  }
-
-  &--fail {
-    border: 1px solid $color-fail;
-    color: $color-fail;
-
-    &:hover {
-      background: $color-fail;
-      color: $color-white;
-    }
-  }
-
-  &--fail-solid {
-    // border: 1px solid $color-fail;
-    color: $color-white;
-    background: $color-fail;
-  }
-
-  &--edit {
-    & > * {
-      height: 1.6rem; // (1.2)
-    }
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    $size: 3.2rem; // (2.4)
-    height: $size;
-    width: $size;
-
-    border: 1px solid $color-gray-light-1;
-    color: $color-gray-light-1;
-
-    border-radius: 50%;
-
-    transition: 0.2s color, 0.2s border, 0.2s box-shadow;
-    cursor: pointer;
-
-    &:hover {
-      border: 1px solid $color-primary;
-      color: $color-primary;
-      box-shadow: 0 0 5px rgba($color-black, 0.25);
-    }
-  }
-
-  &--hover-fail {
-    &:hover {
-      color: $color-fail;
-      border-color: $color-fail;
-    }
-  }
-
-  &--hover-success {
-    &:hover {
-      color: $color-success;
-      border-color: $color-success;
-    }
-  }
-
   &--upload {
     position: relative;
     cursor: pointer;
+
     ::-webkit-file-upload-button {
       cursor: pointer;
     }
@@ -158,22 +102,15 @@
     }
   }
 
-  &--submitted {
-    background-color: rgba($color-primary, 0.8);
-    pointer-events: none;
-  }
-
+  // opacity in this case effect every child(after, befor, text)
   &--disabled {
     opacity: 0.8;
     pointer-events: none;
   }
-}
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  //rgba(opacity) in this case effect only $color-primary background
+  &--submitted {
+    background-color: rgba($color-primary, 0.8);
+    pointer-events: none;
   }
 }

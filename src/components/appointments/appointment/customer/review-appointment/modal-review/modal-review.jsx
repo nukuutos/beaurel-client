@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '../../../../../utils/modal';
 import Textarea from '../../../../../form/textarea';
-import useAsyncAction from '../../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
 import { setAlert } from '../../../../../../redux/alert/actions';
 import { upsertAppointmentReview } from '../../../../../../redux/appointments/actions';
 import ReviewStars from './review-stars';
@@ -20,7 +20,7 @@ const ModalReview = ({ onClickClose, appointment }) => {
   return (
     <Modal onClickClose={onClickClose}>
       <section className="edit-review card">
-        <h2 className="edit-review__heading heading-primary">Отзыв</h2>
+        <h2 className="edit-review__heading heading">Отзыв</h2>
         <Formik
           enableReinitialize
           initialValues={{ value: review.value ? review.value : 0, comment: review.comment ? review.comment : '' }}

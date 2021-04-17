@@ -24,7 +24,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
               setFieldValue('sessionTime', editingSessionTime);
               setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
             }}
-            className="timetable-card__btn-edit--primary btn--edit btn--hover-success">
+            className="timetable-card__btn-edit--primary btn-icon btn-icon--success">
             <FontAwesomeIcon icon="check" />
           </div>
           <div
@@ -32,7 +32,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
               setFieldValue('editingSessionTime', initialValues.editingSessionTime);
               setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
             }}
-            className="timetable-card__btn-edit btn--edit btn--hover-fail">
+            className="timetable-card__btn-edit btn-icon btn-icon--fail">
             <FontAwesomeIcon icon="times" />
           </div>
         </>
@@ -42,7 +42,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
           {!isDisabled && (
             <div
               onClick={() => setEditState({ isEditing: true, element: { ...editState, sessionTime: true } })}
-              className="timetable-card__btn-edit btn--edit">
+              className="timetable-card__btn-edit btn-icon">
               <FontAwesomeIcon icon="pen" />
             </div>
           )}

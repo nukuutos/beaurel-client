@@ -58,7 +58,7 @@ const VisualTimetableManually = ({ values, update, isEditing }) => {
             render={({ push }) => (
               <Modal onClickClose={() => setIsModal({ isOpen: false, weekdayIndex: null })}>
                 <div className="add-time card">
-                  <h2 className="heading-primary add-time__heading">Добавить время</h2>
+                  <h2 className="heading add-time__heading">Добавить время</h2>
                   <label className="add-time__label mt-6">День недели:</label>
                   <div className="add-time__value mt-6">{weekdaysRU[isModal.weekdayIndex].toUpperCase()}</div>
 

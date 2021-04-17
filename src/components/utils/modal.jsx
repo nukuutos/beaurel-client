@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useKey from '../../hooks/useKey';
+import useKey from '../../hooks/use-key';
 
 const Modal = ({ children, onClickClose }) => {
   useKey(onClickClose);

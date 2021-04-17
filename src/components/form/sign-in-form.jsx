@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { signInSuccess } from '../../redux/auth/actions';
 
 import InputCustom from './input-custom';
-import useAsyncAction from '../../hooks/useAsyncAction';
+import useAsyncAction from '../../hooks/use-async-action/use-async-action';
 
 const SignInForm = () => {
   const dispatch = useDispatch();

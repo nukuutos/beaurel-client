@@ -4,7 +4,7 @@ import Cropper from 'react-cropper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAlert } from '../../../../redux/alert/actions';
 import { updateAvatarSuccess } from '../../../../redux/profile/actions';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import useCropper from './use-cropper';
 
 const EditAvatar = ({ setIsEdit }) => {

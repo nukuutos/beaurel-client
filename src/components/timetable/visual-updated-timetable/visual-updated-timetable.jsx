@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import VisualUpdatedTimetableAuto from './visual-updated-timetable-auto';
 import VisualUpdatedTimetableManually from './visual-updated-timetable-manually';
-import useAsyncAction from '../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 import Modal from '../../utils/modal';
 import { unsetTimetableUpdate } from '../../../redux/timetable/actions';
 import { setAlert } from '../../../redux/alert/actions';
@@ -52,13 +52,13 @@ const VisualUpdatedTimetable = () => {
       {isConfirmation && (
         <Modal onClickClose={() => setIsConfirmation(false)}>
           <div className="update-cancellation card">
-            <div className="update-cancellation__heading heading-primary">Предупреждение</div>
+            <div className="update-cancellation__heading heading">Предупреждение</div>
             <p className="update-cancellation__text mt-8">Вы действительно хотите отменить обновление?</p>
 
             <div className="update-cancellation__buttons mt-8">
               <div
                 onClick={() => deleteTimetableUpdate()}
-                className={`btn btn--fail-solid ${isLoading ? 'btn--disabled btn--spinner' : ''} mr-4`}>
+                className={`btn btn--primary btn--fail ${isLoading ? 'btn--disabled btn--spinner' : ''} mr-4`}>
                 Отменить
               </div>
               <div

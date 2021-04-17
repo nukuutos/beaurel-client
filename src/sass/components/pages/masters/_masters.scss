@@ -1,4 +1,8 @@
 .masters {
+  &__heading {
+    grid-column: 4 / 10;
+  }
+
   &__master-card {
     grid-column: 2 / 12;
   }

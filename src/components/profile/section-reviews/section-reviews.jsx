@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import OverallReview from './overall-review/overall-review';
 import ReviewCard from './review-card';
 import Stars from '../../utils/stars/stars';
-import axios from '../../../utils/axios';
 
 const SectionReviews = () => {
   const { ratingStats, reviews } = useSelector((state) => state.profile);

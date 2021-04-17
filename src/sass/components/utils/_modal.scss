@@ -1,10 +1,12 @@
+@use "../../abstracts/colors" as *;
+
 .modal {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba($color-black, 0.7);
   z-index: 30;
   display: flex;
   justify-content: center;
@@ -14,26 +16,8 @@
     position: absolute;
     top: 3rem;
     right: 4rem;
-    color: #fff;
+    color: $color-white;
     height: 4rem;
     cursor: pointer;
-  }
-
-  &__header {
-    align-self: start;
-    width: 100%;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
-    word-spacing: 0.1rem;
-
-    &::after {
-      content: '';
-      display: block;
-      height: 1px;
-      width: 80%;
-      margin: 1rem 0 3rem;
-      background: #ccc;
-    }
   }
 }

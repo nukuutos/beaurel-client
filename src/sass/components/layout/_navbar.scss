@@ -18,19 +18,19 @@
     }
 
     &--active {
-      background: $color-secondary-light; // to var
+      background: $color-secondary-light;
       color: $color-white;
       pointer-events: none;
       cursor: pointer;
 
       &:hover {
-        background: $color-secondary-light; // to var
+        background: $color-secondary-light;
       }
     }
 
     a:visited,
     a:link {
-      padding: 1.6rem 2rem; // 1.5 3.0
+      padding: 1.6rem 2rem;
       display: flex;
       align-items: center;
       color: inherit;

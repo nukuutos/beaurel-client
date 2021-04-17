@@ -27,7 +27,7 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
                 setFieldValue('auto.weekends', initialValues.auto.weekends);
               }}>
               <div className="weekends card">
-                <h2 className="weekends__heading heading-primary">Выходные</h2>
+                <h2 className="weekends__heading heading">Выходные</h2>
                 <p className="weekends__text mt-6">Выбери свои выходные!</p>
 
                 <div className="weekends__days">
@@ -72,7 +72,7 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
       {!isDisabled && (
         <div
           onClick={() => setEditState({ isEditing: true, element: { ...editState, weekends: true } })}
-          className="timetable-card__btn-edit btn--edit">
+          className="timetable-card__btn-edit btn-icon">
           <FontAwesomeIcon icon="pen" />
         </div>
       )}

@@ -10,14 +10,14 @@ import VisualTimetableAuto from '../components/timetable/visual-timetable-auto';
 import VisualTimetableManually from '../components/timetable/visual-timetable-manually';
 import ManuallyAppointments from '../components/timetable/manually-appointments';
 import TimetableModel from '../server/models/timetable';
-import handleAuth from '../utils/handle-auth';
 import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import UpdatedDate from '../components/timetable/updated-date';
 import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable/visual-updated-timetable';
-import useAsyncAction from '../hooks/useAsyncAction';
+import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import { setAlert } from '../redux/alert/actions';
+import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
 
 const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -36,7 +36,7 @@ const Timetable = () => {
   return (
     <Layout>
       <main className="content card card--layout">
-        <h1 className="timetable__heading heading-primary mt-8 ">Расписание</h1>
+        <h1 className="timetable__heading heading mt-8 ">Расписание</h1>
         <Formik
           initialValues={{
             ...restTimetableProps,
@@ -128,7 +128,7 @@ const Timetable = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const userId = await handleAuth(req, res, store);
+  const userId = await handleAuthPage(req, res, store);
 
   const timetable = await TimetableModel.findOne({ masterId: userId });
 

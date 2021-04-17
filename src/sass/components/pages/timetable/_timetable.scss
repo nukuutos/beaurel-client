@@ -4,7 +4,10 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.6rem;
-  // row-gap: 1.2rem;
+
+  &__heading {
+    grid-column: 4 / 10;
+  }
 
   &__form {
     display: contents;

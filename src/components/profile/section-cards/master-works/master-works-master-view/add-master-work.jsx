@@ -6,7 +6,7 @@ import { workSchema } from '../utils/schemas';
 import { addWorkSuccess } from '../../../../../redux/work/actions';
 import { setAlert } from '../../../../../redux/alert/actions';
 import Input from '../../../../form/input';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
 const AddMasterWork = ({ setIsAddWork }) => {
   const [{ accessToken }, { id: profileId }] = useSelector((state) => [state.auth, state.profile]);
@@ -30,7 +30,7 @@ const AddMasterWork = ({ setIsAddWork }) => {
 
   return (
     <div className="add-master-work card">
-      <div className="add-master-work__heading heading-primary">Добавить работу</div>
+      <div className="add-master-work__heading heading">Добавить работу</div>
       {!src ? (
         <>
           <img src="/svg/picture.svg" className="add-master-work__svg mt-8" alt="Picture" />

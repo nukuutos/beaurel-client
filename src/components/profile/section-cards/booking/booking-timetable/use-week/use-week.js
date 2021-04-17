@@ -7,6 +7,7 @@ import { getStartDateOfWeek, getWeekDayRU } from '../utils/week';
 import convertDateToString from '../utils/convert-date-to-string';
 import AutoTimetable from './auto-timetable';
 import ManuallyTimetable from './manually-timetable';
+import { getUpdateDate, getDate } from './utils';
 
 const useWeek = (setStep) => {
   const today = new Date();
@@ -22,10 +23,14 @@ const useWeek = (setStep) => {
     const startDayOfWeek = startDay.getDate() + 1; // num
     const endDayOfWeek = startDayOfWeek + 6; // num
 
-    const weekDays = []; // result
+    const weekDays = []; // result, components
 
     for (let i = startDayOfWeek; i <= endDayOfWeek; i++) {
-      const date = new Date(Date.UTC(year, month, i, 0, 0, 0, 0));
+      // const date = new Date(Date.UTC(year, month, i, 0, 0, 0, 0));
+      // date.setHours(0, 0, 0, 0);
+
+      const date = getDate(year, month, i);
+
       const stringDate = convertDateToString(date);
 
       // today > date => put [] in day component
@@ -36,8 +41,9 @@ const useWeek = (setStep) => {
 
       const { update } = timetable;
 
-      // update && updateDate <= date
-      if (update && new Date(update.date).getTime() <= date.getTime()) timetable = timetable.update;
+      const updateDate = getUpdateDate(update);
+
+      if (updateDate && updateDate.getTime() <= date.getTime()) timetable = timetable.update;
 
       const { sessionTime, type, auto, manually } = timetable;
 

@@ -1,0 +1,15 @@
+@use "../../../abstracts/colors" as *;
+
+.btn-text {
+  display: inline-block;
+  color: $color-primary;
+  border-bottom: 1px solid $color-primary;
+  cursor: pointer;
+  transition: 0.2s background, 0.2s color, 0.2s border-color;
+
+  &:hover {
+    color: $color-white;
+    border-color: $color-white;
+    background: $color-primary;
+  }
+}

@@ -3,11 +3,10 @@
 .star-profile {
   position: relative;
   height: 2rem;
-  // align-self: start;
-  // justify-self: end;
   color: $color-secondary-light;
   cursor: pointer;
   z-index: 10;
+  transition: 0.3s transform;
 
   &--unstar {
     z-index: 1;

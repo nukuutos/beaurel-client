@@ -4,12 +4,8 @@ import { getTimetableSuccess } from '../../../../../redux/timetable/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPreviousWeek, getNextWeek } from './utils/get-week';
 import useWeek from './use-week/use-week';
-import {
-  getAppointmentsSuccess,
-  unsetAppointmentDate,
-  unsetAppointmentService,
-} from '../../../../../redux/appointments/actions';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import { getAppointmentsSuccess, unsetAppointmentService } from '../../../../../redux/appointments/actions';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 import { useRouter } from 'next/router';
 
 const BookingTimetable = ({ stepState }) => {
@@ -43,13 +39,23 @@ const BookingTimetable = ({ stepState }) => {
 
   useEffect(() => {
     const queryMasterId = router.query.id;
-    // const isTimetable = timetable && timetable.masterId === queryMasterId;
-    // const isAppointments = appointments && appointments.booking.masterId === queryMasterId;
     const isTimetable = timetable.masterId === queryMasterId;
     const isAppointments = appointments.booking.masterId === queryMasterId;
 
     if (!isTimetable && !isAppointments) getDataForBooking();
   }, []);
+
+  // do we need it?
+  // useEffect(() => {
+  //   // const queryMasterId = router.query.id;
+  //   // const isTimetable = timetable.masterId === queryMasterId;
+  //   const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
+  //   // isTimetable is important!
+  //   // if (isTimetable && isUnavailableWeek) setDate((today) => getNextWeek(today));
+  //   if (isUnavailableWeek) setIsNextWeekMessage(true);
+  // }, []);
+
+  const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
 
   return (
     <div className={`booking-timetable card `}>
@@ -72,18 +78,26 @@ const BookingTimetable = ({ stepState }) => {
       <div className="booking-timetable__header mb-7">
         <div
           onClick={() => setDate((today) => getPreviousWeek(today))}
-          className={`booking-timetable__arrow btn--edit mr-6`}>
+          className={`booking-timetable__arrow btn-icon mr-6`}>
           <FontAwesomeIcon icon="chevron-left" />
         </div>
-        <h2 className="heading-primary booking-timetable__heading ">Выбери Время</h2>
+        <h2 className="heading booking-timetable__heading ">Выбери Время</h2>
         <div
           onClick={() => setDate((today) => getNextWeek(today))}
-          className={`booking-timetable__arrow btn--edit ml-6`}>
+          className={`booking-timetable__arrow btn-icon ml-6`}>
           <FontAwesomeIcon icon="chevron-right" />
         </div>
       </div>
 
       {weekDays}
+      {isUnavailableWeek && (
+        <div className="booking-timetable__no-appointments">
+          На этой неделе нет свободных записей!
+          <div onClick={() => setDate((today) => getNextWeek(today))} className="btn-text mt-2">
+            следующая неделя
+          </div>
+        </div>
+      )}
     </div>
   );
 };

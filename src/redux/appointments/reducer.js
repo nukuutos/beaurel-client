@@ -162,7 +162,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
       appointmentsState[user][currentStatus].appointments.splice(indexToDelete, 1);
 
-      const { isConfirmedLoaded } = appointmentsState['master']['confirmed'];
+      const { isLoaded: isConfirmedLoaded } = appointmentsState['master']['confirmed'];
       if (user === 'customer' || nextStatus !== 'confirmed' || !isConfirmedLoaded) {
         return { ...state, appointments: appointmentsState };
       }
@@ -173,6 +173,10 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       // find index to insert;
       // not push, inserted it correctly (i think default sort is by createdAt time in onConfirmation, in history by apppoitment time, in confirmed by appointment time, unsuitable by appointemnt time)
       appointmentsState['master']['confirmed'].appointments.push(appointment);
+
+      console.log(appointmentsState);
+      console.log(appointmentsState);
+      console.log(appointmentsState);
 
       return { ...state, appointments: appointmentsState };
     }

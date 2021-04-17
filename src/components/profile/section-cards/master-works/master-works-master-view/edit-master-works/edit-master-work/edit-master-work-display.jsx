@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteWorkSuccess } from '../../../../../../../redux/work/actions';
 import { setAlert } from '../../../../../../../redux/alert/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useAsyncAction from '../../../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
 
 const EditMasterWorkDisplay = ({ work, setIsEdit, setActiveLink, isActiveLink, isLastLink, i }) => {
   const [{ accessToken }, { id: profileId }] = useSelector((state) => [state.auth, state.profile]);

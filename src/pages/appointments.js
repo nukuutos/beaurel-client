@@ -1,6 +1,5 @@
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import handleAuth from '../utils/handle-auth';
 import AppointmentModel from '../server/models/appointment';
 import { setAppointments } from '../redux/appointments/actions';
 import AppointmentsCategoriesController from '../components/appointments/appointments-categories-controller';
@@ -8,8 +7,9 @@ import AppointmentController from '../components/appointments/appointment-contro
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import renderMasterAppointment from '../components/appointments/appointment/utils/render-master-appointment';
-import useAsyncAction from '../hooks/useAsyncAction';
+import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import renderCustomerAppointment from '../components/appointments/appointment/utils/render-customer-appointment';
+import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
 
 const Appointments = () => {
   const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });
@@ -58,7 +58,7 @@ const Appointments = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const userId = await handleAuth(req, res, store);
+  const userId = await handleAuthPage(req, res, store);
 
   const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(userId, 'onConfirmation');
 

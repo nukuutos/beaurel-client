@@ -6,7 +6,7 @@ import Modal from '../../utils/modal';
 import { updateAboutSuccess } from '../../../redux/profile/actions';
 import Textarea from '../../form/textarea';
 import { setAlert } from '../../../redux/alert/actions';
-import useAsyncAction from '../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 
 const AboutEdit = ({ onClickClose }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const AboutEdit = ({ onClickClose }) => {
   return (
     <Modal onClickClose={onClickClose}>
       <section className="edit-about card">
-        <h2 className="edit-about__heading heading-primary">О себе</h2>
+        <h2 className="edit-about__heading heading">О себе</h2>
         <Formik
           enableReinitialize
           initialValues={{ aboutText }}
@@ -49,7 +49,7 @@ const AboutEdit = ({ onClickClose }) => {
                     else onClickClose();
                   }}
                   type="submit"
-                  className={`btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}>
+                  className={`btn btn--primary ${true ? 'btn--submitted btn--spinner' : ''}`}>
                   Сохранить
                 </button>
               </div>

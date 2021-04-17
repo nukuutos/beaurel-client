@@ -7,7 +7,7 @@ const BookingSuccess = ({ onClickClose }) => {
 
   return (
     <div className="booking-success card">
-      <h2 className="booking-success__heading heading-primary">Успех</h2>
+      <h2 className="booking-success__heading heading">Успех</h2>
       <img className="booking-success__svg mt-8" src="/svg/success.svg" alt="Appointment image" />
 
       <p className="booking-success__text mt-6">

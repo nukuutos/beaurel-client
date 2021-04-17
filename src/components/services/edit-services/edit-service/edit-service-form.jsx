@@ -9,7 +9,7 @@ import serviceSchema from '../../utils/schemas';
 import renderDurationOptions from '../../../profile/section-cards/services/utils/render-duration-options';
 import Textarea from '../../../form/textarea';
 import Select from '../../../form/select';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import InputIcon from '../../../form/input-icon';
 
 const EditServiceForm = ({ service, setIsEdit }) => {
@@ -83,10 +83,10 @@ const EditServiceForm = ({ service, setIsEdit }) => {
                     if (dirty) submitForm();
                     else setIsEdit(false);
                   }}
-                  className="service__btn service__btn--first btn--edit btn--hover-success">
+                  className="service__btn service__btn--first btn-icon btn-icon--success">
                   <FontAwesomeIcon icon="check" />
                 </div>
-                <div onClick={() => setIsEdit(false)} className="service__btn btn--edit btn--hover-fail">
+                <div onClick={() => setIsEdit(false)} className="service__btn btn-icon btn-icon--fail">
                   <FontAwesomeIcon icon="times" />
                 </div>
               </>

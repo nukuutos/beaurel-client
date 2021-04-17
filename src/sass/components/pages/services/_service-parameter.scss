@@ -14,7 +14,7 @@
 
   &__icon {
     grid-column: 11 / -1;
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
     justify-self: center;
     align-self: center;
     color: $color-gray;
@@ -30,21 +30,9 @@
     }
   }
 
-  // &__attribute {
-  //   grid-column: 9 / -1;
-
-  //   &--edit {
-  //     grid-column: 8 / -1;
-  //   }
-  // }
-
   &__horizontal-line {
     grid-column: 6 / 12;
   }
-
-  // &--draggable {
-  //   padding: 1.6rem 0;
-  // }
 
   &__btn {
     align-self: center;

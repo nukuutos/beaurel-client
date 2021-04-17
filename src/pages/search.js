@@ -8,8 +8,8 @@ import { useState } from 'react';
 import MasterCard from '../components/search/master-card';
 import { getMastersSuccess } from '../redux/profile/actions';
 import User from '../server/models/user';
-import handlePublicPageAuth from '../utils/handle-public-page-auth';
-import useAsyncAction from '../hooks/useAsyncAction';
+import useAsyncAction from '../hooks/use-async-action/use-async-action';
+import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);
@@ -18,7 +18,7 @@ const Search = ({ masters }) => {
   return (
     <Layout>
       <main className="content card card--layout">
-        <h1 className="search__heading heading-primary mt-7">Найти мастера</h1>
+        <h1 className="search__heading heading mt-7">Найти мастера</h1>
         <Formik
           enableReinitialize
           // change specialization start va ue
@@ -85,7 +85,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
     return await User.findMasters();
   };
 
-  const { masters, favoriteMasters } = await handlePublicPageAuth(getMastersFromDb, { req, res, store });
+  const { masters, favoriteMasters } = await handlePublicAndAuthPage(getMastersFromDb, { req, res, store });
   // dispatch to favorite
   store.dispatch(getMastersSuccess({ favoriteMasters }));
 

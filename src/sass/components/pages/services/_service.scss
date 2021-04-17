@@ -4,7 +4,6 @@
 // service can have content (service__content)
 
 .service {
-  // grid-column: 4 / 10;
   position: relative;
   grid-column: 1 / 7;
   background: $color-gray-light-3;
@@ -16,8 +15,9 @@
   color: $color-black;
   cursor: pointer;
 
-  // min-height: 8.8rem;
   min-height: 9.7rem;
+
+  border-radius: 0.5rem;
 
   &--disabled {
     pointer-events: none;
@@ -29,6 +29,17 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     column-gap: 1.6rem;
+
+    &--booking {
+      &:hover {
+        //important box-shadow && 0.1s!
+        box-shadow: 0 0 0 1px $color-primary;
+
+        .service-parameter__icon {
+          color: $color-primary;
+        }
+      }
+    }
   }
 
   &--add {
@@ -77,18 +88,6 @@
 
     &--draggable {
       grid-column: 2 / 8;
-      // padding-left: 1.6rem;
-
-      // &:before {
-      //   height: 100%;
-      //   width: 1px;
-      //   content: '';
-      //   display: block;
-      //   background: $color-gray-light-1;
-      //   position: absolute;
-      //   left: -0.8rem;
-      //   top: 0;
-      // }
     }
   }
 
@@ -155,8 +154,6 @@
     right: -3.2rem - 2rem - 3.2rem - 2rem;
     top: 50%;
     transform: translateY(-50%);
-
-    // align-self: center;
 
     &--first {
       // size of btn is 3.2rem, 2rem is margin

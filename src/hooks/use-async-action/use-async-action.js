@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import asyncCall from '../utils/async-call';
+import asyncCall from './async-call';
 import { useDispatch } from 'react-redux';
 
 const useAsyncAction = () => {

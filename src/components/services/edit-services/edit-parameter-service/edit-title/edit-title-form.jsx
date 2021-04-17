@@ -8,7 +8,7 @@ import { setAlert } from '../../../../../redux/alert/actions';
 import Spinner from '../../../../utils/spinner';
 import { titleField } from '../../../utils/schemas';
 import Textarea from '../../../../form/textarea';
-import useAsyncAction from '../../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
 const EditTitleForm = ({ title, setIsEdit }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
@@ -40,7 +40,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
         const alert = await asyncAction(config);
 
         if (alert) {
-          dispatch(updateServiceParameterTitleSuccess({ updatedServiceTitles: { oldTitle, title } }));
+          dispatch(updateServiceParameterTitleSuccess({ oldTitle, title }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }
@@ -64,10 +64,10 @@ const EditTitleForm = ({ title, setIsEdit }) => {
                     if (dirty) submitForm();
                     else setIsEdit(false);
                   }}
-                  className="service__btn service__btn--first btn--edit btn--hover-success">
+                  className="service__btn service__btn--first btn-icon btn-icon--success">
                   <FontAwesomeIcon icon="check" />
                 </div>
-                <div onClick={() => setIsEdit(false)} className="service__btn btn--edit btn--hover-fail">
+                <div onClick={() => setIsEdit(false)} className="service__btn btn-icon btn-icon--fail">
                   <FontAwesomeIcon icon="times" />
                 </div>
               </>

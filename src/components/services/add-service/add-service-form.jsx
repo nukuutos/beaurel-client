@@ -9,7 +9,7 @@ import Input from '../../form/input';
 import Select from '../../form/select';
 import InputIcon from '../../form/input-icon';
 import renderDurationOptions from '../utils/render-duration-options';
-import useAsyncAction from '../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 
 const AddServiceForm = () => {
   const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);

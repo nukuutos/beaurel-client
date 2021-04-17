@@ -1,6 +1,6 @@
-import axios from '../axios';
-import { setAlert } from '../../redux/alert/actions';
+import { setAlert } from '../../../redux/alert/actions';
 import handleUnauthorizedCall from './utils/handle-unauthorized-call';
+import axios from '../../../utils/axios';
 
 // if success it return data
 // else null

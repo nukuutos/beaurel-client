@@ -12,18 +12,12 @@
     grid-row: 1 / 4;
     height: 6.8rem;
     border-radius: 50%;
-    // justify-self: center;
-    // margin: 0 1rem;
   }
 
   &__customer-name {
     grid-column: 3 / 8;
     grid-row: 1 / 2;
     font-weight: 500;
-    // line-height: 1.2;
-    // // justify-self: center;
-    // font-size: 1.9rem;
-    // color: #7c3ba8;
   }
 
   &__date {
@@ -37,10 +31,8 @@
   &__stars {
     grid-column: 10 / -1;
     grid-row: 1 / 2;
-    // padding-bottom: 1.2rem;
     justify-self: end;
-    // align-self: start;
-    // margin-right: 2rem;
+
     & > * {
       height: 1.6rem;
       &:not(&:last-of-type) {

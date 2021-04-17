@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getWorksSuccess } from '../../../../redux/work/actions';
 import MasterWorksCustomerView from './master-works-customer-view';
 import Modal from '../../../utils/modal';
-import useAsyncAction from '../../../../hooks/useAsyncAction';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { useRouter } from 'next/router';
 
 const MasterWorks = ({ onClickClose }) => {
