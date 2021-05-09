@@ -7,7 +7,7 @@ import Spinner from '../../../../utils/spinner';
 import SubService from '../../../parameter-service/sub-service';
 import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
-const EditSubServiceDisplay = ({ subService, isLastService, setIsEdit, title }) => {
+const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEdit, title }) => {
   const [asyncAction, isLoading] = useAsyncAction();
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
 
@@ -31,8 +31,11 @@ const EditSubServiceDisplay = ({ subService, isLastService, setIsEdit, title }) 
 
   return (
     <>
-      <div className={`service service-parameter`}>
-        <SubService subService={subService} isLastServic={isLastService} />
+      <div
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        className={`service service--hover service-parameter__sub-service`}>
+        <SubService subService={subService} />
         {isLoading ? (
           <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
         ) : (

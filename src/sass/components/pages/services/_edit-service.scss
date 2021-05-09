@@ -1,0 +1,27 @@
+.edit-service {
+  &__side {
+    justify-content: space-between;
+  }
+
+  &__textarea {
+    $width: 90%;
+    $height: 6.5rem;
+
+    max-width: $width;
+    min-width: $width;
+    min-height: $height; // 6.4 rem + 0.1rem
+    max-height: $height;
+    padding: 0.2rem;
+  }
+
+  &__input {
+    width: 9.4rem;
+    height: 3rem;
+
+    line-height: 1.15;
+    letter-spacing: 0;
+    // color: $color-gray-dark-3;
+    color: #353238;
+    font-weight: 500;
+  }
+}

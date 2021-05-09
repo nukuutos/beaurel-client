@@ -5,12 +5,14 @@
 
   width: 100%;
   border-radius: 0.7rem;
-  height: 4rem;
   padding: 0 0.8rem;
   border: 1px solid $color-black;
   font-size: 1.6rem;
   font-family: inherit;
   outline: none;
+  font-weight: inherit;
+
+  height: 3.2rem;
 
   &:focus {
     border-color: $color-primary;
@@ -22,39 +24,45 @@
     border: 1px solid $color-black;
     border-radius: 0.7rem;
 
+    &:focus {
+      border-color: $color-primary;
+    }
+
     // input
     & > *:last-child {
       flex: 1;
       border: none;
-      outline: none;
+      // outline: none;
+      padding: 0;
 
       &:focus {
-        outline: none;
+        // outline: none;
+        // border-color: $color-primary;
       }
     }
 
-    &:focus-within {
-      // border-color: $color-primary;
+    // &:focus-within {
+    //   // border-color: $color-primary;
 
-      & > *:first-child {
-        color: $color-primary;
-      }
-    }
+    //   & > *:first-child {
+    //     color: $color-primary;
+    //   }
+    // }
   }
 
   &__icon {
-    height: 2rem;
+    height: 1.6rem;
     padding-left: 0.8rem;
 
-    &--s {
-      height: 1.2rem;
-      padding-left: 0.4rem;
-    }
+    // &--s {
+    //   height: 1.2rem;
+    //   padding-left: 0.4rem;
+    // }
 
-    &--m {
-      height: 1.6rem;
-      padding-left: 0.4rem;
-    }
+    // &--m {
+    //   height: 1.6rem;
+    //   padding-left: 0.4rem;
+    // }
   }
 
   &--error {
@@ -68,9 +76,9 @@
     padding: 0.8rem 1.2rem;
   }
 
-  &--mini {
-    padding: 0 0.4rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
+  // &--mini {
+  //   padding: 0 0.4rem;
+  //   font-size: 1.2rem;
+  //   font-weight: 500;
+  // }
 }

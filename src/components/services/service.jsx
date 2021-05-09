@@ -2,28 +2,33 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import displayDuration from './utils/display-duration';
 
-// This component need wrapper (because of reusabilty)
-const Service = ({ service, isDraggable = false }) => {
+// This component need wrapper (for reusabilty)
+const Service = ({ service }) => {
   const { title, duration, price } = service;
 
-  const titleClassName = `service__title ${isDraggable ? 'service__title--draggable' : ''}`;
-  const durationClassName = `service__duration service__attribute mb-3 ${
-    isDraggable ? 'service__duration--draggable' : ''
-  }`;
-  const priceClassName = `service__price service__attribute mt-3 ${isDraggable ? 'service__price--draggable' : ''}`;
+  const titleClassName = `service__title`;
+
+  const durationClassName = `service__duration service__group mt-1 ml-8`;
+
+  const priceClassName = `service__price service__group mt-5 ml-8`;
 
   return (
     <>
-      <span className={titleClassName}>{title}</span>
-      <span className={durationClassName}>
-        <FontAwesomeIcon icon={['fas', 'clock']} />
-        {displayDuration(duration)}
-      </span>
-      <div className="service__horizontal-line" />
-      <span className={priceClassName}>
-        <FontAwesomeIcon icon="ruble-sign" />
-        {price}
-      </span>
+      <div className={`service__side service__side--left`}>
+        <span className="label">Название</span>
+        <span className={titleClassName}>{title}</span>
+      </div>
+
+      <div className="service__side service__side--right">
+        <span className={durationClassName}>
+          <FontAwesomeIcon icon={['fas', 'clock']} />
+          {displayDuration(duration)}
+        </span>
+        <span className={priceClassName}>
+          <FontAwesomeIcon icon="ruble-sign" />
+          {price}
+        </span>
+      </div>
     </>
   );
 };

@@ -1,26 +1,14 @@
 @use "../../../../../../abstracts/colors" as *;
 
 .booking-service {
-  position: relative;
-  border: 1px solid transparent;
-  transition: 0.2s border-color;
-  border-radius: 0.5rem;
+  &:hover .booking-service__arrow {
+    opacity: 1;
+    transform: translate(1rem, -50%);
+  }
 
-  &:hover {
-    border-color: $color-primary;
-
-    .service__title::after {
-      background: $color-primary;
-    }
-
-    .service__horizontal-line {
-      background: $color-primary;
-    }
-
-    .booking-service__arrow {
-      opacity: 1;
-      transform: translate(1.2rem, -50%);
-    }
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.4;
   }
 
   &__arrow {

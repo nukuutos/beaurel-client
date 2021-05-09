@@ -29,7 +29,7 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
     }
   };
 
-  const classNameService = `service service-parameter${isShown ? '--expand' : ''} ${!isShown ? 'mb-s-4' : ''}`;
+  const classNameService = `service service-parameter${isShown ? '--expand' : ''} ${!isShown ? 'service--hover' : ''}`;
 
   return (
     <div onClick={() => setIsShown(!isShown)} className={classNameService}>

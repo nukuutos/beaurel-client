@@ -45,35 +45,32 @@ const EditServiceForm = ({ service, setIsEdit }) => {
       }}>
       {({ submitForm, values, dirty }) => (
         <>
-          <Form className="service">
-            {/* избавиться от спанов? */}
-            <div className="service__title">
-              <Textarea className="textarea textarea--s service__textarea input" type="text" name="title" />
-              <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
+          <Form className="service card mt-6">
+            <div className="service__side service__side--left">
+              <Textarea className="edit-service__textarea textarea input" type="text" name="title" />
+              {/* <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage> */}
             </div>
 
-            <div className="service__duration service__attribute--edit input--icon">
-              <FontAwesomeIcon className="input__icon input__icon--s" icon="clock" />
-              <Select value={values.duration} className="input input--mini" name="duration" as="select">
-                {renderDurationOptions(sessionTime)}
-              </Select>
-            </div>
+            <div className="service__side service__side--right edit-service__side">
+              <div className="edit-service__input input--icon ml-4">
+                <FontAwesomeIcon className="input__icon" icon="clock" />
+                <Select value={values.duration} className="input" name="duration" as="select">
+                  {renderDurationOptions(sessionTime)}
+                </Select>
+              </div>
 
-            <div className="service__horizontal-line service__horizontal-line--edit mt-1 mb-1" />
-
-            {/* change service__attribute--edit to one */}
-            <div className="service__price service__price-area">
               <InputIcon
                 type="number"
                 name="price"
-                inputClassName={'input input--mini'}
-                wrapperClassName={'input--icon service__attribute--edit'}>
-                <FontAwesomeIcon className="input__icon input__icon--s" icon="ruble-sign" />
+                inputClassName={'input ml-2'}
+                wrapperClassName={'input--icon edit-service__input ml-4'}>
+                <FontAwesomeIcon className="input__icon" icon="ruble-sign" />
               </InputIcon>
+              {/* <ErrorMessage name="price">
+                {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
+              </ErrorMessage> */}
             </div>
-            <ErrorMessage name="price">
-              {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
-            </ErrorMessage>
+
             {isLoading ? (
               <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (

@@ -12,7 +12,7 @@ import Select from '../../../../form/select';
 import InputIcon from '../../../../form/input-icon';
 import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
 
-const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => {
+const EditSubServiceForm = ({ subService, title, setIsEdit }) => {
   const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
   const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
@@ -47,20 +47,45 @@ const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => 
       }}>
       {({ submitForm, isSubmitting, dirty, values }) => (
         <>
-          <Form className={`service service-parameter  ${isLastService ? 'mb-s-4' : ''}`}>
-            <div className="service__title">
+          <Form className={`service service-parameter`}>
+            {/* <div className="service__title">
               <Textarea className="textarea textarea--s service__textarea input" type="text" name="parameter" />
               <ErrorMessage name="parameter">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
+            </div> */}
+
+            <div className="service__side service__side--left">
+              <Textarea className="edit-service__textarea textarea input" type="text" name="parameter" />
+              {/* <ErrorMessage name="parameter">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage> */}
             </div>
 
-            <div className="service__duration service__attribute--edit input--icon">
+            <div className="service__side service__side--right edit-service__side">
+              <div className="edit-service__input input--icon ml-4">
+                <FontAwesomeIcon className="input__icon" icon="clock" />
+                <Select value={values.duration} className="input" name="duration" as="select">
+                  {renderDurationOptions(sessionTime)}
+                </Select>
+              </div>
+
+              <InputIcon
+                type="number"
+                name="price"
+                inputClassName={'input ml-2'}
+                wrapperClassName={'input--icon edit-service__input ml-4'}>
+                <FontAwesomeIcon className="input__icon" icon="ruble-sign" />
+              </InputIcon>
+              {/* <ErrorMessage name="price">
+                {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
+              </ErrorMessage> */}
+            </div>
+
+            {/* <div className="service__duration service__attribute--edit input--icon">
               <FontAwesomeIcon className="input__icon input__icon--s" icon="clock" />
               <Select value={values.duration} className="input input--mini" name="duration" as="select">
                 {renderDurationOptions(sessionTime)}
               </Select>
             </div>
 
-            <div className="service__horizontal-line service__horizontal-line--edit mt-1 mb-1" />
+    
 
             <div className="service__price service__price-area">
               <InputIcon
@@ -71,9 +96,11 @@ const EditSubServiceForm = ({ subService, title, isLastService, setIsEdit }) => 
                 <FontAwesomeIcon className="input__icon input__icon--s" icon="ruble-sign" />
               </InputIcon>
             </div>
+
+
             <ErrorMessage name="price">
               {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
-            </ErrorMessage>
+            </ErrorMessage> */}
             {isLoading ? (
               <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (

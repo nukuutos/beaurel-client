@@ -5,10 +5,11 @@
     font-weight: 700;
     line-height: 1.6rem;
     cursor: pointer;
+    color: $color-gray;
     border-bottom: 1px solid transparent;
 
     margin: 0 0.4rem;
-    transition: 0.2s border-color;
+    transition: 0.2s border-color, 0.2s color;
 
     &:first-of-type {
       margin-left: 0.8rem;
@@ -19,7 +20,8 @@
     }
 
     &:hover {
-      border-color: $color-black;
+      color: $color-gray-dark-2;
+      border-color: $color-gray-dark-2;
     }
 
     &--active {

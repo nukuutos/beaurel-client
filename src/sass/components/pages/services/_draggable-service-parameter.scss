@@ -1,0 +1,39 @@
+@use "../../../abstracts/colors" as *;
+
+.draggable-service-parameter {
+  &__sub-service {
+    &::after {
+      content: '';
+      height: 1px;
+      background: $color-gray-light-2;
+      position: absolute;
+      top: 0;
+      left: -5.3rem; // important
+      right: 0;
+      transition: 0.1s opacity;
+      z-index: 100;
+    }
+
+    &:hover {
+      // hide top line
+      &::after {
+        opacity: 0;
+      }
+
+      // hide top line on next sub-service
+      & + .service-parameter__sub-service {
+        &::after {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  &--hover {
+    &:hover {
+      .service-parameter__icon {
+        color: $color-primary;
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ const BookingService = ({ service, setStep }) => {
 
   // same:
   // state.step === 2 ? getIsDisabled(bookingAppointment, service, timetable) : false
-  const isDisabled = bookingAppointment.date ? getIsDisabled(bookingAppointment, service, timetable) : false;
+  const isDisabled = getIsDisabled(bookingAppointment, service, timetable);
 
   const handleOnClick = () => {
     dispatch(setAppointmentService({ id, title, duration }));
@@ -30,15 +30,13 @@ const BookingService = ({ service, setStep }) => {
   };
 
   return (
-    <div className="service__wrapper card mt-6">
-      <div
-        className={`service booking-service ${isDisabled ? 'service--disabled' : ''}`}
-        onClick={isDisabled ? null : handleOnClick}>
-        <Service service={service} />
+    <div
+      className={`service service--hover booking-service ${isDisabled ? 'booking-service--disabled' : ''} card mt-6`}
+      onClick={isDisabled ? null : handleOnClick}>
+      <Service service={service} />
 
-        <div className="booking-service__arrow">
-          <FontAwesomeIcon icon="chevron-right" />
-        </div>
+      <div className="booking-service__arrow">
+        <FontAwesomeIcon icon="chevron-right" />
       </div>
     </div>
   );

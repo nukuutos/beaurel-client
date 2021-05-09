@@ -1,9 +1,10 @@
 const isDisabledServiceWithAutoTimetable = (bookingAppointment, service, timetable) => {
   const { time: startAt, availableAppointments } = bookingAppointment;
   const { sessionTime } = timetable;
-  const { duration, title } = service;
+  const { duration } = service;
 
   const endAt = startAt + duration;
+
   for (let i = startAt; i < endAt; i += sessionTime) {
     if (!availableAppointments.includes(i)) return true;
   }
@@ -33,13 +34,15 @@ const getIsDisabled = (bookingAppointment, service, timetable) => {
   const { update } = timetable;
   const { time, date } = bookingAppointment;
 
+  if (!time) return false;
+
   if (update && new Date(update.date).getTime() <= date.getTime()) timetable = update;
 
   const { type } = timetable;
 
   const disableMethod = type === 'auto' ? isDisabledServiceWithAutoTimetable : isDisabledServiceWithManuallyTimetable;
 
-  return time ? disableMethod(bookingAppointment, service, timetable) : false;
+  return disableMethod(bookingAppointment, service, timetable);
 };
 
 export default getIsDisabled;

@@ -6,42 +6,50 @@ import DraggableSubService from './draggable-sub-service';
 import { reoderSubServices } from '../../../../redux/service/actions/service';
 
 const DraggableParameterService = ({ service, index }) => {
+  const [isHover, setIsHover] = useState(false);
   const [isShown, setIsShown] = useState(false);
+  const [isHoverSubService, setIsHoverSubService] = useState(false);
+
   const dispatch = useDispatch();
 
   const { title, subServices } = service;
 
   return (
-    <Draggable isDragDisabled={isShown === true} draggableId={title} index={index}>
-      {({ innerRef, draggableProps, dragHandleProps }) => {
+    <Draggable isDragDisabled={isShown} draggableId={title} index={index}>
+      {({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
         return (
           <div
-            className={`service-wrapper card mt-6`}
-            onClick={() => setIsShown(!isShown)}
             ref={innerRef}
             {...draggableProps}
-            {...dragHandleProps}>
-            <div className={`service`}>
-              <DraggableTitle title={title} shownState={[isShown, setIsShown]} />
+            {...dragHandleProps}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            className={`mt-6 draggable-service draggable-service--shadow ${
+              isHover && isShown && !isHoverSubService ? 'draggable-service--hover' : ''
+            }`}>
+            <div
+              onClick={() => setIsShown(!isShown)}
+              className={`service draggable-service draggable-service-parameter--hover ${
+                (isHover && !isShown) || isDragging ? 'draggable-service--hover' : ''
+              }`}>
+              <DraggableTitle title={title} isDragging={isDragging} shownState={[isShown, setIsShown]} />
             </div>
+
             {isShown && (
               <DragDropContext
                 onDragEnd={(res) => {
                   dispatch(reoderSubServices({ ...res, title }));
                 }}>
                 <Droppable droppableId={`droppable-${title}`}>
-                  {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => {
+                  {({ droppableProps, innerRef, placeholder }) => {
                     return (
-                      <div
-                        onClick={(e) => e.stopPropagation()}
-                        ref={innerRef}
-                        {...droppableProps}
-                        className="services__droppable">
+                      <div ref={innerRef} {...droppableProps} className="services__droppable">
                         {subServices.map((subService, i) => {
                           return (
                             <DraggableSubService
+                              onMouseLeave={() => setIsHoverSubService(false)}
+                              onMouseEnter={() => setIsHoverSubService(true)}
                               subService={subService}
-                              isLastService={i === subServices.length - 1}
                               index={i}
                               key={title + subService.parameter + i} // for dnd or use uuid
                             />

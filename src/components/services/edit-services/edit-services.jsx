@@ -14,10 +14,10 @@ const EditServices = ({ services }) => {
     <div className="services__container">
       {services.length ? (
         services.map((service, i) => {
-          return (
-            <div key={i} className="service__wrapper card mt-6">
-              {service.subServices ? <EditParameterService service={service} /> : <EditService service={service} />}
-            </div>
+          return service.subServices ? (
+            <EditParameterService key={i} service={service} />
+          ) : (
+            <EditService key={i} service={service} />
           );
         })
       ) : (
@@ -27,10 +27,8 @@ const EditServices = ({ services }) => {
         </p>
       )}
 
-      <div className="service__wrapper">
-        <div className="service service--add card mt-6" onClick={() => setIsAddService(true)}>
-          <FontAwesomeIcon icon="plus" />
-        </div>
+      <div className="service service--add service--hover card mt-6" onClick={() => setIsAddService(true)}>
+        <FontAwesomeIcon icon="plus" />
       </div>
 
       {isAddService && (

@@ -1,16 +1,19 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Title from '../../parameter-service/title';
+import DraggableVerticalLines from '../draggable-vertical-lines';
 
-const DraggableTitle = ({ title, shownState }) => {
+const DraggableTitle = ({ title, shownState, isDragging }) => {
   const [isShown] = shownState;
 
   return (
-    <Title shownState={shownState} title={title} isDraggable>
-      <span className={`service__draggable-icon ${isShown ? 'service__draggable-lines--disabled' : ''}`}>
-        <FontAwesomeIcon icon="grip-vertical" />
-      </span>
-    </Title>
+    <>
+      <div className="draggable-service__icon-wrapper">
+        <DraggableVerticalLines
+          className={`draggable-service__icon ${isDragging ? 'draggable-service__icon--dragging' : ''} ml-4`}
+        />
+      </div>
+      <Title shownState={shownState} title={title} />
+    </>
   );
 };
 

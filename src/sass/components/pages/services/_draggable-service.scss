@@ -1,0 +1,77 @@
+@use "../../../abstracts/colors" as *;
+
+.draggable-service {
+  position: relative;
+  transition: 0.2s border-color;
+
+  $size: 5.3rem;
+
+  &__icon {
+    & > * {
+      fill: $color-gray-light-1;
+      transition: 0.1s fill;
+    }
+
+    &--dragging {
+      & > * {
+        fill: $color-primary;
+      }
+    }
+  }
+
+  // draggable-vertical-lines wrapper
+  &__icon-wrapper {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: -$size;
+    height: 100%;
+    width: $size;
+    background: white;
+
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  // shadow with border
+  &::before {
+    z-index: 10;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: -$size;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    // transition: 0.2s border-color;
+    transition: 0.2s box-shadow;
+  }
+
+  &--shadow::before {
+    box-shadow: 0 0 0.5rem rgba($color-black, 0.2);
+  }
+
+  &--hover::before {
+    box-shadow: 0 0 0.5rem rgba($color-black, 0.2), 0 0 0 1px $color-primary;
+  }
+
+  // vertical-line after draggable-vertical-lines
+  .service__side--left::before {
+    z-index: 1;
+    position: absolute;
+    left: -1.6rem;
+    top: 0;
+    content: '';
+    display: block;
+    height: 100%;
+    width: 1px;
+    background: $color-gray-light-1;
+    transition: 0.2s background;
+  }
+}

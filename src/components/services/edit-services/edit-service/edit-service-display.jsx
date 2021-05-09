@@ -32,7 +32,7 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
 
   return (
     <>
-      <div className="service">
+      <div className="service service--hover card mt-6">
         <Service service={service} />
         {isLoading ? (
           <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />

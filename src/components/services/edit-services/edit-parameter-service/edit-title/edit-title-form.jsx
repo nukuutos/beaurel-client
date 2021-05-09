@@ -48,13 +48,18 @@ const EditTitleForm = ({ title, setIsEdit }) => {
       {({ submitForm, isSubmitting, dirty }) => (
         <>
           <Form className="service service--edit">
-            <span className="service__title service-parameter__title">
-              <Textarea className="textarea textarea--s service__textarea input" type="text" name="title" />
-              <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
-            </span>
-            <div className={`service-parameter__icon mr-s`}>
-              <FontAwesomeIcon icon="caret-left" />
+            <div className="service__side service__side--left">
+              <Textarea className="edit-service__textarea textarea input" type="text" name="title" />
+              {/* <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage> */}
             </div>
+
+            <div className="service__side service__side--right">
+              {/* <div className={`service-parameter__icon ${isShown ? 'service-parameter__icon--rotated' : ''}`}> */}
+              <div className={`service-parameter__icon `}>
+                <FontAwesomeIcon icon="caret-left" />
+              </div>
+            </div>
+
             {isLoading ? (
               <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
             ) : (

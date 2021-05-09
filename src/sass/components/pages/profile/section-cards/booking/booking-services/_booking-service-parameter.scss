@@ -1,0 +1,12 @@
+@use "../../../../../../abstracts/colors" as *;
+
+.booking-service-parameter {
+  &:hover {
+    //important box-shadow && 0.1s!
+    box-shadow: 0 0 0 1px $color-primary;
+
+    .service-parameter__icon {
+      color: $color-primary;
+    }
+  }
+}

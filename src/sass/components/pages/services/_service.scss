@@ -1,150 +1,81 @@
 @use "../../../abstracts/colors" as *;
 
-// change service must be a wrapper
-// service can have content (service__content)
-
 .service {
+  width: 100%;
   position: relative;
   grid-column: 1 / 7;
-  background: $color-gray-light-3;
-  padding: 1.6rem;
+  background: $color-white;
 
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  column-gap: 1.6rem;
   color: $color-black;
   cursor: pointer;
 
-  min-height: 9.7rem;
-
   border-radius: 0.5rem;
 
-  &--disabled {
-    pointer-events: none;
-    opacity: 0.4;
-  }
+  min-height: 9.2rem;
 
-  &__wrapper {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    column-gap: 1.6rem;
+  padding: 1.2rem;
 
-    &--booking {
-      &:hover {
-        //important box-shadow && 0.1s!
-        box-shadow: 0 0 0 1px $color-primary;
+  border: 1px solid transparent;
 
-        .service-parameter__icon {
-          color: $color-primary;
-        }
+  &__side {
+    display: flex;
+    flex-direction: column;
+
+    &--left {
+      position: relative;
+      grid-column: 1 / 9;
+
+      &::after {
+        position: absolute;
+        right: 0;
+        top: 0;
+        content: '';
+        display: block;
+        height: 100%;
+        width: 1px;
+        background: $color-gray-light-1;
+        transition: 0.2s background; // for booking-service
       }
     }
-  }
 
-  &--add {
-    grid-column: 1 / 7;
-    transition: 0.2s color;
-    color: $color-gray;
-
-    // icon
-    & > * {
-      grid-column: 1 / -1;
-      justify-self: center;
-      align-self: center;
-      height: 2.4rem;
-      color: inherit;
-    }
-
-    &:hover {
-      color: $color-primary;
+    &--right {
+      grid-column: 9 / 13;
     }
   }
 
   &__title {
-    grid-column: 1 / 8;
-    grid-row: 1 / 5;
     line-height: 2.4rem;
+  }
 
+  &__group {
     display: flex;
-    flex-direction: column;
-
-    position: relative;
-
-    &::after {
-      position: absolute;
-      right: 0;
-      top: 0;
-      content: '';
-      display: block;
-      height: 100%;
-      width: 1px;
-      background: $color-gray-light-1;
-      // trick to justify self right
-      margin-left: auto;
-
-      transition: 0.2s background; // for booking-service
-    }
-
-    &--draggable {
-      grid-column: 2 / 8;
-    }
-  }
-
-  &__duration {
-    grid-row: 1 / 2;
-  }
-
-  &__price {
-    grid-row: 3 / 4;
-  }
-
-  // кoстыль
-  &__price-area {
-    grid-column: 8/-1;
-    justify-self: center;
-  }
-
-  &__attribute {
-    grid-column: 10 / -1;
-
-    justify-self: start;
-
-    font-size: 1.2rem;
-    line-height: 1.6rem;
+    line-height: 1.15;
+    letter-spacing: 0;
+    // color: $color-gray-dark-3;
+    color: #353238;
     font-weight: 500;
 
-    display: flex;
-    align-items: center;
-
     & > * {
-      height: 1.2rem;
-      margin-right: 0.4rem;
-    }
-
-    &--edit {
-      width: 8rem;
-      grid-column: 8 / -1;
-      justify-self: center;
-      height: 2.8rem;
+      height: 1.65rem;
+      margin-right: 0.6rem;
     }
   }
 
-  &__horizontal-line {
-    grid-row: 2 / 3;
-    grid-column: 8 / 12;
+  &--hover {
+    transition: 0.2s border-color;
 
-    background: $color-gray-light-1;
-    width: 6.4rem;
-    height: 1px;
-    justify-self: center;
-    transform: translateX(50%);
+    &:hover {
+      border-color: $color-primary;
 
-    transition: 0.2s background; // for booking-service
+      .service__side--left::after {
+        background: $color-primary;
+      }
 
-    &--edit {
-      grid-column: 8 / -1;
-      transform: translateX(0);
+      .service-parameter__icon {
+        color: $color-primary;
+      }
     }
   }
 
@@ -161,25 +92,21 @@
     }
   }
 
-  &__textarea {
-    $width: 90%;
-    $height: 6.5rem;
+  &--add {
+    transition: 0.2s color;
+    color: $color-gray;
 
-    max-width: $width;
-    min-width: $width;
-    min-height: $height; // 6.4 rem + 0.1rem
-    max-height: $height;
-    padding: 0.2rem;
-  }
-
-  &__draggable-icon {
-    grid-column: 1/2;
-    grid-row: 1/4;
-    align-self: center;
-    position: relative;
-
+    // icon
     & > * {
+      grid-column: 1 / -1;
+      justify-self: center;
+      align-self: center;
       height: 2.4rem;
+      color: inherit;
+    }
+
+    &:hover {
+      color: $color-primary;
     }
   }
 }

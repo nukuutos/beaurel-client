@@ -12,11 +12,9 @@ const ParameterService = ({ service, onClick = null }) => {
 
       {isShown &&
         subServices.map((subService, i) => {
-          const isLastService = i === subServices.length - 1;
-
           return (
-            <div onClick={onClick} className={`service ${isLastService ? 'mb-s-4' : ''}`} key={i}>
-              <SubService subService={subService} isLastService={isLastService} />
+            <div onClick={onClick} className={`service `} key={i}>
+              <SubService subService={subService} />
             </div>
           );
         })}
