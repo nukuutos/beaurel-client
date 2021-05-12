@@ -1,0 +1,45 @@
+@use "../../../../../abstracts/colors" as *;
+
+.master-work {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: $color-black;
+    opacity: 0.1;
+    transition: 0.2s opacity;
+  }
+
+  &:hover::after {
+    opacity: 0;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__title {
+    background: linear-gradient(rgba($color-black, 0), rgba($color-black, 0.6));
+    padding: 2.4rem 0.8rem 0.8rem;
+    color: $color-white;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: 0.2s opacity;
+  }
+
+  &:hover &__title {
+    opacity: 1;
+  }
+}

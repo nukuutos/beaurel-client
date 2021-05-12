@@ -1,6 +1,10 @@
 @use "../../../abstracts/colors" as *;
 
 .btn-text {
+  border: none;
+  border-color: transparent;
+  font-weight: inherit;
+
   display: inline-block;
   color: $color-primary;
   border-bottom: 1px solid $color-primary;

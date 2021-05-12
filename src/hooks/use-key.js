@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const useKey = (onClose) => {
   useEffect(() => {
@@ -11,7 +11,7 @@ const useKey = (onClose) => {
     window.addEventListener('keydown', onKeyDown);
 
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [onClose]);
 };
 
 export default useKey;

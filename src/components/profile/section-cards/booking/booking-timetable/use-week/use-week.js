@@ -26,9 +26,6 @@ const useWeek = (setStep) => {
     const weekDays = []; // result, components
 
     for (let i = startDayOfWeek; i <= endDayOfWeek; i++) {
-      // const date = new Date(Date.UTC(year, month, i, 0, 0, 0, 0));
-      // date.setHours(0, 0, 0, 0);
-
       const date = getDate(year, month, i);
 
       const stringDate = convertDateToString(date);

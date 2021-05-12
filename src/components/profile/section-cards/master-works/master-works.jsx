@@ -1,45 +1,22 @@
-import React, { useEffect } from 'react';
-import MastersWorksMasterView from './master-works-master-view/masters-works-master-view';
-import { useSelector, useDispatch } from 'react-redux';
-import { getWorksSuccess } from '../../../../redux/work/actions';
-import MasterWorksCustomerView from './master-works-customer-view';
+import React, { useState, useCallback } from 'react';
 import Modal from '../../../utils/modal';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { useRouter } from 'next/router';
+import Carousel from './carousel/carousel';
+import AddMasterWork from './add-master-work';
+import EditMasterWork from './edit-master-work';
+import DisplayMasterWorks from './display-master-works';
 
 const MasterWorks = ({ onClickClose }) => {
-  const [{ works, masterId }, { isPublicView, id: profileId }] = useSelector((state) => [state.work, state.profile]);
-  const [asyncAction, isLoading] = useAsyncAction();
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const [state, setState] = useState({ index: null, display: 'works' }); // works, carousel, update, add;
 
-  const getWorks = async () => {
-    const config = {
-      method: 'get',
-      url: `/profile/${profileId}/work`,
-      accessToken: null,
-    };
-
-    const data = await asyncAction(config);
-
-    if (works) dispatch(getWorksSuccess({ works: data.works, masterId: profileId }));
-  };
-
-  useEffect(() => {
-    const queryMasterId = router.query.id;
-    const isWorks = masterId === queryMasterId;
-    if (!isWorks) getWorks();
-  }, []);
+  const carouselOnClose = useCallback(() => setState({ index: null, display: 'works' }), [setState]);
+  const masterWorksOnClose = useCallback(() => onClickClose(), [onClickClose]);
 
   return (
-    <Modal onClickClose={onClickClose}>
-      {isLoading ? (
-        <div className="master-works">
-          <div className="spinner-with-background" />
-        </div>
-      ) : (
-        <>{isPublicView ? <MasterWorksCustomerView /> : <MastersWorksMasterView />}</>
-      )}
+    <Modal onClickClose={state.display === 'carousel' ? carouselOnClose : masterWorksOnClose}>
+      {state.display === 'works' && <DisplayMasterWorks setParentState={setState} />}
+      {state.display === 'carousel' && <Carousel state={[state, setState]} />}
+      {state.display === 'edit' && <EditMasterWork state={[state, setState]} />}
+      {state.display === 'add' && <AddMasterWork setParentState={setState} />}
     </Modal>
   );
 };

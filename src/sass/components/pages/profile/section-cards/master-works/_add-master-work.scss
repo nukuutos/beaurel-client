@@ -50,6 +50,18 @@
     grid-column: 1 /-1;
   }
 
+  &__change-btn {
+    grid-column: 1 / -1;
+    justify-self: flex-end;
+    font-weight: 700;
+
+    &:hover .btn-text {
+      color: $color-white;
+      border-color: $color-white;
+      background: $color-primary;
+    }
+  }
+
   &__form {
     display: contents;
   }
