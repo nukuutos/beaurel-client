@@ -13,7 +13,7 @@ const ManuallyAppointments = ({ appointments }) => {
       </span>
 
       <span className="timetable-card__tip timetable-card__tip--gray mt-1">
-        Нажмите на время в расписании, чтобы исключить его
+        Нажмите на время в расписании ниже, чтобы исключить его
       </span>
     </>
   );

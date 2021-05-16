@@ -129,6 +129,7 @@
   position: relative;
   box-shadow: 0 1px 0.5rem rgba($color-black, 0.25);
   border-radius: 0.5rem;
+  overflow: hidden;
 
   &--layout {
     box-shadow: 0 0 0.5rem rgba($color-black, 0.2);

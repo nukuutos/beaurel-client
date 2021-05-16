@@ -55,7 +55,7 @@
   }
 
   &--gray {
-    @include color-btn($color-gray);
+    @include color-btn($color-gray-dark-1);
   }
 
   &--flat {

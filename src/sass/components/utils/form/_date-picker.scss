@@ -1,0 +1,122 @@
+@use "../../../abstracts/colors" as *;
+
+.date-picker {
+  width: 28rem;
+  padding: 1.2rem 0.4rem;
+  background: $color-white;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  &__month-and-year {
+    grid-column: 2 / 7;
+    font-weight: 500;
+    color: $color-primary-dark-1;
+    justify-self: center;
+    align-self: center;
+    font-size: 2rem;
+  }
+
+  &__arrow {
+    border: 2px solid transparent;
+    padding: 0.4rem;
+    color: $color-gray;
+    transition: 0.2s color, 0.2s border-color;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+
+    & > * {
+      height: 1.6rem;
+    }
+
+    &:hover {
+      border-color: $color-primary-dark-1;
+      color: $color-primary-dark-1;
+    }
+
+    &--right {
+      grid-column: 7 / 8;
+      justify-self: flex-end;
+    }
+
+    &--left {
+      grid-column: 1 / 2;
+      justify-self: flex-start;
+    }
+
+    &--disabled {
+      pointer-events: none;
+    }
+  }
+
+  &__choice {
+    font-weight: 700;
+    border-radius: 0.5rem;
+    padding: 0.8rem 2rem 0.6rem;
+    color: $color-white;
+    background: $color-primary-dark-1;
+    grid-column: 1 / -1;
+    justify-self: flex-start;
+  }
+
+  &__weekday {
+    color: $color-gray;
+    justify-self: center;
+    font-weight: 500;
+  }
+
+  &__date {
+    color: $color-gray-dark-2;
+    justify-self: center;
+    padding: 0.4rem;
+    margin: 0.4rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: 0.2s border-color;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $color-primary-dark-1;
+    }
+
+    &--active {
+      border-color: $color-primary-dark-1;
+      background: $color-primary-dark-1;
+      color: $color-white;
+      pointer-events: none;
+    }
+
+    &--unavailable {
+      color: $color-gray;
+      &:hover {
+        border-color: transparent;
+      }
+    }
+
+    &--disabled {
+      pointer-events: none;
+    }
+  }
+
+  &__buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    padding: 0 0.4rem;
+  }
+
+  &__button {
+    flex: 1;
+
+    &--ok {
+      border-color: $color-primary-dark-1;
+      color: $color-primary-dark-1;
+
+      &:hover {
+        background: $color-primary-dark-1;
+        color: $color-white;
+      }
+    }
+  }
+}

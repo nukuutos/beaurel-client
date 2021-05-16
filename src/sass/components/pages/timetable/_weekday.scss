@@ -19,19 +19,22 @@
 
   &__time {
     display: block;
-    padding: 0.8rem 1.2rem;
-    font-size: 1.2rem;
+    padding: 0.8rem 0;
+    width: 6.4rem;
+    font-size: 1.6rem;
     color: $color-white;
     background: $color-primary;
     border-radius: 0.5rem;
     cursor: pointer;
+    text-align: center;
 
     &--fail {
       background: $color-fail;
     }
 
     &--add {
-      padding: 0.8rem 2.4rem;
+      display: flex;
+      justify-content: center;
 
       & > * {
         height: 1.6rem;

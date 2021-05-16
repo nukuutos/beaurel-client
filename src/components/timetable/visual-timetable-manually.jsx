@@ -35,7 +35,7 @@ const VisualTimetableManually = ({ values, update, isEditing }) => {
                         <span
                           onClick={onClick}
                           key={i}
-                          className={`weekday__time ${isEditing ? 'btn--disabled' : ''} mt-5`}>
+                          className={`weekday__time ${isDisabled ? 'btn--disabled' : ''} mt-5`}>
                           {displayDuration(time)}
                         </span>
                       );

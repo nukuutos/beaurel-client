@@ -33,6 +33,8 @@ const Timetable = () => {
 
   const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
 
+  console.log(update);
+
   return (
     <Layout>
       <main className="content card card--layout">
@@ -43,7 +45,7 @@ const Timetable = () => {
             editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
             sessionTime, // main purpose of this session time is rendering auto timetable
             manually: { ...manually, time: timetable.sessionTime },
-            date: new Date(Date.UTC(2021, 3, 1, 0, 0, 0, 0)), // it's null
+            date: null, // it's null
           }}
           enableReinitialize
           // submit is calling in UpdatedDate component
@@ -66,16 +68,16 @@ const Timetable = () => {
               dispatch(setAlert(alert));
             }
           }}>
-          {({ values, dirty, initialValues, setFieldValue }) => (
+          {({ values, dirty, initialValues, setFieldValue, submitForm }) => (
             <Form className="timetable__form">
               <BaseSettings
                 values={values}
                 initialValues={initialValues}
                 setFieldValue={setFieldValue}
-                update={update}
+                update={update.date}
                 editParentState={[editState, setEditState]}
               />
-              <TimetableType type={values.type} update={update} isEditing={editState.isEditing} />
+              <TimetableType type={values.type} update={update.date} isEditing={editState.isEditing} />
 
               {values.type === 'auto' ? (
                 <>
@@ -83,7 +85,7 @@ const Timetable = () => {
                     <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
                     <Weekends
                       weekends={values.auto.weekends}
-                      update={update}
+                      update={update.date}
                       editParentState={[editState, setEditState]}
                       initialValues={initialValues}
                       setFieldValue={setFieldValue}
@@ -91,12 +93,12 @@ const Timetable = () => {
                     <WorkingDay
                       workingDay={values.auto.workingDay}
                       sessionTime={values.sessionTime}
-                      update={update}
+                      update={update.date}
                       editParentState={[editState, setEditState]}
                     />
                     <Exceptions exceptions={values.auto.exceptions} />
                   </div>
-                  <VisualTimetableAuto values={values} update={update} isEditing={editState.isEditing} />
+                  <VisualTimetableAuto values={values} update={update.date} isEditing={editState.isEditing} />
                 </>
               ) : (
                 <>
@@ -104,11 +106,11 @@ const Timetable = () => {
                     <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
                     <ManuallyAppointments appointments={values.manually.appointments} />
                   </div>
-                  <VisualTimetableManually update={update} isEditing={editState.isEditing} values={values} />
+                  <VisualTimetableManually update={update.date} isEditing={editState.isEditing} values={values} />
                 </>
               )}
 
-              {!update && (
+              {!update.date && (
                 <div
                   onClick={() => setIsDatePicker(true)}
                   className={`btn btn--primary ${dirty ? '' : 'btn--disabled'} timetable__button mt-8`}>
@@ -116,12 +118,18 @@ const Timetable = () => {
                 </div>
               )}
 
-              {isDatePicker && <UpdatedDate isLoading={isLoading} setIsDatePicker={setIsDatePicker} />}
+              {isDatePicker && (
+                <UpdatedDate
+                  submitFunctions={{ setFieldValue, submitForm }}
+                  isLoading={isLoading}
+                  setIsDatePicker={setIsDatePicker}
+                />
+              )}
             </Form>
           )}
         </Formik>
 
-        {update && <VisualUpdatedTimetable />}
+        {update.date && <VisualUpdatedTimetable />}
       </main>
     </Layout>
   );
