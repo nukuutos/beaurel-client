@@ -8,7 +8,6 @@ const UpdatedDate = ({ setIsDatePicker, isLoading, submitFunctions }) => {
   const submit = (date) => {
     setFieldValue('date', date);
     submitForm();
-    () => setIsDatePicker(false);
   };
 
   return (

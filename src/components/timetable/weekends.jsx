@@ -34,12 +34,12 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
                   {weekdaysRU.map((russianWeekdayName, weekdayIndex) => {
                     const onPop = {
                       onClick: () => remove(weekends.indexOf(weekdayIndex)),
-                      className: 'btn--success',
+                      className: 'weekends__day--exception',
                     };
 
                     const onPush = {
                       onClick: () => insertElementInSortedArray(weekdayIndex, weekends, insert),
-                      className: 'btn--secondary',
+                      className: '',
                     };
 
                     const { onClick, className } = weekends.includes(weekdayIndex) ? onPop : onPush;
@@ -47,7 +47,7 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
                     return (
                       <div
                         name={`auto.weekends.${weekdayIndex}`}
-                        className={`weekends__day btn mt-6 ${className}`}
+                        className={`weekends__day mt-6 ${className}`}
                         onClick={onClick}
                         key={weekdayIndex}>
                         {russianWeekdayName.toUpperCase()}

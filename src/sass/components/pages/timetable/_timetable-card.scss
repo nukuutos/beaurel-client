@@ -59,6 +59,19 @@
     height: 2.8rem;
     width: 6rem;
     padding-left: 0.4rem;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+
+    & > * {
+      width: 6rem;
+    }
   }
 
   &__exceptions {

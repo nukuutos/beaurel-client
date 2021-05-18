@@ -18,11 +18,12 @@ const MONTHS = [
   'Декабрь',
 ];
 
-const getToday = () => {
+const getTommorow = () => {
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const tommorow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  tommorow.setHours(0, 0, 0, 0);
 
-  return today.getTime();
+  return tommorow.getTime();
 };
 
 const getMonthAndDateFromTS = (timestamp) => {
@@ -31,7 +32,7 @@ const getMonthAndDateFromTS = (timestamp) => {
 };
 
 const DatePicker = ({ className, cancel, submit }) => {
-  const [choice, setChoice] = useState(getToday()); // ms
+  const [choice, setChoice] = useState(getTommorow()); // ms
 
   const [dates, monthDates, setCurrentDate] = useDatePicker();
 
@@ -105,8 +106,10 @@ const DatePicker = ({ className, cancel, submit }) => {
 
       <div className="date-picker__choice mt-4 mb-5 ml-1">{getMonthAndDateFromTS(choice)}</div>
 
-      {WEEKDAYS.map((weekday) => (
-        <div className="date-picker__weekday mb-3">{weekday.toUpperCase()}</div>
+      {WEEKDAYS.map((weekday, i) => (
+        <div key={i} className="date-picker__weekday mb-3">
+          {weekday.toUpperCase()}
+        </div>
       ))}
       {dates.map((week, j) => {
         return week.map((date, i) => (

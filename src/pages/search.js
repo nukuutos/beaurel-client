@@ -63,7 +63,7 @@ const Search = ({ masters }) => {
                       submitForm();
                     }}
                     type="text"
-                    className="input"
+                    className="input ml-1"
                     name="search"
                   />
                 </div>

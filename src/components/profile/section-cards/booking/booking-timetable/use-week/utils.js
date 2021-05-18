@@ -5,7 +5,7 @@ export const getDate = (year, month, day) => {
 };
 
 export const getUpdateDate = (update) => {
-  if (!update) return null;
+  if (!update.date) return null;
 
   const updateDate = new Date(update.date);
   updateDate.setHours(0, 0, 0, 0);

@@ -33,8 +33,6 @@ const Timetable = () => {
 
   const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
 
-  console.log(update);
-
   return (
     <Layout>
       <main className="content card card--layout">
@@ -44,7 +42,7 @@ const Timetable = () => {
             ...restTimetableProps,
             editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
             sessionTime, // main purpose of this session time is rendering auto timetable
-            manually: { ...manually, time: timetable.sessionTime },
+            manually: { ...manually, hours: 540, mins: 0 },
             date: null, // it's null
           }}
           enableReinitialize
@@ -68,7 +66,7 @@ const Timetable = () => {
               dispatch(setAlert(alert));
             }
           }}>
-          {({ values, dirty, initialValues, setFieldValue, submitForm }) => (
+          {({ values, dirty, initialValues, setFieldValue, submitForm, resetForm }) => (
             <Form className="timetable__form">
               <BaseSettings
                 values={values}
@@ -77,7 +75,13 @@ const Timetable = () => {
                 update={update.date}
                 editParentState={[editState, setEditState]}
               />
-              <TimetableType type={values.type} update={update.date} isEditing={editState.isEditing} />
+              <TimetableType
+                resetForm={resetForm}
+                initialValues={initialValues}
+                type={values.type}
+                update={update.date}
+                isEditing={editState.isEditing}
+              />
 
               {values.type === 'auto' ? (
                 <>

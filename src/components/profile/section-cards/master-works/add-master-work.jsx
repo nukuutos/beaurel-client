@@ -63,6 +63,7 @@ const AddMasterWork = ({ setParentState }) => {
                 const { _id, ...alert } = data;
                 dispatch(addWorkSuccess({ work: { _id, title } }));
                 dispatch(setAlert(alert));
+                setParentState((state) => ({ ...state, display: 'works' }));
               }
             }}>
             {({ isSubmitting, dirty, isValidating, values }) => (

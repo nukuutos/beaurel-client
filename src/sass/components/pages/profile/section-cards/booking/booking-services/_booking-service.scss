@@ -1,6 +1,8 @@
 @use "../../../../../../abstracts/colors" as *;
 
 .booking-service {
+  overflow: unset;
+
   &:hover .booking-service__arrow {
     opacity: 1;
     transform: translate(1rem, -50%);

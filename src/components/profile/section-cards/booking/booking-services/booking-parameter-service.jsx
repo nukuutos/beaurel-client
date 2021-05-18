@@ -16,7 +16,10 @@ const BookingParameterService = ({ service, setStep }) => {
   const { title, subServices } = service;
 
   return (
-    <div className={`${!isHoverSubService ? 'booking-service-parameter' : ''} card mt-6`}>
+    <div
+      className={`${
+        !isHoverSubService ? 'booking-service-parameter--hover ' : ''
+      } booking-service-parameter card mt-6`}>
       <div onClick={() => setIsShown(!isShown)} className="service">
         <Title title={title} shownState={[isShown, setIsShown]} />
       </div>

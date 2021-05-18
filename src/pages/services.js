@@ -47,7 +47,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 
   const { services, timetable } = await ServiceModel.getServices(userId);
 
-  store.dispatch(getServicesSuccess({ services }));
+  store.dispatch(getServicesSuccess({ services, masterId: userId }));
   store.dispatch(getTimetableSuccess({ timetable }));
 
   return { props: { custom: 'custom' } };

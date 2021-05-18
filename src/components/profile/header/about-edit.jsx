@@ -36,7 +36,7 @@ const AboutEdit = ({ onClickClose }) => {
               onClickClose();
             }
           }}>
-          {({ values, dirty, submitForm }) => (
+          {({ values, dirty, submitForm, isSubmitting }) => (
             <Form className="edit-about__form">
               <Textarea className="edit-about__textarea textarea mt-8" name="aboutText" maxLength={150} />
               <div className="edit-about__counter mt-2">{values.aboutText.length}/150</div>
@@ -49,7 +49,7 @@ const AboutEdit = ({ onClickClose }) => {
                     else onClickClose();
                   }}
                   type="submit"
-                  className={`btn btn--primary ${true ? 'btn--submitted btn--spinner' : ''}`}>
+                  className={`btn btn--primary ${isSubmitting ? 'btn--submitted btn--spinner' : ''}`}>
                   Сохранить
                 </button>
               </div>

@@ -22,7 +22,7 @@ const Sidenav = ({ state }) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      // setState (index)
+      setState((state) => ({ ...state, display: 'works' }));
       dispatch(deleteWorkSuccess({ deletedId: works[index]._id }));
       dispatch(setAlert(alert));
     }

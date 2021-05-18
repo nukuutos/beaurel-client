@@ -69,7 +69,29 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
     }
 
     case UNSET_TIMETABLE_UPDATE: {
-      return { ...state, update: null };
+      return {
+        ...state,
+        update: {
+          date: null,
+
+          sessionTime: null,
+          type: null,
+
+          auto: {
+            possibleAppointmentsTime: [],
+            weekends: [],
+            workingDay: {
+              startAt: null,
+              endAt: null,
+            },
+            exceptions: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
+          },
+
+          manually: {
+            appointments: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
+          },
+        },
+      };
     }
 
     default:

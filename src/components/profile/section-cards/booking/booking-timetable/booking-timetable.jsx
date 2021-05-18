@@ -54,7 +54,6 @@ const BookingTimetable = ({ stepState }) => {
   //   // if (isTimetable && isUnavailableWeek) setDate((today) => getNextWeek(today));
   //   if (isUnavailableWeek) setIsNextWeekMessage(true);
   // }, []);
-
   const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
 
   return (

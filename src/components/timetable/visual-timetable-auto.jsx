@@ -30,7 +30,7 @@ const VisualTimetableAuto = ({ values, update, isEditing }) => {
                     {possibleAppointmentsTime.map(({ time, value }, i) => {
                       const exception = {
                         onClick: () => remove(exceptions[weekdayIndex].indexOf(value)),
-                        className: 'weekday__time--fail',
+                        className: 'weekday__time--exception',
                       };
 
                       const possibleTime = {

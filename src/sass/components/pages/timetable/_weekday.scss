@@ -22,19 +22,40 @@
     padding: 0.8rem 0;
     width: 6.4rem;
     font-size: 1.6rem;
-    color: $color-white;
-    background: $color-primary;
+    color: $color-primary-dark-1;
+    // background: $color-primary-dark-1;
+    border: 2px solid $color-primary-dark-1;
     border-radius: 0.5rem;
     cursor: pointer;
     text-align: center;
+    font-weight: 500;
+    transition: 0.2s color, 0.2s background, 0.2s border-color;
 
-    &--fail {
+    &:hover {
       background: $color-fail;
+      border-color: $color-fail;
+      color: $color-white;
+    }
+
+    // for timetable manually
+    &--exception {
+      background: $color-fail;
+      border-color: $color-fail;
+      color: $color-white;
     }
 
     &--add {
       display: flex;
       justify-content: center;
+      background: $color-white;
+      color: $color-primary-dark-1;
+      // transition: 0.2s color, 0.2s background;
+
+      &:hover {
+        border-color: $color-primary-dark-1;
+        background: $color-primary-dark-1;
+        color: $color-white;
+      }
 
       & > * {
         height: 1.6rem;

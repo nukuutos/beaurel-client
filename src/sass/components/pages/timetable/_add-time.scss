@@ -21,12 +21,12 @@
   &__value {
     grid-column: 3 / 4;
     font-weight: 700;
-    align-self: center;
+    // align-self: center;
+    display: flex;
+    align-items: center;
   }
 
   &__button {
     grid-column: 2 / 12;
-    justify-self: flex-end;
-    margin-top: 4.8rem;
   }
 }

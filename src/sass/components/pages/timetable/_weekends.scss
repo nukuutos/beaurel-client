@@ -27,10 +27,32 @@
 
   &__day {
     justify-self: center;
+
+    display: block;
+    padding: 0.8rem 0;
+    width: 6.4rem;
+    font-size: 1.6rem;
+    color: $color-gray;
+    border: 2px solid $color-gray;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+    transition: 0.2s color, 0.2s background, 0.2s border-color;
+
+    &:hover {
+      border-color: $color-primary-dark-1;
+      color: $color-primary-dark-1;
+    }
+
+    &--exception {
+      border-color: $color-primary-dark-1;
+      color: $color-primary-dark-1;
+    }
   }
 
   &__button {
     grid-column: 2 / 12;
-    justify-self: flex-end;
+    width: 100%;
   }
 }

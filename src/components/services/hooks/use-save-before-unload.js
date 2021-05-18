@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import getIdsAndOrders from '../utils/get-ids-and-orders';
 import areOrdersEqual from '../utils/are-orders-equal';
@@ -11,8 +11,11 @@ const useSaveBeforeUnload = () => {
   ]);
   const [asyncAction] = useAsyncAction();
 
+  const servicesRef = useRef();
+  servicesRef.current = services;
+
   const onBeforeUnLoad = async () => {
-    const newOrder = getIdsAndOrders(services);
+    const newOrder = getIdsAndOrders(servicesRef.current);
 
     const config = {
       method: 'patch',
@@ -28,7 +31,10 @@ const useSaveBeforeUnload = () => {
 
   useEffect(() => {
     window.addEventListener('beforeunload', onBeforeUnLoad);
-    return () => window.removeEventListener('beforeunload', onBeforeUnLoad);
+    return () => {
+      onBeforeUnLoad(); // case: navigate to another page
+      window.removeEventListener('beforeunload', onBeforeUnLoad);
+    };
   }, []);
 };
 
