@@ -19,7 +19,7 @@ const useSaveBeforeUnload = () => {
 
     const config = {
       method: 'patch',
-      url: `/profile/${profileId}/service/order`,
+      url: `/master/${profileId}/service/order`,
       data: { newOrder },
       accessToken,
     };

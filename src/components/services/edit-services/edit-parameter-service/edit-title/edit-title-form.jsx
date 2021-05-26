@@ -32,7 +32,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
 
         const config = {
           method: 'put',
-          url: `/profile/${profileId}/service/parameter/${oldTitle}`,
+          url: `/master/${profileId}/service-parameter/${oldTitle}`,
           data: { date, service: { oldTitle, title } },
           accessToken,
         };

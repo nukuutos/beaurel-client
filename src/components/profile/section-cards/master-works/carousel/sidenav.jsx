@@ -15,7 +15,7 @@ const Sidenav = ({ state }) => {
   const deleteWork = async () => {
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/work/${works[index]._id}`,
+      url: `/master/${profileId}/work/${works[index]._id}`,
       accessToken,
     };
 

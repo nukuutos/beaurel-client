@@ -3,6 +3,9 @@
 .service-parameter {
   border-radius: 0.5rem;
   transition: 0.1s box-shadow;
+  // for service update
+  position: relative;
+  // overflow: hidden;
 
   &__sub-service {
     &::before {

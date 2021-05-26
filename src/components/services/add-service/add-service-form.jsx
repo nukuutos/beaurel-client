@@ -31,7 +31,7 @@ const AddServiceForm = () => {
 
         const config = {
           method: 'post',
-          url: `/profile/${profileId}/service`,
+          url: `/master/${profileId}/service`,
           data: { date, service },
           accessToken,
         };

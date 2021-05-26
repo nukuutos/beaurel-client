@@ -4,9 +4,14 @@
     grid-column: 4 / 10;
   }
 
+  &__update-alert {
+    grid-row: 2 / 3;
+    grid-column: 4 / 10;
+  }
+
   &__reoder-controller {
     grid-column: 4 / 10;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     justify-self: end;
   }
 

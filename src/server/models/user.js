@@ -44,6 +44,9 @@ class User {
       .collection('users')
       .aggregate(profileAndReviews(new ObjectId(masterId)))
       .toArray();
+
+    console.log(profile[0].reviews);
+
     return profile[0];
   }
 }

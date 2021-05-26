@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteMaster, addMaster } from '../../redux/profile/actions';
 import useAsyncAction from '../../hooks/use-async-action/use-async-action';
 
-const MasterCard = ({ master, className }) => {
+const MasterCard = ({ master, className, masterCardRef = null }) => {
   const [{ masters }, { accessToken, id: profileId }] = useSelector((state) => [state.profile, state.auth]);
   const { firstName, lastName, rating, placeOfwork, avatar, specialization, _id } = master;
 
@@ -20,7 +20,7 @@ const MasterCard = ({ master, className }) => {
 
     const config = {
       method: 'put',
-      url: `/profile/${profileId}/master/${_id}`,
+      url: `/profile/${profileId}/favorite/${_id}`,
       accessToken,
     };
 
@@ -34,7 +34,7 @@ const MasterCard = ({ master, className }) => {
 
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/master/${_id}`,
+      url: `/profile/${profileId}/favorite/${_id}`,
       accessToken,
     };
 
@@ -44,7 +44,7 @@ const MasterCard = ({ master, className }) => {
   };
 
   return (
-    <div className={`${className} master-card card`} onClick={() => router.push(`/${_id}`)}>
+    <div ref={masterCardRef} className={`${className} master-card card`} onClick={() => router.push(`/${_id}`)}>
       <div className="master-card__identify">
         <img src={`http://localhost:5000/${avatar}`} alt="Profile image" className="master-card__avatar" />
         <ProfileRating className="mt-2" ratingScore={rating} />

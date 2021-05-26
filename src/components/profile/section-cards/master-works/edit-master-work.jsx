@@ -39,7 +39,7 @@ const EditMasterWork = ({ state }) => {
 
   return (
     <div className="add-master-work card">
-      <div className="add-master-work__heading heading">Добавить работу</div>
+      <div className="add-master-work__heading heading">Обновить работу</div>
       <img src={src} alt="Uploaded image" className="add-master-work__uploaded-image mt-8" />
       {/* change button */}
       <div className="add-master-work__choose-image add-master-work__change-btn mt-3">
@@ -60,7 +60,7 @@ const EditMasterWork = ({ state }) => {
 
           const config = {
             method: 'put',
-            url: `/profile/${profileId}/work/${works[index]._id}`,
+            url: `/master/${profileId}/work/${works[index]._id}`,
             data: formData,
             accessToken,
             addingHeaders: { 'Content-Type': `multipart/form-data`, Enctype: 'multipart/form-data' },
@@ -92,7 +92,7 @@ const EditMasterWork = ({ state }) => {
                 Назад
               </div>
               <button type="submit" className={`btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}>
-                Добавить
+                Обновить
               </button>
             </div>
           </Form>

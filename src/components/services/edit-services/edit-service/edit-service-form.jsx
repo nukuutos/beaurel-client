@@ -32,7 +32,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
         const { date, ...service } = values;
         const config = {
           method: 'put',
-          url: `/profile/${profileId}/service/${id}`,
+          url: `/master/${profileId}/service/${id}`,
           data: { date, service },
           accessToken,
         };

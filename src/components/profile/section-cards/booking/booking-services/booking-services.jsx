@@ -18,7 +18,7 @@ const BookingServices = ({ stepState }) => {
   const getServices = async () => {
     const config = {
       method: 'get',
-      url: `/profile/${profileId}/service`,
+      url: `/master/${profileId}/service`,
       accessToken: null,
     };
 

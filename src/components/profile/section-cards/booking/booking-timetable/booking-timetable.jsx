@@ -25,7 +25,7 @@ const BookingTimetable = ({ stepState }) => {
   const getDataForBooking = async () => {
     const config = {
       method: 'get',
-      url: `/profile/${masterId}/timetable/booking`,
+      url: `/master/${masterId}/timetable/booking`,
       accessToken: null,
     };
 

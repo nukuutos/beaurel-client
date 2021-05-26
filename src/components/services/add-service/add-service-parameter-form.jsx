@@ -30,7 +30,7 @@ const AddSubServicesForm = () => {
 
         const config = {
           method: 'post',
-          url: `/profile/${profileId}/service/parameter`,
+          url: `/master/${profileId}/service-parameter`,
           data: { date, service },
           accessToken,
         };

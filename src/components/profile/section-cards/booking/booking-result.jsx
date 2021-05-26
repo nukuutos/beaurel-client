@@ -22,7 +22,7 @@ const BookingResult = ({ setStep }) => {
   const bookTime = async () => {
     const config = {
       method: 'post',
-      url: `/profile/${profileId}/appointment`,
+      url: `/master/${profileId}/appointment`,
       data: {
         serviceId: service.id,
         time: { startAt: time, endAt: time + service.duration },

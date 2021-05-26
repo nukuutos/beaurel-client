@@ -25,7 +25,7 @@ const Appointments = () => {
   const getMasterAppointments = async (category) => {
     const config = {
       method: 'get',
-      url: `/profile/${profileId}/appointment/${user}?category=${category}`,
+      url: `/master/${profileId}/appointment/${user}?category=${category}`,
       accessToken,
     };
 

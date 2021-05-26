@@ -1,0 +1,102 @@
+@use "../../../abstracts/colors" as *;
+
+$indicator-width: 2rem;
+
+.service-update {
+  border: none;
+  cursor: default;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -$indicator-width;
+    right: 0;
+    box-shadow: 0 1px 0.5rem rgb($color-black, 25%);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  &::after {
+    content: '';
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    left: -$indicator-width;
+    width: $indicator-width;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  &--fail::after {
+    background: $color-fail;
+  }
+
+  &--success::after {
+    background: $color-success;
+  }
+}
+
+.service-parameter-update {
+  border-radius: 0.5rem;
+
+  &__sub-service {
+    border: none;
+    cursor: default;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -$indicator-width;
+      right: 0;
+    }
+
+    &::after {
+      content: '';
+      top: 0;
+      bottom: 0;
+      position: absolute;
+      left: -$indicator-width;
+      width: $indicator-width;
+      overflow: hidden;
+    }
+
+    &--last::after {
+      border-bottom-left-radius: 0.5rem;
+    }
+
+    &--fail::after {
+      background: $color-fail;
+    }
+
+    &--success::after {
+      background: $color-success;
+    }
+  }
+
+  &__title {
+    cursor: pointer;
+
+    &::after {
+      border-top-left-radius: 0.5rem;
+    }
+
+    &--rolled-up::after {
+      border-bottom-left-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
+    }
+
+    // &:hover.service-parameter-update__sub-service {
+    //   &--success .service-parameter__icon {
+    //     color: $color-success;
+    //   }
+
+    //   &--fail .service-parameter__icon {
+    //     color: $color-fail;
+    //   }
+    // }
+  }
+}

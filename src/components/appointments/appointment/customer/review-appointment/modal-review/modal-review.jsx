@@ -23,11 +23,11 @@ const ModalReview = ({ onClickClose, appointment }) => {
         <h2 className="edit-review__heading heading">Отзыв</h2>
         <Formik
           enableReinitialize
-          initialValues={{ value: review.value ? review.value : 0, comment: review.comment ? review.comment : '' }}
+          initialValues={{ value: review ? review.value : 0, comment: review ? review.comment : '' }}
           onSubmit={async (values) => {
             const config = {
               method: review ? 'put' : 'post',
-              url: `profile/${masterId}/appointment/${appointmentId}/review/`,
+              url: `master/${masterId}/appointment/${appointmentId}/review/`,
               data: values,
               accessToken,
             };

@@ -18,7 +18,7 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
   const deleteService = async (id) => {
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/service/${id}`,
+      url: `/master/${profileId}/service/${id}`,
       accessToken,
     };
 

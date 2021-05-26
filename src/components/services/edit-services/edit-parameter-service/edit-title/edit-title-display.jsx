@@ -17,7 +17,7 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
   const deleteService = async (title) => {
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/service/parameter/${title}`,
+      url: `/master/${profileId}/service-parameter/${title}`,
       accessToken,
     };
 

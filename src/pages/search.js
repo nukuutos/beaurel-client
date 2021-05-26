@@ -4,37 +4,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from '../components/form/select';
 import { Formik, Form } from 'formik';
 import Input from '../components/form/input';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import MasterCard from '../components/search/master-card';
 import { getMastersSuccess } from '../redux/profile/actions';
 import User from '../server/models/user';
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
+import useSearch from '../components/search/use-search';
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);
-  const [asyncAction, isLoading] = useAsyncAction();
+
+  const [asyncAction] = useAsyncAction();
+
+  const form = useRef();
+  const [lastMasterCardRef, { page, hasMore }, isSearchLoading] = useSearch(form, setData);
 
   return (
     <Layout>
       <main className="content card card--layout">
         <h1 className="search__heading heading mt-7">Найти мастера</h1>
         <Formik
+          innerRef={form}
           enableReinitialize
-          // change specialization start va ue
+          // change specialization start value
           initialValues={{ search: '', specialization: '' }}
           onSubmit={async (values, { initialValues }) => {
             const { specialization, search } = values;
 
             const config = {
               method: 'get',
-              url: `/profile?specialization=${specialization}&name=${search}`, // add city
+              url: `/master`,
+              params: { specialization, name: search, page: 0 }, // add city
               accessToken: 'nothing',
             };
 
             const data = await asyncAction(config);
 
             if (data) setData(data.masters);
+
+            hasMore.current = true;
+            page.current = 0;
           }}>
           {({ submitForm, handleChange }) => (
             <Form className="search__form">
@@ -71,9 +81,18 @@ const Search = ({ masters }) => {
             </Form>
           )}
         </Formik>
-        {data.map((master, i) => (
-          <MasterCard className={'search__master-card  mt-7'} master={master} key={i} />
-        ))}
+        {data.map((master, i) =>
+          data.length === i + 1 ? (
+            <MasterCard
+              masterCardRef={lastMasterCardRef}
+              className={'search__master-card  mt-7'}
+              master={master}
+              key={i}
+            />
+          ) : (
+            <MasterCard className={'search__master-card  mt-7'} master={master} key={i} />
+          )
+        )}
       </main>
     </Layout>
   );

@@ -1,0 +1,28 @@
+@use "../../../abstracts/colors" as *;
+
+.update-alert {
+  display: flex;
+  padding: 1.2rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid $color-primary;
+
+  &--error {
+    border-color: $color-fail;
+    padding: 0.8rem 1.2rem;
+  }
+
+  &__text {
+    // line-height: 2.4rem;
+
+    &--error {
+      line-height: 2.4rem;
+      color: $color-fail;
+    }
+  }
+
+  &__date {
+    border-bottom: 2px solid $color-primary;
+  }
+}

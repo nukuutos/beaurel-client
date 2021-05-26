@@ -18,6 +18,8 @@ import VisualUpdatedTimetable from '../components/timetable/visual-updated-timet
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import { setAlert } from '../redux/alert/actions';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import UpdateSuccess from '../components/timetable/update-success';
+import UpdateServices from '../components/services/update-services/update-services';
 
 const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -52,7 +54,7 @@ const Timetable = () => {
 
             const config = {
               method: 'post',
-              url: `/profile/${profileId}/timetable/${timetableId}/update`,
+              url: `/master/${profileId}/timetable/${timetableId}/update`,
               data: update,
               accessToken,
             };
@@ -129,6 +131,9 @@ const Timetable = () => {
                   setIsDatePicker={setIsDatePicker}
                 />
               )}
+
+              {false && <UpdateSuccess />}
+              {false && <UpdateServices />}
             </Form>
           )}
         </Formik>

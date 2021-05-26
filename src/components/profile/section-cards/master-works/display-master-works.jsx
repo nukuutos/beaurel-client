@@ -14,7 +14,7 @@ const DisplayMasterWorks = ({ setParentState }) => {
   const getWorks = async () => {
     const config = {
       method: 'get',
-      url: `/profile/${profileId}/work`,
+      url: `/master/${profileId}/work`,
       accessToken: null,
     };
 

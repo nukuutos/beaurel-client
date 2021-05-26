@@ -7,7 +7,6 @@ import weekdaysRU from './utils/weekdays-ru';
 import Select from '../form/select';
 import renderHours from './utils/render-hours';
 import renderMins from './utils/render-mins';
-import insertElementInSortedArray from './utils/insert-element-in-sorted-array';
 import { useDispatch } from 'react-redux';
 import { setAlert } from '../../redux/alert/actions';
 import insertElementInSortedArrayWithSessionTimeCheck from './utils/insert-element-in-sorted-array-with-session-time-check';

@@ -52,7 +52,7 @@ const AddMasterWork = ({ setParentState }) => {
 
               const config = {
                 method: 'post',
-                url: `/profile/${profileId}/work`,
+                url: `/master/${profileId}/work`,
                 data: formData,
                 accessToken,
                 addingHeaders: { 'Content-Type': `multipart/form-data`, Enctype: 'multipart/form-data' },

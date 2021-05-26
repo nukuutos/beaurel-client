@@ -17,7 +17,7 @@ const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEd
   const deleteService = async () => {
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/service/parameter/${title}/sub-service/${id}`,
+      url: `/master/${profileId}/service-parameter/${title}/sub-service/${id}`,
       accessToken,
     };
 

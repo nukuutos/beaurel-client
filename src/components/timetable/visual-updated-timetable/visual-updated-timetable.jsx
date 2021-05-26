@@ -22,7 +22,7 @@ const VisualUpdatedTimetable = () => {
   const deleteTimetableUpdate = async () => {
     const config = {
       method: 'delete',
-      url: `/profile/${profileId}/timetable/${timetableId}/update`,
+      url: `/master/${profileId}/timetable/${timetableId}/update`,
       accessToken,
     };
 

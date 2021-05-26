@@ -18,7 +18,7 @@ const OnConfirmationAppointment = ({ appointment }) => {
   const cancel = async () => {
     const config = {
       method: 'put',
-      url: `/profile/${profileId}/appointment/${_id}/status/customer`,
+      url: `/master/${profileId}/appointment/${_id}/status/customer`,
       data: {
         status: 'cancelled',
       },

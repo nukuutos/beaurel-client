@@ -61,7 +61,16 @@ const profileAndReviews = (masterId) => [
               {
                 $project: {
                   _id: 0,
-                  review: { comment: '$comment', value: '$value', date: '$date' },
+                  review: {
+                    comment: '$comment',
+                    value: '$value',
+                    date: {
+                      $dateToString: {
+                        date: '$createdAt',
+                        format: '%d-%m-%Y',
+                      },
+                    },
+                  },
                   customer: { $arrayElemAt: ['$customer', 0] },
                 },
               },

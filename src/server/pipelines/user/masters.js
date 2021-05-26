@@ -10,6 +10,9 @@ const masters = (matchQuery) => [
       placeOfwork: 1,
     },
   },
+  {
+    $limit: 10,
+  },
   // rating
   {
     $lookup: {
