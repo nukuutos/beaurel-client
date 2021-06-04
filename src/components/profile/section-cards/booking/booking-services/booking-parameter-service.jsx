@@ -4,7 +4,7 @@ import { setAppointmentService } from '../../../../../redux/appointments/actions
 import SubService from '../../../../services/parameter-service/sub-service';
 import Title from '../../../../services/parameter-service/title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import getIsDisabled from './utils/is-disabled';
+import getIsDisabled from './utils/get-is-disabled';
 
 const BookingParameterService = ({ service, setStep }) => {
   const [{ bookingAppointment }, timetable] = useSelector((state) => [state.appointments.booking, state.timetable]);
@@ -46,7 +46,7 @@ const BookingParameterService = ({ service, setStep }) => {
               onClick={isDisabled ? null : handleOnClick}
               className={`service service--hover booking-service ${isDisabled ? 'booking-service--disabled' : ''}`}
               key={i}>
-              <SubService subService={subService} />
+              <SubService subService={getCorrectService(subService, bookingAppointment.date)} />
 
               <div className="booking-service__arrow">
                 <FontAwesomeIcon icon="chevron-right" />

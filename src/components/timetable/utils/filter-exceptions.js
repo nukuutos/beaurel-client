@@ -4,6 +4,7 @@ const filterExceptions = (exceptions, sessionTime, startAt) => {
 
   for (let day in exceptions) {
     newExceptions[day] = exceptions[day].filter((time) => {
+      console.log(time, startAt, sessionTime);
       return (time - startAt) % sessionTime === 0;
     });
   }

@@ -6,13 +6,15 @@ import VisualUpdatedTimetableManually from './visual-updated-timetable-manually'
 import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 import Modal from '../../utils/modal';
 import { unsetTimetableUpdate } from '../../../redux/timetable/actions';
+import { deleteServicesUpdate } from '../../../redux/service/actions/service';
 import { setAlert } from '../../../redux/alert/actions';
 import convertDateToString from '../../profile/section-cards/booking/booking-timetable/utils/convert-date-to-string';
 
 const VisualUpdatedTimetable = () => {
   const [isConfirmation, setIsConfirmation] = useState(false);
-  const [{ accessToken, id: profileId }, { _id: timetableId, update }] = useSelector((state) => [
+  const [{ accessToken, id: profileId }, servicesState, { _id: timetableId, update }] = useSelector((state) => [
     state.auth,
+    state.services,
     state.timetable,
   ]);
   const [asyncAction, isLoading] = useAsyncAction();
@@ -29,6 +31,10 @@ const VisualUpdatedTimetable = () => {
     const alert = await asyncAction(config);
 
     if (alert) {
+      // services' update to null
+      if (servicesState.services.length && servicesState.masterId === profileId) {
+        dispatch(deleteServicesUpdate());
+      }
       dispatch(unsetTimetableUpdate());
       dispatch(setAlert(alert));
     }

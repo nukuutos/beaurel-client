@@ -30,19 +30,36 @@ const isDisabledServiceWithManuallyTimetable = (bookingAppointment, service) => 
   return false;
 };
 
+const getIsServiceUnsuitable = (service, today = null) => {
+  const { update } = service;
+  if (!update || !update.date || !today) return false;
+
+  const updateDate = new Date(update.date);
+  today = new Date(today);
+
+  if (updateDate.getTime() >= today.getTime() && update.status === 'unsuitable') return true;
+
+  return false;
+};
+
 const getIsDisabled = (bookingAppointment, service, timetable) => {
-  const { update } = timetable;
   const { time, date } = bookingAppointment;
 
   if (!time) return false;
+
+  const isServiceUnsuitable = getIsServiceUnsuitable(service, date);
+  if (isServiceUnsuitable) return true;
+
+  const { update } = timetable;
 
   if (update && new Date(update.date).getTime() <= date.getTime()) timetable = update;
 
   const { type } = timetable;
 
-  const disableMethod = type === 'auto' ? isDisabledServiceWithAutoTimetable : isDisabledServiceWithManuallyTimetable;
+  const timetableDisableMethod =
+    type === 'auto' ? isDisabledServiceWithAutoTimetable : isDisabledServiceWithManuallyTimetable;
 
-  return disableMethod(bookingAppointment, service, timetable);
+  return timetableDisableMethod(bookingAppointment, service, timetable);
 };
 
 export default getIsDisabled;

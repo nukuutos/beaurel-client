@@ -4,7 +4,12 @@ import filterExceptions from './utils/filter-exceptions';
 import displayPossibleServiceDuration from './utils/display-possible-service-duration';
 
 const BaseSettings = ({ values, update, initialValues, setFieldValue, editParentState }) => {
-  const { exceptions, startAt, editingSessionTime, sessionTime } = values;
+  const { auto, editingSessionTime, sessionTime } = values;
+  const {
+    exceptions,
+    workingDay: { startAt },
+  } = auto;
+
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.sessionTime);
@@ -19,7 +24,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
           <span className="timetable-card__value ml-1 mb-1">мин</span>
           <div
             onClick={() => {
-              const filteredExceptions = filterExceptions(exceptions, sessionTime, startAt);
+              const filteredExceptions = filterExceptions(exceptions, editingSessionTime, startAt);
               setFieldValue('auto.exceptions', filteredExceptions);
               setFieldValue('sessionTime', editingSessionTime);
               setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });

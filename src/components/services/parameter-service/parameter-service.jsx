@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Title from './title';
-import SubService from './sub-service/sub-service';
+import SubService from './sub-service';
 
 const ParameterService = ({ service, onClick = null }) => {
   const [isShown, setIsShown] = useState(false);

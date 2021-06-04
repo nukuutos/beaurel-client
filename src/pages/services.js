@@ -9,11 +9,13 @@ import ServiceModel from '../server/models/service';
 import { getTimetableSuccess } from '../redux/timetable/actions';
 import useSaveBeforeUnload from '../components/services/hooks/use-save-before-unload';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
-import UpdateAlert from '../components/services/update-alert';
+import UpdateServices from '../components/services/update-services/update-services';
+import ViewServices from '../components/services/view-services/view-services';
 
 const Services = () => {
   const { services } = useSelector((state) => state.services);
   const [isReoder, setIsReoder] = useState(false);
+  const [isUpdateServices, setIsUpdateServices] = useState({ view: false, update: false });
 
   useSaveBeforeUnload();
 
@@ -22,7 +24,8 @@ const Services = () => {
       <main className="content card card--layout">
         <h1 className="services__heading heading mt-8">Услуги</h1>
 
-        <UpdateAlert />
+        <UpdateServices isUpdateServices={isUpdateServices} setIsUpdateServices={setIsUpdateServices} />
+        <ViewServices isUpdateServices={isUpdateServices} setIsUpdateServices={setIsUpdateServices} />
 
         <div className="services__reoder-controller reoder-controller mt-6">
           Изменить

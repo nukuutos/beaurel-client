@@ -6,6 +6,9 @@ import {
   REODER_SERVICES,
   REODER_SUB_SERVICES,
   SET_INITIAL_ORDER,
+  PUT_UPDATE_TO_SERVICES,
+  SERVICES_TO_UNSUITABLE,
+  DELETE_SERVICES_UPDATE,
 } from './types/service';
 
 import {
@@ -179,6 +182,96 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
     case SET_INITIAL_ORDER: {
       return { ...state, initialOrder: payload };
+    }
+
+    case PUT_UPDATE_TO_SERVICES: {
+      const { services } = payload;
+
+      const copiedServices = [...state.services];
+
+      // {id and duration}
+      services.forEach(({ id, duration }) => {
+        let indexes = { service: -1, subService: -1 };
+
+        let serviceIndex = copiedServices.findIndex((service, index) => service.id === id);
+
+        if (serviceIndex !== -1) indexes.service = serviceIndex;
+        else {
+          serviceIndex = copiedServices.some((service, serviceIndex) => {
+            if (!service.subServices) return false;
+
+            service.subServices.some((subService, subServiceIndex) => {
+              if (subService.id === id) {
+                indexes = { service: serviceIndex, subService: subServiceIndex };
+                return true;
+              }
+            });
+          });
+        }
+
+        if (indexes.subService !== -1) {
+          // parameter service
+          const service = copiedServices[indexes.service].subServices[indexes.subService];
+          service.update.status = 'suitable';
+          service.update.duration = duration;
+        } else {
+          const service = copiedServices[indexes.service];
+          service.update.status = 'suitable';
+          service.update.duration = duration;
+        }
+      });
+
+      return { ...state, services: copiedServices };
+    }
+
+    case SERVICES_TO_UNSUITABLE: {
+      const { date, sessionTime } = payload;
+
+      let services = [...state.services];
+
+      services = services.map((service) => {
+        const isServiceParameter = service.subServices;
+
+        if (isServiceParameter) {
+          const subServices = service.subServices.map((subService) => {
+            if (subService.duration % sessionTime !== 0) subService.update = { date, status: 'unsuitable' };
+            return subService;
+          });
+
+          service.subServices = subServices;
+          return service;
+        }
+
+        if (service.duration % sessionTime !== 0) service.update = { date, status: 'unsuitable' };
+        return service;
+      });
+
+      return { ...state, services };
+    }
+
+    case DELETE_SERVICES_UPDATE: {
+      let services = [...state.services];
+
+      services = services.map((service) => {
+        const isServiceParameter = service.subServices;
+
+        if (isServiceParameter) {
+          const subServices = service.subServices.map((subService) => {
+            if (subService.update && subService.update.date) subService.update = null;
+            return subService;
+          });
+
+          service.subServices = subServices;
+
+          return service;
+        }
+
+        if (service.update && service.update.date) service.update = null;
+
+        return service;
+      });
+
+      return { ...state, services };
     }
 
     default:

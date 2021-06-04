@@ -14,7 +14,7 @@ const useWeek = (setStep) => {
 
   const [startDay, setStartDay] = useState(getStartDateOfWeek(today)); // get first day of a week and work with it
 
-  let [timetable, appointmentsState] = useSelector((state) => [state.timetable, state.appointments]);
+  let [timetableState, appointmentsState] = useSelector((state) => [state.timetable, state.appointments]);
 
   const renderWeek = () => {
     const month = startDay.getMonth();
@@ -26,6 +26,8 @@ const useWeek = (setStep) => {
     const weekDays = []; // result, components
 
     for (let i = startDayOfWeek; i <= endDayOfWeek; i++) {
+      let timetable = { ...timetableState };
+
       const date = getDate(year, month, i);
 
       const stringDate = convertDateToString(date);
@@ -54,6 +56,8 @@ const useWeek = (setStep) => {
         const { weekends, possibleAppointmentsTime, exceptions } = auto;
 
         const autoTimetable = new AutoTimetable(sessionTime, possibleAppointmentsTime, weekends, exceptions);
+
+        console.log(autoTimetable);
 
         const isWeekend = autoTimetable.checkWeekend(weekdayIndexRU);
 

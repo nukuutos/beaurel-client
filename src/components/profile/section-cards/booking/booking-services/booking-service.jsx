@@ -2,10 +2,11 @@ import { setAppointmentService } from '../../../../../redux/appointments/actions
 import { useSelector, useDispatch } from 'react-redux';
 import Service from '../../../../services/service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import getIsDisabled from './utils/is-disabled';
+import getIsDisabled from './utils/get-is-disabled';
+import getCorrectService from './utils/get-correct-service';
 
 // service that can be disabled
-const BookingService = ({ service, setStep }) => {
+const BookingService = ({ service, setStep, today }) => {
   const [{ bookingAppointment }, timetable] = useSelector((state) => [state.appointments.booking, state.timetable]);
 
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const BookingService = ({ service, setStep }) => {
     <div
       className={`service service--hover booking-service ${isDisabled ? 'booking-service--disabled' : ''} card mt-6`}
       onClick={isDisabled ? null : handleOnClick}>
-      <Service service={service} />
+      <Service service={getCorrectService(service, bookingAppointment.date)} />
 
       <div className="booking-service__arrow">
         <FontAwesomeIcon icon="chevron-right" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from '../../parameter-service/title';
+import Title from '../../../parameter-service/title';
 
 const UpdateTitle = ({ title, shownState, subServices }) => {
   const [isShown, setIsShown] = shownState;

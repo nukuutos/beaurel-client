@@ -12,34 +12,42 @@ import ManuallyAppointments from '../components/timetable/manually-appointments'
 import TimetableModel from '../server/models/timetable';
 import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-import UpdatedDate from '../components/timetable/updated-date';
+import { useState, useRef } from 'react';
 import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable/visual-updated-timetable';
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import { setAlert } from '../redux/alert/actions';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
-import UpdateSuccess from '../components/timetable/update-success';
-import UpdateServices from '../components/services/update-services/update-services';
+import UpdateTimtetable from '../components/timetable/update-timtetable';
+import { servicesToUnsuitable } from '../redux/service/actions/service';
 
 const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
-  const [isDatePicker, setIsDatePicker] = useState(false);
+  const [updateTimetable, setUpdateTimetable] = useState({ isVisible: false, servicesCountToUpdate: null, step: 0 });
   // if we've got update => disable edit every element
   // we editing something => disable other elements
   const [editState, setEditState] = useState({
     isEditing: false,
     element: { sessionTime: false, weekends: false, workingDay: false },
   });
-  const [timetable, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
+  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector((state) => [
+    state.timetable,
+    state.services,
+    state.auth,
+  ]);
   const dispatch = useDispatch();
 
   const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
+
+  const formRef = useRef({});
+
+  const { setFieldValue, submitForm } = formRef.current;
 
   return (
     <Layout>
       <main className="content card card--layout">
         <h1 className="timetable__heading heading mt-8 ">Расписание</h1>
         <Formik
+          innerRef={formRef}
           initialValues={{
             ...restTimetableProps,
             editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
@@ -59,12 +67,24 @@ const Timetable = () => {
               accessToken,
             };
 
-            const alert = await asyncAction(config);
+            const data = await asyncAction(config);
 
-            if (alert) {
+            if (data) {
+              const { unsuitableServicesCount, ...alert } = data;
+
+              // services to unsuitable
+              if (servicesState.services.length && servicesState.masterId === profileId && unsuitableServicesCount) {
+                const { date, sessionTime } = values;
+                dispatch(servicesToUnsuitable({ date, sessionTime }));
+              }
+
               dispatch(setTimetableUpdate({ update }));
+
               resetForm();
-              setIsDatePicker(false);
+              setUpdateTimetable((state) => {
+                if (!unsuitableServicesCount) return { ...state, isVisible: false };
+                return { ...state, step: 1, servicesCountToUpdate: unsuitableServicesCount };
+              });
               dispatch(setAlert(alert));
             }
           }}>
@@ -118,25 +138,22 @@ const Timetable = () => {
 
               {!update.date && (
                 <div
-                  onClick={() => setIsDatePicker(true)}
+                  onClick={() => setUpdateTimetable((state) => ({ ...state, isVisible: true }))}
                   className={`btn btn--primary ${dirty ? '' : 'btn--disabled'} timetable__button mt-8`}>
                   Сохранить
                 </div>
               )}
-
-              {isDatePicker && (
-                <UpdatedDate
-                  submitFunctions={{ setFieldValue, submitForm }}
-                  isLoading={isLoading}
-                  setIsDatePicker={setIsDatePicker}
-                />
-              )}
-
-              {false && <UpdateSuccess />}
-              {false && <UpdateServices />}
             </Form>
           )}
         </Formik>
+
+        {updateTimetable.isVisible && (
+          <UpdateTimtetable
+            submitFunctions={{ setFieldValue, submitForm }}
+            isLoading={isLoading}
+            updateTimetableState={[updateTimetable, setUpdateTimetable]}
+          />
+        )}
 
         {update.date && <VisualUpdatedTimetable />}
       </main>

@@ -1,25 +1,13 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { subServiceSchema } from '../../utils/schemas';
-import { updateSubServiceSuccess } from '../../../../redux/service/actions/service-parameter';
-import { setAlert } from '../../../../redux/alert/actions';
-import Spinner from '../../../utils/spinner';
-import renderDurationOptions from '../../utils/render-duration-options';
-import Textarea from '../../../form/textarea';
-import Select from '../../../form/select';
-import InputIcon from '../../../form/input-icon';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import displayDuration from '../../utils/display-duration';
+
+import renderDurationOptions from '../../../utils/render-duration-options';
+import Select from '../../../../form/select';
+import displayDuration from '../../../utils/display-duration';
 
 const UpdateSubService = ({ subService, initialDuration, fieldName, isLast }) => {
-  const dispatch = useDispatch();
   const { parameter, duration, price, id } = subService;
-  // const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
-  const [asyncAction, isLoading] = useAsyncAction();
-
-  const sessionTime = 240;
+  const [{ sessionTime }] = useSelector((state) => [state.timetable.update]);
 
   return (
     <div

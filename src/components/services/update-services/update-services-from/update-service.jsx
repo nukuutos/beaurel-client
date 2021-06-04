@@ -1,9 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
-import Select from '../../form/select';
-import renderDurationOptions from '../utils/render-duration-options';
-import displayDuration from '../utils/display-duration';
+import Select from '../../../form/select';
+import renderDurationOptions from '../../utils/render-duration-options';
+import displayDuration from '../../utils/display-duration';
 
 const UpdateService = ({ index, values, initialValues }) => {
   // const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
@@ -11,8 +10,6 @@ const UpdateService = ({ index, values, initialValues }) => {
   const { title, duration, price, id } = values.services[index];
 
   const sessionTime = 240;
-
-  console.log(duration % sessionTime !== 0, duration, sessionTime);
 
   return (
     <div className={`service service-update service-update--${duration % sessionTime !== 0 ? 'fail' : 'success'} mt-6`}>

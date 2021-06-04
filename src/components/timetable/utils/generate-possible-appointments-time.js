@@ -6,7 +6,7 @@ const generatePossibleAppointmentsTime = (workingDay, sessionTime) => {
 
   const possibleAppointmentsTime = [];
 
-  for (let i = startAt; i < endAt; i += sessionTime) {
+  for (let i = startAt; i <= endAt - sessionTime; i += sessionTime) {
     possibleAppointmentsTime.push({ time: displayDuration(i), value: i });
   }
 

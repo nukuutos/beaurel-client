@@ -111,6 +111,11 @@ const services = (masterId) => [
                       duration: '$duration',
                       price: '$price',
                       subOrder: '$subOrder',
+                      update: {
+                        date: { $toString: '$update.date' },
+                        status: '$update.status',
+                        duration: '$update.duration',
+                      },
                     },
                   },
                 },
@@ -131,6 +136,7 @@ const services = (masterId) => [
               {
                 $addFields: {
                   id: { $convert: { input: '$_id', to: 'string' } },
+                  update: { date: { $toString: '$update.date' } },
                 },
               },
               {
