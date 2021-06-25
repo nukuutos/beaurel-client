@@ -1,0 +1,28 @@
+@use "../../../abstracts/colors" as *;
+
+.city-search {
+  width: 45.8rem;
+  padding: 2.4rem 3.2rem;
+  background: $color-white;
+  transform: translateY(-4rem);
+  display: flex;
+  flex-direction: column;
+  height: 58.8rem;
+  overflow-y: scroll;
+
+  &__bar {
+    width: 100%;
+  }
+
+  &__city {
+    cursor: pointer;
+    font-size: 2rem;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s border-bottom-color;
+    align-self: flex-start;
+
+    &:hover {
+      border-bottom-color: $color-black;
+    }
+  }
+}

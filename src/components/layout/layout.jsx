@@ -3,7 +3,8 @@ import Head from 'next/head';
 
 import Navbar from './navbar';
 import Alert from '../utils/alert';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import City from './city/city';
 
 const Layout = ({ children }) => {
   return (
@@ -15,11 +16,10 @@ const Layout = ({ children }) => {
             rel="stylesheet"
           />
         </Head>
+
         <Navbar />
 
-        <div className="city-geoposition mt-6 card">
-          <FontAwesomeIcon className="city-geoposition__icon mr-5" icon="crosshairs" /> Хабаровск
-        </div>
+        <City />
 
         <div className="content-wrapper">{children}</div>
       </div>

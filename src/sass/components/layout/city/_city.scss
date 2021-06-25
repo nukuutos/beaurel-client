@@ -1,6 +1,6 @@
-@use "../../abstracts/colors" as *;
+@use "../../../abstracts/colors" as *;
 
-.city-geoposition {
+.city {
   grid-column: 2 / 4;
   grid-row: 2 / 3;
   display: flex;
@@ -8,13 +8,14 @@
   padding: 1.6rem 2rem;
   color: $color-primary-dark-2;
   transition: 0.2s background;
+  cursor: pointer;
 
   &__icon {
     height: 1.6rem;
     // color: $color-gray;
   }
 
-  // &:hover {
-  //   background: $color-primary-light-3;
-  // }
+  &:hover {
+    background: $color-primary-light-2;
+  }
 }
