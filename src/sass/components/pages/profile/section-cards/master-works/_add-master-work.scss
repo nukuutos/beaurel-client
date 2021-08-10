@@ -1,34 +1,48 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .add-master-work {
-  width: 45rem;
-  // max-width: 68rem; // 65 rem of image + 3rem for padding
+  width: 40rem;
   background: $color-white;
 
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 1.6rem;
-  padding: 2rem 1.6rem;
+  padding: 0 1.6rem 2rem;
 
-  &__heading {
-    grid-column: 1 / 13;
-  }
+  display: flex;
+  flex-direction: column;
 
   &__svg {
-    grid-column: 1 / 7;
-    justify-self: flex-start;
+    width: 24rem;
+    align-self: center;
+
+    @include respond(phone) {
+      margin-top: 2rem;
+    }
   }
 
   &__text {
-    grid-column: 7 / -1;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-top: 3.2rem;
+
+    @include respond(phone) {
+      justify-content: center;
+      margin-top: 0.8rem;
+    }
   }
 
   &__choose-image {
     position: relative;
+    margin-top: 1.6rem;
+
+    & > *:first-child {
+      width: 100%;
+    }
+
+    // @include respond(phone) {
+    //   margin-top: 0;
+    // }
   }
 
   &__upload-input {
@@ -46,14 +60,21 @@
   }
 
   &__uploaded-image {
-    max-width: 41.8rem;
-    grid-column: 1 /-1;
+    max-width: 40rem;
+    max-height: 40rem;
+    object-fit: contain;
+    background: $color-black;
+    // phone
+    @include respond(phone) {
+      margin-top: 2rem;
+      width: 100%;
+    }
   }
 
   &__change-btn {
-    grid-column: 1 / -1;
-    justify-self: flex-end;
+    align-self: flex-end;
     font-weight: 700;
+    position: relative;
 
     &:hover .btn-text {
       color: $color-white;
@@ -66,18 +87,14 @@
     display: contents;
   }
 
-  &__input {
-    grid-column: 1 / -1;
-  }
-
-  &__error {
-    grid-column: 1 / -1;
-  }
-
   &__buttons {
-    grid-column: 1 / -1;
-
     display: flex;
     justify-content: flex-end;
+
+    @include respond(phone) {
+      & > * {
+        width: 100%;
+      }
+    }
   }
 }

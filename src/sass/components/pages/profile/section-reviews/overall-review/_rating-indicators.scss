@@ -1,9 +1,20 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .rating-indicators {
-  display: grid;
-  grid-template-columns: 17.5rem max-content max-content;
-  align-items: center;
-  column-gap: 1.6rem;
-  row-gap: 1.2rem;
+	display: grid;
+	grid-template-columns: 17.5rem max-content max-content;
+	align-items: center;
+	column-gap: 1.6rem;
+	row-gap: 1.2rem;
+
+	@include respond(tab-port) {
+		column-gap: 3.2rem;
+	}
+
+	@include respond(phone) {
+		grid-template-columns: 9.6rem max-content max-content;
+		column-gap: 1.6rem;
+		row-gap: .4rem;
+	}
 }

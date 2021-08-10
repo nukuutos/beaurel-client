@@ -1,7 +1,91 @@
-import Input from '../form/input';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import filterExceptions from './utils/filter-exceptions';
-import displayPossibleServiceDuration from './utils/display-possible-service-duration';
+import Input from "../form/input";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import filterExceptions from "./utils/filter-exceptions";
+import displayPossibleServiceDuration from "./utils/display-possible-service-duration";
+import useMediaQuery from "../../hooks/use-media-query";
+import Modal from "../utils/modal";
+import Select from "../form/select";
+
+const renderSessionTimeOptions = () => {
+  const options = [];
+
+  for (let i = 30; i <= 120; i += 30) {
+    options.push(
+      <option value={i} key={i}>
+        {i}
+      </option>
+    );
+  }
+
+  return options;
+};
+
+const MobileEditSessionTime = ({ onClickEdit, onClickCancel, sessionTime }) => (
+  <Modal isMobileBackground>
+    <nav className={`modal__back-bar card card--layout`}>
+      <div className="back-bar__main">
+        <FontAwesomeIcon onClick={onClickCancel} className="back-bar__icon mr-6" icon="arrow-left" />
+        Длительность сеанса
+      </div>
+    </nav>
+    <div className="timetable-phone-edit-modal">
+      {/* <h2 className="timetable-phone-edit-modal__heading heading">Длительность сеанса</h2> */}
+      <div className="timetable-phone-edit-modal__group timetable-phone-edit-modal__group--session-time mt-8">
+        <label className="timetable-phone-edit-modal__label">Базовая длительность сеанса:</label>
+        {/* <Input className="input timetable-phone-edit-modal__input ml-2" name="editingSessionTime" type="number" /> */}
+        <Select className="timetable-card__select select ml-1 mb-1" name="editingSessionTime" as="select">
+          {renderSessionTimeOptions()}
+        </Select>
+        <span className="timetable-card__value ml-1">мин</span>
+      </div>
+      <span className="timetable-card__tip mt-6">
+        Возможная длительность ваших услуг:
+        {/* generate */}
+        <span className="timetable-card__tip--primary">{displayPossibleServiceDuration(sessionTime)}</span>
+      </span>
+      <button
+        // disabled={isSubmitting}
+        onClick={onClickEdit}
+        // className={`timetable-phone-edit-modal__button btn btn--primary mt-9 ${isLoading ? "btn--submitted btn--spinner" : ""}`}
+        className={`timetable-phone-edit-modal__button btn btn--primary mt-8`}
+      >
+        Изменить
+      </button>
+      {/* <button
+        // disabled={isSubmitting}
+        onClick={onClickCancel}
+        // className={`timetable-phone-edit-modal__button btn btn--primary btn--gray mt-4 ${isLoading ? "btn--disabled" : ""}`}
+        className={`timetable-phone-edit-modal__button btn btn--primary btn--gray mt-4`}
+      >
+        Отменить
+      </button> */}
+    </div>
+  </Modal>
+);
+
+const EditSessionTime = ({ onClickEdit, onClickCancel }) => (
+  <>
+    {/* <Input className="input timetable-card__input ml-1 mb-1" name="editingSessionTime" type="number" /> */}
+    <Select className="timetable-card__select select ml-1 mb-1" name="editingSessionTime" as="select">
+      {renderSessionTimeOptions()}
+    </Select>
+    <span className="timetable-card__value ml-1 mb-1">мин</span>
+    <div onClick={onClickEdit} className="timetable-card__btn-edit--primary btn-icon btn-icon--success">
+      <FontAwesomeIcon icon="check" />
+    </div>
+    <div onClick={onClickCancel} className="timetable-card__btn-edit btn-icon btn-icon--fail">
+      <FontAwesomeIcon icon="times" />
+    </div>
+  </>
+);
+
+const renderEditWindow = (isPhone, onClickEdit, onClickCancel, sessionTime) => {
+  return isPhone ? (
+    <MobileEditSessionTime onClickEdit={onClickEdit} onClickCancel={onClickCancel} sessionTime={sessionTime} />
+  ) : (
+    <EditSessionTime onClickEdit={onClickEdit} onClickCancel={onClickCancel} />
+  );
+};
 
 const BaseSettings = ({ values, update, initialValues, setFieldValue, editParentState }) => {
   const { auto, editingSessionTime, sessionTime } = values;
@@ -13,41 +97,34 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.sessionTime);
+  const isPhone = useMediaQuery(600);
+
+  const onClickEdit = () => {
+    const filteredExceptions = filterExceptions(exceptions, editingSessionTime, startAt);
+    setFieldValue("auto.exceptions", filteredExceptions);
+    setFieldValue("sessionTime", editingSessionTime);
+    setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
+  };
+
+  const onClickCancel = () => {
+    setFieldValue("editingSessionTime", initialValues.editingSessionTime);
+    setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
+  };
 
   return (
     <div className="timetable__timetable-card timetable-card timetable-card--edit mt-8 card">
-      <div className="timetable-card__heading mb-2 ">Базовые настройки</div>
+      <div className="timetable-card__heading mb-1">Базовые настройки</div>
       <label className="timetable-card__label">Базовая длительность сеанса:</label>
       {element.sessionTime ? (
-        <>
-          <Input className="input timetable-card__input ml-1 mb-1" name="editingSessionTime" type="number" />
-          <span className="timetable-card__value ml-1 mb-1">мин</span>
-          <div
-            onClick={() => {
-              const filteredExceptions = filterExceptions(exceptions, editingSessionTime, startAt);
-              setFieldValue('auto.exceptions', filteredExceptions);
-              setFieldValue('sessionTime', editingSessionTime);
-              setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
-            }}
-            className="timetable-card__btn-edit--primary btn-icon btn-icon--success">
-            <FontAwesomeIcon icon="check" />
-          </div>
-          <div
-            onClick={() => {
-              setFieldValue('editingSessionTime', initialValues.editingSessionTime);
-              setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
-            }}
-            className="timetable-card__btn-edit btn-icon btn-icon--fail">
-            <FontAwesomeIcon icon="times" />
-          </div>
-        </>
+        renderEditWindow(isPhone, onClickEdit, onClickCancel, sessionTime)
       ) : (
         <>
           <span className="timetable-card__value">{sessionTime} мин</span>
           {!isDisabled && (
             <div
               onClick={() => setEditState({ isEditing: true, element: { ...editState, sessionTime: true } })}
-              className="timetable-card__btn-edit btn-icon">
+              className="timetable-card__btn-edit timetable-card__btn-edit--absolute btn-icon"
+            >
               <FontAwesomeIcon icon="pen" />
             </div>
           )}

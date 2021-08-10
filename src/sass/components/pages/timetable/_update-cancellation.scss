@@ -1,27 +1,30 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .update-cancellation {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  width: 39.6rem;
+  display: flex;
+  flex-direction: column;
+  width: 36rem;
   column-gap: 1.6rem;
   background: $color-white;
-  padding: 2.4rem 1.6rem;
-
-  &__heading {
-    grid-column: 2 / 12;
-  }
+  padding: 0 1.6rem 2.4rem;
 
   &__text {
     font-weight: 400;
     font-size: 2rem;
-    grid-column: 2 / 12;
     line-height: 3.2rem;
+
+    @include respond(phone) {
+      margin-top: 3.2rem;
+    }
   }
 
   &__buttons {
-    grid-column: 2 / 12;
     display: flex;
     justify-content: center;
+
+    & > * {
+      flex: 1;
+    }
   }
 }

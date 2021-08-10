@@ -1,19 +1,31 @@
 .stars {
-  display: flex;
-  align-items: center;
-  color: #ffba11;
+	display: flex;
+	align-items: center;
+	color: #ffba11;
 
-  &__star {
-    &--small {
-      height: 1.3rem;
-    }
+	&__star {
+		&--small-super {
+			height: .8rem;
+		}
 
-    &--medium {
-      height: 1.8rem;
-    }
+		&--small-extra {
+			height: 1.1rem;
+		}
 
-    &--large {
-      height: 3rem;
-    }
-  }
+		&--small {
+			height: 1.3rem;
+		}
+
+		&--small-big {
+			height: 1.6rem;
+		}
+
+		&--medium {
+			height: 1.8rem;
+		}
+
+		&--large {
+			height: 3rem;
+		}
+	}
 }

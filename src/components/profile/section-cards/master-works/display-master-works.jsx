@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getWorksSuccess } from '../../../../redux/work/actions';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getWorksSuccess } from "../../../../redux/work/actions";
+import useMediaQuery from "../../../../hooks/use-media-query";
 
 const DisplayMasterWorks = ({ setParentState }) => {
   const [{ works, masterId }, { id: profileId }] = useSelector((state) => [state.work, state.profile]);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
   const router = useRouter();
+  const isPhone = useMediaQuery(600);
 
   const getWorks = async () => {
     const config = {
-      method: 'get',
+      method: "get",
       url: `/master/${profileId}/work`,
       accessToken: null,
     };
@@ -30,17 +32,17 @@ const DisplayMasterWorks = ({ setParentState }) => {
   }, []);
 
   return (
-    <div className="master-works card">
+    <div className={`master-works ${isLoading ? "master-works--loading" : ""} ${isPhone ? "" : "card"}`}>
       {isLoading && <div className="spinner-with-background" />}
 
       {works.map((work, index) => (
         // component
-        <figure key={index} onClick={() => setParentState({ index, display: 'carousel' })} className="master-work">
+        <figure key={index} onClick={() => setParentState({ index, display: "carousel" })} className="master-work">
           <img src={`http://localhost:5000/images/works/${work._id}.png`} className="master-work__img" />
           <figcaption className="master-work__title">{work.title}</figcaption>
         </figure>
       ))}
-      <div onClick={() => setParentState((state) => ({ ...state, display: 'add' }))} className="master-works__add-work">
+      <div onClick={() => setParentState((state) => ({ ...state, display: "add" }))} className="master-works__add-work">
         <FontAwesomeIcon icon="plus" />
       </div>
     </div>

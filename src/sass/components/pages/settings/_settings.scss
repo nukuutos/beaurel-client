@@ -1,3 +1,5 @@
+@use "../../../abstracts/mixins" as *;
+
 .settings {
   &__heading {
     grid-column: 4 / 10;
@@ -5,5 +7,13 @@
 
   &__setting-card {
     grid-column: 3 / 11;
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 }

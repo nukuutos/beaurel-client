@@ -1,19 +1,35 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .carousel {
   position: relative;
-  width: 65rem; //  for chevrons
   display: flex;
   align-items: center;
+  justify-content: center;
+
+  max-height: 60rem;
+  width: 60rem; //  for chevrons
+  // min-height: 45rem;
+
+  @include respond(tab-port) {
+    width: 56.8rem;
+  }
+
+  @include respond(phone) {
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 
   &__main {
-    max-height: 65rem;
-    min-height: 45rem;
-    width: 65rem;
-    display: flex;
-    align-items: center;
+    // max-height: 65rem;
+    // min-height: 45rem;
+    // width: 65rem;
+    // align-items: center;
+    // justify-content: center;
 
-    position: absolute;
+    display: flex;
+    position: relative;
 
     &:hover {
       .carousel__title,
@@ -21,13 +37,31 @@
         opacity: 1;
       }
     }
+
+    @include respond(tab-port) {
+      max-width: 56.8rem;
+      // max-height: 56.8rem;
+      // min-height: 40rem;
+    }
+
+    @include respond(phone) {
+      max-width: 100%;
+      width: 100%;
+      background: $color-black;
+      justify-content: center;
+    }
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
+    user-select: none;
+
+    @include respond(phone) {
+      border-radius: 0;
+    }
   }
 
   &__title {
@@ -43,6 +77,31 @@
     transition: 0.2s opacity;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+
+    @include respond(phone) {
+      position: relative;
+      opacity: 1;
+      background: none;
+      padding: 0;
+      // color: $color-primary;
+      color: $color-primary-dark-2;
+      align-self: flex-start;
+      padding: 0 0.8rem;
+      font-weight: 700;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // &::after {
+      //   content: "";
+      //   display: block;
+      //   width: 8rem;
+      //   height: 2px;
+      //   background: $color-primary;
+      //   margin: 0.8rem auto 0;
+      // }
+    }
   }
 
   &__chevron {
@@ -51,6 +110,7 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    z-index: 100;
 
     &:hover {
       color: $color-white;
@@ -69,6 +129,40 @@
     &--left {
       left: $distance;
     }
+
+    @include respond(tab-port) {
+      & > * {
+        height: 2.4rem;
+      }
+
+      $distance: 2rem;
+
+      &--right {
+        right: $distance;
+      }
+
+      &--left {
+        left: $distance;
+      }
+    }
+
+    @include respond(phone) {
+      z-index: 100;
+
+      & > * {
+        height: 1.6rem;
+      }
+
+      $distance: 1rem;
+
+      &--right {
+        right: $distance;
+      }
+
+      &--left {
+        left: $distance;
+      }
+    }
   }
 
   &__sidenav {
@@ -84,5 +178,19 @@
     opacity: 0;
     transition: 0.2s opacity;
     background: linear-gradient(rgba($color-black, 0.6), rgba($color-black, 0));
+  }
+
+  &__mobile-sidenav {
+    padding: 0 0.8rem;
+    width: 100%;
+    display: flex;
+
+    & > * {
+      flex: 1;
+    }
+  }
+
+  &__mobile-buttons {
+    display: flex;
   }
 }

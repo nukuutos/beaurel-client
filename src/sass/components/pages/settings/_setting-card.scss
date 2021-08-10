@@ -1,3 +1,5 @@
+@use "../../../abstracts/mixins" as *;
+
 .setting-card {
   padding: 1.6rem;
 
@@ -44,5 +46,30 @@
     grid-column: 8 / -1;
     grid-row: 1 / 2;
     justify-self: end;
+  }
+
+  @include respond(phone) {
+    &__display {
+      grid-column: 1 / 11;
+    }
+
+    &__input {
+      grid-column: 1 / 11;
+    }
+
+    &__edit-button {
+      grid-column: 11 / 12;
+      align-self: center;
+    }
+
+    &__success-button {
+      grid-column: 11 / 12;
+      align-self: center;
+    }
+
+    &__fail-button {
+      grid-column: 12 / 13;
+      align-self: center;
+    }
   }
 }

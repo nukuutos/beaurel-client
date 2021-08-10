@@ -1,18 +1,21 @@
-import Layout from '../components/layout/layout';
-import { wrapper } from '../redux/store';
-import AppointmentModel from '../server/models/appointment';
-import { setAppointments } from '../redux/appointments/actions';
-import AppointmentsCategoriesController from '../components/appointments/appointments-categories-controller';
-import AppointmentController from '../components/appointments/appointment-controller';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
-import renderMasterAppointment from '../components/appointments/appointment/utils/render-master-appointment';
-import useAsyncAction from '../hooks/use-async-action/use-async-action';
-import renderCustomerAppointment from '../components/appointments/appointment/utils/render-customer-appointment';
-import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import Layout from "../components/layout/layout";
+import { wrapper } from "../redux/store";
+import AppointmentModel from "../server/models/appointment";
+import { setAppointments } from "../redux/appointments/actions";
+import AppointmentsCategoriesController from "../components/appointments/appointments-categories-controller";
+import AppointmentController from "../components/appointments/appointment-controller";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import renderMasterAppointment from "../components/appointments/appointment/utils/render-master-appointment";
+import useAsyncAction from "../hooks/use-async-action/use-async-action";
+import renderCustomerAppointment from "../components/appointments/appointment/utils/render-customer-appointment";
+import handleAuthPage from "../utils/auth/hande-auth-page/handle-auth-page";
+import AppointmentsCategoriesControllerPhone from "../components/appointments/appointments-categories-controller-phone";
+import useMediaQuery from "../hooks/use-media-query";
 
 const Appointments = () => {
-  const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });
+  const [{ user, category }, setState] = useState({ user: "master", category: "onConfirmation" });
+  const isPhone = useMediaQuery(600);
   const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector((state) => [
     state.appointments,
     state.auth,
@@ -24,8 +27,8 @@ const Appointments = () => {
 
   const getMasterAppointments = async (category) => {
     const config = {
-      method: 'get',
-      url: `/master/${profileId}/appointment/${user}?category=${category}`,
+      method: "get",
+      url: `/profile/${profileId}/appointment/${user}?category=${category}`,
       accessToken,
     };
 
@@ -42,12 +45,16 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <main className="content card card--layout">
+      <main className={`content ${isPhone ? "" : "card card--layout"}`}>
         {isLoading && <div className="spinner-with-background" />}
         <AppointmentController userState={[user, setState]} />
-        <AppointmentsCategoriesController categoryState={[category, setState]} />
+        {isPhone ? (
+          <AppointmentsCategoriesControllerPhone categoryState={[category, setState]} />
+        ) : (
+          <AppointmentsCategoriesController categoryState={[category, setState]} />
+        )}
 
-        {user === 'master'
+        {user === "master"
           ? appointments.map((appointment, i) => renderMasterAppointment(appointment, category, i))
           : appointments.map((appointment, i) => renderCustomerAppointment(appointment, category, i))}
 
@@ -60,12 +67,12 @@ const Appointments = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
   const userId = await handleAuthPage(req, res, store);
 
-  const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(userId, 'onConfirmation');
+  const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(userId, "onConfirmation");
 
-  store.dispatch(setAppointments({ appointments, type: 'onConfirmation', user: 'master' }));
+  store.dispatch(setAppointments({ appointments, type: "onConfirmation", user: "master" }));
   // store.dispatch(getTimetableSuccess({ timetable }));
 
-  return { props: { custom: 'custom' } };
+  return { props: { custom: "custom" } };
 });
 
 export default Appointments;

@@ -1,28 +1,34 @@
-import Layout from '../components/layout/layout';
-import { wrapper } from '../redux/store';
-import { Formik, Form } from 'formik';
-import BaseSettings from '../components/timetable/base-settings';
-import TimetableType from '../components/timetable/timetable-type';
-import Weekends from '../components/timetable/weekends';
-import WorkingDay from '../components/timetable/working-day';
-import Exceptions from '../components/timetable/exceptions';
-import VisualTimetableAuto from '../components/timetable/visual-timetable-auto';
-import VisualTimetableManually from '../components/timetable/visual-timetable-manually';
-import ManuallyAppointments from '../components/timetable/manually-appointments';
-import TimetableModel from '../server/models/timetable';
-import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useRef } from 'react';
-import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable/visual-updated-timetable';
-import useAsyncAction from '../hooks/use-async-action/use-async-action';
-import { setAlert } from '../redux/alert/actions';
-import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
-import UpdateTimtetable from '../components/timetable/update-timtetable';
-import { servicesToUnsuitable } from '../redux/service/actions/service';
+import Layout from "../components/layout/layout";
+import { wrapper } from "../redux/store";
+import { Formik, Form } from "formik";
+import BaseSettings from "../components/timetable/base-settings";
+import TimetableType from "../components/timetable/timetable-type";
+import Weekends from "../components/timetable/weekends";
+import WorkingDay from "../components/timetable/working-day";
+import Exceptions from "../components/timetable/exceptions";
+import VisualTimetableAuto from "../components/timetable/visual-timetable-auto";
+import VisualTimetableManually from "../components/timetable/visual-timetable-manually";
+import ManuallyAppointments from "../components/timetable/manually-appointments";
+import TimetableModel from "../server/models/timetable";
+import { getTimetableSuccess, setTimetableUpdate } from "../redux/timetable/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useRef } from "react";
+import VisualUpdatedTimetable from "../components/timetable/visual-updated-timetable/visual-updated-timetable";
+import useAsyncAction from "../hooks/use-async-action/use-async-action";
+import { setAlert } from "../redux/alert/actions";
+import handleAuthPage from "../utils/auth/hande-auth-page/handle-auth-page";
+import UpdateTimtetable from "../components/timetable/update-timtetable";
+import { servicesToUnsuitable } from "../redux/service/actions/service";
+import useMediaQuery from "../hooks/use-media-query";
 
 const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
-  const [updateTimetable, setUpdateTimetable] = useState({ isVisible: false, servicesCountToUpdate: null, step: 0 });
+  const isPhone = useMediaQuery(600);
+  const [updateTimetable, setUpdateTimetable] = useState({
+    isVisible: false,
+    servicesCountToUpdate: null,
+    step: 0,
+  });
   // if we've got update => disable edit every element
   // we editing something => disable other elements
   const [editState, setEditState] = useState({
@@ -44,7 +50,7 @@ const Timetable = () => {
 
   return (
     <Layout>
-      <main className="content card card--layout">
+      <main className={`content ${isPhone ? "" : "card card--layout"}`}>
         <h1 className="timetable__heading heading mt-8 ">Расписание</h1>
         <Formik
           innerRef={formRef}
@@ -58,10 +64,13 @@ const Timetable = () => {
           enableReinitialize
           // submit is calling in UpdatedDate component
           onSubmit={async ({ editingSessionTime, manually, ...values }, { resetForm }) => {
-            const update = { manually: { appointments: manually.appointments }, ...values };
+            const update = {
+              manually: { appointments: manually.appointments },
+              ...values,
+            };
 
             const config = {
-              method: 'post',
+              method: "post",
               url: `/master/${profileId}/timetable/${timetableId}/update`,
               data: update,
               accessToken,
@@ -83,11 +92,16 @@ const Timetable = () => {
               resetForm();
               setUpdateTimetable((state) => {
                 if (!unsuitableServicesCount) return { ...state, isVisible: false };
-                return { ...state, step: 1, servicesCountToUpdate: unsuitableServicesCount };
+                return {
+                  ...state,
+                  step: 1,
+                  servicesCountToUpdate: unsuitableServicesCount,
+                };
               });
               dispatch(setAlert(alert));
             }
-          }}>
+          }}
+        >
           {({ values, dirty, initialValues, setFieldValue, submitForm, resetForm }) => (
             <Form className="timetable__form">
               <BaseSettings
@@ -105,10 +119,10 @@ const Timetable = () => {
                 isEditing={editState.isEditing}
               />
 
-              {values.type === 'auto' ? (
+              {values.type === "auto" ? (
                 <>
                   <div className="timetable__timetable-card timetable-card mt-8 card">
-                    <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
+                    <div className="timetable-card__heading ">Настройки расписания</div>
                     <Weekends
                       weekends={values.auto.weekends}
                       update={update.date}
@@ -138,8 +152,14 @@ const Timetable = () => {
 
               {!update.date && (
                 <div
-                  onClick={() => setUpdateTimetable((state) => ({ ...state, isVisible: true }))}
-                  className={`btn btn--primary ${dirty ? '' : 'btn--disabled'} timetable__button mt-8`}>
+                  onClick={() =>
+                    setUpdateTimetable((state) => ({
+                      ...state,
+                      isVisible: true,
+                    }))
+                  }
+                  className={`btn btn--primary ${dirty ? "" : "btn--disabled"} timetable__button mt-8`}
+                >
                   Сохранить
                 </div>
               )}

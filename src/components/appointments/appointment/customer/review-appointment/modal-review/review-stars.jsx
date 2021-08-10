@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
-import { reversedRating } from './utils';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { reversedRating } from "./utils";
 
 const ReviewStars = ({ value, starSize, setValue }) => {
   const [isHover, setIsHover] = useState(false);
@@ -14,7 +14,7 @@ const ReviewStars = ({ value, starSize, setValue }) => {
       stars.push(
         <FontAwesomeIcon
           onClick={() => setValue(reversedRating[i])}
-          className={`stars__star--${starSize} edit-review__star ${isActiveClass ? 'edit-review__star--active' : ''}`}
+          className={`stars__star--${starSize} edit-review__star ${isActiveClass ? "edit-review__star--active" : ""}`}
           icon="star"
           key={i}
         />
@@ -28,7 +28,8 @@ const ReviewStars = ({ value, starSize, setValue }) => {
     <span
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      className={`stars edit-review__stars mt-6`}>
+      className={`stars edit-review__stars`}
+    >
       {renderStars()}
     </span>
   );

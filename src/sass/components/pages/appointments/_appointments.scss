@@ -1,4 +1,5 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .appointments {
   &__controller {
@@ -20,5 +21,23 @@
     padding: 1.6rem 2rem;
     font-weight: 700;
     background: $color-gray-light-3;
+  }
+
+  @include respond(tab-port) {
+    &__controller {
+      grid-column: 3 / 11;
+    }
+
+    &__appointment-types,
+    &__appointment-card,
+    &__noappointments {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @include respond(phone) {
+    &__controller {
+      grid-column: 1 / -1;
+    }
   }
 }

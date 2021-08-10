@@ -19,14 +19,14 @@ const profileAndReviews = (masterId) => [
   // get review stats(avg, review counters by value, reviews)
   {
     $lookup: {
-      from: 'reviews',
+      from: "reviews",
       let: {
         masterId,
       },
       pipeline: [
         {
           $match: {
-            $expr: { $eq: ['$masterId', '$$masterId'] },
+            $expr: { $eq: ["$masterId", "$$masterId"] },
           },
         },
         {
@@ -35,43 +35,43 @@ const profileAndReviews = (masterId) => [
             reviews: [
               {
                 $lookup: {
-                  from: 'users',
+                  from: "users",
                   let: {
-                    customerId: '$customerId',
+                    customerId: "$customerId",
                   },
                   pipeline: [
                     {
                       $match: {
-                        $expr: { $eq: ['$_id', '$$customerId'] },
+                        $expr: { $eq: ["$_id", "$$customerId"] },
                       },
                     },
                     {
                       $project: {
                         _id: 0,
-                        id: { $convert: { input: '$_id', to: 'string' } },
+                        id: { $convert: { input: "$_id", to: "string" } },
                         firstName: 1,
                         lastName: 1,
                         avatar: 1,
                       },
                     },
                   ],
-                  as: 'customer',
+                  as: "customer",
                 },
               },
               {
                 $project: {
                   _id: 0,
                   review: {
-                    comment: '$comment',
-                    value: '$value',
+                    comment: "$comment",
+                    value: "$value",
                     date: {
                       $dateToString: {
-                        date: '$createdAt',
-                        format: '%d-%m-%Y',
+                        date: "$createdAt",
+                        format: "%d-%m-%Y",
                       },
                     },
                   },
-                  customer: { $arrayElemAt: ['$customer', 0] },
+                  customer: { $arrayElemAt: ["$customer", 0] },
                 },
               },
             ],
@@ -85,16 +85,16 @@ const profileAndReviews = (masterId) => [
               },
               {
                 $group: {
-                  _id: '$value',
+                  _id: "$value",
                   counter: { $sum: 1 },
                 },
               },
               {
                 $group: {
                   _id: null,
-                  ratingCounters: { $push: { value: '$_id', counter: '$counter' } },
-                  sumRating: { $sum: { $multiply: ['$_id', '$counter'] } },
-                  overallReviewsCounter: { $sum: '$counter' },
+                  ratingCounters: { $push: { value: "$_id", counter: "$counter" } },
+                  sumRating: { $sum: { $multiply: ["$_id", "$counter"] } },
+                  overallReviewsCounter: { $sum: "$counter" },
                 },
               },
               {
@@ -102,21 +102,22 @@ const profileAndReviews = (masterId) => [
                   _id: 0,
                   ratingCounters: 1,
                   overallReviewsCounter: 1,
-                  avgRating: { $divide: ['$sumRating', '$overallReviewsCounter'] },
+                  // avgRating: { $divide: ['$sumRating', '$overallReviewsCounter'] },
+                  avgRating: { $round: [{ $divide: ["$sumRating", "$overallReviewsCounter"] }, 1] },
                 },
               },
             ],
           },
         },
       ],
-      as: 'ratingAndReviews',
+      as: "ratingAndReviews",
     },
   },
   {
     $addFields: {
       // 2 lvls up from [[]]
-      ratingStats: { $arrayElemAt: [{ $arrayElemAt: ['$ratingAndReviews.ratingStats', 0] }, 0] },
-      reviews: { $arrayElemAt: ['$ratingAndReviews.reviews', 0] },
+      ratingStats: { $arrayElemAt: [{ $arrayElemAt: ["$ratingAndReviews.ratingStats", 0] }, 0] },
+      reviews: { $arrayElemAt: ["$ratingAndReviews.reviews", 0] },
     },
   },
   {

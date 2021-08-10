@@ -3,7 +3,7 @@
 .draggable-service-parameter {
   &__sub-service {
     &::after {
-      content: '';
+      content: "";
       height: 1px;
       background: $color-gray-light-2;
       position: absolute;

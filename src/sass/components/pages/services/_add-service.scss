@@ -1,14 +1,24 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .add-service {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: min-content;
   column-gap: 1.6rem;
   background: $color-white;
-  width: 42rem;
-  padding: 2.8rem 1.6rem 0;
+  // width: 36rem;
+  padding: 0 1.6rem;
   overflow-y: auto;
   max-height: 75rem;
+
+  @include respond(phone) {
+    padding-top: 2.4rem;
+    // width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+  }
 
   // do scrollbar nicer ?
   &::-webkit-scrollbar {
@@ -17,11 +27,16 @@
   }
 
   &__heading {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
+
+    // @include respond(phone) {
+    //   width: 36rem;
+    //   justify-self: center;
+    // }
   }
 
   &__switch {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,6 +44,11 @@
     & > *:first-child {
       margin: 0;
     }
+
+    // @include respond(phone) {
+    //   width: 36rem;
+    //   justify-self: center;
+    // }
   }
 
   &__switch-label {
@@ -41,7 +61,7 @@
 
     &:after {
       display: block;
-      content: '';
+      content: "";
       grid-column: 1 / -1;
       height: 2.8rem;
       padding-right: 5rem;
@@ -49,13 +69,27 @@
   }
 
   &__title {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
+    // @include respond(phone) {
+    //   width: 36rem;
+    //   justify-self: center;
+    // }
   }
 
   &__parameter {
+    flex: 1;
+  }
+
+  &__parameter-and-btn {
+    position: relative;
+    margin-top: 1.6rem;
+    grid-column: 1 / -1;
+    display: flex;
+
     &::before {
+      position: absolute;
       display: block;
-      content: '';
+      content: "";
       width: 100%;
       height: 1px;
       background: $color-gray-light-1;
@@ -66,26 +100,33 @@
   &__price-and-duration {
     grid-column: 1 / -1;
 
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 1.6rem;
-  }
+    // display: grid;
+    // grid-template-columns: repeat(12, 1fr);
+    // column-gap: 1.6rem;
+    display: flex;
 
-  &__duration {
-    grid-column: 2 / 7;
-  }
+    & > * {
+      flex: 1;
+    }
 
-  &__price {
-    grid-column: 7 / 12;
+    // @include respond(phone) {
+    //   width: 36rem;
+    //   justify-self: center;
+    // }
   }
 
   &__button {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
     justify-self: flex-end;
+
+    @include respond(phone) {
+      justify-self: stretch;
+    }
   }
 
   &__add {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,11 +148,16 @@
     &:hover {
       color: $color-primary;
     }
+
+    // @include respond(phone) {
+    //   width: 36rem;
+    //   justify-self: center;
+    // }
   }
 
   &__delete {
-    grid-column: 12 / 13;
+    // grid-column: 12 / 13;
     align-self: flex-end;
-    justify-self: center;
+    // justify-self: center;
   }
 }

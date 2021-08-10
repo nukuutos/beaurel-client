@@ -1,7 +1,9 @@
-import displayDuration from '../../services/utils/display-duration';
+import displayDuration from "../../services/utils/display-duration";
 
 // return for example time 10:00 and value in minutes 600
 const generatePossibleAppointmentsTime = (workingDay, sessionTime) => {
+  sessionTime = Number(sessionTime);
+
   const { startAt, endAt } = workingDay;
 
   const possibleAppointmentsTime = [];

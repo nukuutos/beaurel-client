@@ -16,29 +16,31 @@ const masters = (matchQuery) => [
   // rating
   {
     $lookup: {
-      from: 'reviews',
+      from: "reviews",
       let: {
-        masterId: '$_id',
+        masterId: "$_id",
       },
       pipeline: [
         {
           $match: {
-            $expr: { $eq: ['$masterId', '$$masterId'] },
+            $expr: { $eq: ["$masterId", "$$masterId"] },
           },
         },
         {
           $project: {
             _id: 0,
-            rating: { $avg: '$value' },
+            rating: { $avg: "$value" },
           },
         },
       ],
-      as: 'rating',
+      as: "rating",
     },
   },
+
   {
     $addFields: {
-      rating: { $arrayElemAt: ['$rating.rating', 0] },
+      // rating: { $arrayElemAt: ['$rating.rating', 0] },
+      rating: { $round: [{ $arrayElemAt: ["$rating.rating", 0] }, 1] },
     },
   },
 ];

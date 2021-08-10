@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import UpdateSubService from './update-sub-service';
-import UpdateTitle from './update-title';
+import React, { useState } from "react";
+import UpdateSubService from "./update-sub-service";
+import UpdateTitle from "./update-title";
 
 const UpdateParameterService = ({ index: parentIndex, values, initialValues }) => {
   const [isShown, setIsShown] = useState(true);
@@ -9,7 +9,7 @@ const UpdateParameterService = ({ index: parentIndex, values, initialValues }) =
 
   return (
     // <div className={`${!isHoverSubService && isShown ? 'service-parameter--hover' : ''} service-parameter card mt-6`}>
-    <div className={`service-parameter service-update mt-6`}>
+    <div className={`service-parameter service-update card mt-6`}>
       <UpdateTitle subServices={subServices} title={title} shownState={[isShown, setIsShown]} />
       {isShown &&
         subServices.map((subService, i) => {

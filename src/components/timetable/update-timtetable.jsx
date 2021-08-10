@@ -1,14 +1,17 @@
-import React from 'react';
-import UpdateSuccess from './update-success';
-import UpdatedDate from './updated-date';
-import Modal from '../utils/modal';
-import UpdateServicesFromTimetable from '../services/update-services/update-services-from/update-services-from-timtetable';
+import React from "react";
+import UpdateSuccess from "./update-success";
+import UpdatedDate from "./updated-date";
+import Modal from "../utils/modal";
+import UpdateServicesFromTimetable from "../services/update-services/update-services-from/update-services-from-timtetable";
 
 const UpdateTimtetable = ({ submitFunctions, isLoading, updateTimetableState }) => {
   const [{ servicesCountToUpdate, step }, setUpdateTimetable] = updateTimetableState;
 
   return (
-    <Modal onClickClose={() => setUpdateTimetable((state) => ({ ...state, isVisible: false, step: 0 }))}>
+    <Modal
+      isMobileBackground
+      onClickClose={() => setUpdateTimetable((state) => ({ ...state, isVisible: false, step: 0 }))}
+    >
       {step === 0 && (
         <UpdatedDate submitFunctions={submitFunctions} isLoading={isLoading} setUpdateTimetable={setUpdateTimetable} />
       )}

@@ -1,0 +1,59 @@
+@use "../../abstracts/colors" as *;
+
+.mobile-navbar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+
+  padding: 0.4rem;
+  background: $color-white;
+
+  z-index: 20;
+
+  &__main {
+    max-width: 36rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    &--end {
+      justify-content: flex-end;
+    }
+  }
+
+  a:visited,
+  a:link {
+    color: inherit;
+  }
+
+  &__item {
+    display: block;
+    color: $color-primary-dark-2;
+    padding: 1.6rem;
+    border-radius: 1.6rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-primary-light-2;
+    }
+
+    &--active {
+      background: $color-secondary-light;
+      color: $color-white;
+      pointer-events: none;
+
+      &:hover {
+        background: $color-secondary-light;
+      }
+    }
+  }
+
+  &__icon {
+    height: 1.6rem;
+    margin: auto 0;
+
+    &--big {
+      height: 2rem;
+    }
+  }
+}

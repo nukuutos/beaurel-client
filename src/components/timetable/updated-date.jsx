@@ -1,23 +1,26 @@
-import React from 'react';
-import DatePicker from '../utils/date-picker/date-picker';
+import React from "react";
+import useMediaQuery from "../../hooks/use-media-query";
+import DatePicker from "../utils/date-picker/date-picker";
+import ModalHeading from "../utils/modal/modal-heading";
 
 const UpdatedDate = ({ setUpdateTimetable, isLoading, submitFunctions }) => {
   const { setFieldValue, submitForm } = submitFunctions;
+  const isPhone = useMediaQuery(600);
 
   const submit = (date) => {
-    setFieldValue('date', date);
+    setFieldValue("date", date);
     submitForm();
   };
 
   return (
-    <div className="updated-date card">
+    <div className={`updated-date ${isPhone ? "mt-6" : "card"}`}>
       {isLoading && <div className="spinner-with-background" />}
-      <h2 className="updated-date__heading heading">Дата обновления</h2>
-      <DatePicker
-        submit={submit}
-        cancel={() => setUpdateTimetable((state) => ({ ...state, isVisible: false }))}
-        className="updated-date__date-picker mt-1"
+      <ModalHeading
+        onClickClose={() => setUpdateTimetable((state) => ({ ...state, isVisible: false }))}
+        title="Дата обновления"
+        titleDesktopClassName="updated-date__heading"
       />
+      <DatePicker submit={submit} className="updated-date__date-picker" />
     </div>
   );
 };

@@ -1,18 +1,54 @@
+@use "../../../abstracts/mixins" as *;
+
 .services {
   &__heading {
     grid-row: 1 / 2;
     grid-column: 4 / 10;
+    margin-bottom: 0;
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+  }
+
+  &__switch {
+    grid-column: 4 / 10;
+    justify-self: flex-end;
+
+    @include respond(tab-port) {
+      grid-column: 1 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__update-alert {
     // grid-row: 2 / 3;
     grid-column: 4 / 10;
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__reoder-controller {
     grid-column: 4 / 10;
     // grid-row: 3 / 4;
     justify-self: end;
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__container {
@@ -22,6 +58,14 @@
 
     &--droppable {
       grid-column: 4 / 10;
+    }
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
     }
   }
 

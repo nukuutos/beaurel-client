@@ -1,9 +1,10 @@
+@use 'service';
+
 @use 'add-service';
 @use 'edit-service';
 @use 'draggable-service';
 @use 'draggable-service-parameter';
 @use 'services';
-@use 'service';
 @use 'reoder-controller';
 @use 'service-parameter';
 @use 'service-update';

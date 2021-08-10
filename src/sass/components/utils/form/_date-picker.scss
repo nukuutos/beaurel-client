@@ -1,8 +1,8 @@
 @use "../../../abstracts/colors" as *;
 
 .date-picker {
-  width: 28rem;
-  padding: 1.2rem 0.4rem;
+  width: 32rem;
+  padding: 0 0.4rem 1.2rem;
   background: $color-white;
 
   display: grid;
@@ -69,13 +69,16 @@
 
   &__date {
     color: $color-gray-dark-2;
-    justify-self: center;
-    padding: 0.4rem;
     margin: 0.4rem;
     border-radius: 0.5rem;
     border: 2px solid transparent;
     transition: 0.2s border-color;
     cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       border-color: $color-primary-dark-1;

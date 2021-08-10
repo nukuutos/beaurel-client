@@ -1,8 +1,8 @@
-import Appointment from './appointment';
-import { useDispatch } from 'react-redux';
-import { setAppointmentDate } from '../../../../../redux/appointments/actions';
-import { MONTHS, DAYS_OF_THE_WEEK, getWeekDayRU } from './utils/week';
-import displayDuration from '../../services/utils/display-duration';
+import Appointment from "./appointment";
+import { useDispatch } from "react-redux";
+import { setAppointmentDate } from "../../../../../redux/appointments/actions";
+import { MONTHS, DAYS_OF_THE_WEEK } from "./utils/week";
+import displayDuration from "../../services/utils/display-duration";
 
 const Day = ({ setStep, date, availableAppointments = [], unavailableAppointments = [] }) => {
   const dispatch = useDispatch();
@@ -11,9 +11,9 @@ const Day = ({ setStep, date, availableAppointments = [], unavailableAppointment
   return (
     <>
       <div className="booking-timetable__weekday">
-        <span>{DAYS_OF_THE_WEEK[getWeekDayRU(date.getDay())]}</span>
+        <span>{DAYS_OF_THE_WEEK[date.weekday()]}</span>
         <span className="mt-3">
-          {date.getDate()} {MONTHS[date.getMonth()]}
+          {date.date()} {MONTHS[date.month()]}
         </span>
       </div>
       <div className="booking-timetable__appointments">
@@ -27,20 +27,21 @@ const Day = ({ setStep, date, availableAppointments = [], unavailableAppointment
                     isTimetable: false,
                     isService: true,
                     step: state.step + 1,
-                    lastStepName: 'timetable',
+                    lastStepName: "timetable",
                   };
                 return {
                   ...state,
                   isTimetable: false,
                   isResult: true,
                   step: state.step + 1,
-                  lastStepName: 'timetable',
+                  lastStepName: "timetable",
                 };
               });
 
               dispatch(
                 setAppointmentDate({
                   date,
+                  // date: date.format, ?
                   time: availableAppointments[i],
                   availableAppointments,
                   unavailableAppointments,

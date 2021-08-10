@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 
 const useCropper = (avatar) => {
-  const [{ cropper, src }, setState] = useState({ cropper: null, src: `http://localhost:5000/${avatar}` });
+  const [{ cropper, src, isUploaded }, setState] = useState({ cropper: null, src: `http://localhost:5000/${avatar}` });
   const cropperRef = useRef(null);
 
   const cropperProps = {
@@ -15,22 +15,22 @@ const useCropper = (avatar) => {
     const file = event.target.files[0];
 
     reader.onloadend = () => {
-      setState((state) => ({ ...state, src: reader.result }));
+      setState((state) => ({ ...state, src: reader.result, isUploaded: true }));
     };
 
-    reader.readAsDataURL(file);
+    if (file) reader.readAsDataURL(file);
   };
 
   const asyncCropperAction = (asyncBody) => {
     cropper.getCroppedCanvas().toBlob(async (blob) => {
       const formData = new FormData();
-      formData.append('image', blob);
+      formData.append("image", blob);
 
       await asyncBody(formData);
-    }, 'image/jpeg');
+    }, "image/jpeg");
   };
 
-  return [cropperProps, asyncCropperAction, handleFileUpload];
+  return [cropperProps, asyncCropperAction, handleFileUpload, isUploaded];
 };
 
 export default useCropper;

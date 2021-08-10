@@ -1,12 +1,23 @@
-const getCorrectService = (service, today = null) => {
+import { getDateUTC, getUpdateDate } from "../../booking-timetable/booking-phone-timetable/utils";
+
+const getCorrectService = (service, today = null, isUpdated) => {
+  if (isUpdated) {
+    const newService = { ...service };
+    newService.duration = newService.update.duration;
+
+    return newService;
+  }
+
   const { update } = service;
 
   if (!update || !update.date || !today) return service;
 
-  const updateDate = new Date(update.date);
-  today = new Date(today);
+  const updateDate = getUpdateDate(update);
+  today = today || getDateUTC();
 
-  if (updateDate.getTime() >= today.getTime() && update.status === 'suitable') {
+  if (service.parameter) console.log(service);
+
+  if (!today.isBefore(updateDate) && update.status === "suitable") {
     const newService = { ...service };
     newService.duration = newService.update.duration;
     return newService;

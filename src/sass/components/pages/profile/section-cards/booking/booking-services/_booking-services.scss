@@ -1,17 +1,43 @@
 @use "../../../../../../abstracts/colors" as *;
+@use "../../../../../../abstracts/mixins" as *;
 
 .booking-services {
   position: relative;
   width: 81.2rem;
-  min-height: 64.8rem;
-  max-height: 86rem;
+  height: 64.8rem;
+  // min-height: 64.8rem;
+  // max-height: 86rem;
   overflow-y: auto;
 
   background: $color-white;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: min-content;
   column-gap: 1.6rem;
   padding: 0 1.6rem;
+
+  // &--loading {
+  //   // overflow-y: hidden;
+  //   &:after {
+  //     position: absolute;
+  //     top: 0;
+  //     bottom: 0;
+  //     right: 0;
+  //     left: 0;
+  //     background: #fff;
+  //     max-height: 1000%;
+  //   }
+  // }
+
+  @include respond(tab-port) {
+    width: 56.8rem;
+  }
+
+  @include respond(phone) {
+    padding: 0 0.4rem 1.6rem;
+    width: 36rem;
+    overflow-y: unset;
+  }
 
   &__btn-back {
     grid-column: 1 / 4;
@@ -23,7 +49,7 @@
 
   &::after {
     display: block;
-    content: '';
+    content: "";
     width: 100%;
     height: 4.8rem;
     grid-column: 1 / -1;

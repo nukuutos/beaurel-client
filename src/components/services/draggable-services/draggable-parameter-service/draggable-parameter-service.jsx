@@ -1,9 +1,9 @@
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
-import DraggableTitle from './draggable-title';
-import DraggableSubService from './draggable-sub-service';
-import { reoderSubServices } from '../../../../redux/service/actions/service';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import DraggableTitle from "./draggable-title";
+import DraggableSubService from "./draggable-sub-service";
+import { reoderSubServices } from "../../../../redux/service/actions/service";
 
 const DraggableParameterService = ({ service, index }) => {
   const [isHover, setIsHover] = useState(false);
@@ -24,14 +24,14 @@ const DraggableParameterService = ({ service, index }) => {
             {...dragHandleProps}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            className={`mt-6 draggable-service draggable-service--shadow ${
-              isHover && isShown && !isHoverSubService ? 'draggable-service--hover' : ''
-            }`}>
+            className={`mt-6 card ${isHover && isShown && !isHoverSubService ? "draggable-service--hover" : ""}`}
+          >
             <div
               onClick={() => setIsShown(!isShown)}
-              className={`service draggable-service draggable-service-parameter--hover ${
-                (isHover && !isShown) || isDragging ? 'draggable-service--hover' : ''
-              }`}>
+              className={`service ${isShown ? "" : "draggable-service"} draggable-service-parameter--hover ${
+                (isHover && !isShown) || isDragging ? "draggable-service--hover" : ""
+              }`}
+            >
               <DraggableTitle title={title} isDragging={isDragging} shownState={[isShown, setIsShown]} />
             </div>
 
@@ -39,7 +39,8 @@ const DraggableParameterService = ({ service, index }) => {
               <DragDropContext
                 onDragEnd={(res) => {
                   dispatch(reoderSubServices({ ...res, title }));
-                }}>
+                }}
+              >
                 <Droppable droppableId={`droppable-${title}`}>
                   {({ droppableProps, innerRef, placeholder }) => {
                     return (

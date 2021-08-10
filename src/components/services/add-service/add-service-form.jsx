@@ -1,28 +1,30 @@
-import React from 'react';
-import { Formik, Form, ErrorMessage } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
-import serviceSchema from '../../profile/section-cards/services/utils/schemas';
-import { addServiceSuccess } from '../../../redux/service/actions/service';
-import { setAlert } from '../../../redux/alert/actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Input from '../../form/input';
-import Select from '../../form/select';
-import InputIcon from '../../form/input-icon';
-import renderDurationOptions from '../utils/render-duration-options';
-import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
+import React from "react";
+import { Formik, Form, ErrorMessage } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import serviceSchema from "../../profile/section-cards/services/utils/schemas";
+import { addServiceSuccess } from "../../../redux/service/actions/service";
+import { setAlert } from "../../../redux/alert/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Input from "../../form/input";
+import Select from "../../form/select";
+import InputIcon from "../../form/input-icon";
+import renderDurationOptions from "../utils/render-duration-options";
+import useAsyncAction from "../../../hooks/use-async-action/use-async-action";
+import useMediaQuery from "../../../hooks/use-media-query";
 
-const AddServiceForm = () => {
+const AddServiceForm = ({ onClickClose }) => {
   const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
   const dispatch = useDispatch();
 
   const [asyncAction, isLoading] = useAsyncAction();
+  const isPhone = useMediaQuery(600);
 
   return (
     <Formik
       initialValues={{
-        title: '',
+        title: "",
         duration: sessionTime,
-        price: '',
+        price: "",
         date: null,
       }}
       validationSchema={serviceSchema(sessionTime)}
@@ -30,7 +32,7 @@ const AddServiceForm = () => {
         const { date, ...service } = values;
 
         const config = {
-          method: 'post',
+          method: "post",
           url: `/master/${profileId}/service`,
           data: { date, service },
           accessToken,
@@ -44,7 +46,8 @@ const AddServiceForm = () => {
           dispatch(setAlert(alert));
           resetForm();
         }
-      }}>
+      }}
+    >
       {({ isSubmitting, dirty, isValidating, values }) => (
         <Form className="add-service__form">
           <div className="add-service__title mt-5">
@@ -60,10 +63,10 @@ const AddServiceForm = () => {
               <label className="label " htmlFor="duration">
                 Длительность
               </label>
-              <div className="input--icon input--mini">
+              <div className="input--icon input--mini mr-4">
                 <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
                 <Select value={values.duration} className="input" name="duration" as="select">
-                  {sessionTime ? renderDurationOptions(sessionTime) : ''}
+                  {sessionTime ? renderDurationOptions(sessionTime) : ""}
                 </Select>
               </div>
             </div>
@@ -75,8 +78,9 @@ const AddServiceForm = () => {
               <InputIcon
                 type="number"
                 name="price"
-                inputClassName={'input'}
-                wrapperClassName={'input--icon input--mini'}>
+                inputClassName={"input"}
+                wrapperClassName={"input--icon input--mini"}
+              >
                 <FontAwesomeIcon className="input__icon input__icon--m" icon="ruble-sign" />
               </InputIcon>
               <ErrorMessage name="price">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
@@ -85,10 +89,21 @@ const AddServiceForm = () => {
 
           <button
             disabled={isSubmitting}
-            className={`add-service__button btn btn--primary mt-9 ${isLoading ? 'btn--submitted btn--spinner' : ''}`}
-            type="submit">
+            className={`add-service__button btn btn--primary mt-9 ${isLoading ? "btn--submitted btn--spinner" : ""}`}
+            type="submit"
+          >
             Добавить
           </button>
+          {/* {isPhone && (
+            <button
+              disabled={isSubmitting}
+              onClick={() => onClickClose()}
+              className={`add-service__button btn btn--primary btn--gray mt-4 ${isLoading ? "btn--disabled" : ""}`}
+              type="submit"
+            >
+              Отменить
+            </button>
+          )} */}
         </Form>
       )}
     </Formik>

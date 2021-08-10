@@ -1,5 +1,6 @@
 @use "../../abstracts/colors" as *;
 @use "../../abstracts/animation" as *;
+@use "../../abstracts/mixins" as *;
 
 .spinner {
   border: 4px solid $color-secondary;
@@ -33,13 +34,12 @@
   right: 0;
   left: 0;
   // width: 100%;
-  // height: 100%;
   // background: rgba($color-white, 0.8);
   background: $color-white;
-  z-index: 100;
+  z-index: 1000;
 
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border: 4px solid $color-secondary;
     border-left-color: transparent;
@@ -56,6 +56,9 @@
 
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+
+    @include respond(phone) {
+      top: calc(50% - 2rem);
+    }
   }
 }

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import EditSubService from './edit-sub-service/edit-sub-service';
-import EditTitle from './edit-title/edit-title';
+import React, { useState } from "react";
+import EditSubService from "./edit-sub-service/edit-sub-service";
+import EditTitle from "./edit-title/edit-title";
 
 const EditParameterService = ({ service }) => {
   const [isShown, setIsShown] = useState(false);
@@ -8,7 +8,7 @@ const EditParameterService = ({ service }) => {
 
   const { title, subServices } = service;
   return (
-    <div className={`${!isHoverSubService && isShown ? 'service-parameter--hover' : ''} service-parameter card mt-6`}>
+    <div className={`${!isHoverSubService && isShown ? "service-parameter--hover" : ""} service-parameter card mt-6`}>
       <EditTitle title={title} shownState={[isShown, setIsShown]} />
       {isShown &&
         subServices.map((subService, i) => {

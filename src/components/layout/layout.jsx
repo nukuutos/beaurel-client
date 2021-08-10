@@ -18,10 +18,9 @@ const Layout = ({ children }) => {
         </Head>
 
         <Navbar />
-
         <City />
 
-        <div className="content-wrapper">{children}</div>
+        {children}
       </div>
       <Alert />
     </>

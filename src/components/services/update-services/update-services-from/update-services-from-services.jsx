@@ -1,11 +1,13 @@
-import React from 'react';
-import UpdateParameterService from './udpate-parameter-service/update-parameter-service';
-import UpdateService from './update-service';
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../redux/alert/actions';
-import { putUpdateToServices } from '../../../../redux/service/actions/service';
+import React from "react";
+import UpdateParameterService from "./udpate-parameter-service/update-parameter-service";
+import UpdateService from "./update-service";
+import { useSelector, useDispatch } from "react-redux";
+import { Formik, Form } from "formik";
+import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
+import { setAlert } from "../../../../redux/alert/actions";
+import { putUpdateToServices } from "../../../../redux/service/actions/service";
+import useMediaQuery from "../../../../hooks/use-media-query";
+import ModalHeading from "../../../utils/modal/modal-heading";
 
 const UpdateServicesFromServices = ({ close }) => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -15,6 +17,7 @@ const UpdateServicesFromServices = ({ close }) => {
     state.auth,
   ]);
   const dispatch = useDispatch();
+  const isPhone = useMediaQuery(600);
 
   const isDurationCorrect = (values) =>
     values.services.every((service) => {
@@ -39,19 +42,19 @@ const UpdateServicesFromServices = ({ close }) => {
 
         if (isServiceParameter) {
           const filteredSubServices = service.subServices.filter(
-            (subService) => subService.update.status === 'unsuitable'
+            (subService) => subService.update.status === "unsuitable"
           );
           return filteredSubServices.length !== 0;
         }
 
-        return service.update.status === 'unsuitable';
+        return service.update.status === "unsuitable";
       })
       .map((service) => {
         const isServiceParameter = service.subServices;
 
         if (isServiceParameter) {
           const { subServices } = service;
-          service.subServices = subServices.filter((subService) => subService.update.status === 'unsuitable');
+          service.subServices = subServices.filter((subService) => subService.update.status === "unsuitable");
         }
 
         return service;
@@ -59,8 +62,9 @@ const UpdateServicesFromServices = ({ close }) => {
   };
 
   return (
-    <div className="booking-services card">
-      <h2 className="services__heading heading mt-8">Услуги</h2>
+    <div className={`booking-services ${isPhone ? "" : "card"}`}>
+      {/* <h2 className="services__heading heading mt-8">Обновить услуги</h2> */}
+      <ModalHeading titleDesktopClassName="services__heading" title="Обновить услуги" onClickClose={close} />
       {isLoading && <div className="spinner-with-background" />}
       <Formik
         enableReinitialize
@@ -78,7 +82,7 @@ const UpdateServicesFromServices = ({ close }) => {
 
           // async call
           const config = {
-            method: 'put',
+            method: "put",
             url: `/master/${masterId}/service/update`,
             data: { services: data },
             accessToken,
@@ -91,7 +95,8 @@ const UpdateServicesFromServices = ({ close }) => {
             dispatch(putUpdateToServices({ services: data }));
             close();
           }
-        }}>
+        }}
+      >
         {({ values, initialValues }) => (
           <Form className="services__container">
             {values.services.length &&
@@ -104,7 +109,8 @@ const UpdateServicesFromServices = ({ close }) => {
               })}
             <button
               type="submit"
-              className={`btn btn--primary ${isDurationCorrect(values) ? '' : 'btn--disabled'} mt-6`}>
+              className={`btn btn--primary ${isDurationCorrect(values) ? "" : "btn--disabled"} mt-6`}
+            >
               Обновить
             </button>
           </Form>

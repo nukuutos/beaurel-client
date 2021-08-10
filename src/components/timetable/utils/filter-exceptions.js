@@ -1,5 +1,7 @@
 // filter excetion
 const filterExceptions = (exceptions, sessionTime, startAt) => {
+  sessionTime = Number(sessionTime);
+
   const newExceptions = {};
 
   for (let day in exceptions) {

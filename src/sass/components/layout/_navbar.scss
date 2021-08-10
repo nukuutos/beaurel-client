@@ -1,4 +1,5 @@
 @use "../../abstracts/colors" as *;
+@use "../../abstracts/mixins" as *;
 
 .navbar {
   grid-column: navbar-start / navbar-end;
@@ -41,5 +42,62 @@
   &__icon {
     height: 1.6rem;
     margin-right: 2rem;
+  }
+
+  @include respond(tab-land) {
+    grid-column: content-start / content-end;
+    display: flex;
+    padding: 0.4rem 1.6rem;
+    justify-self: flex-start;
+    margin-bottom: 2rem;
+
+    &__link {
+      &:not(:first-of-type) {
+        margin-top: 0;
+        margin-left: 1.2rem;
+      }
+
+      border-radius: 1.6rem;
+    }
+
+    &__icon {
+      margin-right: 0;
+    }
+
+    a:visited,
+    a:link {
+      padding: 1.6rem;
+    }
+  }
+
+  @include respond(phone) {
+    // display: none;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 100000;
+    padding: 0;
+
+    flex-direction: column;
+
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 18.8rem;
+
+    &__link {
+      width: 100%;
+
+      &:not(:first-of-type) {
+        margin-top: 0;
+        margin-left: 0;
+      }
+
+      border-radius: 0;
+    }
+
+    &__icon {
+      margin-right: 2rem;
+    }
   }
 }

@@ -1,3 +1,5 @@
+@use '../../../abstracts/mixins' as *;
+
 .search {
   &__heading {
     grid-row: 1 / 2;
@@ -5,20 +7,45 @@
   }
 
   &__specialization {
+    margin-top: 2.8rem;
     grid-row: 2 / 3;
     grid-column: 2 / 6;
   }
 
   &__name {
+    margin-top: 2.8rem;
     grid-row: 2 / 3;
     grid-column: 6 / 12;
   }
 
   &__master-card {
     grid-column: 2 / 12;
+    margin-top: 2.8rem;
   }
 
   &__form {
     display: contents;
+  }
+
+  @include respond(phone) {
+    &__heading {
+      grid-column: 1 / -1;
+    }
+
+    &__name {
+      margin-top: 1.6rem;
+      grid-column: 1 / 8;
+      margin-bottom: 1.2rem;
+    }
+
+    &__specialization {
+      margin-top: 1.6rem;
+      grid-column: 8 / -1;
+    }
+
+    &__master-card {
+      grid-column: 1 / -1;
+      margin-top: 1.6rem;
+    }
   }
 }

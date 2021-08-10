@@ -1,14 +1,22 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .appointment-types {
   padding: 1.6rem 0;
-  background: $color-gray-light-3;
+  // background: $color-gray-light-3;
+  background: $color-white;
   text-align: center;
 
   font-size: 1.6rem;
 
   & > *:not(:last-child) {
     margin-right: 1.6rem;
+  }
+
+  @include respond(phone) {
+    padding: 1.2rem 3.2rem 1.6rem;
+    text-align: left;
+    color: $color-primary;
   }
 
   &__type {

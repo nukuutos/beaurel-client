@@ -10,9 +10,9 @@ const favoriteMasters = (userId) => [
       masters: 1,
       masterIds: {
         $map: {
-          input: '$masters',
-          as: 'id',
-          in: { $convert: { input: '$$id', to: 'string' } },
+          input: "$masters",
+          as: "id",
+          in: { $convert: { input: "$$id", to: "string" } },
         },
       },
     },
@@ -20,14 +20,14 @@ const favoriteMasters = (userId) => [
   // find masters profile
   {
     $lookup: {
-      from: 'users',
+      from: "users",
       let: {
-        masters: '$masters',
+        masters: "$masters",
       },
       pipeline: [
         {
           $match: {
-            $expr: { $in: ['$_id', '$$masters'] },
+            $expr: { $in: ["$_id", "$$masters"] },
           },
         },
         {
@@ -37,39 +37,41 @@ const favoriteMasters = (userId) => [
             lastName: 1,
             avatar: 1,
             placeOfwork: 1,
+            specialization: 1,
           },
         },
         // get avg rating
         {
           $lookup: {
-            from: 'reviews',
+            from: "reviews",
             let: {
-              masterId: '$_id',
+              masterId: "$_id",
             },
             pipeline: [
               {
                 $match: {
-                  $expr: { $eq: ['$masterId', '$$masterId'] },
+                  $expr: { $eq: ["$masterId", "$$masterId"] },
                 },
               },
               {
                 $project: {
                   _id: 0,
-                  rating: { $avg: '$value' },
+                  rating: { $avg: "$value" },
                 },
               },
             ],
-            as: 'rating',
+            as: "rating",
           },
         },
         {
           $addFields: {
-            rating: { $arrayElemAt: ['$rating.rating', 0] },
-            _id: { $convert: { input: '$_id', to: 'string' } },
+            // rating: { $arrayElemAt: ["$rating.rating", 0] },
+            rating: { $round: [{ $arrayElemAt: ["$rating.rating", 0] }, 1] },
+            _id: { $convert: { input: "$_id", to: "string" } },
           },
         },
       ],
-      as: 'masters',
+      as: "masters",
     },
   },
 ];

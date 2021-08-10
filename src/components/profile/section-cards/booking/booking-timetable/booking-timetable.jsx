@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getTimetableSuccess } from '../../../../../redux/timetable/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPreviousWeek, getNextWeek } from './utils/get-week';
-import useWeek from './use-week/use-week';
-import { getAppointmentsSuccess, unsetAppointmentService } from '../../../../../redux/appointments/actions';
-import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
-import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getTimetableSuccess } from "../../../../../redux/timetable/actions";
+import { useDispatch, useSelector } from "react-redux";
+import useWeek from "./use-week/use-week";
+import { getAppointmentsSuccess, unsetAppointmentService } from "../../../../../redux/appointments/actions";
+import useAsyncAction from "../../../../../hooks/use-async-action/use-async-action";
+import { useRouter } from "next/router";
 
 const BookingTimetable = ({ stepState }) => {
   const [{ step }, setStep] = stepState;
@@ -24,7 +23,7 @@ const BookingTimetable = ({ stepState }) => {
 
   const getDataForBooking = async () => {
     const config = {
-      method: 'get',
+      method: "get",
       url: `/master/${masterId}/timetable/booking`,
       accessToken: null,
     };
@@ -69,30 +68,37 @@ const BookingTimetable = ({ stepState }) => {
               return { ...state, isService: true, isTimetable: false, step: state.step - 1 };
             });
           }}
-          className="btn btn--secondary btn--gray booking-timetable__btn-back">
+          className="btn btn--secondary btn--gray booking-timetable__btn-back"
+        >
           Назад
         </div>
       )}
 
-      <div className="booking-timetable__header mb-7">
+      <div className="booking-timetable__header  mb-7">
         <div
-          onClick={() => setDate((today) => getPreviousWeek(today))}
-          className={`booking-timetable__arrow btn-icon mr-6`}>
+          // onClick={() => setDate((today) => getPreviousWeek(today))}
+          onClick={() => setDate((today) => today.weekday(-7))}
+          className={`booking-timetable__arrow btn-icon mr-6`}
+        >
           <FontAwesomeIcon icon="chevron-left" />
         </div>
         <h2 className="heading booking-timetable__heading ">Выбери Время</h2>
         <div
-          onClick={() => setDate((today) => getNextWeek(today))}
-          className={`booking-timetable__arrow btn-icon ml-6`}>
+          // onClick={() => setDate((today) => getNextWeek(today))}
+          onClick={() => setDate((today) => today.weekday(7))}
+          className={`booking-timetable__arrow btn-icon ml-6`}
+        >
           <FontAwesomeIcon icon="chevron-right" />
         </div>
       </div>
 
       {weekDays}
+
       {isUnavailableWeek && (
         <div className="booking-timetable__no-appointments">
           На этой неделе нет свободных записей!
-          <div onClick={() => setDate((today) => getNextWeek(today))} className="btn-text mt-2">
+          {/* <div onClick={() => setDate((today) => getNextWeek(today))} className="btn-text mt-2"> */}
+          <div onClick={() => setDate((today) => today.weekday(7))} className="btn-text mt-2">
             следующая неделя
           </div>
         </div>

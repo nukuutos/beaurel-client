@@ -1,21 +1,39 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .profile {
   &__header {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
-
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     column-gap: 1.6rem;
+    margin-top: 2.4rem;
 
     &:after {
       margin-top: 3.2rem;
       height: 1px;
       grid-column: 1 / -1;
       display: block;
-      content: '';
+      content: "";
       background: $color-gray;
+
+      @include respond(tab-port) {
+        margin-top: 1.6rem;
+      }
+
+      @include respond(phone) {
+        margin-top: 1.2rem;
+      }
+    }
+
+    @include respond(tab-port) {
+      margin-top: 1.6rem;
+    }
+
+    @include respond(phone) {
+      margin-top: 0rem;
+      column-gap: 0.8rem;
     }
   }
 
@@ -35,15 +53,34 @@
       background: $color-gray;
       margin-top: 2rem;
       display: block;
-      content: '';
+      content: "";
       position: absolute;
       right: -2rem;
+    }
+
+    @include respond(tab-port) {
+      &:after {
+        display: none;
+      }
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / 5;
     }
   }
 
   &__biography {
     grid-column: 5 / -1;
     grid-row: 1 / 2;
+
+    @include respond(tab-port) {
+      grid-column: 4 / -1;
+      margin-left: 0.4rem;
+    }
+
+    @include respond(phone) {
+      grid-column: 5 / -1;
+    }
   }
 
   &__rating {
@@ -51,20 +88,34 @@
     align-items: center;
     justify-content: center;
     color: $color-gold;
+    margin-top: 1.6rem;
 
     & > *:last-child {
       margin-bottom: 0.2rem;
+    }
+
+    @include respond(phone) {
+      margin-top: 0.8rem;
     }
   }
 
   &__rating-score {
     font-weight: 700;
+
+    @include respond(phone) {
+      font-size: 1.2rem;
+    }
   }
 
   &__name {
     font-size: 2.4rem;
     letter-spacing: 0.4px;
     font-weight: 700;
+    margin-top: 0.8rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
   }
 
   &__specialization {
@@ -72,20 +123,43 @@
     font-weight: 700;
     color: $color-primary;
     letter-spacing: 0.4px;
+    margin-top: 0.8rem;
+
+    @include respond(phone) {
+      font-size: 1.6rem;
+      margin-top: 0.4rem;
+    }
   }
 
   &__geoposition {
     color: $color-gray-dark-1;
+    margin-top: 0.8rem;
+
+    @include respond(phone) {
+      font-size: 1.2rem;
+    }
   }
 
   &__map-marker {
-    height: 1.6rem;
+    height: 1.2rem;
     margin-right: 0.4rem;
   }
 
   &__about {
     line-height: 2.4rem;
     letter-spacing: 0.1px;
+    margin-top: 1.6rem;
+
+    @include respond(phone) {
+      margin-top: 0.8rem;
+      line-height: 2rem;
+      font-size: 1.2rem;
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__about-btn {
+    display: inline-block;
   }
 
   &__star-profile {
@@ -94,18 +168,52 @@
     justify-self: end;
     align-self: start;
     position: relative;
+
+    @include respond(phone) {
+      margin-top: 0.4rem;
+      margin-right: 0.4rem;
+      justify-self: flex-start;
+    }
   }
 
   &__cards {
-    display: contents;
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 2.4rem;
+    padding-bottom: 2rem;
+    overflow-x: auto;
 
     &:after {
-      margin-top: 2.4rem; // because of svg import
+      // margin-top: 2.4rem; // because of svg import
+      position: absolute;
+      bottom: 0;
+      width: 100%;
       height: 1px;
-      grid-column: 1 / -1;
+      // grid-column: 1 / -1;
       display: block;
-      content: '';
+      content: "";
       background: $color-gray;
+    }
+
+    @include respond(tab-port) {
+      &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      &::after {
+        width: 77.4rem;
+      }
+    }
+
+    @include respond(phone) {
+      padding: 1.6rem 0;
+
+      &::after {
+        width: 55.6rem;
+      }
     }
   }
 
@@ -123,6 +231,17 @@
 
   &__review-card {
     grid-column: 3 / 11;
+
+    @include respond(tab-port) {
+      grid-column: 1 / -1;
+      width: 51.6rem;
+      justify-self: center;
+    }
+
+    @include respond(phone) {
+      width: auto;
+      justify-self: stretch;
+    }
   }
 
   &__edit {
@@ -133,6 +252,11 @@
 
     &:hover {
       color: $color-primary;
+    }
+
+    @include respond(phone) {
+      // height: 1.2rem;
+      transform: translateY(15%);
     }
   }
 }

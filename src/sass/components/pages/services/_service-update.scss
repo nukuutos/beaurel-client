@@ -6,36 +6,36 @@ $indicator-width: 2rem;
   border: none;
   cursor: default;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -$indicator-width;
-    right: 0;
-    box-shadow: 0 1px 0.5rem rgb($color-black, 25%);
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   bottom: 0;
+  //   left: -$indicator-width;
+  //   right: 0;
+  //   box-shadow: 0 1px 0.5rem rgb($color-black, 25%);
+  //   border-top-left-radius: 0.5rem;
+  //   border-bottom-left-radius: 0.5rem;
+  // }
 
-  &::after {
-    content: '';
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    left: -$indicator-width;
-    width: $indicator-width;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-  }
+  // &::after {
+  //   content: '';
+  //   top: 0;
+  //   bottom: 0;
+  //   position: absolute;
+  //   left: -$indicator-width;
+  //   width: $indicator-width;
+  //   border-top-left-radius: 0.5rem;
+  //   border-bottom-left-radius: 0.5rem;
+  // }
 
-  &--fail::after {
-    background: $color-fail;
-  }
+  // &--fail::after {
+  //   background: $color-fail;
+  // }
 
-  &--success::after {
-    background: $color-success;
-  }
+  // &--success::after {
+  //   background: $color-success;
+  // }
 }
 
 .service-parameter-update {
@@ -45,36 +45,36 @@ $indicator-width: 2rem;
     border: none;
     cursor: default;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -$indicator-width;
-      right: 0;
-    }
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: -$indicator-width;
+    //   right: 0;
+    // }
 
-    &::after {
-      content: '';
-      top: 0;
-      bottom: 0;
-      position: absolute;
-      left: -$indicator-width;
-      width: $indicator-width;
-      overflow: hidden;
-    }
+    // &::after {
+    //   content: "";
+    //   top: 0;
+    //   bottom: 0;
+    //   position: absolute;
+    //   left: -$indicator-width;
+    //   width: $indicator-width;
+    //   overflow: hidden;
+    // }
 
     &--last::after {
       border-bottom-left-radius: 0.5rem;
     }
 
-    &--fail::after {
-      background: $color-fail;
-    }
+    // &--fail::after {
+    //   background: $color-fail;
+    // }
 
-    &--success::after {
-      background: $color-success;
-    }
+    // &--success::after {
+    //   background: $color-success;
+    // }
   }
 
   &__title {

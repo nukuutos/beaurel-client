@@ -1,4 +1,5 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .overall-review {
   display: grid;
@@ -6,8 +7,22 @@
   column-gap: 1.6rem;
   padding: 3.6rem 1.6rem;
 
-  background: $color-gray-light-3;
+  // background: $color-gray-light-3;
+  background: $color-white;
   color: $color-gray-dark-1;
+
+  margin-top: 3.2rem;
+
+  @include respond(tab-port) {
+    padding: 2.4rem 1.6rem;
+  }
+
+  @include respond(phone) {
+    margin-top: 2rem;
+
+    column-gap: 1.6rem;
+    padding: 2rem;
+  }
 
   &__result {
     grid-column: 1 / 5;
@@ -19,6 +34,10 @@
   &__score {
     font-size: 7.2rem;
     color: $color-gray-dark-2;
+
+    @include respond(phone) {
+      font-size: 5rem;
+    }
   }
 
   &__stars {
@@ -28,11 +47,29 @@
       &:not(:last-of-type) {
         margin-right: 0.8rem;
       }
+
+      @include respond(phone) {
+        // height: 1.6rem;
+
+        &:not(:last-of-type) {
+          margin-right: 0.2rem;
+        }
+      }
     }
   }
 
+  // &__reviews-count {
+  // 	@include respond(phone) {
+  // 		font-size: 1.2rem;
+  // 	}
+  // }
+
   &__rating-indicators {
     grid-column: 7 / -1;
+
+    @include respond(tab-port) {
+      grid-column: 5 / -1;
+    }
   }
 
   &__line {
@@ -41,5 +78,9 @@
     height: 100%;
     width: 1px;
     background: $color-gray-light-1;
+
+    @include respond(tab-port) {
+      display: none;
+    }
   }
 }

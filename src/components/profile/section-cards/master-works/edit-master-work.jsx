@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ErrorMessage, Form, Formik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { ErrorMessage, Form, Formik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
 
-import { workSchema } from './utils/schemas';
-import { updateWorkSuccess } from '../../../../redux/work/actions';
-import { setAlert } from '../../../../redux/alert/actions';
-import Input from '../../../form/input';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import { workSchema } from "./utils/schemas";
+import { updateWorkSuccess } from "../../../../redux/work/actions";
+import { setAlert } from "../../../../redux/alert/actions";
+import Input from "../../../form/input";
+import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
+import ModalHeading from "../../../utils/modal/modal-heading";
+import useMediaQuery from "../../../../hooks/use-media-query";
 
 const EditMasterWork = ({ state }) => {
   const [{ accessToken }, { id: profileId }, { works }] = useSelector((state) => [
@@ -16,6 +18,7 @@ const EditMasterWork = ({ state }) => {
   ]);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
+  const isPhone = useMediaQuery(600);
 
   const [{ file, src }, setState] = useState({ file: null, src: null });
   const [{ index }, setParentState] = state;
@@ -34,13 +37,19 @@ const EditMasterWork = ({ state }) => {
       setState((state) => ({ ...state, src: reader.result }));
     };
 
-    reader.readAsDataURL(file);
+    if (file) reader.readAsDataURL(file);
   };
 
   return (
-    <div className="add-master-work card">
-      <div className="add-master-work__heading heading">Обновить работу</div>
-      <img src={src} alt="Uploaded image" className="add-master-work__uploaded-image mt-8" />
+    <div className={`add-master-work ${isPhone ? "" : "card"}`}>
+      <ModalHeading
+        title="Обновить работу"
+        onClickClose={() => setParentState((state) => ({ ...state, display: "carousel" }))}
+      />
+
+      {isLoading && <div className="spinner-with-background" />}
+
+      <img src={src} alt="Uploaded image" className="add-master-work__uploaded-image" />
       {/* change button */}
       <div className="add-master-work__choose-image add-master-work__change-btn mt-3">
         <button className="btn-text">изменить</button>
@@ -55,15 +64,15 @@ const EditMasterWork = ({ state }) => {
           const { title } = values;
 
           const formData = new FormData();
-          formData.append('image', file);
-          formData.append('title', title);
+          formData.append("image", file);
+          formData.append("title", title);
 
           const config = {
-            method: 'put',
+            method: "put",
             url: `/master/${profileId}/work/${works[index]._id}`,
             data: formData,
             accessToken,
-            addingHeaders: { 'Content-Type': `multipart/form-data`, Enctype: 'multipart/form-data' },
+            addingHeaders: { "Content-Type": `multipart/form-data`, Enctype: "multipart/form-data" },
           };
 
           const data = await asyncAction(config);
@@ -72,9 +81,10 @@ const EditMasterWork = ({ state }) => {
             const { _id, ...alert } = data;
             dispatch(updateWorkSuccess({ updatedWork: { _id, title } }));
             dispatch(setAlert(alert));
-            setParentState((state) => ({ ...state, display: 'carousel' }));
+            setParentState((state) => ({ ...state, display: "carousel" }));
           }
-        }}>
+        }}
+      >
         {({}) => (
           <Form className="add-master-work__form ">
             <label htmlFor="title" className="label mt-2">
@@ -86,12 +96,15 @@ const EditMasterWork = ({ state }) => {
             </ErrorMessage>
 
             <div className="add-master-work__buttons mt-6">
-              <div
-                onClick={() => setParentState((state) => ({ ...state, display: index ? 'carousel' : 'works' }))}
-                className={`btn btn--secondary mr-4 ${isLoading ? 'btn--disabled' : ''}`}>
-                Назад
-              </div>
-              <button type="submit" className={`btn btn--primary ${isLoading ? 'btn--submitted btn--spinner' : ''}`}>
+              {!isPhone && (
+                <div
+                  onClick={() => setParentState((state) => ({ ...state, display: index ? "carousel" : "works" }))}
+                  className={`btn btn--secondary mr-4`}
+                >
+                  Назад
+                </div>
+              )}
+              <button type="submit" className={`btn btn--primary`}>
                 Обновить
               </button>
             </div>

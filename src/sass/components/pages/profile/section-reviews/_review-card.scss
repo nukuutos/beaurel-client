@@ -1,23 +1,42 @@
 @use "../../../../abstracts/colors" as *;
+@use "../../../../abstracts/mixins" as *;
 
 .review-card {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.6rem;
   padding: 1.2rem 1.6rem 1.6rem;
-  background: $color-gray-light-3;
+  // background: $color-gray-light-3;
+  background: $color-white;
+
+  margin-top: 3.2rem;
+
+  @include respond(phone) {
+    column-gap: 0.8rem;
+    padding: 0.8rem 1.2rem 0.8rem;
+    margin-top: 2rem;
+  }
 
   &__customer-photo {
     grid-column: 1 / 3;
     grid-row: 1 / 4;
     height: 6.8rem;
     border-radius: 50%;
+
+    @include respond(phone) {
+      height: 4.4rem;
+    }
   }
 
   &__customer-name {
     grid-column: 3 / 8;
     grid-row: 1 / 2;
     font-weight: 500;
+
+    @include respond(phone) {
+      margin-top: 0.4rem;
+      font-size: 1.2rem;
+    }
   }
 
   &__date {
@@ -26,6 +45,10 @@
     font-size: 1.2rem;
     color: $color-gray;
     font-weight: 500;
+
+    @include respond(phone) {
+      font-size: 0.8rem;
+    }
   }
 
   &__stars {
@@ -37,6 +60,10 @@
       height: 1.6rem;
       &:not(&:last-of-type) {
         margin-right: 0.4rem;
+
+        @include respond(phone) {
+          margin-right: 0.2rem;
+        }
       }
     }
   }
@@ -48,12 +75,21 @@
     line-height: 2.4rem;
 
     &:before {
-      content: '';
+      content: "";
       display: block;
       width: 100%;
       height: 1px;
       background: $color-gray-light-1;
       margin: 1.2rem 0;
+    }
+
+    @include respond(phone) {
+      font-size: 1.2rem;
+      line-height: 2rem;
+
+      &:before {
+        margin: 0.8rem 0;
+      }
     }
   }
 
@@ -61,5 +97,11 @@
     grid-row: 6 / 7;
     grid-column: 11 / -1;
     justify-self: end;
+    margin-top: 1.6rem;
+
+    @include respond(phone) {
+      margin-top: 0.4rem;
+      font-size: 1.2rem;
+    }
   }
 }

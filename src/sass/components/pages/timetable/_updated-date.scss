@@ -1,12 +1,14 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .updated-date {
   position: relative;
   background: $color-white;
-  padding: 2rem 2.4rem 1.6rem;
+  padding: 0 2.4rem 1.2rem;
 
   &__heading {
     grid-column: 1 / -1;
+    margin-bottom: 1.6rem;
   }
 
   &__date-picker {

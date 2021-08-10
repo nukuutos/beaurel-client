@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  getCalendarPageDates,
+  getCurrentMonthAndYear,
+  getDateUTC,
+  getFirstAndLastDatesOfMonth,
+} from "../../profile/section-cards/booking/booking-timetable/booking-phone-timetable/utils";
 
 const getMonthAndYear = (date) => [date.getMonth(), date.getFullYear()];
 
@@ -29,34 +36,33 @@ const getFirstAndLastDates = (month, year) => {
 const generateDates = (firstDate, lastDate) => {
   const weeks = [];
 
-  lastDate = lastDate.getTime();
+  let date = firstDate.clone();
 
-  while (firstDate.getTime() <= lastDate) {
-    const week = [firstDate];
+  while (!date.isAfter(lastDate)) {
+    const week = [];
 
-    for (let i = 1; i < 7; i++) {
-      const date = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + i);
+    for (let i = 0; i <= 6; i++) {
       week.push(date);
+      date = date.add(1, "day");
     }
-    weeks.push(week);
 
-    firstDate = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + 7);
+    weeks.push(week);
   }
 
   return weeks;
 };
 
 const useDatePicker = () => {
-  const [currentMonthAndYear, setCurrentMonthAndYear] = useState(getMonthAndYear(new Date())); // [month, year]
+  const { timezone } = useSelector((state) => state.timetable);
 
-  const [calendarPageDates, currentMonthDates] = getFirstAndLastDates(...currentMonthAndYear);
+  const [currentMonthAndYear, setCurrentMonthAndYear] = useState(getCurrentMonthAndYear(timezone)); // [month, year]
 
-  const [firstDate, lastDate] = calendarPageDates;
+  const monthDates = getFirstAndLastDatesOfMonth(...currentMonthAndYear);
+  const pageDates = getCalendarPageDates(...monthDates);
 
-  const dates = generateDates(firstDate, lastDate);
+  const dates = generateDates(...pageDates);
 
-  const setCurrentDate = (date) => setCurrentMonthAndYear(getMonthAndYear(date));
-  return [dates, currentMonthDates, setCurrentDate];
+  return [dates, monthDates, setCurrentMonthAndYear];
 };
 
 export default useDatePicker;

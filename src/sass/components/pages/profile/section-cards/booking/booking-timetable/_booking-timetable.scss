@@ -1,4 +1,5 @@
 @use "../../../../../../abstracts/colors" as *;
+@use "../../../../../../abstracts/mixins" as *;
 
 .booking-timetable {
   background: $color-white;
@@ -8,11 +9,25 @@
   grid-template-rows: repeat(8, min-content);
   min-width: 76.8rem;
   padding-top: 2.8rem;
-  overflow: hidden; // for border radius
   padding-right: 2rem;
+  overflow: hidden; // for border radius
+
+  @include respond(tab-port) {
+    padding-right: 0.8rem;
+    width: 56.8rem;
+    min-width: unset;
+  }
+
+  @include respond(phone) {
+    // padding-right: 0;
+    padding: 0;
+    width: 36rem;
+    height: 100%;
+  }
 
   &__heading {
     text-transform: uppercase;
+    margin-top: 0;
 
     &:after {
       display: none;
@@ -20,7 +35,8 @@
   }
 
   &__header {
-    grid-column: 4 / 10;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
     // justify-self: center;
 
     display: flex;
@@ -36,12 +52,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @include respond(phone) {
+      background: $color-gray-light-3;
+      grid-column: 1 / -1;
+    }
   }
 
   &__appointments {
     grid-column: 3 / -1;
     display: flex;
     align-items: center;
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+      flex-direction: column;
+    }
   }
 
   &__appointment {
@@ -55,14 +81,35 @@
       background: $color-primary;
       color: $color-white;
     }
+
+    @include respond(tab-port) {
+      padding: 1.2rem 0.8rem;
+    }
+
+    @include respond(phone) {
+      margin-top: 1.6rem;
+      padding: 1.2rem 3.2rem;
+    }
   }
 
   &__btn-back {
     grid-column: 1 / 3;
+    grid-row: 1 / 2;
     justify-self: center;
     align-self: start;
 
-    color: $color-gray;
+    // color: $color-gray;
+
+    @include respond(tab-port) {
+      padding: 0.8rem;
+    }
+
+    @include respond(phone) {
+      padding: 1.2rem;
+      grid-column: 1 / -1;
+      grid-row: unset;
+      justify-self: stretch;
+    }
   }
 
   &__no-appointments {
@@ -80,5 +127,49 @@
     align-items: center;
 
     transform: translateY(50%);
+
+    @include respond(tab-port) {
+      grid-row: unset;
+      grid-column: unset;
+      position: absolute;
+      width: 40rem;
+      top: 50%;
+      right: 8%;
+      transform: translateY(-50%);
+    }
+
+    @include respond(phone) {
+      // grid-column: 1 / -1;
+      font-size: 2rem;
+      line-height: 2.8rem;
+      width: 100%;
+
+      // position: relative;
+      // transform: none;
+      // top: unset;
+      // right: unset;
+      // margin-top: 4rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @include respond(phone) {
+    &__arrow {
+      top: 2.6rem;
+      position: absolute;
+
+      left: 1.6rem;
+
+      color: $color-primary-dark-1;
+      border-color: $color-primary-dark-1;
+      transform: scale(1.2);
+
+      &--right {
+        left: unset;
+        right: 1.6rem;
+      }
+    }
   }
 }

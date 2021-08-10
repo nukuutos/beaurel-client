@@ -1,4 +1,5 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .service {
   width: 100%;
@@ -17,6 +18,14 @@
 
   padding: 1.2rem;
 
+  overflow: visible; // for edit service
+
+  @include respond(tab-port) {
+    &--edit-mobile {
+      padding: 1.2rem 1.2rem 0;
+    }
+  }
+
   border: 1px solid transparent;
 
   &__side {
@@ -31,7 +40,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        content: '';
+        content: "";
         display: block;
         height: 100%;
         width: 1px;
@@ -47,6 +56,7 @@
 
   &__title {
     line-height: 2.4rem;
+    min-height: 4.4rem; // exp
   }
 
   &__group {
@@ -90,9 +100,79 @@
       // size of btn is 3.2rem, 2rem is margin
       right: -3.2rem - 2rem;
     }
+
+    @include respond(tab-port) {
+      position: relative;
+      transform: none;
+      right: initial;
+      top: initial;
+      flex: 1;
+      color: $color-gray;
+      transition: 0.2s color;
+      padding-top: 1.2rem + 1.6rem;
+      padding-bottom: 1.2rem;
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      &:first-child {
+        &::after {
+          position: absolute;
+          content: "";
+          top: 50%;
+          right: 0;
+          width: 1px;
+          height: 1.6rem;
+          background: $color-gray-light-1;
+          // margin-top: 1.6rem;
+        }
+
+        &:hover {
+          color: $color-fail;
+        }
+      }
+
+      & > * {
+        height: 1.2rem;
+        margin-left: 1.2rem;
+      }
+
+      &:hover {
+        color: $color-primary;
+      }
+
+      &--confirm:hover {
+        color: $color-success;
+      }
+    }
+  }
+
+  @include respond(tab-port) {
+    &__mobile-buttons {
+      position: relative;
+      grid-row: 2 / 3;
+      grid-column: 1 / -1;
+      display: flex;
+      // justify-content: space-around;
+
+      font-size: 1.2rem;
+
+      &:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        width: 100%;
+        height: 1px;
+        background: $color-gray-light-1;
+        margin-top: 1.6rem;
+      }
+    }
   }
 
   &--add {
+    padding-bottom: 1.2rem;
     transition: 0.2s color;
     color: $color-gray;
 

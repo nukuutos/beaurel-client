@@ -1,27 +1,61 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .master-works {
-  $size: 27rem;
-
   position: relative;
-  display: grid;
   background: $color-gray-light-3;
-  grid-template-columns: repeat(3, $size);
-  grid-auto-rows: $size;
-  overflow: hidden;
+  max-width: 81rem;
+  display: grid;
+  // overflow: hidden;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fit, 27rem);
+
+  &--loading {
+    height: 27rem;
+    width: 27rem;
+  }
+
+  @include respond(tab-port) {
+    grid-template-columns: repeat(auto-fit, 18.9rem);
+    max-width: 56.8rem;
+  }
+
+  @include respond(phone) {
+    min-height: unset;
+    max-width: unset;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    background: $color-white;
+
+    &--loading {
+      height: 100%;
+      width: 100%;
+    }
+  }
 
   &__add-work {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: $color-gray;
     transition: 0.2s background;
     background: rgba($color-black, 0.12);
     cursor: pointer;
 
+    padding-top: 100%;
+    position: relative;
+
     & > * {
+      position: absolute;
       height: 4rem;
       transition: 0.2s color;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @include respond(phone) {
+        height: 3.2rem;
+      }
     }
 
     &:hover {

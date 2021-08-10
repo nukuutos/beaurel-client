@@ -1,8 +1,10 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 // what about min/max-content of cards' labels?
 
 .timetable-card {
+  position: relative;
   grid-column: 2 / 12;
 
   display: grid;
@@ -10,8 +12,19 @@
   column-gap: 0.8rem;
   padding: 1.6rem 1.6rem 2rem;
 
+  @include respond(tab-port) {
+    padding: 1.6rem 1.2rem 2rem;
+    grid-column: 1 / -1;
+    grid-template-columns: max-content 1fr;
+  }
+
   &--edit {
     grid-template-columns: max-content minmax(min-content, 7rem) repeat(10, 1fr);
+
+    @include respond(tab-port) {
+      // grid-template-columns: max-content 1fr;
+      grid-template-columns: max-content max-content;
+    }
   }
 
   &__heading {
@@ -19,9 +32,7 @@
     grid-column: 1 / -1;
     grid-row: 1 / 2;
     // for updated timetable
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    line-height: 2.8rem;
   }
 
   &__label {
@@ -72,6 +83,13 @@
     & > * {
       width: 6rem;
     }
+
+    @include respond(phone) {
+      height: 3.6rem;
+      font-size: 1.6rem;
+      padding-left: 1.2rem;
+      width: 8rem;
+    }
   }
 
   &__exceptions {
@@ -92,5 +110,22 @@
     &--bottom {
       align-self: end;
     }
+
+    @include respond(phone) {
+      grid-column: 3 / 4;
+
+      &--absolute {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+      }
+    }
+  }
+
+  &__delete-btn {
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+    justify-self: flex-end;
+    align-self: center;
   }
 }

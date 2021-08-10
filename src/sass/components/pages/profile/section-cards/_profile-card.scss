@@ -1,15 +1,33 @@
 @use "../../../../abstracts/colors" as *;
+@use "../../../../abstracts/mixins" as *;
 
 .profile-card {
-  grid-column: span 4;
-  margin-left: -1rem; //  it's bigger on 20px than i expected because of export of svg scene from figma
-  position: relative;
-  margin-top: 2.4rem;
-  cursor: pointer;
+	grid-column: span 4;
+	// margin-left: -1rem; //  it's bigger on 20px than i expected because of export of svg scene from figma
+	position: relative;
+	cursor: pointer;
 
-  transition: 0.2s transform;
+	transition: 0.2s transform;
 
-  &:hover {
-    transform: translateY(-0.5rem);
-  }
+	height: 16.7rem;
+	box-shadow: 0 0 0.5rem rgb(0 0 0 / 25%);
+	border-radius: 0.9rem;
+
+	&:hover {
+		transform: translateY(-0.5rem);
+	}
+
+	@include respond(tab-port) {
+		&:not(:first-of-type) {
+			margin-left: 1.2rem;
+		}
+	}
+
+	@include respond(phone) {
+		height: 12rem;
+
+		&:not(:first-of-type) {
+			margin-left: .8rem;
+		}
+	}
 }

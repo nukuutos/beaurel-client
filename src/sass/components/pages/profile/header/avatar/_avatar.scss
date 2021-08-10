@@ -1,11 +1,23 @@
-$diameter: 14rem;
+@use "../../../../../abstracts/mixins" as *;
 
 .avatar {
+  $diameter: 14rem;
+  $diameterTabPort: 11.6rem;
+  $diameterPhone: 6.8rem;
+
   position: relative;
 
   &__image {
     width: $diameter;
     border-radius: 50%;
+
+    @include respond(tab-port) {
+      width: $diameterTabPort;
+    }
+
+    @include respond(phone) {
+      width: $diameterPhone;
+    }
   }
 
   &__change-image {
@@ -27,12 +39,27 @@ $diameter: 14rem;
 
     &:hover {
       opacity: 1;
-      background: rgba(0, 0, 0, 0.5);
+      // background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    @include respond(tab-port) {
+      width: $diameterTabPort;
+      height: $diameterTabPort;
+    }
+
+    @include respond(phone) {
+      width: $diameterPhone;
+      height: $diameterPhone;
     }
   }
 
   &__pen-icon {
-    height: 3rem;
+    height: 2.4rem;
     color: #ad60e2;
+
+    @include respond(phone) {
+      height: 1.6rem;
+    }
   }
 }

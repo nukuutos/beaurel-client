@@ -8,22 +8,22 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   },
   {
     $lookup: {
-      from: 'users',
+      from: "users",
       let: {
-        customerId: '$customerId',
+        customerId: "$customerId",
       },
       pipeline: [
-        { $match: { $expr: { $eq: ['$_id', '$$customerId'] } } },
+        { $match: { $expr: { $eq: ["$_id", "$$customerId"] } } },
         {
           $project: {
-            _id: { $convert: { input: '$_id', to: 'string' } },
+            _id: { $convert: { input: "$_id", to: "string" } },
             firstName: 1,
             lastName: 1,
             avatar: 1,
           },
         },
       ],
-      as: 'user',
+      as: "user",
     },
   },
   {
@@ -34,10 +34,11 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   },
   {
     $addFields: {
-      _id: { $convert: { input: '$_id', to: 'string' } },
-      user: { $arrayElemAt: ['$user', 0] },
-      date: { $convert: { input: '$date', to: 'string' } },
-      createdAt: { $convert: { input: '$createdAt', to: 'string' } },
+      _id: { $convert: { input: "$_id", to: "string" } },
+      user: { $arrayElemAt: ["$user", 0] },
+      date: { $convert: { input: "$date", to: "string" } },
+      createdAt: { $convert: { input: "$createdAt", to: "string" } },
+      "service.update.date": { $convert: { input: "$service.update.date", to: "string" } },
     },
   },
 ];

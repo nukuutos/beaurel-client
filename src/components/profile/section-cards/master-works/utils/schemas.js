@@ -1,10 +1,10 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 export const titleField = Yup.string()
   .trim()
-  .min(2, 'Minimum length is 2 characters')
-  .max(30, 'Maximum length is 30 characters')
-  .required('Field is required'); // wth???
+  .min(2, "Минимальная длина - 2 символа!")
+  .max(30, "Максимальная длина - 30 символов!")
+  .required("Необходимо заполнить!");
 
 export const workSchema = Yup.object().shape({
   title: titleField,

@@ -1,12 +1,12 @@
-import { setAppointmentService } from '../../../../../redux/appointments/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import Service from '../../../../services/service';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import getIsDisabled from './utils/get-is-disabled';
-import getCorrectService from './utils/get-correct-service';
+import { setAppointmentService } from "../../../../../redux/appointments/actions";
+import { useSelector, useDispatch } from "react-redux";
+import Service from "../../../../services/service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import getIsDisabled from "./utils/get-is-disabled";
+import getCorrectService from "./utils/get-correct-service";
 
 // service that can be disabled
-const BookingService = ({ service, setStep, today }) => {
+const BookingService = ({ service, setStep, today, isUpdated }) => {
   const [{ bookingAppointment }, timetable] = useSelector((state) => [state.appointments.booking, state.timetable]);
 
   const dispatch = useDispatch();
@@ -22,19 +22,20 @@ const BookingService = ({ service, setStep, today }) => {
     setStep((state) => {
       if (state.step === 2) {
         // first was timetable
-        return { ...state, isService: false, isResult: true, step: state.step + 1, lastStepName: 'service' };
+        return { ...state, isService: false, isResult: true, step: state.step + 1, lastStepName: "service" };
       }
 
       // first was services
-      return { ...state, isService: false, isTimetable: true, step: state.step + 1, lastStepName: 'service' };
+      return { ...state, isService: false, isTimetable: true, step: state.step + 1, lastStepName: "service" };
     });
   };
 
   return (
     <div
-      className={`service service--hover booking-service ${isDisabled ? 'booking-service--disabled' : ''} card mt-6`}
-      onClick={isDisabled ? null : handleOnClick}>
-      <Service service={getCorrectService(service, bookingAppointment.date)} />
+      className={`service service--hover booking-service ${isDisabled ? "booking-service--disabled" : ""} card mt-6`}
+      onClick={isDisabled ? null : handleOnClick}
+    >
+      <Service service={getCorrectService(service, bookingAppointment.date, isUpdated)} />
 
       <div className="booking-service__arrow">
         <FontAwesomeIcon icon="chevron-right" />

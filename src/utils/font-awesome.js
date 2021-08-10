@@ -1,4 +1,4 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 import {
   faUser, // not used
@@ -10,7 +10,7 @@ import {
   faHeart as regHeart,
   faEye,
   faEyeSlash,
-} from '@fortawesome/free-regular-svg-icons';
+} from "@fortawesome/free-regular-svg-icons";
 
 import {
   faClock,
@@ -43,11 +43,14 @@ import {
   faHeart,
   faCrosshairs,
   faGripVertical,
-} from '@fortawesome/free-solid-svg-icons';
+  faBars,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { faInstagram } from '@fortawesome/free-brands-svg-icons'; // delete
+import { faInstagram } from "@fortawesome/free-brands-svg-icons"; // delete
 
 library.add(
+  faBars,
   faGripVertical,
   faCaretLeft,
   faCrosshairs,
@@ -86,5 +89,6 @@ library.add(
   faChevronCircleRight,
   faLongArrowAltLeft,
   faCheck,
-  faGripLinesVertical
+  faGripLinesVertical,
+  faArrowLeft
 );

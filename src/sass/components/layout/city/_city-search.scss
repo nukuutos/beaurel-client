@@ -1,8 +1,9 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .city-search {
   width: 45.8rem;
-  padding: 2.4rem 3.2rem;
+  padding: 0 3.2rem 2.4rem;
   background: $color-white;
   transform: translateY(-4rem);
   display: flex;
@@ -10,8 +11,17 @@
   height: 58.8rem;
   overflow-y: scroll;
 
+  @include respond(phone) {
+    width: 36rem;
+    transform: none;
+  }
+
   &__bar {
     width: 100%;
+
+    @include respond(phone) {
+      margin-top: 2rem;
+    }
   }
 
   &__city {

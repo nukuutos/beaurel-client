@@ -1,4 +1,5 @@
 @use "../../../abstracts/colors" as *;
+@use "../../../abstracts/mixins" as *;
 
 .city {
   grid-column: 2 / 4;
@@ -7,8 +8,9 @@
   align-self: center;
   padding: 1.6rem 2rem;
   color: $color-primary-dark-2;
-  transition: 0.2s background;
   cursor: pointer;
+  background: $color-white;
+  transition: 0.2s background;
 
   &__icon {
     height: 1.6rem;
@@ -17,5 +19,22 @@
 
   &:hover {
     background: $color-primary-light-2;
+  }
+
+  @include respond(tab-land) {
+    grid-column: content-start / content-end;
+    grid-row: 1 / 2;
+    justify-self: flex-end;
+    align-self: flex-start;
+    padding: 2rem;
+  }
+
+  @include respond(phone) {
+    display: none;
+
+    &--mobile {
+      display: flex;
+      padding: 1.6rem;
+    }
   }
 }

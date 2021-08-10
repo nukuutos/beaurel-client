@@ -1,9 +1,25 @@
+@use '../../../abstracts/mixins' as *;
+
 .masters {
   &__heading {
     grid-column: 4 / 10;
+    margin-bottom: 2rem;
   }
 
   &__master-card {
     grid-column: 2 / 12;
+    margin-bottom: 2rem;
+  }
+
+  @include respond(phone) {
+    &__heading {
+      grid-column: 1 / -1;
+      margin-bottom: 1.2rem;
+    }
+
+    &__master-card {
+      grid-column: 1 / -1;
+      margin-top: 1.6rem;
+    }
   }
 }
