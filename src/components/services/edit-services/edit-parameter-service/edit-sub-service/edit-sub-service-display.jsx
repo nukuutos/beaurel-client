@@ -14,7 +14,7 @@ const DesktopButtons = ({ setIsEdit, deleteService }) => {
       <div onClick={() => setIsEdit(true)} className="service__btn  service__btn--first btn-icon">
         <FontAwesomeIcon icon="pen" />
       </div>
-      <div onClick={() => deleteService(id)} className="service__btn btn-icon btn-icon--fail">
+      <div onClick={deleteService} className="service__btn btn-icon btn-icon--fail">
         <FontAwesomeIcon icon="trash" />
       </div>
     </>
@@ -24,7 +24,7 @@ const DesktopButtons = ({ setIsEdit, deleteService }) => {
 const TabletButtons = ({ setIsEdit, deleteService }) => {
   return (
     <div className="service__mobile-buttons">
-      <div onClick={() => deleteService(id)} className="service__btn">
+      <div onClick={deleteService} className="service__btn">
         Удалить
         <FontAwesomeIcon icon="trash" />
       </div>
@@ -36,13 +36,13 @@ const TabletButtons = ({ setIsEdit, deleteService }) => {
   );
 };
 
-const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEdit, title }) => {
+const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEdit, title, order }) => {
   const [asyncAction, isLoading] = useAsyncAction();
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
   const isTablet = useMediaQuery(900);
 
   const dispatch = useDispatch();
-  const { id } = subService;
+  const { id, subOrder } = subService;
 
   const deleteService = async () => {
     const config = {
@@ -54,16 +54,23 @@ const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEd
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(deleteSubServiceSuccess({ id, title }));
+      dispatch(deleteSubServiceSuccess({ id, title, subOrder, order }));
       dispatch(setAlert(alert));
     }
   };
 
   const renderButtons = (isTablet, setIsEdit, deleteService) =>
     isTablet ? (
-      <TabletButtons setIsEdit={setIsEdit} deleteService={deleteService} />
+      <TabletButtons setIsEdit={setIsEdit} deleteService={() => deleteService(id)} />
     ) : (
-      <DesktopButtons setIsEdit={setIsEdit} deleteService={deleteService} />
+      <DesktopButtons setIsEdit={setIsEdit} deleteService={() => deleteService(id)} />
+    );
+
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
     );
 
   return (
@@ -74,11 +81,10 @@ const EditSubServiceDisplay = ({ onMouseEnter, onMouseLeave, subService, setIsEd
         className={`service service--hover service--edit-mobile service-parameter__sub-service`}
       >
         <SubService subService={subService} />
-        {isLoading ? (
-          <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-        ) : (
-          renderButtons(isTablet, setIsEdit, deleteService)
-        )}
+
+        {/* {!isLoading && renderButtons(isTablet, setIsEdit, deleteService)} */}
+
+        {isLoading ? renderLoading(isTablet) : renderButtons(isTablet, setIsEdit, deleteService)}
       </div>
     </>
   );

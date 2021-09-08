@@ -6,12 +6,7 @@ import Select from "../../../../form/select";
 import displayDuration from "../../../utils/display-duration";
 import { useSelector } from "react-redux";
 
-const UpdateSubService = ({
-  subService,
-  initialDuration,
-  fieldName,
-  isLast,
-}) => {
+const UpdateSubService = ({ subService, initialDuration, fieldName, isLast }) => {
   const { parameter, duration, price, id } = subService;
   const [{ sessionTime }] = useSelector((state) => [state.timetable.update]);
 
@@ -23,9 +18,7 @@ const UpdateSubService = ({
     >
       <span className="service__side service__side--left">
         <span className="label">Параметр</span>
-        <span className={"service__title service-parameter__parameter"}>
-          {parameter}
-        </span>
+        <span className={"service__title service-parameter__parameter"}>{parameter}</span>
       </span>
 
       <div className="service__side service__side--right edit-service__side">
@@ -35,16 +28,9 @@ const UpdateSubService = ({
           } ml-4`}
         >
           <FontAwesomeIcon className="input__icon" icon="clock" />
-          <Select
-            value={duration}
-            className="input"
-            name={fieldName}
-            as="select"
-          >
-            <option className="input__hide">
-              {displayDuration(initialDuration)}
-            </option>
-            {renderDurationOptions(sessionTime)}
+          <Select value={duration} className="input" name={fieldName} as="select">
+            <option className="input__hide">{displayDuration(Number(initialDuration))}</option>
+            {renderDurationOptions(Number(sessionTime))}
           </Select>
         </div>
 

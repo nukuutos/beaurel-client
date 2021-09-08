@@ -1,4 +1,5 @@
 @use "../../../../../abstracts/colors" as *;
+@use "../../../../../abstracts/mixins" as *;
 
 .booking-result {
   width: 45.2rem;
@@ -7,7 +8,11 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.6rem;
-  padding: 2.4rem 0;
+  padding: 0 0 2.4rem;
+
+  @include respond(phone) {
+    padding: 2.4rem 0;
+  }
 
   &__heading {
     grid-column: 2 / 12;
@@ -16,6 +21,10 @@
   &__svg {
     grid-column: 4 / 10;
     justify-self: center;
+
+    @include respond(phone) {
+      margin-top: 3.2rem;
+    }
   }
 
   &__label {
@@ -35,5 +44,11 @@
 
     display: flex;
     justify-content: flex-end;
+
+    @include respond(phone) {
+      & > * {
+        flex: 1;
+      }
+    }
   }
 }

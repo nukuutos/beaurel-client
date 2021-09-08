@@ -44,7 +44,9 @@ const BookingParameterService = ({ service, setStep, isUpdated }) => {
               onMouseLeave={() => setIsHoverSubService(false)}
               onMouseEnter={() => setIsHoverSubService(true)}
               onClick={isDisabled ? null : handleOnClick}
-              className={`service service--hover booking-service ${isDisabled ? "booking-service--disabled" : ""}`}
+              className={`service service--hover booking-service service-parameter__sub-service ${
+                isDisabled ? "booking-service--disabled" : ""
+              }`}
               key={i}
             >
               <SubService subService={getCorrectService(subService, bookingAppointment.date, isUpdated)} />

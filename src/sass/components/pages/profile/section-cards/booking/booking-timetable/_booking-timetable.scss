@@ -2,14 +2,28 @@
 @use "../../../../../../abstracts/mixins" as *;
 
 .booking-timetable {
+  // display: flex;
+
+  // &__main {
   background: $color-white;
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(8, min-content);
-  min-width: 76.8rem;
+  width: 76.8rem;
   padding-top: 2.8rem;
-  padding-right: 2rem;
+
+  // padding-right: 2rem;
+
+  &--back {
+    padding-top: 0;
+    transform: translateY(-2rem); // back-btn
+
+    .booking-timetable__no-appointments {
+      grid-row: 5;
+    }
+  }
+
   overflow: hidden; // for border radius
 
   @include respond(tab-port) {
@@ -23,6 +37,47 @@
     padding: 0;
     width: 36rem;
     height: 100%;
+
+    grid-template-rows: unset;
+    grid-template-rows: min-content 1fr;
+    // grid-auto-rows: min-content;
+
+    // overflow-y: auto;
+  }
+  // }
+
+  &__back-btn {
+    height: 4.4rem;
+    grid-column: 1 / -1;
+    // height: 64.8rem;
+    // background: red;
+
+    background: rgba($color-gray-light-1, 0.1);
+    padding: 0 2.4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    cursor: pointer;
+    transition: 0.2s background;
+    color: $color-gray-dark-2;
+
+    margin-bottom: 1.6rem;
+
+    &:hover {
+      & > * {
+        color: $color-primary;
+      }
+
+      background: rgba($color-gray, 0.2);
+    }
+
+    & > * {
+      color: $color-gray;
+      height: 2rem;
+      transition: 0.2s color;
+      margin-right: 2rem;
+    }
   }
 
   &__heading {
@@ -36,7 +91,7 @@
 
   &__header {
     grid-column: 1 / -1;
-    grid-row: 1 / 2;
+    // grid-row: 1 / 2;
     // justify-self: center;
 
     display: flex;
@@ -53,9 +108,16 @@
     flex-direction: column;
     align-items: center;
 
+    @include respond(tab-port) {
+      font-size: 1.2rem;
+    }
+
     @include respond(phone) {
+      font-size: 1.6rem;
+
       background: $color-gray-light-3;
       grid-column: 1 / -1;
+      grid-row: 1 / 2;
     }
   }
 
@@ -63,10 +125,46 @@
     grid-column: 3 / -1;
     display: flex;
     align-items: center;
+    overflow-x: auto;
+
+    padding-right: 2rem;
+
+    &::-webkit-scrollbar {
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      // background-color: darkgrey;
+      background-color: $color-primary;
+      // background-color: $color-gray-light-1;
+      border-radius: 1rem;
+    }
+
+    // &::-webkit-scrollbar-track {
+    //   border-radius: 10px;
+    //   border-top-left-radius: 0;
+    //   border-bottom-left-radius: 0;
+    // }
+
+    @include respond(tab-land) {
+      &::-webkit-scrollbar {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+    }
 
     @include respond(phone) {
-      grid-column: 1 / -1;
+      grid-column: 3 / 11;
       flex-direction: column;
+      grid-row: 2 / 3;
+      padding-bottom: 2rem;
+
+      &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
     }
   }
 
@@ -139,37 +237,49 @@
     }
 
     @include respond(phone) {
-      // grid-column: 1 / -1;
       font-size: 2rem;
       line-height: 2.8rem;
       width: 100%;
 
-      // position: relative;
-      // transform: none;
-      // top: unset;
-      // right: unset;
-      // margin-top: 4rem;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
   }
 
+  &__side {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.2s background;
+
+    &:hover {
+      background: rgba($color-gray-light-1, 0.1);
+    }
+
+    &--right {
+      grid-column: -3 / -1;
+    }
+
+    &:hover > .btn-icon {
+      border: 1px solid $color-primary;
+      color: $color-primary;
+      box-shadow: 0 0 5px rgb(0 0 0 / 25%);
+    }
+  }
+
   @include respond(phone) {
     &__arrow {
-      top: 2.6rem;
-      position: absolute;
-
-      left: 1.6rem;
-
-      color: $color-primary-dark-1;
-      border-color: $color-primary-dark-1;
-      transform: scale(1.2);
-
-      &--right {
-        left: unset;
-        right: 1.6rem;
-      }
+      // color: $color-primary-dark-1;
+      // border-color: $color-primary-dark-1;
+      // transform: scale(1.2);
+      transform: translateY(-250%);
     }
   }
 }

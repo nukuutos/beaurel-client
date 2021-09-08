@@ -61,6 +61,13 @@ const EditTitleForm = ({ title, setIsEdit }) => {
     title: titleField,
   });
 
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
+    );
+
   const renderButtons = (isTablet, setIsEdit, submitForm, dirty) =>
     isTablet ? (
       <TabletButtons setIsEdit={setIsEdit} submitForm={submitForm} dirty={dirty} />
@@ -110,11 +117,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
               </div>
             </div>
 
-            {isLoading ? (
-              <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-            ) : (
-              renderButtons(isTablet, setIsEdit, submitForm, dirty)
-            )}
+            {isLoading ? renderLoading(isTablet) : renderButtons(isTablet, setIsEdit, submitForm, dirty)}
           </Form>
         </>
       )}

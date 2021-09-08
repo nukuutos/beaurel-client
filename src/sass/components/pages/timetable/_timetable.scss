@@ -15,6 +15,30 @@
     display: contents;
   }
 
+  &__buttons {
+    grid-column: 1 / 12;
+    justify-self: flex-end;
+    display: flex;
+
+    & > *:last-child {
+      margin-left: 1.2rem;
+    }
+
+    @include respond(tab-port) {
+      grid-column: 1/ -1;
+    }
+
+    @include respond(phone) {
+      justify-self: stretch;
+      flex-direction: column-reverse;
+
+      & > *:last-child {
+        margin-left: 0;
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+
   &__button {
     grid-column: 1 / 12;
     justify-self: flex-end;

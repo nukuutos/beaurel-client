@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import { getTimetableSuccess } from "../../../../../../redux/timetable/actions";
-// import { getPreviousWeek, getNextWeek } from "../utils/get-week";
 import useWeek from "../use-week/use-week";
 import { getAppointmentsSuccess, unsetAppointmentService } from "../../../../../../redux/appointments/actions";
 import useAsyncAction from "../../../../../../hooks/use-async-action/use-async-action";
 import useMediaQuery from "../../../../../../hooks/use-media-query";
 import { getCurrentWeekday } from "./utils";
+import { useSwipeable } from "react-swipeable";
 
 const BookingPhoneTimetable = ({ stepState, onClickClose }) => {
   const [{ step }, setStep] = stepState;
@@ -26,7 +26,12 @@ const BookingPhoneTimetable = ({ stepState, onClickClose }) => {
     state.appointments,
   ]); // i can use query
 
-  const [dateCounter, setDateCounter] = useState(getCurrentWeekday() + 1); // date counter from today
+  const [dateCounter, setDateCounter] = useState((getCurrentWeekday() + 1) % 7); // date counter from today
+
+  useEffect(() => {
+    if (getCurrentWeekday() + 1 === 7) setWeekByDate((today) => today.weekday(7));
+  }, []);
+
   const isPhone = useMediaQuery(600);
 
   const getDataForBooking = async () => {
@@ -64,70 +69,91 @@ const BookingPhoneTimetable = ({ stepState, onClickClose }) => {
         }
       : onClickClose;
 
+  const toPrevDay = () => {
+    setDateCounter((i) => {
+      i = i - 1;
+
+      if (i === -1) {
+        setWeekByDate((today) => today.weekday(-7));
+        return 6;
+      }
+
+      return i;
+    });
+  };
+
+  const toNextDay = () => {
+    setDateCounter((i) => {
+      i = i + 1;
+
+      if (i === weekDays.length) {
+        setWeekByDate((today) => today.weekday(7));
+        return 0;
+      }
+
+      return i;
+    });
+  };
+
+  const handlers = useSwipeable(
+    isUnavailableWeek
+      ? {}
+      : {
+          onSwipedLeft: toNextDay,
+          onSwipedRight: toPrevDay,
+          delta: 10,
+        }
+  );
+
   return (
-    <div className={`booking-timetable ${isPhone ? "" : "card"}`}>
+    <>
       {isLoading && <div className="spinner-with-background" />}
-
-      <nav className={`modal__back-bar card card--layout`}>
-        <div className="back-bar__main">
-          <FontAwesomeIcon onClick={onClickBack} className="back-bar__icon mr-6" icon="arrow-left" />
-          Выберите время
-        </div>
-      </nav>
-
-      <div
-        onClick={() => {
-          setDateCounter((i) => {
-            i = i - 1;
-
-            if (i === -1) {
-              setWeekByDate((today) => today.weekday(-7));
-              return 6;
-            }
-
-            return i;
-          });
-        }}
-        className={`booking-timetable__arrow btn-icon mr-6`}
-      >
-        <FontAwesomeIcon icon="chevron-left" />
-      </div>
-
-      <div
-        onClick={() => {
-          setDateCounter((i) => {
-            i = i + 1;
-
-            if (i === weekDays.length) {
-              setWeekByDate((today) => today.weekday(7));
-              return 0;
-            }
-
-            return i;
-          });
-        }}
-        className={`booking-timetable__arrow booking-timetable__arrow--right btn-icon ml-6`}
-      >
-        <FontAwesomeIcon icon="chevron-right" />
-      </div>
-
-      {weekDays[dateCounter]}
-
-      {isUnavailableWeek && (
-        <div className="booking-timetable__no-appointments">
-          На этой неделе нет свободных записей!
-          <div
-            onClick={() => {
-              setWeekByDate((today) => today.weekday(7));
-              setDateCounter(0);
-            }}
-            className="btn-text"
-          >
-            следующая неделя
+      <div {...handlers} className={`booking-timetable ${isPhone ? "" : "card"}`}>
+        <nav className={`modal__back-bar card card--layout`}>
+          <div className="back-bar__main">
+            <FontAwesomeIcon onClick={onClickBack} className="back-bar__icon mr-6" icon="arrow-left" />
+            Выберите время
           </div>
-        </div>
-      )}
-    </div>
+        </nav>
+
+        {!isUnavailableWeek && (
+          <>
+            <div onClick={toPrevDay} className="booking-timetable__side">
+              <div className={`booking-timetable__arrow btn-icon`}>
+                <FontAwesomeIcon icon="chevron-left" />
+              </div>
+            </div>
+
+            <div onClick={toNextDay} className="booking-timetable__side booking-timetable__side--right">
+              <div className={`booking-timetable__arrow booking-timetable__arrow--right btn-icon`}>
+                <FontAwesomeIcon icon="chevron-right" />
+              </div>
+            </div>
+          </>
+        )}
+
+        {weekDays[dateCounter]}
+
+        {!weekDays[dateCounter].props.availableAppointments && !isUnavailableWeek && (
+          <p className="booking-timetable__no-appointments">Нет записей</p>
+        )}
+
+        {isUnavailableWeek && (
+          <div className="booking-timetable__no-appointments">
+            На этой неделе нет свободных записей!
+            <div
+              onClick={() => {
+                setWeekByDate((today) => today.weekday(7));
+                setDateCounter(0);
+              }}
+              className="btn-text"
+            >
+              следующая неделя
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

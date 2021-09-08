@@ -41,120 +41,112 @@ const AddSubServicesForm = ({ onClickClose }) => {
 
         if (data) {
           const { ids, ...alert } = data;
-          dispatch(addServiceParameterSuccess({ service: { ids, ...service } }));
+          dispatch(addServiceParameterSuccess({ ids, serviceParameter: service }));
           dispatch(setAlert(alert));
           resetForm();
+          onClickClose();
         }
       }}
     >
-      {({ values, isSubmitting }) => (
-        <Form
-          className={`add-service__form ${values.subServices.length !== 1 ? "add-service__form--sub-service" : ""}`}
-        >
-          <div className="add-service__title mt-5">
-            <label className="label " htmlFor="title">
-              Название
-            </label>
-            <Input className="input" type="text" name="title" id="title" />
-            <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
+      {({ values, isSubmitting, submitForm }) =>
+        isLoading ? (
+          <div className="add-service__form">
+            <div className="spinner-with-background"></div>
           </div>
-
-          <FieldArray name="subServices">
-            {({ remove, push }) => (
-              <>
-                {values.subServices.map((subService, i) => {
-                  return (
-                    <Fragment key={i}>
-                      <div className="add-service__parameter-and-btn">
-                        <div className="add-service__title add-service__parameter mt-4">
-                          <label className="label " htmlFor="title">
-                            Параметр
-                          </label>
-                          <Input
-                            className="input"
-                            type="text"
-                            name={`subServices.${i}.parameter`}
-                            id={`subServices.${i}.parameter`}
-                          />
-                          <ErrorMessage name={`subServices.${i}.parameter`}>
-                            {(msg) => <div className="error mt-1">{msg}</div>}
-                          </ErrorMessage>
-                        </div>
-                        {i !== 0 && (
-                          <div onClick={() => remove(i)} className="add-service__delete btn-icon btn-icon--fail ml-2">
-                            <FontAwesomeIcon icon="trash" />
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="add-service__price-and-duration mt-6">
-                        <div className="add-service__duration mr-4">
-                          <label className="label" htmlFor={`subServices.${i}.duration`}>
-                            Длительность
-                          </label>
-                          <div className="input--icon">
-                            <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
-                            <Select
-                              value={subService.duration}
-                              className="input"
-                              name={`subServices.${i}.duration`}
-                              as="select"
-                            >
-                              {renderDurationOptions(sessionTime)}
-                            </Select>
-                          </div>
-                        </div>
-
-                        <div className="add-service__price">
-                          <label className="label " htmlFor={`subServices.${i}.price`}>
-                            Цена
-                          </label>
-                          <InputIcon
-                            type="number"
-                            name={`subServices.${i}.price`}
-                            inputClassName={"input"}
-                            wrapperClassName={"input--icon input--mini"}
-                          >
-                            <FontAwesomeIcon className="input__icon input__icon--m" icon="ruble-sign" />
-                          </InputIcon>
-                          <ErrorMessage name={`subServices.${i}.price`}>
-                            {(msg) => <div className="error mt-1">{msg}</div>}
-                          </ErrorMessage>
-                        </div>
-                      </div>
-                    </Fragment>
-                  );
-                })}
-                <div
-                  className="add-service__add card mt-6"
-                  onClick={() => push({ parameter: "", duration: "", price: "" })}
-                >
-                  <FontAwesomeIcon icon="plus" />
-                </div>
-              </>
-            )}
-          </FieldArray>
-          <button
-            disabled={isSubmitting}
-            className={`add-service__button mt-9 btn btn--primary ${isLoading ? "btn--submitted btn--spinner" : ""}`}
-            type="submit"
+        ) : (
+          <Form
+            className={`add-service__form ${values.subServices.length !== 1 ? "add-service__form--sub-service" : ""}`}
           >
-            Добавить
-          </button>
-          {/* {isPhone && (
-            <button
-              disabled={isSubmitting}
-              onClick={() => onClickClose()}
-              className={`add-service__button btn btn--primary btn--gray mt-4 ${
-                isLoading ? "btn--disabled" : ""
-              }`}
-              type="submit"
-            >
-              Отменить
+            {isLoading && <div className="spinner-with-background"></div>}
+            <div className="add-service__title mt-5">
+              <label className="label " htmlFor="title">
+                Название
+              </label>
+              <Input className="input" type="text" name="title" id="title" />
+              <ErrorMessage name="title">{(msg) => <div className="error mt-1">{msg}</div>}</ErrorMessage>
+            </div>
+
+            <FieldArray name="subServices">
+              {({ remove, push }) => (
+                <>
+                  {values.subServices.map((subService, i) => {
+                    return (
+                      <Fragment key={i}>
+                        <div className="add-service__parameter-and-btn">
+                          <div className="add-service__title add-service__parameter mt-4">
+                            <label className="label " htmlFor="title">
+                              Параметр
+                            </label>
+                            <Input
+                              className="input"
+                              type="text"
+                              name={`subServices.${i}.parameter`}
+                              id={`subServices.${i}.parameter`}
+                            />
+                            <ErrorMessage name={`subServices.${i}.parameter`}>
+                              {(msg) => <div className="error mt-1">{msg}</div>}
+                            </ErrorMessage>
+                          </div>
+                          {i !== 0 && (
+                            <div onClick={() => remove(i)} className="add-service__delete btn-icon btn-icon--fail ml-2">
+                              <FontAwesomeIcon icon="trash" />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="add-service__price-and-duration mt-6">
+                          <div className="add-service__duration mr-4">
+                            <label className="label" htmlFor={`subServices.${i}.duration`}>
+                              Длительность
+                            </label>
+                            <div className="input--icon">
+                              <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
+                              <Select
+                                value={subService.duration}
+                                className="input"
+                                name={`subServices.${i}.duration`}
+                                as="select"
+                              >
+                                {renderDurationOptions(sessionTime)}
+                              </Select>
+                            </div>
+                          </div>
+
+                          <div className="add-service__price">
+                            <label className="label " htmlFor={`subServices.${i}.price`}>
+                              Цена
+                            </label>
+                            <InputIcon
+                              type="number"
+                              name={`subServices.${i}.price`}
+                              inputClassName={"input ml-1"}
+                              wrapperClassName={"input--icon input--mini"}
+                            >
+                              <FontAwesomeIcon className="input__icon input__icon--m" icon="ruble-sign" />
+                            </InputIcon>
+                            <ErrorMessage name={`subServices.${i}.price`}>
+                              {(msg) => <div className="error mt-1">{msg}</div>}
+                            </ErrorMessage>
+                          </div>
+                        </div>
+                      </Fragment>
+                    );
+                  })}
+                  <div
+                    className="add-service__add card mt-6"
+                    onClick={() => push({ parameter: "", duration: sessionTime, price: "" })}
+                  >
+                    <FontAwesomeIcon icon="plus" />
+                  </div>
+                </>
+              )}
+            </FieldArray>
+            <button className={`add-service__button mt-9 btn btn--primary`} type="submit">
+              Добавить
             </button>
-          )} */}
-        </Form>
-      )}
+          </Form>
+        )
+      }
     </Formik>
   );
 };

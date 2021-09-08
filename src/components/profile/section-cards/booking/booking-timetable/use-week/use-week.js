@@ -8,17 +8,18 @@ import convertDateToString from "../utils/convert-date-to-string";
 import AutoTimetable from "./auto-timetable";
 import ManuallyTimetable from "./manually-timetable";
 // import { getUpdateDate, getDate } from "./utils";
-import { getDateUTC, getToday, getUpdateDate } from "../booking-phone-timetable/utils";
+import { getDateUTC, getToday, getTommorow, getUpdateDate } from "../booking-phone-timetable/utils";
 
 const useWeek = (setStep) => {
   let [timetableState, appointmentsState] = useSelector((state) => [state.timetable, state.appointments]);
 
   // today by master tz
-  // const today = new Date();
+  // const today = getToday(timetableState.timezone);
   const today = getToday(timetableState.timezone);
 
   // get first day of a week and work with it
   // const [startDay, setStartDay] = useState(getStartDateOfWeek(today));
+  // const [startDay, setStartDay] = useState(getToday(timetableState.timezone).weekday(0));
   const [startDay, setStartDay] = useState(getToday(timetableState.timezone).weekday(0));
 
   // console.log(getToday(timetableState.timezone));

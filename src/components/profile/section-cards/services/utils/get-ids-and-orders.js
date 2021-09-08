@@ -11,15 +11,17 @@ const getIdsAndOrders = (services) => {
   for (let service of copiedServices) {
     if (service.subServices) {
       service.subServices.forEach((subService) => {
-        subService = deleteProperties(subService, ['parameter', 'price', 'duration']);
+        subService = deleteProperties(subService, ["parameter", "price", "duration", "update"]);
         subService.order = service.order;
         idsAndOrders.push(subService);
       });
     } else {
-      service = deleteProperties(service, ['title', 'price', 'duration']);
+      service = deleteProperties(service, ["title", "price", "duration", "update"]);
       idsAndOrders.push(service);
     }
   }
+
+  console.log(idsAndOrders);
   return idsAndOrders;
 };
 

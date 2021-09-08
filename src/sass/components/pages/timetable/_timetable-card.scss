@@ -52,7 +52,7 @@
   }
 
   &__tip {
-    grid-column: 1 / -1;
+    grid-column: 1 / 13;
     font-size: 1.2rem;
     font-weight: 500;
     color: $color-gray-dark-2;
@@ -64,12 +64,17 @@
     &--gray {
       color: $color-gray;
     }
+
+    @include respond(phone) {
+      grid-column: 1 / 5;
+    }
   }
 
   &__select {
     height: 2.8rem;
     width: 6rem;
     padding-left: 0.4rem;
+    justify-self: center; // for session time
 
     &::-webkit-scrollbar {
       width: 0.5rem;
@@ -118,6 +123,7 @@
         position: absolute;
         top: 0.8rem;
         right: 0.8rem;
+        grid-column: unset;
       }
     }
   }

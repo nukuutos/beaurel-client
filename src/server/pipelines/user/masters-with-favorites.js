@@ -27,15 +27,6 @@ const mastersWithFavorites = (userId) => [
         },
       ],
       masters: [
-        // city
-        // {
-        //   $match: {
-        //     city: 'vdk'
-        //   }
-        // },
-        {
-          $limit: 10,
-        },
         {
           $project: {
             firstName: 1,
@@ -79,6 +70,14 @@ const mastersWithFavorites = (userId) => [
             rating: { $round: [{ $arrayElemAt: ["$rating.rating", 0] }, 1] },
             _id: { $convert: { input: "$_id", to: "string" } }, // for api we can omit it
           },
+        },
+        {
+          $sort: {
+            rating: -1,
+          },
+        },
+        {
+          $limit: 10,
         },
       ],
     },

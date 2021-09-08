@@ -1,9 +1,9 @@
-import React from 'react';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeAppointmentStatus } from '../../../../redux/appointments/actions';
-import { setAlert } from '../../../../redux/alert/actions';
-import Appointment from '../appointment';
+import React from "react";
+import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
+import { useSelector, useDispatch } from "react-redux";
+import { changeAppointmentStatus } from "../../../../redux/appointments/actions";
+import { setAlert } from "../../../../redux/alert/actions";
+import Appointment from "../appointment";
 
 const OnConfirmationAppointment = ({ appointment }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
@@ -16,10 +16,10 @@ const OnConfirmationAppointment = ({ appointment }) => {
 
   const confirm = async () => {
     const config = {
-      method: 'put',
+      method: "put",
       url: `/profile/${profileId}/appointment/${_id}/status/master`,
       data: {
-        status: 'confirmed',
+        status: "confirmed",
       },
       accessToken,
     };
@@ -27,17 +27,17 @@ const OnConfirmationAppointment = ({ appointment }) => {
     const alert = await asyncActionConfirmation(config);
 
     if (alert) {
-      dispatch(changeAppointmentStatus({ nextStatus: 'confirmed', appointment, user: 'master' }));
+      dispatch(changeAppointmentStatus({ nextStatus: "confirmed", appointment, user: "master" }));
       dispatch(setAlert(alert));
     }
   };
 
   const reject = async () => {
     const config = {
-      method: 'put',
+      method: "put",
       url: `/profile/${profileId}/appointment/${_id}/status`,
       data: {
-        status: 'rejected',
+        status: "rejected",
       },
       accessToken,
     };
@@ -45,7 +45,7 @@ const OnConfirmationAppointment = ({ appointment }) => {
     const alert = await asyncActionRejection(config);
 
     if (alert) {
-      dispatch(changeAppointmentStatus({ nextStatus: 'rejected', appointment }));
+      dispatch(changeAppointmentStatus({ nextStatus: "rejected", appointment }));
       dispatch(setAlert(alert));
     }
   };
@@ -55,17 +55,19 @@ const OnConfirmationAppointment = ({ appointment }) => {
       <div className="appointment-card__buttons">
         <div
           onClick={() => confirm()}
-          className={`btn btn--primary btn--success btn--flat mr-4 ${
-            isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''
-          } ${isConfirmationLoading ? 'btn--spinner' : ''}`}>
+          className={`btn btn--primary btn--flat mr-4 ${
+            isConfirmationLoading || isRejectionLoading ? "btn--disabled" : ""
+          } ${isConfirmationLoading ? "btn--spinner" : ""}`}
+        >
           Подтвердить
         </div>
         <div
           onClick={() => reject()}
           className={`btn btn--secondary btn--flat btn--fail ${
-            isConfirmationLoading || isRejectionLoading ? 'btn--disabled' : ''
+            isConfirmationLoading || isRejectionLoading ? "btn--disabled" : ""
           } 
-          ${isRejectionLoading ? 'btn--spinner' : ''}`}>
+          ${isRejectionLoading ? "btn--spinner" : ""}`}
+        >
           Отклонить
         </div>
       </div>

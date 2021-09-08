@@ -38,3 +38,13 @@
     }
   }
 }
+
+.city-settings {
+  display: flex;
+  align-self: center;
+  padding: 1.6rem 2rem;
+  color: $color-primary-dark-2;
+  cursor: pointer;
+  background: $color-white;
+  transition: 0.2s background;
+}

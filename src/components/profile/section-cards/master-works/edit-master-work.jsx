@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ErrorMessage, Form, Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -27,6 +27,9 @@ const EditMasterWork = ({ state }) => {
     setState((state) => ({ ...state, src: `http://localhost:5000/images/works/${works[index]._id}.png` }));
   }, [setState]);
 
+  const formRef = useRef({});
+  const { setFieldValue } = formRef.current;
+
   const handleFileUpload = (event) => {
     const reader = new FileReader();
     const file = event.target.files[0];
@@ -35,29 +38,32 @@ const EditMasterWork = ({ state }) => {
 
     reader.onloadend = () => {
       setState((state) => ({ ...state, src: reader.result }));
+      setFieldValue(src, reader.result);
     };
 
     if (file) reader.readAsDataURL(file);
   };
 
+  const toCarousel = () => setParentState((state) => ({ ...state, display: "carousel" }));
+  const toWorks = () => setParentState((state) => ({ ...state, display: "works" }));
+
   return (
     <div className={`add-master-work ${isPhone ? "" : "card"}`}>
-      <ModalHeading
-        title="Обновить работу"
-        onClickClose={() => setParentState((state) => ({ ...state, display: "carousel" }))}
-      />
-
+      <ModalHeading title="Обновить работу" onClickClose={toCarousel} />
       {isLoading && <div className="spinner-with-background" />}
-
       <img src={src} alt="Uploaded image" className="add-master-work__uploaded-image" />
+
       {/* change button */}
       <div className="add-master-work__choose-image add-master-work__change-btn mt-3">
         <button className="btn-text">изменить</button>
         <input type="file" onChange={(e) => handleFileUpload(e)} className="add-master-work__upload-input" />
       </div>
+
       <Formik
+        innerRef={formRef}
         initialValues={{
           title: works[index].title,
+          src: null,
         }}
         validationSchema={workSchema}
         onSubmit={async (values, { resetForm }) => {
@@ -75,17 +81,16 @@ const EditMasterWork = ({ state }) => {
             addingHeaders: { "Content-Type": `multipart/form-data`, Enctype: "multipart/form-data" },
           };
 
-          const data = await asyncAction(config);
+          const alert = await asyncAction(config);
 
-          if (data) {
-            const { _id, ...alert } = data;
-            dispatch(updateWorkSuccess({ updatedWork: { _id, title } }));
+          if (alert) {
+            dispatch(updateWorkSuccess({ updatedWork: { _id: works[index]._id, title } }));
             dispatch(setAlert(alert));
             setParentState((state) => ({ ...state, display: "carousel" }));
           }
         }}
       >
-        {({}) => (
+        {({ submitForm, dirty, values }) => (
           <Form className="add-master-work__form ">
             <label htmlFor="title" className="label mt-2">
               Название
@@ -97,14 +102,21 @@ const EditMasterWork = ({ state }) => {
 
             <div className="add-master-work__buttons mt-6">
               {!isPhone && (
-                <div
-                  onClick={() => setParentState((state) => ({ ...state, display: index ? "carousel" : "works" }))}
-                  className={`btn btn--secondary mr-4`}
-                >
+                <div onClick={index ? toCarousel : toWorks} className={`btn btn--secondary mr-4`}>
                   Назад
                 </div>
               )}
-              <button type="submit" className={`btn btn--primary`}>
+
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  console.log(dirty, values.src);
+                  if (dirty) submitForm();
+                  else toCarousel();
+                }}
+                type="submit"
+                className={`btn btn--primary`}
+              >
                 Обновить
               </button>
             </div>

@@ -12,18 +12,20 @@ import useAsyncAction from "../hooks/use-async-action/use-async-action";
 import handlePublicAndAuthPage from "../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page";
 import useSearch from "../components/search/use-search";
 import useMediaQuery from "../hooks/use-media-query";
+import Axios from "axios";
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);
 
-  const [asyncAction] = useAsyncAction();
+  const [asyncAction, isTextLoading] = useAsyncAction();
 
   const form = useRef();
-  const [lastMasterCardRef, { page, hasMore }, isSearchLoading] = useSearch(
-    form,
-    setData
-  );
+  const [lastMasterCardRef, { page, hasMore }, isSearchLoading] = useSearch(form, setData);
   const isMobile = useMediaQuery(600);
+
+  const isLoading = isTextLoading || isSearchLoading;
+
+  const cancel = useRef(null);
 
   return (
     <Layout>
@@ -42,6 +44,7 @@ const Search = ({ masters }) => {
               url: `/master`,
               params: { specialization, name: search, page: 0 }, // add city
               accessToken: "nothing",
+              cancelToken: new Axios.CancelToken((c) => (cancel.current = c)),
             };
 
             const data = await asyncAction(config);
@@ -76,6 +79,7 @@ const Search = ({ masters }) => {
                   <FontAwesomeIcon className="input__icon" icon="search" />
                   <Input
                     onChange={(e) => {
+                      if (cancel.current) cancel.current();
                       handleChange(e);
                       submitForm();
                     }}
@@ -88,43 +92,37 @@ const Search = ({ masters }) => {
             </Form>
           )}
         </Formik>
-        {data.map((master, i) =>
-          data.length === i + 1 ? (
-            <MasterCard
-              masterCardRef={lastMasterCardRef}
-              className={"search__master-card"}
-              master={master}
-              key={i}
-            />
+
+        {!data.length && !isLoading && <img className="search__no-masters" src="/svg/no-masters.svg" />}
+
+        {data.map((master, i) => {
+          const isPreLastCard = i === data.length - 2;
+
+          return isPreLastCard ? (
+            <MasterCard masterCardRef={lastMasterCardRef} className={"search__master-card"} master={master} key={i} />
           ) : (
-            <MasterCard
-              className={"search__master-card"}
-              master={master}
-              key={i}
-            />
-          )
-        )}
+            <MasterCard className={"search__master-card"} master={master} key={i} />
+          );
+        })}
+
+        {isLoading && <div className="search__spinner spinner"></div>}
       </main>
     </Layout>
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req, res }) => {
-    const getMastersFromDb = async (userId) => {
-      if (userId) return await User.findMastersWithFavorites(userId);
-      return await User.findMasters();
-    };
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+  const getMastersFromDb = async (userId) => {
+    if (userId) return await User.findMastersWithFavorites(userId);
+    return await User.findMasters();
+  };
 
-    const {
-      masters,
-      favoriteMasters,
-    } = await handlePublicAndAuthPage(getMastersFromDb, { req, res, store });
-    // dispatch to favorite
-    store.dispatch(getMastersSuccess({ favoriteMasters }));
+  const { masters, favoriteMasters } = await handlePublicAndAuthPage(getMastersFromDb, { req, res, store });
 
-    return { props: { masters } }; // every master
-  }
-);
+  // dispatch to favorite
+  store.dispatch(getMastersSuccess({ favoriteMasters }));
+
+  return { props: { masters } }; // every master
+});
 
 export default Search;

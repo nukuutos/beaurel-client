@@ -27,6 +27,36 @@
     display: contents;
   }
 
+  &__no-masters {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 36rem;
+    margin-top: 5.6rem;
+
+    @include respond(phone) {
+      width: 28rem;
+    }
+  }
+
+  &__spinner {
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    $size: 4rem;
+    width: $size;
+    height: $size;
+
+    margin: 5.6rem 0 2rem;
+
+    @include respond(phone) {
+      $size: 3.2rem;
+      width: $size;
+      height: $size;
+
+      margin: 3.6rem 0 2.4rem;
+    }
+  }
+
   @include respond(phone) {
     &__heading {
       grid-column: 1 / -1;

@@ -14,7 +14,7 @@ const DesktopButtons = ({ setIsEdit, deleteService }) => {
       <div onClick={() => setIsEdit(true)} className="service__btn  service__btn--first btn-icon">
         <FontAwesomeIcon icon="pen" />
       </div>
-      <div onClick={() => deleteService(id)} className="service__btn btn-icon btn-icon--fail">
+      <div onClick={deleteService} className="service__btn btn-icon btn-icon--fail">
         <FontAwesomeIcon icon="trash" />
       </div>
     </>
@@ -24,7 +24,7 @@ const DesktopButtons = ({ setIsEdit, deleteService }) => {
 const TabletButtons = ({ setIsEdit, deleteService }) => {
   return (
     <div className="service__mobile-buttons">
-      <div onClick={() => deleteService(id)} className="service__btn">
+      <div onClick={deleteService} className="service__btn">
         Удалить
         <FontAwesomeIcon icon="trash" />
       </div>
@@ -42,7 +42,7 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const { id } = service;
+  const { id, order } = service;
 
   const deleteService = async (id) => {
     const config = {
@@ -54,26 +54,33 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(deleteServiceSuccess({ serviceId: id }));
+      dispatch(deleteServiceSuccess({ serviceId: id, order }));
       dispatch(setAlert(alert));
     }
   };
 
   const renderButtons = (isTablet, setIsEdit, deleteService) =>
     isTablet ? (
-      <TabletButtons setIsEdit={setIsEdit} deleteService={deleteService} />
+      <TabletButtons setIsEdit={setIsEdit} deleteService={() => deleteService(id)} />
     ) : (
-      <DesktopButtons setIsEdit={setIsEdit} deleteService={deleteService} />
+      <DesktopButtons setIsEdit={setIsEdit} deleteService={() => deleteService(id)} />
+    );
+
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
     );
 
   return (
     <div className="service service--hover service--edit-mobile card mt-6">
       <Service service={service} />
-      {isLoading ? (
+      {isTablet && isLoading && <div className="spinner-with-background" />}
+      {!isTablet && isLoading && (
         <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-      ) : (
-        renderButtons(isTablet, setIsEdit, deleteService)
       )}
+      {!isLoading && renderButtons(isTablet, setIsEdit, deleteService)}
     </div>
   );
 };

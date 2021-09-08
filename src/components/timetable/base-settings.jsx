@@ -1,10 +1,10 @@
-import Input from "../form/input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import filterExceptions from "./utils/filter-exceptions";
 import displayPossibleServiceDuration from "./utils/display-possible-service-duration";
 import useMediaQuery from "../../hooks/use-media-query";
 import Modal from "../utils/modal";
 import Select from "../form/select";
+import useKeys from "../../hooks/use-keys";
 
 const renderSessionTimeOptions = () => {
   const options = [];
@@ -20,7 +20,7 @@ const renderSessionTimeOptions = () => {
   return options;
 };
 
-const MobileEditSessionTime = ({ onClickEdit, onClickCancel, sessionTime }) => (
+const MobileEditSessionTime = ({ onClickEdit, onClickCancel, sessionTime, editingSessionTime }) => (
   <Modal isMobileBackground>
     <nav className={`modal__back-bar card card--layout`}>
       <div className="back-bar__main">
@@ -29,11 +29,9 @@ const MobileEditSessionTime = ({ onClickEdit, onClickCancel, sessionTime }) => (
       </div>
     </nav>
     <div className="timetable-phone-edit-modal">
-      {/* <h2 className="timetable-phone-edit-modal__heading heading">Длительность сеанса</h2> */}
       <div className="timetable-phone-edit-modal__group timetable-phone-edit-modal__group--session-time mt-8">
         <label className="timetable-phone-edit-modal__label">Базовая длительность сеанса:</label>
-        {/* <Input className="input timetable-phone-edit-modal__input ml-2" name="editingSessionTime" type="number" /> */}
-        <Select className="timetable-card__select select ml-1 mb-1" name="editingSessionTime" as="select">
+        <Select className="timetable-card__select select ml-1 mb-1" name="edit.sessionTime" as="select">
           {renderSessionTimeOptions()}
         </Select>
         <span className="timetable-card__value ml-1">мин</span>
@@ -41,54 +39,56 @@ const MobileEditSessionTime = ({ onClickEdit, onClickCancel, sessionTime }) => (
       <span className="timetable-card__tip mt-6">
         Возможная длительность ваших услуг:
         {/* generate */}
-        <span className="timetable-card__tip--primary">{displayPossibleServiceDuration(sessionTime)}</span>
+        <span className="timetable-card__tip--primary">{displayPossibleServiceDuration(editingSessionTime)}</span>
       </span>
-      <button
-        // disabled={isSubmitting}
-        onClick={onClickEdit}
-        // className={`timetable-phone-edit-modal__button btn btn--primary mt-9 ${isLoading ? "btn--submitted btn--spinner" : ""}`}
-        className={`timetable-phone-edit-modal__button btn btn--primary mt-8`}
-      >
+      <button onClick={onClickEdit} className={`timetable-phone-edit-modal__button btn btn--primary mt-8`}>
         Изменить
       </button>
-      {/* <button
-        // disabled={isSubmitting}
-        onClick={onClickCancel}
-        // className={`timetable-phone-edit-modal__button btn btn--primary btn--gray mt-4 ${isLoading ? "btn--disabled" : ""}`}
-        className={`timetable-phone-edit-modal__button btn btn--primary btn--gray mt-4`}
-      >
-        Отменить
-      </button> */}
     </div>
   </Modal>
 );
 
-const EditSessionTime = ({ onClickEdit, onClickCancel }) => (
-  <>
-    {/* <Input className="input timetable-card__input ml-1 mb-1" name="editingSessionTime" type="number" /> */}
-    <Select className="timetable-card__select select ml-1 mb-1" name="editingSessionTime" as="select">
-      {renderSessionTimeOptions()}
-    </Select>
-    <span className="timetable-card__value ml-1 mb-1">мин</span>
-    <div onClick={onClickEdit} className="timetable-card__btn-edit--primary btn-icon btn-icon--success">
-      <FontAwesomeIcon icon="check" />
-    </div>
-    <div onClick={onClickCancel} className="timetable-card__btn-edit btn-icon btn-icon--fail">
-      <FontAwesomeIcon icon="times" />
-    </div>
-  </>
-);
+const EditSessionTime = ({ onClickEdit, onClickCancel }) => {
+  const keys = () => [
+    { key: "Enter", fn: onClickEdit },
+    { key: "Escape", fn: onClickCancel },
+  ];
 
-const renderEditWindow = (isPhone, onClickEdit, onClickCancel, sessionTime) => {
+  useKeys(keys);
+
+  return (
+    <>
+      <Select className="timetable-card__select select ml-1 mb-1" name="edit.sessionTime" as="select">
+        {renderSessionTimeOptions()}
+      </Select>
+      <span className="timetable-card__value ml-1 mb-1">мин</span>
+      <div onClick={onClickEdit} className="timetable-card__btn-edit--primary btn-icon btn-icon--success">
+        <FontAwesomeIcon icon="check" />
+      </div>
+      <div onClick={onClickCancel} className="timetable-card__btn-edit btn-icon btn-icon--fail">
+        <FontAwesomeIcon icon="times" />
+      </div>
+    </>
+  );
+};
+
+const renderEditWindow = (isPhone, onClickEdit, onClickCancel, sessionTime, editingSessionTime) => {
   return isPhone ? (
-    <MobileEditSessionTime onClickEdit={onClickEdit} onClickCancel={onClickCancel} sessionTime={sessionTime} />
+    <MobileEditSessionTime
+      onClickEdit={onClickEdit}
+      onClickCancel={onClickCancel}
+      sessionTime={sessionTime}
+      editingSessionTime={editingSessionTime}
+    />
   ) : (
     <EditSessionTime onClickEdit={onClickEdit} onClickCancel={onClickCancel} />
   );
 };
 
 const BaseSettings = ({ values, update, initialValues, setFieldValue, editParentState }) => {
-  const { auto, editingSessionTime, sessionTime } = values;
+  const { auto, edit, sessionTime } = values;
+  const { sessionTime: editingSessionTime } = edit;
+
   const {
     exceptions,
     workingDay: { startAt },
@@ -107,7 +107,6 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
   };
 
   const onClickCancel = () => {
-    setFieldValue("editingSessionTime", initialValues.editingSessionTime);
     setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
   };
 
@@ -116,7 +115,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
       <div className="timetable-card__heading mb-1">Базовые настройки</div>
       <label className="timetable-card__label">Базовая длительность сеанса:</label>
       {element.sessionTime ? (
-        renderEditWindow(isPhone, onClickEdit, onClickCancel, sessionTime)
+        renderEditWindow(isPhone, onClickEdit, onClickCancel, sessionTime, editingSessionTime)
       ) : (
         <>
           <span className="timetable-card__value">{sessionTime} мин</span>
@@ -134,7 +133,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
       <span className="timetable-card__tip mt-1">
         Возможная длительность ваших услуг:
         {/* generate */}
-        <span className="timetable-card__tip--primary">{displayPossibleServiceDuration(sessionTime)}</span>
+        <span className="timetable-card__tip--primary">{displayPossibleServiceDuration(editingSessionTime)}</span>
       </span>
     </div>
   );

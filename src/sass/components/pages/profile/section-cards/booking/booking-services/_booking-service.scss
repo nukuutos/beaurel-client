@@ -1,4 +1,5 @@
 @use "../../../../../../abstracts/colors" as *;
+@use "../../../../../../abstracts/mixins" as *;
 
 .booking-service {
   overflow: unset;
@@ -6,6 +7,10 @@
   &:hover .booking-service__arrow {
     opacity: 1;
     transform: translate(1rem, -50%);
+
+    @include respond(tab-port) {
+      opacity: 0;
+    }
   }
 
   &--disabled {

@@ -1,4 +1,5 @@
 @use "../../abstracts/colors" as *;
+@use "../../abstracts/mixins" as *;
 
 .alert {
   width: 100vw;
@@ -7,13 +8,41 @@
   position: fixed;
   bottom: 0;
   padding: 1.5rem 0;
-  padding-left: 30%;
+  // padding-left: 30%;
   transform: translateY(100%);
-  transition: transform 1s;
+  transition: transform 0.64s;
   z-index: 40;
+
+  @include respond(phone) {
+    font-size: 1.6rem;
+    z-index: 19;
+  }
+
+  &__text {
+    margin: 0 auto;
+    width: 40%;
+
+    @include respond(tab-land) {
+      width: 82.4rem;
+      padding-left: 3.2rem;
+    }
+
+    @include respond(tab-port) {
+      width: 56.8rem;
+    }
+
+    @include respond(phone) {
+      width: 36rem;
+      padding-left: 3.2rem;
+    }
+  }
 
   &--show {
     transform: translateY(0);
+
+    @include respond(phone) {
+      transform: translateY(-5.9rem);
+    }
   }
 
   &--success {

@@ -6,10 +6,11 @@ const EditParameterService = ({ service }) => {
   const [isShown, setIsShown] = useState(false);
   const [isHoverSubService, setIsHoverSubService] = useState(false);
 
-  const { title, subServices } = service;
+  const { title, subServices, order } = service;
+
   return (
     <div className={`${!isHoverSubService && isShown ? "service-parameter--hover" : ""} service-parameter card mt-6`}>
-      <EditTitle title={title} shownState={[isShown, setIsShown]} />
+      <EditTitle service={service} shownState={[isShown, setIsShown]} />
       {isShown &&
         subServices.map((subService, i) => {
           return (
@@ -19,6 +20,7 @@ const EditParameterService = ({ service }) => {
               subService={subService}
               title={title}
               key={i}
+              order={order}
             />
           );
         })}

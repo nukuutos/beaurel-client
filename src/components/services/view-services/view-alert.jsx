@@ -1,6 +1,6 @@
-import React from 'react';
-import convertDateToString from '../../appointments/appointment/utils/convert-date-to-string';
-import { useSelector } from 'react-redux';
+import React from "react";
+import convertDateToString from "../../appointments/appointment/utils/convert-date-to-string";
+import { useSelector } from "react-redux";
 
 const findUpdateDate = (services) => {
   let indexes = { service: null, subService: null };
@@ -26,8 +26,10 @@ const findUpdateDate = (services) => {
   const { service: serviceIndex, subService: subServiceIndex } = indexes;
 
   let updateDate;
-  if (subServiceIndex) updateDate = services[serviceIndex].subServices[subServiceIndex].update.date;
-  else updateDate = services[serviceIndex].update.date;
+
+  if (subServiceIndex || subServiceIndex === 0) {
+    updateDate = services[serviceIndex].subServices[subServiceIndex].update.date;
+  } else updateDate = services[serviceIndex].update.date;
 
   return convertDateToString(new Date(updateDate));
 };
@@ -42,7 +44,8 @@ const ViewAlert = ({ setIsUpdateServices }) => {
       </p>
       <button
         onClick={() => setIsUpdateServices((state) => ({ ...state, view: true }))}
-        className="udpate-alert__button btn btn--secondary btn--flat ml-5">
+        className="udpate-alert__button btn btn--secondary btn--flat ml-5"
+      >
         Посмотреть
       </button>
     </div>

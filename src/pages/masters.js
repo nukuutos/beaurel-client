@@ -14,34 +14,28 @@ const Masters = ({ masters }) => {
     <Layout>
       <main className={`content ${!isMobile ? "card card--layout" : ""}`}>
         <h1 className="masters__heading heading">Твои Мастера</h1>
+
+        {!masters.length && <img className="search__no-masters" src="/svg/no-masters.svg" />}
+
         {masters.length &&
-          masters.map((master, i) => (
-            <MasterCard
-              className={"masters__master-card"}
-              master={master}
-              key={i}
-            />
-          ))}
-        {!masters.length && (
-          <div className="appointments__noappointments card mt-8">
-            Сохраняйте своих любимых мастеров
-          </div>
-        )}
+          masters.map((master, i) => <MasterCard className={"masters__master-card"} master={master} key={i} />)}
+
+        {/* {!masters.length && (
+          <div className="appointments__noappointments card mt-8">Сохраняйте своих любимых мастеров</div>
+        )} */}
       </main>
     </Layout>
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req, res }) => {
-    const userId = await handleAuthPage(req, res, store);
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+  const userId = await handleAuthPage(req, res, store);
 
-    const data = await User.getFavoriteMasters(userId);
+  const data = await User.getFavoriteMasters(userId);
 
-    store.dispatch(getMastersSuccess({ favoriteMasters: data.masterIds }));
+  store.dispatch(getMastersSuccess({ favoriteMasters: data.masterIds }));
 
-    return { props: { masters: data.masters || [] } };
-  }
-);
+  return { props: { masters: data.masters || [] } };
+});
 
 export default Masters;

@@ -25,6 +25,12 @@ export const getToday = (timezone) => {
   return dayjs().tz(timezone);
 };
 
+// export const getTommorow = (timezone) => {
+//   console.log(dayjs().add(1, "day").tz(timezone).format(), dayjs().tz(timezone).add(1, "day").format());
+
+//   return dayjs().add(1, "day").tz(timezone);
+// };
+
 export const getDateUTC = (string = undefined) => {
   // not work with null
   return dayjs(string).utc(true);
@@ -66,5 +72,8 @@ export const getCalendarPageDates = (firstDateMonth, lastDateMonth) => {
 
 export const getTommorow = () => {
   const date = getTodayUTC();
+
+  console.log(date.add(1, "day").format());
+
   return date.add(1, "day");
 };

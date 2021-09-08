@@ -1,25 +1,26 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 export const titleField = Yup.string()
   .trim()
-  .min(2, 'Minimum length is 2 characters')
-  .max(30, 'Maximum length is 30 characters')
-  .required('Field is required'); // wth???
+  .min(2, "Максимальная длиня - 2 символа!")
+  .max(30, "Максимальная длина - 30 сиволов!")
+  .required("Необходимо заполнить!");
 
 export const durationField = (sessionTime) =>
   Yup.number()
-    .positive('Duration can not be negative')
-    .integer('Duration must be an integer')
-    .max(700, 'Duration can not be more than 8 hours') // edit
-    .test('duration', 'This duration is not suitable for session time', (duration) => {
+    .positive("Длительность не может быть отрицательной!")
+    .integer("Длительность - целое число!")
+    .max(700, "Длительность не может быть больше 8 часов!")
+    .test("duration", "Длительность не кратно длительности сеанса!", (duration) => {
       return duration % sessionTime === 0;
     })
-    .required('Duration is required');
+    .required("Необходимо заполнить!");
 
 export const priceField = Yup.number()
-  .positive('Duration can not be negative')
-  .integer('Duration must be an integer')
-  .max(30000, 'Price is too big');
+  .positive("Цена не может быть негативной!")
+  .integer("Цена - целое число!")
+  .max(100000, "Слишком большая цена!")
+  .required("Необходимо заполнить!");
 
 export const serviceSchema = (sessionTime) =>
   Yup.object().shape({

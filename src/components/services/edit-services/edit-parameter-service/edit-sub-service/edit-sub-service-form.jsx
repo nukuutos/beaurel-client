@@ -55,7 +55,7 @@ const TabletButtons = ({ setIsEdit, submitForm, dirty }) => {
 
 const EditSubServiceForm = ({ subService, title, setIsEdit }) => {
   const dispatch = useDispatch();
-  const { parameter, duration, price, id } = subService;
+  const { parameter, duration, price, id, subOrder } = subService;
   const [{ sessionTime }, { accessToken, id: profileId }] = useSelector((state) => [state.timetable, state.auth]);
   const [asyncAction, isLoading] = useAsyncAction();
   const isTablet = useMediaQuery(900);
@@ -65,6 +65,13 @@ const EditSubServiceForm = ({ subService, title, setIsEdit }) => {
       <TabletButtons setIsEdit={setIsEdit} submitForm={submitForm} dirty={dirty} />
     ) : (
       <DesktopButtons setIsEdit={setIsEdit} submitForm={submitForm} dirty={dirty} />
+    );
+
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
     );
 
   return (
@@ -81,15 +88,15 @@ const EditSubServiceForm = ({ subService, title, setIsEdit }) => {
 
         const config = {
           method: "put",
-          url: `/profile/${profileId}/service/parameter/${title}/sub-service/${id}`,
+          url: `/master/${profileId}/service-parameter/${title}/sub-service/${id}`,
           data: { date, service },
           accessToken,
         };
 
-        const alert = await asyncAction(dispatch, config);
+        const alert = await asyncAction(config);
 
         if (alert) {
-          dispatch(updateSubServiceSuccess({ updatedSubService: { title, ...values } }));
+          dispatch(updateSubServiceSuccess({ updatedSubService: { title, subOrder, ...values } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }
@@ -152,11 +159,10 @@ const EditSubServiceForm = ({ subService, title, setIsEdit }) => {
             <ErrorMessage name="price">
               {(msg) => <div className="service__price-area error mt-1">{msg}</div>}
             </ErrorMessage> */}
-            {isLoading ? (
-              <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-            ) : (
-              renderButtons(isTablet, setIsEdit, submitForm, dirty)
-            )}
+            {isLoading
+              ? // <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
+                renderLoading(isTablet)
+              : renderButtons(isTablet, setIsEdit, submitForm, dirty)}
           </Form>
         </>
       )}

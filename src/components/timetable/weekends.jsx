@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldArray, insert } from "formik";
 import Modal from "../utils/modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import insertElementInSortedArray from "./utils/insert-element-in-sorted-array";
 import weekdaysRU from "./utils/weekdays-ru";
 import useMediaQuery from "../../hooks/use-media-query";
+import useKeys from "../../hooks/use-keys";
 
-const Weekends = ({ weekends, update, editParentState, initialValues, setFieldValue }) => {
+const Weekends = ({ update, editParentState, initialValues, setFieldValue, edit }) => {
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
+  const { weekends } = edit.auto;
   const isDisabled = update || (isEditing && !element.weekends);
   const isPhone = useMediaQuery(600);
+
+  const onClickEdit = () => {
+    setFieldValue("auto.weekends", edit.auto.weekends);
+    setEditState({ isEditing: false, element: { ...editState, weekends: false } });
+  };
+
+  const onClickCancel = () => {
+    setEditState({ isEditing: false, element: { ...editState, weekends: false } });
+    // setFieldValue("auto.weekends", initialValues.auto.weekends);
+  };
+
+  const keys = () => [
+    { key: "Enter", fn: onClickEdit },
+    { key: "Escape", fn: onClickCancel },
+  ];
+
+  useEffect(() => {
+    element.weekends && useKeys(keys);
+  }, []);
 
   return (
     <>
@@ -21,27 +42,14 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
 
       {element.weekends && (
         <FieldArray
-          name="auto.weekends"
+          name="edit.auto.weekends"
           render={({ remove, insert }) => (
-            <Modal
-              isMobileBackground
-              onClickClose={() => {
-                setEditState({ isEditing: false, element: { ...editState, weekends: false } });
-                setFieldValue("auto.weekends", initialValues.auto.weekends);
-              }}
-            >
+            <Modal isMobileBackground onClickClose={onClickCancel}>
               <div className={`weekends weekends--mobile ${isPhone ? "" : "card"}`}>
                 {isPhone && (
                   <nav className={`modal__back-bar card card--layout`}>
                     <div className="back-bar__main">
-                      <FontAwesomeIcon
-                        onClick={() => {
-                          setEditState({ isEditing: false, element: { ...editState, weekends: false } });
-                          setFieldValue("auto.weekends", initialValues.auto.weekends);
-                        }}
-                        className="back-bar__icon mr-6"
-                        icon="arrow-left"
-                      />
+                      <FontAwesomeIcon onClick={onClickCancel} className="back-bar__icon mr-6" icon="arrow-left" />
                       Выходные
                     </div>
                   </nav>
@@ -66,7 +74,7 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
 
                     return (
                       <div
-                        name={`auto.weekends.${weekdayIndex}`}
+                        name={`edit.auto.weekends.${weekdayIndex}`}
                         className={`weekends__day mt-6 ${className}`}
                         onClick={onClick}
                         key={weekdayIndex}
@@ -77,26 +85,9 @@ const Weekends = ({ weekends, update, editParentState, initialValues, setFieldVa
                   })}
                 </div>
 
-                <div
-                  onClick={() => {
-                    setEditState({ isEditing: false, element: { ...editState, weekends: false } });
-                  }}
-                  className="weekends__button btn btn--primary mt-6"
-                >
+                <div onClick={onClickEdit} className="weekends__button btn btn--primary mt-6">
                   Изменить
                 </div>
-
-                {/* {isPhone && (
-                  <button
-                    onClick={() => {
-                      setEditState({ isEditing: false, element: { ...editState, weekends: false } });
-                      setFieldValue("auto.weekends", initialValues.auto.weekends);
-                    }}
-                    className={`weekends__button btn btn--primary btn--gray mt-4`}
-                  >
-                    Отменить
-                  </button>
-                )} */}
               </div>
             </Modal>
           )}

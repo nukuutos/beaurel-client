@@ -9,7 +9,7 @@ import {
   PUT_UPDATE_TO_SERVICES,
   SERVICES_TO_UNSUITABLE,
   DELETE_SERVICES_UPDATE,
-} from './types/service';
+} from "./types/service";
 
 import {
   ADD_SERVICE_PARAMETER_SUCCESS,
@@ -17,9 +17,35 @@ import {
   UPDATE_SUB_SERVICE_SUCCESS,
   DELETE_SUB_SERVICE_SUCCESS,
   DELETE_SERVICE_PARAMETER_SUCCESS,
-} from './types/service-parameter';
+} from "./types/service-parameter";
 
-import getIdsAndOrders from '../../components/profile/section-cards/services/utils/get-ids-and-orders';
+import getIdsAndOrders from "../../components/profile/section-cards/services/utils/get-ids-and-orders";
+
+const reoderServices = (services, deletedServiceNumber) => {
+  const copiedServices = [...services];
+
+  for (let i = deletedServiceNumber; i < copiedServices.length; i++) {
+    const currentService = copiedServices[i];
+    const { order } = currentService;
+
+    currentService.order = order - 1;
+  }
+
+  return copiedServices;
+};
+
+const reoderSubServices = (subServices, deletedSubServiceNumber) => {
+  const copiedSubServices = [...subServices];
+
+  for (let i = deletedSubServiceNumber; i < copiedSubServices.length; i++) {
+    const currentSubService = copiedSubServices[i];
+    const { subOrder } = currentSubService;
+
+    currentSubService.subOrder = subOrder - 1;
+  }
+
+  return copiedSubServices;
+};
 
 const INITIAL_STATE = { masterId: null, services: [], initialOrder: null };
 
@@ -37,16 +63,25 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
     // ADD_SERVICE
     case ADD_SERVICE_SUCCESS: {
       const { service } = payload;
-      // const { id, ...serviceProps } = service;
+
+      service.order = state.services.length;
+      service.subOrder = null;
+
       return { ...state, services: [...state.services, service] };
     }
 
     case ADD_SERVICE_PARAMETER_SUCCESS: {
       const { serviceParameter, ids } = payload;
       const { subServices, title } = serviceParameter;
+      const order = state.services.length;
 
-      const subServicesWithIds = subServices.map((subService, i) => ({ id: ids[i], ...subService }));
-      const addedParameterService = { title, subServices: subServicesWithIds };
+      const subServicesWithIds = subServices.map((subService, i) => ({
+        id: ids[i],
+        subOrder: i,
+        ...subService,
+      }));
+
+      const addedParameterService = { title, order, subServices: subServicesWithIds };
       return { ...state, services: [...state.services, addedParameterService] };
     }
 
@@ -70,11 +105,13 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
       const parentIndex = state.services.findIndex((service) => service.title === title); // find service parameter
 
       const parentService = { ...state.services[parentIndex] };
+
       // change subService
       const updatedSubServices = parentService.subServices.map((service) => {
         if (service.id === updatedSubService.id) return { id: updatedSubService.id, ...restSubServiceProps };
         return service;
       });
+
       // change whole sub services of service parameter
       const updatedServiceParameter = { ...parentService, subServices: updatedSubServices };
 
@@ -98,36 +135,47 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
     // DELETE_SERVICE
     case DELETE_SERVICE_SUCCESS: {
-      const { serviceId } = payload;
+      const { serviceId, order } = payload;
 
-      const services = state.services.filter((service) => service.id !== serviceId);
-      return { ...state, services };
+      const filteredServices = state.services.filter((service) => service.id !== serviceId);
+
+      const reoderedServices = reoderServices(filteredServices, order);
+
+      return { ...state, services: reoderedServices };
     }
 
     case DELETE_SUB_SERVICE_SUCCESS: {
-      const { id, title } = payload;
+      const { id, title, subOrder, order } = payload;
 
-      const services = { ...state.services };
+      // const services = { ...state.services };
+      const services = [...state.services];
 
       const parentIndex = services.findIndex((service) => service.title === title); // find service
 
       const parentService = services[parentIndex];
-      const subServices = parentService.subServices.filter((service) => service.id !== id); // delete subService
+      const filteredSubServices = parentService.subServices.filter((service) => service.id !== id); // delete subService
 
-      const updatedParentService = { ...parentService, subServices };
+      if (filteredSubServices.length === 0) {
+        const filteredServices = services.filter((service) => service.title !== title); // delete old service (parent)
+        const reoderedServices = reoderServices(filteredServices, order);
+        return { ...state, services: reoderedServices };
+      }
 
-      const filterServices = services.filter((service) => service.title !== title); // delete old service (parent)
+      const reoderedSubServices = reoderSubServices(filteredSubServices, subOrder);
+      const updatedParentService = { ...parentService, subServices: reoderedSubServices };
 
-      return updatedParentService.subServices.length !== 0
-        ? { ...state, services: [...filterServices, updatedParentService] }
-        : { ...state, services };
+      services[parentIndex] = updatedParentService;
+
+      return { ...state, services };
     }
 
     case DELETE_SERVICE_PARAMETER_SUCCESS: {
-      const { title } = payload;
+      const { title, order } = payload;
 
-      const services = state.services.filter((service) => title !== service.title);
-      return { ...state, services };
+      const filteredServices = state.services.filter((service) => title !== service.title);
+      const reoderedServices = reoderServices(filteredServices, order);
+
+      return { ...state, services: reoderedServices };
     }
 
     // REODER
@@ -212,11 +260,11 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
         if (indexes.subService !== -1) {
           // parameter service
           const service = copiedServices[indexes.service].subServices[indexes.subService];
-          service.update.status = 'suitable';
+          service.update.status = "suitable";
           service.update.duration = duration;
         } else {
           const service = copiedServices[indexes.service];
-          service.update.status = 'suitable';
+          service.update.status = "suitable";
           service.update.duration = duration;
         }
       });
@@ -234,7 +282,7 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
         if (isServiceParameter) {
           const subServices = service.subServices.map((subService) => {
-            if (subService.duration % sessionTime !== 0) subService.update = { date, status: 'unsuitable' };
+            if (subService.duration % sessionTime !== 0) subService.update = { date, status: "unsuitable" };
             return subService;
           });
 
@@ -242,7 +290,7 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
           return service;
         }
 
-        if (service.duration % sessionTime !== 0) service.update = { date, status: 'unsuitable' };
+        if (service.duration % sessionTime !== 0) service.update = { date, status: "unsuitable" };
         return service;
       });
 

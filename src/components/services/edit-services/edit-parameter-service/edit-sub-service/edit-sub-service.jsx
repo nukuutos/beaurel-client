@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import EditSubServiceForm from './edit-sub-service-form';
-import EditSubServiceDisplay from './edit-sub-service-display';
+import React, { useState } from "react";
+import EditSubServiceForm from "./edit-sub-service-form";
+import EditSubServiceDisplay from "./edit-sub-service-display";
 
-const EditSubService = ({ onMouseLeave, onMouseEnter, subService, title }) => {
+const EditSubService = ({ onMouseLeave, onMouseEnter, subService, title, order }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   return isEdit ? (
@@ -14,6 +14,7 @@ const EditSubService = ({ onMouseLeave, onMouseEnter, subService, title }) => {
       subService={subService}
       title={title}
       setIsEdit={setIsEdit}
+      order={order}
     />
   );
 };

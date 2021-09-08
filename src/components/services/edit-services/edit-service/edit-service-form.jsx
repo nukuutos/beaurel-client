@@ -59,13 +59,20 @@ const EditServiceForm = ({ service, setIsEdit }) => {
   const dispatch = useDispatch();
   const isTablet = useMediaQuery(900);
 
-  const { title, duration, price, id } = service;
+  const { title, duration, price, id, ...order } = service;
 
   const renderButtons = (isTablet, setIsEdit, submitForm, dirty) =>
     isTablet ? (
       <TabletButtons setIsEdit={setIsEdit} submitForm={submitForm} dirty={dirty} />
     ) : (
       <DesktopButtons setIsEdit={setIsEdit} submitForm={submitForm} dirty={dirty} />
+    );
+
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
     );
 
   return (
@@ -87,7 +94,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
         };
         const alert = await asyncAction(config);
         if (alert) {
-          dispatch(updateServiceSuccess({ updatedService: { ...service, id } }));
+          dispatch(updateServiceSuccess({ updatedService: { ...service, id, ...order } }));
           dispatch(setAlert(alert));
           setIsEdit(false);
         }
@@ -122,11 +129,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
               </ErrorMessage> */}
             </div>
 
-            {isLoading ? (
-              <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-            ) : (
-              renderButtons(isTablet, setIsEdit, submitForm, dirty)
-            )}
+            {isLoading ? renderLoading(isTablet) : renderButtons(isTablet, setIsEdit, submitForm, dirty)}
           </Form>
         </>
       )}

@@ -11,6 +11,13 @@
     }
   }
 
+  &__add-service-svg {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 3.2rem;
+    transform: scale(0.8);
+  }
+
   &__switch {
     grid-column: 4 / 10;
     justify-self: flex-end;

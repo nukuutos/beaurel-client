@@ -25,62 +25,52 @@ const Services = () => {
 
   useSaveBeforeUnload();
 
+  const isServices = !!services.length;
+
   return (
     <Layout>
       <main className={`content ${isPhone ? "" : "card card--layout"}`}>
         <h1 className="services__heading heading mt-8">Услуги</h1>
 
-        <UpdateServices
-          isUpdateServices={isUpdateServices}
-          setIsUpdateServices={setIsUpdateServices}
-        />
-        <ViewServices
-          isUpdateServices={isUpdateServices}
-          setIsUpdateServices={setIsUpdateServices}
-        />
+        <UpdateServices isUpdateServices={isUpdateServices} setIsUpdateServices={setIsUpdateServices} />
+        <ViewServices isUpdateServices={isUpdateServices} setIsUpdateServices={setIsUpdateServices} />
 
-        <div className="services__reoder-controller reoder-controller mt-6">
-          Изменить
-          <span
-            onClick={() => setIsReoder(false)}
-            className={`reoder-controller__item ${
-              !isReoder ? "reoder-controller__item--active" : ""
-            }`}
-          >
-            услуги
-          </span>
-          /
-          <span
-            onClick={() => setIsReoder(true)}
-            className={`reoder-controller__item ${
-              isReoder ? "reoder-controller__item--active" : ""
-            }`}
-          >
-            порядок
-          </span>
-        </div>
-
-        {isReoder ? (
-          <DraggableServices services={services} />
-        ) : (
-          <EditServices services={services} />
+        {!!services.length && (
+          <div className="services__reoder-controller reoder-controller mt-6">
+            Изменить
+            <span
+              onClick={() => setIsReoder(false)}
+              className={`reoder-controller__item ${!isReoder ? "reoder-controller__item--active" : ""}`}
+            >
+              услуги
+            </span>
+            /
+            <span
+              onClick={() => setIsReoder(true)}
+              className={`reoder-controller__item ${isReoder ? "reoder-controller__item--active" : ""}`}
+            >
+              порядок
+            </span>
+          </div>
         )}
+
+        {/* {!isServices && <img className="services__add-service-svg" src="svg/add-service.svg" />} */}
+
+        {isReoder ? <DraggableServices services={services} /> : <EditServices services={services} />}
       </main>
     </Layout>
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store, req, res, query }) => {
-    const userId = await handleAuthPage(req, res, store);
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
+  const userId = await handleAuthPage(req, res, store);
 
-    const { services, timetable } = await ServiceModel.getServices(userId);
+  const { services, timetable } = await ServiceModel.getServices(userId);
 
-    store.dispatch(getServicesSuccess({ services, masterId: userId }));
-    store.dispatch(getTimetableSuccess({ timetable }));
+  store.dispatch(getServicesSuccess({ services, masterId: userId }));
+  store.dispatch(getTimetableSuccess({ timetable }));
 
-    return { props: { custom: "custom" } };
-  }
-);
+  return { props: { custom: "custom" } };
+});
 
 export default Services;

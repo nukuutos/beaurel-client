@@ -39,14 +39,22 @@
     @include respond(phone) {
       grid-column: 1 / -1;
     }
+
+    @include respond(phone) {
+      height: 2px;
+      background: $color-gray-light-2;
+    }
   }
 
   &__service {
     grid-column: 1 / -1;
     grid-row: 2 / 5;
+    margin-top: 1.2rem;
 
     @include respond(phone) {
-      margin-bottom: 1.2rem;
+      min-height: 5.2rem;
+      margin-bottom: 0.8rem;
+      margin-top: 0.4rem;
     }
   }
 
@@ -55,7 +63,13 @@
     display: flex;
     border-bottom: 1px solid $color-gray;
     border-top: 1px solid $color-gray;
+
     justify-content: space-between;
+
+    @include respond(phone) {
+      border-bottom: 2px solid $color-gray-light-2;
+      border-top: 2px solid $color-gray-light-2;
+    }
   }
 
   &__attribute {
@@ -66,6 +80,8 @@
     align-items: center;
     grid-column: 11 / -1;
 
+    color: $color-gray-dark-3;
+
     & > * {
       height: 1.2rem;
       margin-right: 0.4rem;
@@ -75,7 +91,7 @@
     border-bottom: 1px solid $color-gray;
 
     @include respond(phone) {
-      padding-top: 0.8rem;
+      padding: 1.2rem 0;
       border-bottom: none;
     }
   }
@@ -86,6 +102,10 @@
 
   &__time {
     grid-row: 2 / 3;
+
+    @include respond(phone) {
+      transform: translateX(-25%);
+    }
   }
 
   &__price {
@@ -99,7 +119,7 @@
     align-items: center;
 
     @include respond(phone) {
-      margin-top: 0.8rem;
+      margin-top: 0.4rem;
       & > * {
         flex: 1;
       }

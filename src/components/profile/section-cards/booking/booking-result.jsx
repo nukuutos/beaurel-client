@@ -7,7 +7,6 @@ import {
   unsetAppointmentDate,
   bookAppointmentSuccess,
 } from "../../../../redux/appointments/actions";
-import convertDateToString from "./booking-timetable/utils/convert-date-to-string";
 import { MONTHS } from "./booking-timetable/utils/week";
 import useMediaQuery from "../../../../hooks/use-media-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,11 +50,52 @@ const BookingResult = ({ setStep }) => {
   };
 
   return (
-    <div className={`booking-result ${isPhone ? "" : "card"}`}>
-      {isPhone && (
-        <nav className={`modal__back-bar card card--layout`}>
-          <div className="back-bar__main">
-            <FontAwesomeIcon
+    <>
+      {isLoading && isPhone && <div className="spinner-with-background" />}
+
+      <div className={`booking-result ${isPhone ? "" : "card"}`}>
+        {isLoading && !isPhone && <div className="spinner-with-background" />}
+
+        {isPhone && (
+          <nav className={`modal__back-bar card card--layout`}>
+            <div className="back-bar__main">
+              <FontAwesomeIcon
+                onClick={() =>
+                  setStep((state) => {
+                    if (state.lastStepName === "service") {
+                      dispatch(unsetAppointmentService());
+                      return { ...state, isResult: false, isService: true, step: state.step - 1 };
+                    }
+                    // timetable case
+                    dispatch(unsetAppointmentDate());
+                    return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
+                  })
+                }
+                className="back-bar__icon mr-6"
+                icon="arrow-left"
+              />
+              Информация о записи
+            </div>
+          </nav>
+        )}
+
+        {!isPhone && <h2 className="booking-result__heading heading heading--modal">Информация о записи</h2>}
+        <img className="booking-result__svg" src="/svg/appointment.svg" alt="Appointment image" />
+        <span className="booking-result__label mt-6">Услуга:</span>
+        <div className="booking-result__value mt-6">{service.title}</div>
+
+        <span className="booking-result__label mt-2">Время:</span>
+        <div className="booking-result__value mt-2">
+          {displayDuration(time)} - {displayDuration(service.duration + time)}
+        </div>
+        <span className="booking-result__label mt-2">Дата:</span>
+        <div className="booking-result__value mt-2">
+          {date.date()} {MONTHS[date.month()].toLowerCase()} {date.year()}
+        </div>
+
+        <div className="booking-result__buttons mt-6">
+          {!isPhone && (
+            <button
               onClick={() =>
                 setStep((state) => {
                   if (state.lastStepName === "service") {
@@ -67,54 +107,18 @@ const BookingResult = ({ setStep }) => {
                   return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
                 })
               }
-              className="back-bar__icon mr-6"
-              icon="arrow-left"
-            />
-            Информация о записи
-          </div>
-        </nav>
-      )}
-
-      {!isPhone && <h2 className="booking-result__heading heading heading--modal">Информация о записи</h2>}
-      <img className="booking-result__svg mt-8" src="/svg/appointment.svg" alt="Appointment image" />
-      <span className="booking-result__label mt-6">Услуга:</span>
-      <div className="booking-result__value mt-6">
-        {service.title} {displayDuration(service.duration)}
-      </div>
-      <span className="booking-result__label mt-2">Время:</span>
-      <div className="booking-result__value mt-2">
-        {date.date()} {MONTHS[date.month()].toLowerCase()} {date.year()} в {displayDuration(time)}
-      </div>
-      <div className="booking-result__buttons mt-6">
-        {!isPhone && (
-          <button
-            onClick={() =>
-              setStep((state) => {
-                if (state.lastStepName === "service") {
-                  dispatch(unsetAppointmentService());
-                  return { ...state, isResult: false, isService: true, step: state.step - 1 };
-                }
-                // timetable case
-                dispatch(unsetAppointmentDate());
-                return { ...state, isResult: false, isTimetable: true, step: state.step - 1 };
-              })
-            }
-            className={`btn btn--secondary ${isLoading ? "btn--disabled" : ""} btn--gray mr-4`}
-            type="submit"
-          >
-            Назад
+              className={`btn btn--secondary  btn--gray mr-4`}
+              type="submit"
+            >
+              Назад
+            </button>
+          )}
+          <button disabled={isLoading} onClick={bookTime} className={`btn btn--primary `} type="submit">
+            Записаться
           </button>
-        )}
-        <button
-          disabled={isLoading}
-          onClick={bookTime}
-          className={`btn btn--primary ${isLoading ? "btn--spinner btn--submitted" : ""}`}
-          type="submit"
-        >
-          Записаться
-        </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

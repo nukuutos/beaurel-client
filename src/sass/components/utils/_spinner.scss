@@ -58,7 +58,7 @@
     left: 50%;
 
     @include respond(phone) {
-      top: calc(50% - 2rem);
+      // top: calc(50% - 2rem);
     }
   }
 }

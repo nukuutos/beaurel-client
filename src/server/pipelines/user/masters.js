@@ -10,9 +10,6 @@ const masters = (matchQuery) => [
       placeOfwork: 1,
     },
   },
-  {
-    $limit: 10,
-  },
   // rating
   {
     $lookup: {
@@ -36,12 +33,19 @@ const masters = (matchQuery) => [
       as: "rating",
     },
   },
-
   {
     $addFields: {
       // rating: { $arrayElemAt: ['$rating.rating', 0] },
       rating: { $round: [{ $arrayElemAt: ["$rating.rating", 0] }, 1] },
     },
+  },
+  {
+    $sort: {
+      rating: -1,
+    },
+  },
+  {
+    $limit: 10,
   },
 ];
 

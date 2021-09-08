@@ -8,13 +8,8 @@ const MasterCardRating = ({ className = "", ratingScore = null }) => {
 
   return ratingScore ? (
     <div className={`master-card__rating ${className}`}>
-      <span className="master-card__rating-score mr-1">
-        {decimalFormat(ratingScore)}
-      </span>
-      <Stars
-        score={decimalFormat(ratingScore)}
-        starSize={isPhone ? "small-super" : "small"}
-      />
+      <span className="master-card__rating-score mr-1">{decimalFormat(ratingScore)}</span>
+      <Stars score={decimalFormat(ratingScore)} starSize={isPhone ? "small-super" : "small"} />
     </div>
   ) : (
     <div className="master-card__rating" />

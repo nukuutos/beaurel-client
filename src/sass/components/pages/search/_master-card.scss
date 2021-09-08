@@ -6,10 +6,13 @@
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.6rem;
   padding: 1.2rem 2.4rem;
-  background: $color-gray-light-3;
+  // background: $color-gray-light-3;
+  background: $color-white;
   cursor: pointer;
   border: 1px solid transparent;
   transition: 0.2s border-color;
+
+  min-height: 14.4rem;
 
   &:hover {
     border-color: $color-primary;
@@ -99,6 +102,18 @@
       }
 
       margin-top: 0.8rem;
+    }
+
+    &--empty {
+      // rating score
+      & > *:first-child {
+        display: none;
+      }
+
+      // stars
+      & > *:last-child {
+        color: $color-gray;
+      }
     }
   }
 

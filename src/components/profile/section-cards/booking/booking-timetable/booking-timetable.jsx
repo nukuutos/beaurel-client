@@ -56,11 +56,25 @@ const BookingTimetable = ({ stepState }) => {
   const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
 
   return (
-    <div className={`booking-timetable card `}>
+    <div className={`booking-timetable ${step === 2 ? "booking-timetable--back" : ""} card`}>
       {isLoading && <div className="spinner-with-background" />}
 
-      {/* back button */}
       {step === 2 && (
+        <div
+          onClick={() => {
+            dispatch(unsetAppointmentService());
+            setStep((state) => {
+              return { ...state, isService: true, isTimetable: false, step: state.step - 1 };
+            });
+          }}
+          className="booking-timetable__back-btn"
+        >
+          <FontAwesomeIcon icon="chevron-left" /> Вернуться к выбору услуги
+        </div>
+      )}
+
+      {/* back button */}
+      {/* {step === 2 && (
         <div
           onClick={() => {
             dispatch(unsetAppointmentService());
@@ -72,22 +86,14 @@ const BookingTimetable = ({ stepState }) => {
         >
           Назад
         </div>
-      )}
+      )} */}
 
       <div className="booking-timetable__header  mb-7">
-        <div
-          // onClick={() => setDate((today) => getPreviousWeek(today))}
-          onClick={() => setDate((today) => today.weekday(-7))}
-          className={`booking-timetable__arrow btn-icon mr-6`}
-        >
+        <div onClick={() => setDate((today) => today.weekday(-7))} className={`booking-timetable__arrow btn-icon mr-6`}>
           <FontAwesomeIcon icon="chevron-left" />
         </div>
-        <h2 className="heading booking-timetable__heading ">Выбери Время</h2>
-        <div
-          // onClick={() => setDate((today) => getNextWeek(today))}
-          onClick={() => setDate((today) => today.weekday(7))}
-          className={`booking-timetable__arrow btn-icon ml-6`}
-        >
+        <h2 className="heading booking-timetable__heading ">Выберите Время</h2>
+        <div onClick={() => setDate((today) => today.weekday(7))} className={`booking-timetable__arrow btn-icon ml-6`}>
           <FontAwesomeIcon icon="chevron-right" />
         </div>
       </div>
@@ -97,7 +103,6 @@ const BookingTimetable = ({ stepState }) => {
       {isUnavailableWeek && (
         <div className="booking-timetable__no-appointments">
           На этой неделе нет свободных записей!
-          {/* <div onClick={() => setDate((today) => getNextWeek(today))} className="btn-text mt-2"> */}
           <div onClick={() => setDate((today) => today.weekday(7))} className="btn-text mt-2">
             следующая неделя
           </div>

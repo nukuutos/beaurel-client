@@ -10,8 +10,6 @@ const UpdateService = ({ index, values, initialValues }) => {
   const { duration: initialDuration } = initialValues.services[index];
   const { title, duration, price, id } = values.services[index];
 
-  // const sessionTime = 240;
-
   return (
     <div
       className={`service service-update service-update--${
@@ -32,8 +30,8 @@ const UpdateService = ({ index, values, initialValues }) => {
           <FontAwesomeIcon className="input__icon" icon="clock" />
           {/* value={values.duration} name */}
           <Select value={duration} className="input" name={`services.${index}.duration`} as="select">
-            <option className="input__hide">{displayDuration(initialDuration)}</option>
-            {renderDurationOptions(sessionTime)}
+            <option className="input__hide">{displayDuration(Number(initialDuration))}</option>
+            {renderDurationOptions(Number(sessionTime))}
           </Select>
         </div>
 

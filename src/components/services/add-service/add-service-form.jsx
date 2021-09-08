@@ -45,11 +45,13 @@ const AddServiceForm = ({ onClickClose }) => {
           dispatch(addServiceSuccess({ service: { id, ...service } }));
           dispatch(setAlert(alert));
           resetForm();
+          onClickClose();
         }
       }}
     >
       {({ isSubmitting, dirty, isValidating, values }) => (
         <Form className="add-service__form">
+          {isSubmitting && <div className="spinner-with-background" />}
           <div className="add-service__title mt-5">
             <label className="label" htmlFor="title">
               Название
@@ -78,7 +80,7 @@ const AddServiceForm = ({ onClickClose }) => {
               <InputIcon
                 type="number"
                 name="price"
-                inputClassName={"input"}
+                inputClassName={"input ml-1"}
                 wrapperClassName={"input--icon input--mini"}
               >
                 <FontAwesomeIcon className="input__icon input__icon--m" icon="ruble-sign" />
@@ -87,11 +89,7 @@ const AddServiceForm = ({ onClickClose }) => {
             </div>
           </div>
 
-          <button
-            disabled={isSubmitting}
-            className={`add-service__button btn btn--primary mt-9 ${isLoading ? "btn--submitted btn--spinner" : ""}`}
-            type="submit"
-          >
+          <button disabled={isSubmitting} className={`add-service__button btn btn--primary mt-9 `} type="submit">
             Добавить
           </button>
           {/* {isPhone && (

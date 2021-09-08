@@ -56,7 +56,8 @@ const MasterCard = ({ master, className, masterCardRef = null }) => {
     <div ref={masterCardRef} className={`${className} master-card card`} onClick={() => router.push(`/${_id}`)}>
       <div className="master-card__identify">
         <img src={getAvatarPath(avatar)} alt="Profile image" className="master-card__avatar" />
-        <MasterCardRating className="master-card__rating" ratingScore={rating} />
+        {rating && <MasterCardRating className="master-card__rating" ratingScore={rating} />}
+        {!rating && <MasterCardRating className="master-card__rating master-card__rating--empty" ratingScore={5} />}
       </div>
       <div className="master-card__biography">
         <h1 className="master-card__name">{firstName + " " + lastName}</h1>

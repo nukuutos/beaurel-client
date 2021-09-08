@@ -36,11 +36,38 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
     $addFields: {
       _id: { $convert: { input: "$_id", to: "string" } },
       user: { $arrayElemAt: ["$user", 0] },
-      date: { $convert: { input: "$date", to: "string" } },
-      createdAt: { $convert: { input: "$createdAt", to: "string" } },
+      // date: { $convert: { input: "$date", to: "string" } },
+      // createdAt: { $convert: { input: "$createdAt", to: "string" } },
       "service.update.date": { $convert: { input: "$service.update.date", to: "string" } },
     },
   },
+  {
+    $group: {
+      _id: { $dateToString: { format: "%d-%m-%Y", date: "$date" } },
+      appointments: {
+        $push: {
+          user: "$user",
+          review: "$review",
+          service: "$service",
+          time: "$time",
+          date: { $convert: { input: "$date", to: "string" } },
+        },
+      },
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      appointments: { $push: { k: "$_id", v: "$appointments" } },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      appointments: { $arrayToObject: "$appointments" },
+    },
+  },
+  { $replaceRoot: { newRoot: "$appointments" } },
 ];
 
 export default masterAppointmentsAndCustomers;

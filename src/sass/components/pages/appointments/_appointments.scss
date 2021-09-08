@@ -10,17 +10,135 @@
   &__appointment-types {
     grid-column: 3 / 11;
     grid-row: 2 / 3;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 
   &__appointment-card {
+    width: 100%;
+  }
+
+  &__days {
     grid-column: 3 / 11;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // overflow-x: auto;
+
+    @include respond(phone) {
+      flex-direction: row;
+      margin-right: -1.6rem;
+      margin-left: -1.6rem;
+      align-items: flex-start;
+    }
+
+    // -n*100% + -n*1.6rem
+    // transform: translateX(calc(-200% - 3.2rem));
+  }
+
+  &__day {
+    grid-column: 3 / 11;
+    margin-top: 3.2rem;
+
+    @include respond(phone) {
+      padding: 0 1.6rem;
+      margin-top: 0;
+      // width: 100%;
+      // flex-shrink: 0;
+
+      // &:not(:last-of-type) {
+      //   margin-right: 1.6rem;
+      // }
+    }
+  }
+
+  &__date-dots {
+    // grid-column: 1 / -1;
+    // justify-self: center;
+    display: flex;
+    // padding: 0.4rem 1.6rem;
+    justify-content: center;
+    align-items: center;
+
+    height: 7px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s width;
+  }
+
+  &__dots {
+    grid-column: 1 / -1;
+    justify-self: center;
+    padding: 0.4rem 1.6rem;
+  }
+
+  &__date-dot-window {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    transition: 0.4s transform;
+
+    // justify-content: center;
+    // width: 100%;
+  }
+
+  &__date-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: $color-gray-light-1;
+    flex-shrink: 0;
+    transition: 0.4s width, 0.4s height; // for mini
+
+    &:not(:last-of-type) {
+      margin-right: 0.4rem;
+    }
+
+    &--active {
+      transition: 0.6s transform, 0.6s background;
+      background: $color-primary;
+      transform: scale(1.5);
+    }
+
+    &--mini {
+      width: 2px;
+      height: 2px;
+      // transform: scale(0.5);
+    }
+  }
+
+  &__date {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-gray-dark-2;
+
+    @include respond(phone) {
+      padding: 1.2rem 1.8rem 1.2rem 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 2.4rem;
+
+      & > *:first-child {
+        flex: 1;
+        color: $color-gray;
+        text-align: center;
+      }
+
+      & > *:last-child {
+        color: $color-primary;
+      }
+    }
   }
 
   &__noappointments {
     grid-column: 3 / 11;
     padding: 1.6rem 2rem;
     font-weight: 700;
-    background: $color-gray-light-3;
+    background: $color-white;
   }
 
   @include respond(tab-port) {
@@ -29,7 +147,8 @@
     }
 
     &__appointment-types,
-    &__appointment-card,
+    &__days,
+    &__date,
     &__noappointments {
       grid-column: 1 / -1;
     }

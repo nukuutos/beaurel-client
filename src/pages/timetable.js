@@ -42,7 +42,7 @@ const Timetable = () => {
   ]);
   const dispatch = useDispatch();
 
-  const { manually, update, sessionTime, _id: timetableId, ...restTimetableProps } = timetable;
+  const { manually, update, sessionTime, auto, _id: timetableId, ...restTimetableProps } = timetable;
 
   const formRef = useRef({});
 
@@ -56,14 +56,23 @@ const Timetable = () => {
           innerRef={formRef}
           initialValues={{
             ...restTimetableProps,
-            editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
+
+            edit: {
+              sessionTime,
+              auto,
+            },
+
+            auto,
+
+            // editingSessionTime: sessionTime, // purpose of this sessionTime is controll of editing sessionTime
             sessionTime, // main purpose of this session time is rendering auto timetable
+
             manually: { ...manually, hours: 540, mins: 0 },
             date: null, // it's null
           }}
           enableReinitialize
           // submit is calling in UpdatedDate component
-          onSubmit={async ({ editingSessionTime, manually, ...values }, { resetForm }) => {
+          onSubmit={async ({ edit, manually, ...values }, { resetForm }) => {
             const update = {
               manually: { appointments: manually.appointments },
               ...values,
@@ -124,6 +133,7 @@ const Timetable = () => {
                   <div className="timetable__timetable-card timetable-card mt-8 card">
                     <div className="timetable-card__heading ">Настройки расписания</div>
                     <Weekends
+                      edit={values.edit}
                       weekends={values.auto.weekends}
                       update={update.date}
                       editParentState={[editState, setEditState]}
@@ -131,10 +141,13 @@ const Timetable = () => {
                       setFieldValue={setFieldValue}
                     />
                     <WorkingDay
+                      edit={values.edit}
                       workingDay={values.auto.workingDay}
                       sessionTime={values.sessionTime}
                       update={update.date}
                       editParentState={[editState, setEditState]}
+                      setFieldValue={setFieldValue}
+                      initialValues={initialValues}
                     />
                     <Exceptions exceptions={values.auto.exceptions} />
                   </div>
@@ -151,18 +164,36 @@ const Timetable = () => {
               )}
 
               {!update.date && (
-                <div
-                  onClick={() =>
-                    setUpdateTimetable((state) => ({
-                      ...state,
-                      isVisible: true,
-                    }))
-                  }
-                  className={`btn btn--primary ${dirty ? "" : "btn--disabled"} timetable__button mt-8`}
-                >
-                  Сохранить
+                <div className="timetable__buttons mt-8">
+                  {dirty && (
+                    <div
+                      onClick={() => resetForm()}
+                      className={`btn btn--secondary ${!editState.isEditing ? "" : "btn--disabled"}  `}
+                    >
+                      Сбросить изменения
+                    </div>
+                  )}
+                  <div
+                    onClick={() =>
+                      setUpdateTimetable((state) => ({
+                        ...state,
+                        isVisible: true,
+                      }))
+                    }
+                    className={`btn btn--primary ${!editState.isEditing && dirty ? "" : "btn--disabled"}`}
+                  >
+                    Сохранить
+                  </div>
                 </div>
               )}
+
+              {/* {!update.date && (
+                
+              )}
+
+              {!update.date && dirty && (
+                
+              )} */}
             </Form>
           )}
         </Formik>

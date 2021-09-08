@@ -20,19 +20,17 @@ const onCityClick = (data, setCity, onClose) => {
 };
 
 const CitySearch = ({ onClickClose, setCity }) => {
-  const [data, setData] = useState([
-    { city: "Absafa", timezone: "Ahahahah" },
-    { city: "Absafa", timezone: "Ahahahah" },
-    { city: "Absafa", timezone: "Ahahahah" },
-  ]);
+  const [data, setData] = useState([]);
 
-  const [asyncAction, isLoading, isCancelled] = useAsyncAction();
   const isPhone = useMediaQuery(600);
 
   const form = useRef();
-  const [lastRef, { page, hasMore }, isSearchLoading] = useSearch(form, setData);
+  const [lastRef, { page, hasMore }, isPaginationLoading] = useSearch(form, setData);
 
-  // useEffect
+  const [onRenderAsyncAction, isRenderLoading] = useAsyncAction("initial search");
+  const [onSearchAsyncAction, isSubmitLoading, isCancelled] = useAsyncAction("form search");
+
+  useEffect;
   useEffect(() => {
     const getCities = async () => {
       const config = {
@@ -42,7 +40,7 @@ const CitySearch = ({ onClickClose, setCity }) => {
         accessToken: "nothing",
       };
 
-      const data = await asyncAction(config);
+      const data = await onRenderAsyncAction(config);
 
       if (data && !isCancelled.current) setData(data.cities);
     };
@@ -54,7 +52,7 @@ const CitySearch = ({ onClickClose, setCity }) => {
     <Modal isMobileBackground onClickClose={onClickClose}>
       <div className={`city-search ${isPhone ? "" : "card"}`}>
         <ModalHeading title="Выбрать город" onClickClose={onClickClose} />
-        {isLoading && <div className="spinner-with-background" />}
+        {isRenderLoading && <div className="spinner-with-background" />}
         <Formik
           innerRef={form}
           initialValues={{ city: "" }}
@@ -68,7 +66,7 @@ const CitySearch = ({ onClickClose, setCity }) => {
               accessToken: "nothing",
             };
 
-            const data = await asyncAction(config);
+            const data = await onSearchAsyncAction(config);
 
             if (data) setData(data.cities);
 
@@ -96,8 +94,9 @@ const CitySearch = ({ onClickClose, setCity }) => {
             </Form>
           )}
         </Formik>
+        {/* {!isSubmitLoading && <Spinner />} */}
         {data.map((cityData, i) =>
-          data.length - 1 === i ? (
+          data.length - 5 === i ? (
             <div
               ref={lastRef}
               key={i}

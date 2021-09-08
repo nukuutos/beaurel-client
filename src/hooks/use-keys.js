@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const useKeys = (getKeys) => {
   useEffect(() => {
-    console.log('render');
+    console.log("render");
 
     const onKeyDown = (e) => {
       const { key: pressedKey } = e;
+
+      console.log(pressedKey, e);
 
       const keys = getKeys();
 
@@ -14,9 +16,9 @@ const useKeys = (getKeys) => {
       });
     };
 
-    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
 
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [getKeys]);
 };
 

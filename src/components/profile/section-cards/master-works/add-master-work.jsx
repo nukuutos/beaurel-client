@@ -31,14 +31,13 @@ const AddMasterWork = ({ setParentState }) => {
     if (file) reader.readAsDataURL(file);
   };
 
+  const toWorks = () => setParentState((state) => ({ ...state, display: "works" }));
+
   return (
     <div className={`add-master-work ${isPhone ? "" : "card"}`}>
       {isLoading && <div className="spinner-with-background" />}
 
-      <ModalHeading
-        title="Добавить работу"
-        onClickClose={() => setParentState((state) => ({ ...state, display: "works" }))}
-      />
+      <ModalHeading title="Добавить работу" onClickClose={toWorks} />
 
       {src ? (
         <>
@@ -72,7 +71,7 @@ const AddMasterWork = ({ setParentState }) => {
                 const { _id, ...alert } = data;
                 dispatch(addWorkSuccess({ work: { _id, title } }));
                 dispatch(setAlert(alert));
-                setParentState((state) => ({ ...state, display: "works" }));
+                toWorks();
               }
             }}
           >
@@ -88,10 +87,7 @@ const AddMasterWork = ({ setParentState }) => {
 
                 <div className="add-master-work__buttons mt-6">
                   {!isPhone && (
-                    <div
-                      onClick={() => setParentState((state) => ({ ...state, display: "works" }))}
-                      className={`btn btn--secondary mr-4 `}
-                    >
+                    <div onClick={toWorks} className={`btn btn--secondary mr-4 `}>
                       Назад
                     </div>
                   )}

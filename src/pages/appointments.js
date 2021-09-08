@@ -6,12 +6,12 @@ import AppointmentsCategoriesController from "../components/appointments/appoint
 import AppointmentController from "../components/appointments/appointment-controller";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import renderMasterAppointment from "../components/appointments/appointment/utils/render-master-appointment";
 import useAsyncAction from "../hooks/use-async-action/use-async-action";
-import renderCustomerAppointment from "../components/appointments/appointment/utils/render-customer-appointment";
 import handleAuthPage from "../utils/auth/hande-auth-page/handle-auth-page";
-import AppointmentsCategoriesControllerPhone from "../components/appointments/appointments-categories-controller-phone";
 import useMediaQuery from "../hooks/use-media-query";
+import { useCarousel } from "../components/appointments/use-carousel/use-carousel";
+import AppointmentsDots from "../components/appointments/appointments-dots";
+import AppointmentsDays from "../components/appointments/appointments-days";
 
 const Appointments = () => {
   const [{ user, category }, setState] = useState({ user: "master", category: "onConfirmation" });
@@ -24,6 +24,10 @@ const Appointments = () => {
   const [asyncAction, isLoading] = useAsyncAction();
 
   const { appointments, isLoaded } = appointmentsState[user][category];
+
+  const days = Object.keys(appointments);
+  const daysNumber = days.length;
+  const [active, handlers, styles, direction] = useCarousel(days.length);
 
   const getMasterAppointments = async (category) => {
     const config = {
@@ -43,22 +47,21 @@ const Appointments = () => {
     if (!isLoaded) getMasterAppointments(category);
   }, [category, user]);
 
+  const renderArguments = [appointments, user, category];
+
   return (
     <Layout>
       <main className={`content ${isPhone ? "" : "card card--layout"}`}>
         {isLoading && <div className="spinner-with-background" />}
         <AppointmentController userState={[user, setState]} />
-        {isPhone ? (
-          <AppointmentsCategoriesControllerPhone categoryState={[category, setState]} />
-        ) : (
-          <AppointmentsCategoriesController categoryState={[category, setState]} />
-        )}
 
-        {user === "master"
-          ? appointments.map((appointment, i) => renderMasterAppointment(appointment, category, i))
-          : appointments.map((appointment, i) => renderCustomerAppointment(appointment, category, i))}
+        <AppointmentsCategoriesController categoryState={[category, setState]} />
 
-        {!appointments.length && <div className="appointments__noappointments card mt-8">Записи отсутствуют</div>}
+        {isPhone && <AppointmentsDots days={days} daysNumber={daysNumber} active={active} direction={direction} />}
+
+        {!!daysNumber && <AppointmentsDays style={styles} handlers={handlers} renderArguments={renderArguments} />}
+
+        {!daysNumber && <div className="appointments__noappointments card mt-8">Записи отсутствуют</div>}
       </main>
     </Layout>
   );

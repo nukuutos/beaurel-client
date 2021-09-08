@@ -64,21 +64,16 @@ const VisualUpdatedTimetable = () => {
       {isConfirmation && (
         <Modal isMobileBackground onClickClose={() => setIsConfirmation(false)}>
           <div className={`update-cancellation ${isPhone ? "" : "card"}`}>
-            {/* <div className="update-cancellation__heading heading">Предупреждение</div> */}
+            {isLoading && <div className="spinner-with-background" />}
+
             <ModalHeading title="Предупреждение" onClickClose={() => setIsConfirmation(false)} />
             <p className="update-cancellation__text">Вы действительно хотите отменить обновление?</p>
 
             <div className="update-cancellation__buttons mt-8">
-              <div
-                onClick={() => setIsConfirmation(false)}
-                className={`btn ${isLoading ? "btn--disabled" : ""} btn--secondary btn--gray mr-4`}
-              >
+              <div onClick={() => setIsConfirmation(false)} className={`btn btn--secondary btn--gray mr-4`}>
                 Назад
               </div>
-              <div
-                onClick={() => deleteTimetableUpdate()}
-                className={`btn btn--primary btn--fail ${isLoading ? "btn--disabled btn--spinner" : ""} `}
-              >
+              <div onClick={() => deleteTimetableUpdate()} className={`btn btn--primary btn--fail`}>
                 Отменить
               </div>
             </div>

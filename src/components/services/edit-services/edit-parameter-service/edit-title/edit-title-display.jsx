@@ -8,7 +8,7 @@ import Spinner from "../../../../utils/spinner";
 import useAsyncAction from "../../../../../hooks/use-async-action/use-async-action";
 import useMediaQuery from "../../../../../hooks/use-media-query";
 
-const DesktopButtons = ({ setIsEdit, deleteService, setIsShown }) => {
+const DesktopButtons = ({ setIsEdit, deleteService, setIsShown, title }) => {
   return (
     <>
       <div
@@ -28,7 +28,7 @@ const DesktopButtons = ({ setIsEdit, deleteService, setIsShown }) => {
   );
 };
 
-const TabletButtons = ({ setIsEdit, deleteService, setIsShown }) => {
+const TabletButtons = ({ setIsEdit, deleteService, setIsShown, title }) => {
   return (
     <div className="service__mobile-buttons">
       <div onClick={() => deleteService(title)} className="service__btn">
@@ -50,13 +50,15 @@ const TabletButtons = ({ setIsEdit, deleteService, setIsShown }) => {
   );
 };
 
-const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
+const EditTitleDisplay = ({ service, setIsEdit, shownState }) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
   const isTablet = useMediaQuery(900);
 
   const [isShown, setIsShown] = shownState;
+
+  const { title, order } = service;
 
   const deleteService = async (title) => {
     const config = {
@@ -68,16 +70,23 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(deleteServiceParameterSuccess({ title }));
+      dispatch(deleteServiceParameterSuccess({ title, order }));
       dispatch(setAlert(alert));
     }
   };
 
-  const renderButtons = (isTablet, setIsEdit, deleteService) =>
+  const renderButtons = (isTablet, setIsEdit, deleteService, title) =>
     isTablet ? (
-      <TabletButtons setIsEdit={setIsEdit} setIsShown={setIsShown} deleteService={deleteService} />
+      <TabletButtons title={title} setIsEdit={setIsEdit} setIsShown={setIsShown} deleteService={deleteService} />
     ) : (
-      <DesktopButtons setIsEdit={setIsEdit} setIsShown={setIsShown} deleteService={deleteService} />
+      <DesktopButtons title={title} setIsEdit={setIsEdit} setIsShown={setIsShown} deleteService={deleteService} />
+    );
+
+  const renderLoading = (isTablet) =>
+    isTablet ? (
+      <div className="spinner-with-background" />
+    ) : (
+      <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
     );
 
   const classNameService = `service service--edit-mobile service-parameter${isShown ? "--expand" : ""} ${
@@ -88,11 +97,7 @@ const EditTitleDisplay = ({ title, setIsEdit, shownState }) => {
     <div onClick={() => setIsShown(!isShown)} className={classNameService}>
       <Title shownState={shownState} title={title} />
 
-      {isLoading ? (
-        <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />
-      ) : (
-        renderButtons(isTablet, setIsEdit, deleteService)
-      )}
+      {isLoading ? renderLoading(isTablet) : renderButtons(isTablet, setIsEdit, deleteService, title)}
     </div>
   );
 };

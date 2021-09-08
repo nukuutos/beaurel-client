@@ -14,9 +14,11 @@
   }
 
   @include respond(phone) {
-    padding: 1.2rem 3.2rem 1.6rem;
-    text-align: left;
-    color: $color-primary;
+    padding: 1.6rem 1.2rem;
+    overflow-x: auto;
+    // padding: 1.2rem 3.2rem 1.6rem;
+    // text-align: left;
+    // color: $color-primary;
   }
 
   &__type {
@@ -27,19 +29,26 @@
 
     &:hover {
       background: $color-gray-light-1;
+
+      @include respond(phone) {
+        background: none;
+      }
     }
 
     &--waiting {
-      background: $color-gold;
+      background: $color-primary;
+      color: $color-white;
       pointer-events: none;
       cursor: default;
+
       &:hover {
-        background: $color-gold;
+        background: $color-primary;
       }
     }
 
     &--confirmed {
       background: $color-success;
+      color: $color-white;
       pointer-events: none;
       cursor: default;
 
@@ -50,7 +59,7 @@
 
     &--unsuitable {
       background: $color-fail;
-      color: $color-gray-light-3;
+      color: $color-white;
       pointer-events: none;
       cursor: default;
 

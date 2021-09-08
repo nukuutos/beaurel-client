@@ -45,6 +45,18 @@ $indicator-width: 2rem;
     border: none;
     cursor: default;
 
+    &::before {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: #f7f0fb;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      transition: 0.1s opacity;
+    }
+
     // &::before {
     //   content: "";
     //   position: absolute;

@@ -22,21 +22,14 @@ const EditServices = ({ services }) => {
         })
       ) : (
         // change it
-        <p className="services__first-service gc-f mb-m mt-s-4">
-          {isPublicView ? "Sorry, no services yet!" : "Add your first service!"}
-        </p>
+        <p></p>
       )}
 
-      <div
-        className="service service--add service--hover card mt-6"
-        onClick={() => setIsAddService(true)}
-      >
+      <div className="service service--add service--hover card mt-6" onClick={() => setIsAddService(true)}>
         <FontAwesomeIcon icon="plus" />
       </div>
 
-      {isAddService && (
-        <AddService onClickClose={() => setIsAddService(false)} />
-      )}
+      {isAddService && <AddService onClickClose={() => setIsAddService(false)} />}
     </div>
   );
 };

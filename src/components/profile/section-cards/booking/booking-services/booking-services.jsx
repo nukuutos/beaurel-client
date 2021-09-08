@@ -10,7 +10,6 @@ import useMediaQuery from "../../../../../hooks/use-media-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalHeading from "../../../../utils/modal/modal-heading";
 import getIsViewAlert from "../../../../services/view-services/utils/get-is-view-alert";
-import getServicesForRender from "../../../../services/view-services/utils/get-services-for-render";
 import { getUpdateDate } from "../booking-timetable/booking-phone-timetable/utils";
 
 const BookingServices = ({ stepState, onClickClose }) => {
@@ -76,71 +75,71 @@ const BookingServices = ({ stepState, onClickClose }) => {
   })(services);
 
   return (
-    <div className={`booking-services ${isPhone ? "" : "card"}`}>
-      {isLoading && <div className="spinner-with-background" />}
-
-      <ModalHeading
-        titleDesktopClassName="services__heading"
-        title="Выберите услугу"
-        onClickClose={step === 2 ? onClickBack : onClickClose}
-      />
-
-      {!isPhone && step === 2 && (
-        <div
-          // onClick={() => {
-          //   dispatch(unsetAppointmentDate());
-          //   setStep((state) => ({ ...state, isTimetable: true, isService: false, step: state.step - 1 }));
-          // }}
-          onClick={onClickBack}
-          className="btn btn--secondary btn--gray booking-services__btn-back"
-        >
-          Назад
-        </div>
-      )}
-
-      {/* services switcher  */}
-      {step === 1 && getIsViewAlert(services) && (
-        <div className="services__switch switch mt-6">
-          <div
-            className={`switch__label ${servicesSwitcher === "ordinary" ? "switch__label--active" : ""}`}
-            onClick={() => setServicesSwitcher("ordinary")}
-          >
-            по {servicesUpdateDate.subtract(1, "day").format("DD.MM.YY")}
+    <>
+      {isLoading && isPhone && <div className="spinner-with-background" />}
+      <div className={`booking-services ${isPhone ? "" : "card"}`}>
+        {isLoading && !isPhone && <div className="spinner-with-background" />}
+        {!isPhone && step === 2 && (
+          <div onClick={onClickBack} className="booking-services__btn-back">
+            <FontAwesomeIcon icon="chevron-left" /> Вернуться к выбору времени
           </div>
-          <div
-            className={`switch__label ${servicesSwitcher === "updated" ? "switch__label--active" : ""}`}
-            onClick={() => setServicesSwitcher("updated")}
-          >
-            c {servicesUpdateDate.format("DD.MM.YY")}
-          </div>
-        </div>
-      )}
-
-      <div className="services__container">
-        {services.length ? (
-          services.map((service, i) => {
-            return service.subServices ? (
-              <BookingParameterService
-                setStep={setStep}
-                service={service}
-                key={i}
-                isUpdated={servicesSwitcher === "updated"}
-              />
-            ) : (
-              <BookingService setStep={setStep} service={service} key={i} isUpdated={servicesSwitcher === "updated"} />
-            );
-          })
-        ) : (
-          <p className="">Sorry, no services yet!</p>
         )}
 
-        {/* {isPhone && (
+        <ModalHeading
+          titleDesktopClassName="services__heading booking-services__heading"
+          title="Выберите услугу"
+          onClickClose={step === 2 ? onClickBack : onClickClose}
+        />
+
+        {/* services switcher  */}
+        {step === 1 && getIsViewAlert(services) && (
+          <div className="services__switch switch mt-6">
+            <div
+              className={`switch__label ${servicesSwitcher === "ordinary" ? "switch__label--active" : ""}`}
+              onClick={() => setServicesSwitcher("ordinary")}
+            >
+              по {servicesUpdateDate.subtract(1, "day").format("DD.MM.YY")}
+            </div>
+            <div
+              className={`switch__label ${servicesSwitcher === "updated" ? "switch__label--active" : ""}`}
+              onClick={() => setServicesSwitcher("updated")}
+            >
+              c {servicesUpdateDate.format("DD.MM.YY")}
+            </div>
+          </div>
+        )}
+
+        <div className="services__container booking-services__container">
+          {services.length ? (
+            services.map((service, i) => {
+              return service.subServices ? (
+                <BookingParameterService
+                  setStep={setStep}
+                  service={service}
+                  key={i}
+                  isUpdated={servicesSwitcher === "updated"}
+                />
+              ) : (
+                <BookingService
+                  setStep={setStep}
+                  service={service}
+                  key={i}
+                  isUpdated={servicesSwitcher === "updated"}
+                />
+              );
+            })
+          ) : (
+            <p className="">Sorry, no services yet!</p>
+          )}
+
+          {/* {isPhone && (
           <div onClick={onClickBack} className="btn btn--primary btn--gray mt-8">
             Назад
           </div>
         )} */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
