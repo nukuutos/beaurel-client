@@ -1,27 +1,27 @@
-import Layout from "../components/layout/layout";
-import { wrapper } from "../redux/store";
-import { Formik, Form } from "formik";
-import BaseSettings from "../components/timetable/base-settings";
-import TimetableType from "../components/timetable/timetable-type";
-import Weekends from "../components/timetable/weekends";
-import WorkingDay from "../components/timetable/working-day";
-import Exceptions from "../components/timetable/exceptions";
-import VisualTimetableAuto from "../components/timetable/visual-timetable-auto";
-import VisualTimetableManually from "../components/timetable/visual-timetable-manually";
-import ManuallyAppointments from "../components/timetable/manually-appointments";
-import TimetableModel from "../server/models/timetable";
-import { getTimetableSuccess, setTimetableUpdate } from "../redux/timetable/actions";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useRef } from "react";
-import VisualUpdatedTimetable from "../components/timetable/visual-updated-timetable/visual-updated-timetable";
-import useAsyncAction from "../hooks/use-async-action/use-async-action";
-import { setAlert } from "../redux/alert/actions";
-import handleAuthPage from "../utils/auth/hande-auth-page/handle-auth-page";
-import UpdateTimtetable from "../components/timetable/update-timtetable";
-import { servicesToUnsuitable } from "../redux/service/actions/service";
-import useMediaQuery from "../hooks/use-media-query";
+import { Formik, Form } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useRef } from 'react';
+import Layout from '../components/layout/layout';
+import { wrapper } from '../redux/store';
+import BaseSettings from '../components/timetable/base-settings';
+import TimetableType from '../components/timetable/timetable-type';
+import Weekends from '../components/timetable/weekends';
+import WorkingDay from '../components/timetable/working-day';
+import Exceptions from '../components/timetable/exceptions';
+import VisualTimetableAuto from '../components/timetable/visual-timetable-auto';
+import VisualTimetableManually from '../components/timetable/visual-timetable-manually';
+import ManuallyAppointments from '../components/timetable/manually-appointments';
+import TimetableModel from '../server/models/timetable';
+import { getTimetableSuccess, setTimetableUpdate } from '../redux/timetable/actions';
+import VisualUpdatedTimetable from '../components/timetable/visual-updated-timetable/visual-updated-timetable';
+import useAsyncAction from '../hooks/use-async-action/use-async-action';
+import { setAlert } from '../redux/alert/actions';
+import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import UpdateTimtetable from '../components/timetable/update-timtetable';
+import { servicesToUnsuitable } from '../redux/service/actions/service';
+import useMediaQuery from '../hooks/use-media-query';
 
-const Timetable = () => {
+const Timetable = function () {
   const [asyncAction, isLoading] = useAsyncAction();
   const isPhone = useMediaQuery(600);
   const [updateTimetable, setUpdateTimetable] = useState({
@@ -35,14 +35,21 @@ const Timetable = () => {
     isEditing: false,
     element: { sessionTime: false, weekends: false, workingDay: false },
   });
-  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector((state) => [
+  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector(state => [
     state.timetable,
     state.services,
     state.auth,
   ]);
   const dispatch = useDispatch();
 
-  const { manually, update, sessionTime, auto, _id: timetableId, ...restTimetableProps } = timetable;
+  const {
+    manually,
+    update,
+    sessionTime,
+    auto,
+    _id: timetableId,
+    ...restTimetableProps
+  } = timetable;
 
   const formRef = useRef({});
 
@@ -50,7 +57,7 @@ const Timetable = () => {
 
   return (
     <Layout>
-      <main className={`content ${isPhone ? "" : "card card--layout"}`}>
+      <main className={`content ${isPhone ? '' : 'card card--layout'}`}>
         <h1 className="timetable__heading heading mt-8 ">Расписание</h1>
         <Formik
           innerRef={formRef}
@@ -79,7 +86,7 @@ const Timetable = () => {
             };
 
             const config = {
-              method: "post",
+              method: 'post',
               url: `/master/${profileId}/timetable/${timetableId}/update`,
               data: update,
               accessToken,
@@ -88,10 +95,14 @@ const Timetable = () => {
             const data = await asyncAction(config);
 
             if (data) {
-              const { unsuitableServicesCount, ...alert } = data;
+              const { unsuitableServices, ...alert } = data;
 
               // services to unsuitable
-              if (servicesState.services.length && servicesState.masterId === profileId && unsuitableServicesCount) {
+              if (
+                servicesState.services.length &&
+                servicesState.masterId === profileId &&
+                unsuitableServices
+              ) {
                 const { date, sessionTime } = values;
                 dispatch(servicesToUnsuitable({ date, sessionTime }));
               }
@@ -99,12 +110,12 @@ const Timetable = () => {
               dispatch(setTimetableUpdate({ update }));
 
               resetForm();
-              setUpdateTimetable((state) => {
-                if (!unsuitableServicesCount) return { ...state, isVisible: false };
+              setUpdateTimetable(state => {
+                if (!unsuitableServices) return { ...state, isVisible: false };
                 return {
                   ...state,
                   step: 1,
-                  servicesCountToUpdate: unsuitableServicesCount,
+                  servicesCountToUpdate: unsuitableServices,
                 };
               });
               dispatch(setAlert(alert));
@@ -128,7 +139,7 @@ const Timetable = () => {
                 isEditing={editState.isEditing}
               />
 
-              {values.type === "auto" ? (
+              {values.type === 'auto' ? (
                 <>
                   <div className="timetable__timetable-card timetable-card mt-8 card">
                     <div className="timetable-card__heading ">Настройки расписания</div>
@@ -151,7 +162,11 @@ const Timetable = () => {
                     />
                     <Exceptions exceptions={values.auto.exceptions} />
                   </div>
-                  <VisualTimetableAuto values={values} update={update.date} isEditing={editState.isEditing} />
+                  <VisualTimetableAuto
+                    values={values}
+                    update={update.date}
+                    isEditing={editState.isEditing}
+                  />
                 </>
               ) : (
                 <>
@@ -159,7 +174,11 @@ const Timetable = () => {
                     <div className="timetable-card__heading mb-2 ">Настройки расписания</div>
                     <ManuallyAppointments appointments={values.manually.appointments} />
                   </div>
-                  <VisualTimetableManually update={update.date} isEditing={editState.isEditing} values={values} />
+                  <VisualTimetableManually
+                    update={update.date}
+                    isEditing={editState.isEditing}
+                    values={values}
+                  />
                 </>
               )}
 
@@ -168,19 +187,23 @@ const Timetable = () => {
                   {dirty && (
                     <div
                       onClick={() => resetForm()}
-                      className={`btn btn--secondary ${!editState.isEditing ? "" : "btn--disabled"}  `}
+                      className={`btn btn--secondary ${
+                        !editState.isEditing ? '' : 'btn--disabled'
+                      }  `}
                     >
                       Сбросить изменения
                     </div>
                   )}
                   <div
                     onClick={() =>
-                      setUpdateTimetable((state) => ({
+                      setUpdateTimetable(state => ({
                         ...state,
                         isVisible: true,
                       }))
                     }
-                    className={`btn btn--primary ${!editState.isEditing && dirty ? "" : "btn--disabled"}`}
+                    className={`btn btn--primary ${
+                      !editState.isEditing && dirty ? '' : 'btn--disabled'
+                    }`}
                   >
                     Сохранить
                   </div>
