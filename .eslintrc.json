@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb", "airbnb/hooks", "prettier"],
+  "rules": {
+    "react/prop-types": "off",
+    "no-unused-vars": "warn",
+    "no-shadow": "warn",
+    "no-useless-constructor": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "class-methods-use-this": "off",
+    "no-return-await": "off",
+    "no-restricted-syntax": "off",
+    "no-plusplus": "off",
+    "guard-for-in": "off",
+    "func-names": "off",
+    "no-continue": "off"
+  }
+}

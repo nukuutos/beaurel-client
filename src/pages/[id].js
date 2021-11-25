@@ -11,30 +11,28 @@ import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/h
 import useMediaQuery from '../hooks/use-media-query';
 
 const Profile = () => {
-	const isMobile = useMediaQuery(600);
+  const isMobile = useMediaQuery(600);
 
-	return (
-		<Layout>
-			<main className={`content ${!isMobile ? 'card card--layout' : ''}`}>
-				<Header />
-				<SectionCards />
-				<SectionReviews />
-			</main>
-		</Layout>
-	);
+  return (
+    <Layout>
+      <main className={`content ${!isMobile ? 'card card--layout' : ''}`}>
+        <Header />
+        <SectionCards />
+        <SectionReviews />
+      </main>
+    </Layout>
+  );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-	const { id } = query;
+  const { id } = query;
 
-	const getProfileCB = async () => await User.getMasterProfile(id);
-	const profile = await handlePublicAndAuthPage(getProfileCB, { req, res, store });
-	// if no profile => redirect(404 page)
-	// check is public view, add it to dispatched object down below
+  const getProfileCB = async () => await User.getMasterProfile(id);
+  const profile = await handlePublicAndAuthPage(getProfileCB, { req, res, store });
 
-	store.dispatch(getProfileSuccess({ profile: { ...profile, id } }));
+  store.dispatch(getProfileSuccess({ profile: { ...profile, id } }));
 
-	return { props: {} };
+  return { props: {} };
 });
 
 export default Profile;
