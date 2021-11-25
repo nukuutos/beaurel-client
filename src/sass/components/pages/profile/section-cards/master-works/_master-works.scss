@@ -4,7 +4,7 @@
 .master-works {
   position: relative;
   background: $color-gray-light-3;
-  max-width: 81rem;
+  max-width: 81rem + 1.7rem; // 82.7 - 1.7rem
   display: grid;
   // overflow: hidden;
   max-height: 70vh;
@@ -20,7 +20,7 @@
 
   @include respond(tab-port) {
     grid-template-columns: repeat(auto-fit, 18.9rem);
-    max-width: 56.8rem;
+    max-width: 56.8rem + 1.7rem;
   }
 
   @include respond(phone) {
