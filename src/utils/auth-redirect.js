@@ -2,7 +2,6 @@ import cookie from 'cookie';
 import axios from '../utils/axios';
 
 import { refreshTokenSuccess, refreshTokenFailure } from '../redux/auth/actions';
-import { END } from 'redux-saga';
 
 /// ?
 const authRedirect = async (req, res, store) => {

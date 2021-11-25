@@ -3,8 +3,6 @@ import Layout from '../components/layout/layout';
 
 import SignInForm from '../components/form/sign-in-form';
 import authRedirect from '../utils/auth-redirect';
-import { wrapper } from '../redux/store';
-import { END } from 'redux-saga';
 
 authRedirect;
 
