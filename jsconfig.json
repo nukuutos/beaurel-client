@@ -2,5 +2,6 @@
   "compilerOptions": {
     "target": "ES2021"
   },
+  "include": ["node_modules/cypress", "./cypress/**/*.js"],
   "exclude": ["node_modules"]
 }

@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -35,13 +37,20 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.2",
+    "cypress": "^9.1.0",
+    "cypress-file-upload": "^5.0.8",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-testing-library": "^5.0.0",
+    "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "redux-devtools-extension": "^2.13.8"
   }
