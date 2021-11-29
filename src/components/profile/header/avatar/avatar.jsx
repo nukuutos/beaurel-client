@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DisplayAvatar from './display-avatar';
 import EditAvatar from './edit-avatar';
 
-const Avatar = ({ className = '' }) => {
+const Avatar = function ({ className = '' }) {
   const [isEdit, setIsEdit] = useState(false);
 
   return (

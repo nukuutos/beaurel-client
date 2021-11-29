@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField, Field } from 'formik';
 
-export const Select = ({ className, children, ...props }) => {
+const Select = ({ className, children, ...props }) => {
   // i don't understand how to do it with useField
   const [field, meta] = useField(props);
 

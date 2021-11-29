@@ -9,7 +9,7 @@ const getAvatarPath = avatar => {
   return avatar ? avatarPath : defaultPath;
 };
 
-const DisplayAvatar = ({ setIsEdit, className = '' }) => {
+const DisplayAvatar = function ({ setIsEdit, className = '' }) {
   const { avatar } = useSelector(state => state.profile);
 
   return (

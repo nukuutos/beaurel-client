@@ -1,16 +1,19 @@
-import React from "react";
-import Modal from "../../../utils/modal";
-import Cropper from "react-cropper";
-import { useSelector, useDispatch } from "react-redux";
-import { setAlert } from "../../../../redux/alert/actions";
-import { updateAvatarSuccess } from "../../../../redux/profile/actions";
-import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
-import useCropper from "./use-cropper";
-import useMediaQuery from "../../../../hooks/use-media-query";
-import ModalHeading from "../../../utils/modal/modal-heading";
+import React from 'react';
+import Cropper from 'react-cropper';
+import { useSelector, useDispatch } from 'react-redux';
+import Modal from '../../../utils/modal';
+import { setAlert } from '../../../../redux/alert/actions';
+import { updateAvatarSuccess } from '../../../../redux/profile/actions';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import useCropper from './use-cropper';
+import useMediaQuery from '../../../../hooks/use-media-query';
+import ModalHeading from '../../../utils/modal/modal-heading';
 
-const EditAvatar = ({ setIsEdit }) => {
-  const [{ avatar }, { accessToken, id: profileId }] = useSelector((state) => [state.profile, state.auth]);
+const EditAvatar = function ({ setIsEdit }) {
+  const [{ avatar }, { accessToken, id: profileId }] = useSelector(state => [
+    state.profile,
+    state.auth,
+  ]);
   const isPhone = useMediaQuery(600);
 
   const [cropperProps, asyncCropperAction, handleFileUpload, isUploaded] = useCropper(avatar);
@@ -18,13 +21,13 @@ const EditAvatar = ({ setIsEdit }) => {
 
   const dispatch = useDispatch();
 
-  const updateAvatar = async (formData) => {
+  const updateAvatar = async formData => {
     const config = {
-      method: "put",
+      method: 'put',
       url: `/profile/${profileId}/avatar`,
       data: formData,
       accessToken,
-      addingHeaders: { "Content-Type": `multipart/form-data`, Enctype: "multipart/form-data" },
+      addingHeaders: { 'Content-Type': `multipart/form-data`, Enctype: 'multipart/form-data' },
     };
 
     const data = await asyncAction(config);
@@ -39,7 +42,7 @@ const EditAvatar = ({ setIsEdit }) => {
 
   return (
     <Modal isMobileBackground onClickClose={() => setIsEdit(false)}>
-      <div className={`upload-avatar ${isPhone ? "" : "card"}`}>
+      <div className={`upload-avatar ${isPhone ? '' : 'card'}`}>
         {isLoading && <div className="spinner-with-background" />}
         <ModalHeading title="Фото профиля" onClickClose={() => setIsEdit(false)} />
 
@@ -57,28 +60,28 @@ const EditAvatar = ({ setIsEdit }) => {
             movable={false}
           />
         ) : (
-          <img src={`/svg/add-avatar.svg`} className="mt-2" alt="next" />
+          <img src="/svg/add-avatar.svg" className="mt-2" alt="next" />
         )}
 
         {(avatar || isUploaded) && (
           <div className="upload-avatar__buttons">
-            <div className={`btn btn--secondary btn--upload `}>
+            <button type="button" className={`btn btn--secondary btn--upload `}>
               Выбрать
               <input
                 type="file"
                 disabled={isLoading}
-                onChange={(e) => handleFileUpload(e)}
-                title=" "
+                onChange={e => handleFileUpload(e)}
+                title="file-input"
                 className="select__input"
               />
-            </div>
+            </button>
             <button
               onClick={() => {
                 asyncCropperAction(updateAvatar);
               }}
               type="submit"
               disabled={isLoading}
-              className={`btn btn--primary`}
+              className="btn btn--primary"
             >
               Сохранить
             </button>
@@ -86,16 +89,16 @@ const EditAvatar = ({ setIsEdit }) => {
         )}
 
         {!avatar && !isUploaded && (
-          <div className={`mt-4 btn btn--primary btn--upload`}>
+          <button type="button" className="mt-4 btn btn--primary btn--upload">
             Выбрать
             <input
               type="file"
               disabled={isLoading}
-              onChange={(e) => handleFileUpload(e)}
+              onChange={e => handleFileUpload(e)}
               title=" "
               className="select__input"
             />
-          </div>
+          </button>
         )}
       </div>
     </Modal>

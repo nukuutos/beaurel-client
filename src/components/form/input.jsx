@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 
-export const Input = ({ className, ...props }) => {
+const Input = ({ className, ...props }) => {
   const [field, meta] = useField(props);
 
   const errorClass = meta.error && meta.touched ? ' input--error' : '';
