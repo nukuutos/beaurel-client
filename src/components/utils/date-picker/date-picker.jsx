@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import useDatePicker from "./use-date-picker";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { toUTCDate } from "./utils";
-import { useSwipeable } from "react-swipeable";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSwipeable } from 'react-swipeable';
+import useDatePicker from './use-date-picker';
+import { toUTCDate } from './utils';
 import {
   getDateUTC,
   getTommorow,
-} from "../../profile/section-cards/booking/booking-timetable/booking-phone-timetable/utils";
+} from '../../profile/section-cards/booking/booking-timetable/booking-phone-timetable/utils';
 
-const WEEKDAYS = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
+const WEEKDAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 const MONTHS = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь",
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
 ];
 
 // const getTommorow = () => {
@@ -32,9 +32,7 @@ const MONTHS = [
 //   return tommorow.getTime();
 // };
 
-const getChoice = (date) => {
-  return MONTHS[date.month()] + ", " + date.date();
-};
+const getChoice = (date) => `${MONTHS[date.month()]}, ${date.date()}`;
 
 const DatePicker = ({ className, cancel, submit }) => {
   const [choice, setChoice] = useState(getTommorow());
@@ -60,26 +58,23 @@ const DatePicker = ({ className, cancel, submit }) => {
 
     const isNextMonth = date.isAfter(lastDate);
     const isPrevMonth = date.isBefore(firstDate);
-    const isActiveDate = date.isSame(choice, "date");
+    const isActiveDate = date.isSame(choice, 'date');
 
-    if (date.isBefore(getDateUTC())) return "date-picker__date--unavailable date-picker__date--disabled";
-    if (isNextMonth || isPrevMonth) return "date-picker__date--unavailable";
-    if (isActiveDate) return "date-picker__date--active";
-    return "";
+    if (date.isBefore(getDateUTC()))
+      return 'date-picker__date--unavailable date-picker__date--disabled';
+    if (isNextMonth || isPrevMonth) return 'date-picker__date--unavailable';
+    if (isActiveDate) return 'date-picker__date--active';
+    return '';
   };
 
-  const onArrowRightClick = () => {
-    return setCurrentDate((state) => [state[0] + 1, state[1]]);
-  };
+  const onArrowRightClick = () => setCurrentDate((state) => [state[0] + 1, state[1]]);
 
-  const onArrowLeftClick = () => {
-    return setCurrentDate((state) => [state[0] - 1, state[1]]);
-  };
+  const onArrowLeftClick = () => setCurrentDate((state) => [state[0] - 1, state[1]]);
 
   const isArrowDisabled = () => {
     const [firstDate] = monthDates;
 
-    const prevMonth = firstDate.subtract(1, "month").endOf("month");
+    const prevMonth = firstDate.subtract(1, 'month').endOf('month');
 
     if (prevMonth.isBefore(getDateUTC())) return true;
 
@@ -97,12 +92,17 @@ const DatePicker = ({ className, cancel, submit }) => {
       <div
         onClick={() => onArrowLeftClick()}
         className={`date-picker__arrow date-picker__arrow--left 
-        ${isArrowDisabled() ? "date-picker__arrow--disabled" : ""} ml-1`}
+        ${isArrowDisabled() ? 'date-picker__arrow--disabled' : ''} ml-1`}
       >
         <FontAwesomeIcon icon="chevron-left" />
       </div>
-      <div className="date-picker__month-and-year">{MONTHS[firstMonthDate.month()] + ", " + firstMonthDate.year()}</div>
-      <div onClick={() => onArrowRightClick()} className="date-picker__arrow date-picker__arrow--right mr-1">
+      <div className="date-picker__month-and-year">{`${
+        MONTHS[firstMonthDate.month()]
+      }, ${firstMonthDate.year()}`}</div>
+      <div
+        onClick={() => onArrowRightClick()}
+        className="date-picker__arrow date-picker__arrow--right mr-1"
+      >
         <FontAwesomeIcon icon="chevron-right" />
       </div>
 
@@ -113,8 +113,8 @@ const DatePicker = ({ className, cancel, submit }) => {
           {weekday.toUpperCase()}
         </div>
       ))}
-      {dates.map((week, j) => {
-        return week.map((date, i) => (
+      {dates.map((week, j) =>
+        week.map((date, i) => (
           <div
             key={(j + 1) * i}
             onClick={() => handleClick(date)}
@@ -122,8 +122,8 @@ const DatePicker = ({ className, cancel, submit }) => {
           >
             {date.date()}
           </div>
-        ));
-      })}
+        ))
+      )}
 
       <div className="date-picker__buttons mt-4">
         {/* <div onClick={cancel} className="date-picker__button btn btn--secondary btn--gray btn--flat mr-2">
@@ -133,7 +133,7 @@ const DatePicker = ({ className, cancel, submit }) => {
           onClick={() => {
             submit(toUTCDate(choice));
           }}
-          className={`date-picker__button btn btn--primary`}
+          className="date-picker__button btn btn--primary"
         >
           ОК
         </div>

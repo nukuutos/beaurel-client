@@ -21,7 +21,7 @@ import UpdateTimtetable from '../components/timetable/update-timtetable';
 import { servicesToUnsuitable } from '../redux/service/actions/service';
 import useMediaQuery from '../hooks/use-media-query';
 
-const Timetable = function () {
+const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
   const isPhone = useMediaQuery(600);
   const [updateTimetable, setUpdateTimetable] = useState({
@@ -35,7 +35,7 @@ const Timetable = function () {
     isEditing: false,
     element: { sessionTime: false, weekends: false, workingDay: false },
   });
-  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector(state => [
+  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector((state) => [
     state.timetable,
     state.services,
     state.auth,
@@ -110,7 +110,7 @@ const Timetable = function () {
               dispatch(setTimetableUpdate({ update }));
 
               resetForm();
-              setUpdateTimetable(state => {
+              setUpdateTimetable((state) => {
                 if (!unsuitableServices) return { ...state, isVisible: false };
                 return {
                   ...state,
@@ -196,7 +196,7 @@ const Timetable = function () {
                   )}
                   <div
                     onClick={() =>
-                      setUpdateTimetable(state => ({
+                      setUpdateTimetable((state) => ({
                         ...state,
                         isVisible: true,
                       }))
