@@ -9,7 +9,7 @@ import {
   PUT_UPDATE_TO_SERVICES,
   SERVICES_TO_UNSUITABLE,
   DELETE_SERVICES_UPDATE,
-} from "./types/service";
+} from './types/service';
 
 import {
   ADD_SERVICE_PARAMETER_SUCCESS,
@@ -17,31 +17,27 @@ import {
   UPDATE_SUB_SERVICE_SUCCESS,
   DELETE_SUB_SERVICE_SUCCESS,
   DELETE_SERVICE_PARAMETER_SUCCESS,
-} from "./types/service-parameter";
+} from './types/service-parameter';
 
-import getIdsAndOrders from "../../components/profile/section-cards/services/utils/get-ids-and-orders";
+import getIdsAndOrders from '../../components/profile/section-cards/services/utils/get-ids-and-orders';
 
-const reoderServices = (services, deletedServiceNumber) => {
+const reoderServices = (services) => {
   const copiedServices = [...services];
 
-  for (let i = deletedServiceNumber; i < copiedServices.length; i++) {
+  for (let i = 0; i < copiedServices.length; i++) {
     const currentService = copiedServices[i];
-    const { order } = currentService;
-
-    currentService.order = order - 1;
+    currentService.order = i;
   }
 
   return copiedServices;
 };
 
-const reoderSubServices = (subServices, deletedSubServiceNumber) => {
+const reoderSubServices = (subServices) => {
   const copiedSubServices = [...subServices];
 
-  for (let i = deletedSubServiceNumber; i < copiedSubServices.length; i++) {
+  for (let i = 0; i < copiedSubServices.length; i++) {
     const currentSubService = copiedSubServices[i];
-    const { subOrder } = currentSubService;
-
-    currentSubService.subOrder = subOrder - 1;
+    currentSubService.subOrder = i;
   }
 
   return copiedSubServices;
@@ -57,7 +53,12 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case GET_SERVICES_SUCCESS: {
       const { masterId, services } = payload;
-      return { ...state, masterId: masterId || null, services, initialOrder: getIdsAndOrders(services) };
+      return {
+        ...state,
+        masterId: masterId || null,
+        services,
+        initialOrder: getIdsAndOrders(services),
+      };
     }
 
     // ADD_SERVICE
@@ -108,7 +109,8 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
       // change subService
       const updatedSubServices = parentService.subServices.map((service) => {
-        if (service.id === updatedSubService.id) return { id: updatedSubService.id, ...restSubServiceProps };
+        if (service.id === updatedSubService.id)
+          return { id: updatedSubService.id, ...restSubServiceProps };
         return service;
       });
 
@@ -135,11 +137,11 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
     // DELETE_SERVICE
     case DELETE_SERVICE_SUCCESS: {
-      const { serviceId, order } = payload;
+      const { serviceId } = payload;
 
       const filteredServices = state.services.filter((service) => service.id !== serviceId);
-
-      const reoderedServices = reoderServices(filteredServices, order);
+      console.log(filteredServices);
+      const reoderedServices = reoderServices(filteredServices);
 
       return { ...state, services: reoderedServices };
     }
@@ -260,11 +262,11 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
         if (indexes.subService !== -1) {
           // parameter service
           const service = copiedServices[indexes.service].subServices[indexes.subService];
-          service.update.status = "suitable";
+          service.update.status = 'suitable';
           service.update.duration = duration;
         } else {
           const service = copiedServices[indexes.service];
-          service.update.status = "suitable";
+          service.update.status = 'suitable';
           service.update.duration = duration;
         }
       });
@@ -282,7 +284,8 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
 
         if (isServiceParameter) {
           const subServices = service.subServices.map((subService) => {
-            if (subService.duration % sessionTime !== 0) subService.update = { date, status: "unsuitable" };
+            if (subService.duration % sessionTime !== 0)
+              subService.update = { date, status: 'unsuitable' };
             return subService;
           });
 
@@ -290,7 +293,7 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
           return service;
         }
 
-        if (service.duration % sessionTime !== 0) service.update = { date, status: "unsuitable" };
+        if (service.duration % sessionTime !== 0) service.update = { date, status: 'unsuitable' };
         return service;
       });
 

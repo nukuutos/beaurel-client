@@ -1,40 +1,36 @@
-import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Service from "../../service";
-import { deleteServiceSuccess } from "../../../../redux/service/actions/service";
-import { setAlert } from "../../../../redux/alert/actions";
-import Spinner from "../../../utils/spinner";
-import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
-import useMediaQuery from "../../../../hooks/use-media-query";
+import Service from '../../service';
+import { deleteServiceSuccess } from '../../../../redux/service/actions/service';
+import { setAlert } from '../../../../redux/alert/actions';
+import Spinner from '../../../utils/spinner';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import useMediaQuery from '../../../../hooks/use-media-query';
 
-const DesktopButtons = ({ setIsEdit, deleteService }) => {
-  return (
-    <>
-      <div onClick={() => setIsEdit(true)} className="service__btn  service__btn--first btn-icon">
-        <FontAwesomeIcon icon="pen" />
-      </div>
-      <div onClick={deleteService} className="service__btn btn-icon btn-icon--fail">
-        <FontAwesomeIcon icon="trash" />
-      </div>
-    </>
-  );
-};
-
-const TabletButtons = ({ setIsEdit, deleteService }) => {
-  return (
-    <div className="service__mobile-buttons">
-      <div onClick={deleteService} className="service__btn">
-        Удалить
-        <FontAwesomeIcon icon="trash" />
-      </div>
-      <div onClick={() => setIsEdit(true)} className="service__btn">
-        Изменить
-        <FontAwesomeIcon icon="pen" />
-      </div>
+const DesktopButtons = ({ setIsEdit, deleteService }) => (
+  <>
+    <div onClick={() => setIsEdit(true)} className="service__btn  service__btn--first btn-icon">
+      <FontAwesomeIcon icon="pen" />
     </div>
-  );
-};
+    <div onClick={deleteService} className="service__btn btn-icon btn-icon--fail">
+      <FontAwesomeIcon icon="trash" />
+    </div>
+  </>
+);
+
+const TabletButtons = ({ setIsEdit, deleteService }) => (
+  <div className="service__mobile-buttons">
+    <div onClick={deleteService} className="service__btn">
+      Удалить
+      <FontAwesomeIcon icon="trash" />
+    </div>
+    <div onClick={() => setIsEdit(true)} className="service__btn">
+      Изменить
+      <FontAwesomeIcon icon="pen" />
+    </div>
+  </div>
+);
 
 const EditServiceDisplay = ({ service, setIsEdit }) => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -46,7 +42,7 @@ const EditServiceDisplay = ({ service, setIsEdit }) => {
 
   const deleteService = async (id) => {
     const config = {
-      method: "delete",
+      method: 'delete',
       url: `/master/${profileId}/service/${id}`,
       accessToken,
     };

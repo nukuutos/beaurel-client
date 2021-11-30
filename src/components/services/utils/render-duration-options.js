@@ -1,4 +1,4 @@
-import displayDuration from "./display-duration";
+import displayDuration from './display-duration';
 
 const renderDurationOptions = (sessionTime) => {
   const optionComponents = [];
