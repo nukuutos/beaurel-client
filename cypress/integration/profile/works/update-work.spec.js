@@ -52,7 +52,7 @@ describe('Update Work', () => {
     cy.get('.fa-times').click();
   });
 
-  it('update work by user', () => {
+  it('Desktop', () => {
     // click on works
     cy.get('.profile__cards > :nth-child(3) > img').click();
 
@@ -84,7 +84,7 @@ describe('Update Work', () => {
     });
   });
 
-  it('update work by user (phone viewport)', () => {
+  it('Phone', () => {
     cy.viewport(330, 500);
 
     // click on works

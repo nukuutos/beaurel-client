@@ -2,7 +2,7 @@ import auth from '../../utils/auth';
 
 // You must have 08:00 appointment
 // Your appointments must be clean
-describe('Add service', () => {
+describe('Book appointment', () => {
   beforeEach(() => {
     auth();
   });
@@ -70,7 +70,7 @@ describe('Add service', () => {
     });
   });
 
-  it.only('Phone', () => {
+  it('Phone', () => {
     cy.viewport(330, 500);
 
     cy.intercept('GET', '/api/v1/master/**').as('getDataForBooking');

@@ -7,7 +7,7 @@ const subServiceParameter0 = 'Параметр0';
 const subServiceParameter1 = 'Параметр1';
 const currentPrice = 2131;
 
-describe('Update service', () => {
+describe('Update service parameter title', () => {
   beforeEach(() => {
     auth();
     cy.visit('/services');

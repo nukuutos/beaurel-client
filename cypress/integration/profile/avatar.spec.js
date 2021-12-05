@@ -1,11 +1,11 @@
 import auth from '../../utils/auth';
 
-describe('Avatar', () => {
+describe('Update avatar', () => {
   beforeEach(() => {
     auth();
   });
 
-  it('is changed by user', () => {
+  it('Desktop', () => {
     // click on change avatar
     cy.get(
       '#__next > div:nth-child(1) > main > header > div:nth-child(1) > div:nth-child(1) > div'
@@ -24,7 +24,7 @@ describe('Avatar', () => {
     });
   });
 
-  it('is changed by user (phone viewport)', () => {
+  it('Phone', () => {
     cy.viewport(330, 500);
 
     // click on change avatar

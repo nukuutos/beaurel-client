@@ -2,7 +2,7 @@ import auth from '../../utils/auth';
 
 // You must have 08:00 appointment
 // Your appointments must be clean
-describe('Confirm appointment', () => {
+describe('Cancel appointment as customer', () => {
   beforeEach(() => {
     auth();
     // book appointment

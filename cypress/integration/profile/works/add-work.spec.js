@@ -27,7 +27,7 @@ describe('Work', () => {
     cy.get('.fa-times').click();
   });
 
-  it('add work', () => {
+  it('Desktop', () => {
     // click on works
     cy.get('.profile__cards > :nth-child(3) > img').click();
     cy.get('.master-works').then(($element) => {
@@ -55,7 +55,7 @@ describe('Work', () => {
     });
   });
 
-  it('add work(phone viewport)', () => {
+  it('Phone', () => {
     cy.viewport(330, 500);
 
     // click on works

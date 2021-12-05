@@ -4,12 +4,12 @@ import { getRandomLength } from '../../utils/methods';
 const basicAboutText =
   'Lorem dolor sit amet consectetur adipisicing elit. Molestias sequi recusandae saepe, sunt optio provident repellat. Lorem ipsum dolor sit ameorib jkdf';
 
-describe('About text', () => {
+describe('Update about text', () => {
   beforeEach(() => {
     auth();
   });
 
-  it('is changed by user', () => {
+  it('Desktop', () => {
     // get random about text
     const [start, end] = getRandomLength(0, 151);
     const aboutText = basicAboutText.slice(start, end).trim();
@@ -36,7 +36,7 @@ describe('About text', () => {
     });
   });
 
-  it('is changed by user (phone viewport)', () => {
+  it('Phone', () => {
     cy.viewport(330, 500);
 
     // get random about text

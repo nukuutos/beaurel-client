@@ -1,6 +1,6 @@
 import auth from '../../utils/auth';
 
-describe('Go to master in search', () => {
+describe('Find masters on typing', () => {
   beforeEach(() => {
     auth();
     cy.visit('/search');
