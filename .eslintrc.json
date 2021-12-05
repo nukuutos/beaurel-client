@@ -15,15 +15,14 @@
   "extends": [
     "airbnb",
     "airbnb/hooks",
-    // "plugin:jest/recommended",
-    // "plugin:jest/style",
     // "plugin:testing-library/react",
-    // "plugin:cypress/recommended",
     "prettier"
   ],
   "rules": {
     "react/jsx-props-no-spreading": 0,
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "no-return-assign": "off",
     "no-unused-vars": "warn",
@@ -43,6 +42,13 @@
     {
       "files": "cypress/**",
       "extends": ["plugin:cypress/recommended"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    },
+    {
+      "files": "src/__tests__/**",
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
       "rules": {
         "import/no-extraneous-dependencies": 0
       }
