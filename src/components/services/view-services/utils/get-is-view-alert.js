@@ -14,6 +14,8 @@ const getIsViewAlert = (services) => {
           hasUpdate = true;
           return true;
         }
+
+        return false;
       });
 
       return isSuitable;
@@ -25,6 +27,8 @@ const getIsViewAlert = (services) => {
       hasUpdate = true;
       return true;
     }
+
+    return false;
   });
 
   return hasUpdate && isSuitable;

@@ -15,7 +15,7 @@ const renderMasterAppointment = (appointment, category, i) => {
       return <UnsuitableAppointment appointment={appointment} key={i} />;
 
     default:
-      break;
+      return null;
   }
 };
 

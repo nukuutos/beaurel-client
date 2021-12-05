@@ -1,25 +1,24 @@
-import Layout from "../components/layout/layout";
-import { wrapper } from "../redux/store";
-import AppointmentModel from "../server/models/appointment";
-import { setAppointments } from "../redux/appointments/actions";
-import AppointmentsCategoriesController from "../components/appointments/appointments-categories-controller";
-import AppointmentController from "../components/appointments/appointment-controller";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import useAsyncAction from "../hooks/use-async-action/use-async-action";
-import handleAuthPage from "../utils/auth/hande-auth-page/handle-auth-page";
-import useMediaQuery from "../hooks/use-media-query";
-import { useCarousel } from "../components/appointments/use-carousel/use-carousel";
-import AppointmentsDots from "../components/appointments/appointments-dots";
-import AppointmentsDays from "../components/appointments/appointments-days";
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import Layout from '../components/layout/layout';
+import { wrapper } from '../redux/store';
+import AppointmentModel from '../server/models/appointment';
+import { setAppointments } from '../redux/appointments/actions';
+import AppointmentsCategoriesController from '../components/appointments/appointments-categories-controller';
+import AppointmentController from '../components/appointments/appointment-controller';
+import useAsyncAction from '../hooks/use-async-action/use-async-action';
+import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import useMediaQuery from '../hooks/use-media-query';
+import { useCarousel } from '../components/appointments/use-carousel/use-carousel';
+import AppointmentsDots from '../components/appointments/appointments-dots';
+import AppointmentsDays from '../components/appointments/appointments-days';
 
 const Appointments = () => {
-  const [{ user, category }, setState] = useState({ user: "master", category: "onConfirmation" });
+  const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });
   const isPhone = useMediaQuery(600);
-  const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector((state) => [
-    state.appointments,
-    state.auth,
-  ]);
+  const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector(
+    (state) => [state.appointments, state.auth]
+  );
   const dispatch = useDispatch();
   const [asyncAction, isLoading] = useAsyncAction();
 
@@ -31,7 +30,7 @@ const Appointments = () => {
 
   const getMasterAppointments = async (category) => {
     const config = {
-      method: "get",
+      method: 'get',
       url: `/profile/${profileId}/appointment/${user}?category=${category}`,
       accessToken,
     };
@@ -51,17 +50,28 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <main className={`content ${isPhone ? "" : "card card--layout"}`}>
+      <main className={`content ${isPhone ? '' : 'card card--layout'}`}>
         {isLoading && <div className="spinner-with-background" />}
         <AppointmentController userState={[user, setState]} />
 
         <AppointmentsCategoriesController categoryState={[category, setState]} />
 
-        {isPhone && <AppointmentsDots days={days} daysNumber={daysNumber} active={active} direction={direction} />}
+        {isPhone && (
+          <AppointmentsDots
+            days={days}
+            daysNumber={daysNumber}
+            active={active}
+            direction={direction}
+          />
+        )}
 
-        {!!daysNumber && <AppointmentsDays style={styles} handlers={handlers} renderArguments={renderArguments} />}
+        {!!daysNumber && (
+          <AppointmentsDays style={styles} handlers={handlers} renderArguments={renderArguments} />
+        )}
 
-        {!daysNumber && <div className="appointments__noappointments card mt-8">Записи отсутствуют</div>}
+        {!daysNumber && (
+          <div className="appointments__noappointments card mt-8">Записи отсутствуют</div>
+        )}
       </main>
     </Layout>
   );
@@ -70,12 +80,15 @@ const Appointments = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
   const userId = await handleAuthPage(req, res, store);
 
-  const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(userId, "onConfirmation");
+  const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(
+    userId,
+    'onConfirmation'
+  );
 
-  store.dispatch(setAppointments({ appointments, type: "onConfirmation", user: "master" }));
+  store.dispatch(setAppointments({ appointments, type: 'onConfirmation', user: 'master' }));
   // store.dispatch(getTimetableSuccess({ timetable }));
 
-  return { props: { custom: "custom" } };
+  return { props: { custom: 'custom' } };
 });
 
 export default Appointments;

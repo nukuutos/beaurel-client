@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { cutText } from "./utils";
+import React, { useEffect, useState } from 'react';
+import { cutText } from './utils';
 
 const TextMore = ({ textClassName, moreClassName, children }) => {
   const maxSymbs = 150;
@@ -22,15 +22,18 @@ const TextMore = ({ textClassName, moreClassName, children }) => {
 
   return (
     <>
-      <p onClick={() => setState({ ...state, isExpand: !state.isExpand })} className={textClassName}>
-        {state.isTextLong && !state.isExpand ? state.shortText + " " : state.text + " "}
+      <p
+        onClick={() => setState({ ...state, isExpand: !state.isExpand })}
+        className={textClassName}
+      >
+        {state.isTextLong && !state.isExpand ? `${state.shortText} ` : `${state.text} `}
       </p>
       {state.isTextLong && (
         <span
           className={`text-more ${moreClassName}`}
           onClick={() => setState({ ...state, isExpand: !state.isExpand })}
         >
-          {state.isExpand ? "свернуть" : "развернуть"}
+          {state.isExpand ? 'свернуть' : 'развернуть'}
         </span>
       )}
     </>
