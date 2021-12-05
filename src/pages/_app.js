@@ -2,6 +2,9 @@ import React from 'react';
 
 import 'regenerator-runtime/runtime';
 
+import '../utils/dayjs-plugins';
+import '../utils/super-json/dayjs';
+
 import { wrapper } from '../redux/store';
 
 import '../utils/font-awesome';

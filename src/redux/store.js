@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { serialize, deserialize } from 'superjson';
 import logger from 'redux-logger';
 
 import combinedReducer from './reducer';
@@ -26,11 +27,13 @@ const rootReducer = (state, action) => {
     if (!payload.services.masterId) nextState.services = state.services;
 
     return nextState;
-  } else {
-    return combinedReducer(state, action);
   }
+  return combinedReducer(state, action);
 };
 
 const initStore = () => createStore(rootReducer, bindMiddleware([logger]));
 
-export const wrapper = createWrapper(initStore);
+export const wrapper = createWrapper(initStore, {
+  deserializeState: (state) => deserialize(state),
+  serializeState: (state) => serialize(state),
+});
