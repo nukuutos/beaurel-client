@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
   GET_SERVICES_SUCCESS,
   ADD_SERVICE_SUCCESS,
@@ -53,10 +54,17 @@ const serviceReducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case GET_SERVICES_SUCCESS: {
       const { masterId, services } = payload;
+
+      const servicesWithCorrectUpdateDate = services.map((service) => {
+        if (!service.update || !service.update.date) return service;
+        service.update.date = dayjs(service.update.date).utc(true);
+        return service;
+      });
+
       return {
         ...state,
         masterId: masterId || null,
-        services,
+        services: servicesWithCorrectUpdateDate,
         initialOrder: getIdsAndOrders(services),
       };
     }

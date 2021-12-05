@@ -1,14 +1,14 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/animation" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/animation' as *;
 
 .btn {
   &,
   &:link,
   &:visited {
-    text-decoration: none;
     font-weight: 500;
+    text-decoration: none;
     position: relative;
     backface-visibility: hidden;
     cursor: pointer;
@@ -86,7 +86,7 @@
       top: -36%;
       right: -12%;
       display: block;
-      content: "";
+      content: '';
       border: 3px solid $color-primary;
       border-left-color: transparent;
       border-bottom-color: transparent;

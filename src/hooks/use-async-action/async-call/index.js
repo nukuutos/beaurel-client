@@ -1,7 +1,7 @@
-import { setAlert } from "../../../redux/alert/actions";
-import handleUnauthorizedCall from "./utils/handle-unauthorized-call";
-import axios from "../../../utils/axios";
-import Axios from "axios";
+import Axios from 'axios';
+import { setAlert } from '../../../redux/alert/actions';
+import handleUnauthorizedCall from './utils/handle-unauthorized-call';
+import axios from '../../../utils/axios';
 
 const asyncCall = async (dispatch, config) => {
   const { accessToken, addingHeaders, ...confingProps } = config;
@@ -20,7 +20,7 @@ const asyncCall = async (dispatch, config) => {
     return data;
   } catch (error) {
     if (Axios.isCancel(error)) {
-      console.log("canceled");
+      console.log('canceled');
       return null;
     }
 

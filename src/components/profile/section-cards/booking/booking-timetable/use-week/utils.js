@@ -1,14 +1,13 @@
-export const getDate = (year, month, day) => {
-  const date = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
-  date.setHours(0, 0, 0, 0); // reset gmt
-  return date;
+import dayjs from 'dayjs';
+
+export const getDataForUseWeek = (startDay) => {
+  const month = startDay.month() + 1;
+  const year = startDay.year();
+
+  const startDayOfWeek = startDay.date(); // num
+  const endDayOfWeek = startDayOfWeek + 6; // num
+
+  return { month, year, startDayOfWeek, endDayOfWeek };
 };
 
-export const getUpdateDate = (update) => {
-  if (!update.date) return null;
-
-  const updateDate = new Date(update.date);
-  updateDate.setHours(0, 0, 0, 0);
-
-  return updateDate;
-};
+export const getToday = (timezone) => dayjs().tz(timezone).utc(true);

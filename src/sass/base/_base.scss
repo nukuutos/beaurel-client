@@ -1,40 +1,54 @@
-@use "../abstracts/colors" as *;
-@use "../abstracts/mixins" as *;
+@use '../abstracts/colors' as *;
+@use '../abstracts/mixins' as *;
 
 *,
 *::after,
 *::before {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-	font-size: 62.5%; // 1rem = 10px
+  font-size: 62.5%; // 1rem = 10px
 
-	-webkit-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
 }
 
 body {
-	position: relative;
-	box-sizing: border-box;
-	background: $color-gray-light-3;
+  position: relative;
+  box-sizing: border-box;
+  background: $color-gray-light-3;
 
-	font-family: 'Roboto', sans-serif;
-	font-size: 1.6rem;
-	line-height: 1;
-	letter-spacing: 0.1px;
-	text-rendering: optimizeLegibility;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: 0.1px;
+  text-rendering: optimizeLegibility;
 
-	@include respond(phone) {
-		background: $color-white;
-	}
+  @include respond(phone) {
+    background: $color-white;
+  }
 }
 
 li {
-	list-style: none;
+  list-style: none;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
+}
+
+button {
+  background: $color-white;
+  font-weight: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-color: transparent;
+  background-color: transparent;
+  letter-spacing: 0.1px;
+  font-size: inherit;
+  line-height: inherit;
 }

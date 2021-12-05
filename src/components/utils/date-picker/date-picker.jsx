@@ -6,7 +6,7 @@ import { toUTCDate } from './utils';
 import {
   getDateUTC,
   getTommorow,
-} from '../../profile/section-cards/booking/booking-timetable/booking-phone-timetable/utils';
+} from '../../profile/section-cards/booking/booking-timetable/booking-timetable-phone/utils';
 
 const WEEKDAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 const MONTHS = [

@@ -1,24 +1,22 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import VisualUpdatedTimetableAuto from "./visual-updated-timetable-auto";
-import VisualUpdatedTimetableManually from "./visual-updated-timetable-manually";
-import useAsyncAction from "../../../hooks/use-async-action/use-async-action";
-import Modal from "../../utils/modal";
-import { unsetTimetableUpdate } from "../../../redux/timetable/actions";
-import { deleteServicesUpdate } from "../../../redux/service/actions/service";
-import { setAlert } from "../../../redux/alert/actions";
-import convertDateToString from "../../profile/section-cards/booking/booking-timetable/utils/convert-date-to-string";
-import useMediaQuery from "../../../hooks/use-media-query";
-import ModalHeading from "../../utils/modal/modal-heading";
+import VisualUpdatedTimetableAuto from './visual-updated-timetable-auto';
+import VisualUpdatedTimetableManually from './visual-updated-timetable-manually';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
+import Modal from '../../utils/modal';
+import { unsetTimetableUpdate } from '../../../redux/timetable/actions';
+import { deleteServicesUpdate } from '../../../redux/service/actions/service';
+import { setAlert } from '../../../redux/alert/actions';
+import useMediaQuery from '../../../hooks/use-media-query';
+import ModalHeading from '../../utils/modal/modal-heading';
+import convertDateToString from '../../appointments/appointment/utils/convert-date-to-string';
 
 const VisualUpdatedTimetable = () => {
   const [isConfirmation, setIsConfirmation] = useState(false);
-  const [{ accessToken, id: profileId }, servicesState, { _id: timetableId, update }] = useSelector((state) => [
-    state.auth,
-    state.services,
-    state.timetable,
-  ]);
+  const [{ accessToken, id: profileId }, servicesState, { _id: timetableId, update }] = useSelector(
+    (state) => [state.auth, state.services, state.timetable]
+  );
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
   const { date } = update;
@@ -26,7 +24,7 @@ const VisualUpdatedTimetable = () => {
 
   const deleteTimetableUpdate = async () => {
     const config = {
-      method: "delete",
+      method: 'delete',
       url: `/master/${profileId}/timetable/${timetableId}/update`,
       accessToken,
     };
@@ -46,7 +44,7 @@ const VisualUpdatedTimetable = () => {
   return (
     <div className="timetable__timetable-card timetable-card mt-8 card">
       <div className="timetable-card__heading">
-        Расписание {isPhone && <br />}c {convertDateToString(new Date(date))}{" "}
+        Расписание {isPhone && <br />}c {convertDateToString(new Date(date))}{' '}
       </div>
       <div
         onClick={() => setIsConfirmation(true)}
@@ -55,7 +53,7 @@ const VisualUpdatedTimetable = () => {
         Отменить
       </div>
       <div className="timetable-visual mt-4">
-        {update.type === "auto" ? (
+        {update.type === 'auto' ? (
           <VisualUpdatedTimetableAuto update={update} />
         ) : (
           <VisualUpdatedTimetableManually update={update} />
@@ -63,17 +61,22 @@ const VisualUpdatedTimetable = () => {
       </div>
       {isConfirmation && (
         <Modal isMobileBackground onClickClose={() => setIsConfirmation(false)}>
-          <div className={`update-cancellation ${isPhone ? "" : "card"}`}>
+          <div className={`update-cancellation ${isPhone ? '' : 'card'}`}>
             {isLoading && <div className="spinner-with-background" />}
 
             <ModalHeading title="Предупреждение" onClickClose={() => setIsConfirmation(false)} />
-            <p className="update-cancellation__text">Вы действительно хотите отменить обновление?</p>
+            <p className="update-cancellation__text">
+              Вы действительно хотите отменить обновление?
+            </p>
 
             <div className="update-cancellation__buttons mt-8">
-              <div onClick={() => setIsConfirmation(false)} className={`btn btn--secondary btn--gray mr-4`}>
+              <div
+                onClick={() => setIsConfirmation(false)}
+                className="btn btn--secondary btn--gray mr-4"
+              >
                 Назад
               </div>
-              <div onClick={() => deleteTimetableUpdate()} className={`btn btn--primary btn--fail`}>
+              <div onClick={() => deleteTimetableUpdate()} className="btn btn--primary btn--fail">
                 Отменить
               </div>
             </div>

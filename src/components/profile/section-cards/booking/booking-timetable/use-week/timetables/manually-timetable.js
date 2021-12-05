@@ -16,6 +16,7 @@ class ManuallyTimetable extends Timetable {
       this.availableAppointments = this.availableAppointments.filter((time) => {
         if (time < startAt || endAt <= time) return true;
         this.unavailableAppointments.push(time); // for service case
+        return false;
       });
     }
   }

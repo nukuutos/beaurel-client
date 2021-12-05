@@ -1,41 +1,39 @@
-import { setAppointmentService } from "../../../../../redux/appointments/actions";
-import { useSelector, useDispatch } from "react-redux";
-import Service from "../../../../services/service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import getIsDisabled from "./utils/get-is-disabled";
-import getCorrectService from "./utils/get-correct-service";
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Service from '../../../../services/service';
+import getIsDisabled from './utils/get-is-disabled';
+import getCorrectService from './utils/get-correct-service';
+import goTo from './go-to';
+
+// bookingAppointment.date is utc 00:00:00!!!
 
 // service that can be disabled
-const BookingService = ({ service, setStep, today, isUpdated }) => {
-  const [{ bookingAppointment }, timetable] = useSelector((state) => [state.appointments.booking, state.timetable]);
+const BookingService = ({ service, stepState, isAfterUpdate }) => {
+  const [{ bookingAppointment }, timetable] = useSelector((state) => [
+    state.appointments.booking,
+    state.timetable,
+  ]);
 
   const dispatch = useDispatch();
 
-  const { title, duration, id } = service;
+  const [{ step }, setStep] = stepState;
 
-  // same:
-  // state.step === 2 ? getIsDisabled(bookingAppointment, service, timetable) : false
-  const isDisabled = getIsDisabled(bookingAppointment, service, timetable);
+  const { date } = bookingAppointment;
 
-  const handleOnClick = () => {
-    dispatch(setAppointmentService({ id, title, duration }));
-    setStep((state) => {
-      if (state.step === 2) {
-        // first was timetable
-        return { ...state, isService: false, isResult: true, step: state.step + 1, lastStepName: "service" };
-      }
+  const bookingService = getCorrectService({ step, service, today: date, isAfterUpdate });
 
-      // first was services
-      return { ...state, isService: false, isTimetable: true, step: state.step + 1, lastStepName: "service" };
-    });
-  };
+  const isDisabled = getIsDisabled(bookingAppointment, bookingService, timetable);
+
+  const handleOnClick = goTo(setStep, bookingService, dispatch);
 
   return (
     <div
-      className={`service service--hover booking-service ${isDisabled ? "booking-service--disabled" : ""} card mt-6`}
+      className={`service service--hover booking-service ${
+        isDisabled ? 'booking-service--disabled' : ''
+      } card mt-6`}
       onClick={isDisabled ? null : handleOnClick}
     >
-      <Service service={getCorrectService(service, bookingAppointment.date, isUpdated)} />
+      <Service service={bookingService} />
 
       <div className="booking-service__arrow">
         <FontAwesomeIcon icon="chevron-right" />

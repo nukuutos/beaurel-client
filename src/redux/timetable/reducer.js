@@ -1,10 +1,11 @@
-import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE, UNSET_TIMETABLE_UPDATE } from "./types";
+import dayjs from 'dayjs';
+import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE, UNSET_TIMETABLE_UPDATE } from './types';
 
 const INITIAL_STATE = {
   masterId: null,
   sessionTime: null,
   type: null,
-  timezone: "Asia/Vladivostok",
+  timezone: 'Asia/Vladivostok',
 
   auto: {
     possibleAppointmentsTime: [],
@@ -49,6 +50,8 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
       const {
         timetable: { update, ...currentTimetable },
       } = payload;
+
+      if (update) update.date = dayjs(update.date).utc(true);
 
       return {
         ...state,

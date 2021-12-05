@@ -8,22 +8,22 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   },
   {
     $lookup: {
-      from: "users",
+      from: 'users',
       let: {
-        customerId: "$customerId",
+        customerId: '$customerId',
       },
       pipeline: [
-        { $match: { $expr: { $eq: ["$_id", "$$customerId"] } } },
+        { $match: { $expr: { $eq: ['$_id', '$$customerId'] } } },
         {
           $project: {
-            _id: { $convert: { input: "$_id", to: "string" } },
+            _id: { $convert: { input: '$_id', to: 'string' } },
             firstName: 1,
             lastName: 1,
             avatar: 1,
           },
         },
       ],
-      as: "user",
+      as: 'user',
     },
   },
   {
@@ -34,23 +34,23 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   },
   {
     $addFields: {
-      _id: { $convert: { input: "$_id", to: "string" } },
-      user: { $arrayElemAt: ["$user", 0] },
-      // date: { $convert: { input: "$date", to: "string" } },
-      // createdAt: { $convert: { input: "$createdAt", to: "string" } },
-      "service.update.date": { $convert: { input: "$service.update.date", to: "string" } },
+      _id: { $convert: { input: '$_id', to: 'string' } },
+      user: { $arrayElemAt: ['$user', 0] },
+      'service.update.date': { $convert: { input: '$service.update.date', to: 'string' } },
     },
   },
   {
     $group: {
-      _id: { $dateToString: { format: "%d-%m-%Y", date: "$date" } },
+      _id: { $dateToString: { format: '%d-%m-%Y', date: '$date' } },
       appointments: {
         $push: {
-          user: "$user",
-          review: "$review",
-          service: "$service",
-          time: "$time",
-          date: { $convert: { input: "$date", to: "string" } },
+          _id: '$_id',
+          status: '$status',
+          user: '$user',
+          review: '$review',
+          service: '$service',
+          time: '$time',
+          date: { $convert: { input: '$date', to: 'string' } },
         },
       },
     },
@@ -58,16 +58,16 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
   {
     $group: {
       _id: null,
-      appointments: { $push: { k: "$_id", v: "$appointments" } },
+      appointments: { $push: { k: '$_id', v: '$appointments' } },
     },
   },
   {
     $project: {
       _id: 0,
-      appointments: { $arrayToObject: "$appointments" },
+      appointments: { $arrayToObject: '$appointments' },
     },
   },
-  { $replaceRoot: { newRoot: "$appointments" } },
+  { $replaceRoot: { newRoot: '$appointments' } },
 ];
 
 export default masterAppointmentsAndCustomers;

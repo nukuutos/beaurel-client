@@ -1,24 +1,36 @@
-import { useState, useRef, useEffect } from "react";
-import asyncCall from "./async-call";
-import { useDispatch } from "react-redux";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import asyncCall from './async-call';
 
-const useAsyncAction = (name = "search loading") => {
+const useAsyncAction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const isCancelled = useRef(false);
   const dispatch = useDispatch();
 
-  const asyncAction = async (config) => {
-    setIsLoading(true);
+  const asyncAction = useCallback(
+    async (config) => {
+      setIsLoading(true);
 
-    console.log(name);
+      const data = asyncCall(dispatch, config);
 
-    const data = await asyncCall(dispatch, config);
+      if (!isCancelled.current) setIsLoading(false);
 
-    if (!isCancelled.current) setIsLoading(false);
+      return data || null;
+    },
+    [dispatch]
+  );
 
-    return data || null;
-  };
+  // const asyncAction = async (config) => {
+  //   setIsLoading(true);
 
+  //   const data = asyncCall(dispatch, config);
+
+  //   if (!isCancelled.current) setIsLoading(false);
+
+  //   return data || null;
+  // };
+
+  // eslint-disable-next-line arrow-body-style
   useEffect(() => {
     return () => {
       isCancelled.current = true;

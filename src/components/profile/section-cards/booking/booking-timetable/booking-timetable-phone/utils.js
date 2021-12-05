@@ -1,29 +1,23 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import weekday from "dayjs/plugin/weekday";
-import en from "dayjs/locale/en";
+import dayjs from 'dayjs';
+// import utc from 'dayjs/plugin/utc';
+// import timezone from 'dayjs/plugin/timezone';
+// import weekday from 'dayjs/plugin/weekday';
+// import en from 'dayjs/locale/en';
 
-dayjs.locale({
-  ...en,
-  weekStart: 1,
-});
+// dayjs.locale({
+//   ...en,
+//   weekStart: 1,
+// });
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(weekday);
+// dayjs.extend(utc);
+// dayjs.extend(timezone);
+// dayjs.extend(weekday);
 
-export const getCurrentWeekday = () => {
-  return dayjs().weekday();
-};
+export const getCurrentWeekday = () => dayjs().weekday();
 
-export const getWeekday = (date) => {
-  return dayjs(date).weekday();
-};
+export const getWeekday = (date) => dayjs(date).weekday();
 
-export const getToday = (timezone) => {
-  return dayjs().tz(timezone);
-};
+export const getToday = (timezone) => dayjs().tz(timezone);
 
 // export const getTommorow = (timezone) => {
 //   console.log(dayjs().add(1, "day").tz(timezone).format(), dayjs().tz(timezone).add(1, "day").format());
@@ -31,13 +25,12 @@ export const getToday = (timezone) => {
 //   return dayjs().add(1, "day").tz(timezone);
 // };
 
-export const getDateUTC = (string = undefined) => {
+export const getDateUTC = (string = undefined) =>
   // not work with null
-  return dayjs(string).utc(true);
-};
+  dayjs(string).utc(true);
 
 export const getTodayUTC = () => {
-  const date = dayjs().add(dayjs().utcOffset(), "m").utcOffset(0).second(0).minute(0).hour(0);
+  const date = dayjs().add(dayjs().utcOffset(), 'm').utcOffset(0).second(0).minute(0).hour(0);
 
   return date;
 };
@@ -45,7 +38,7 @@ export const getTodayUTC = () => {
 export const toDayjs = (date) => dayjs(date);
 
 export const getUpdateDate = (update) => {
-  if (!update.date) return null;
+  if (!update || !update.date) return null;
 
   const updateDate = getDateUTC(update.date);
 
@@ -60,7 +53,7 @@ export const getCurrentMonthAndYear = (timezone) => {
 export const getFirstAndLastDatesOfMonth = (month, year) => {
   const date = getDateUTC(`${year}-${month + 1}-01`);
 
-  return [date, date.endOf("month")];
+  return [date, date.endOf('month')];
 };
 
 export const getCalendarPageDates = (firstDateMonth, lastDateMonth) => {
@@ -73,7 +66,7 @@ export const getCalendarPageDates = (firstDateMonth, lastDateMonth) => {
 export const getTommorow = () => {
   const date = getTodayUTC();
 
-  console.log(date.add(1, "day").format());
+  console.log(date.add(1, 'day').format());
 
-  return date.add(1, "day");
+  return date.add(1, 'day');
 };

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setAppointmentService } from "../../../../../redux/appointments/actions";
-import SubService from "../../../../services/parameter-service/sub-service";
-import Title from "../../../../services/parameter-service/title";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import getIsDisabled from "./utils/get-is-disabled";
-import getCorrectService from "./utils/get-correct-service";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SubService from '../../../../services/parameter-service/sub-service';
+import Title from '../../../../services/parameter-service/title';
+import getIsDisabled from './utils/get-is-disabled';
+import getCorrectService from './utils/get-correct-service';
+import goTo from './go-to';
 
-const BookingParameterService = ({ service, setStep, isUpdated }) => {
-  const [{ bookingAppointment }, timetable] = useSelector((state) => [state.appointments.booking, state.timetable]);
+const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
+  const [{ bookingAppointment }, timetable] = useSelector((state) => [
+    state.appointments.booking,
+    state.timetable,
+  ]);
+
+  const [{ step }, setStep] = stepState;
+
+  const { date } = bookingAppointment;
+
   const dispatch = useDispatch();
 
   const [isShown, setIsShown] = useState(false);
@@ -18,7 +26,9 @@ const BookingParameterService = ({ service, setStep, isUpdated }) => {
 
   return (
     <div
-      className={`${!isHoverSubService ? "booking-service-parameter--hover " : ""} booking-service-parameter card mt-6`}
+      className={`${
+        !isHoverSubService ? 'booking-service-parameter--hover ' : ''
+      } booking-service-parameter card mt-6`}
     >
       <div onClick={() => setIsShown(!isShown)} className="service">
         <Title title={title} shownState={[isShown, setIsShown]} />
@@ -26,18 +36,16 @@ const BookingParameterService = ({ service, setStep, isUpdated }) => {
 
       {isShown &&
         subServices.map((subService, i) => {
-          const { duration, id } = subService;
+          const bookingSubService = getCorrectService({
+            step,
+            service: { title, ...subService },
+            today: date,
+            isAfterUpdate,
+          });
 
-          const isDisabled = getIsDisabled(bookingAppointment, subService, timetable);
+          const isDisabled = getIsDisabled(bookingAppointment, bookingSubService, timetable);
 
-          const handleOnClick = () => {
-            dispatch(setAppointmentService({ id, title, duration }));
-            setStep((state) => {
-              if (state.step === 2)
-                return { ...state, isService: false, isResult: true, step: state.step + 1, lastStepName: "service" }; // first was timetable
-              return { ...state, isService: false, isTimetable: true, step: state.step + 1, lastStepName: "service" }; // first was services
-            });
-          };
+          const handleOnClick = goTo(setStep, bookingSubService, dispatch);
 
           return (
             <div
@@ -45,11 +53,11 @@ const BookingParameterService = ({ service, setStep, isUpdated }) => {
               onMouseEnter={() => setIsHoverSubService(true)}
               onClick={isDisabled ? null : handleOnClick}
               className={`service service--hover booking-service service-parameter__sub-service ${
-                isDisabled ? "booking-service--disabled" : ""
+                isDisabled ? 'booking-service--disabled' : ''
               }`}
-              key={i}
+              key={subService.parameter}
             >
-              <SubService subService={getCorrectService(subService, bookingAppointment.date, isUpdated)} />
+              <SubService subService={bookingSubService} />
 
               <div className="booking-service__arrow">
                 <FontAwesomeIcon icon="chevron-right" />

@@ -25,6 +25,8 @@ class AutoTimetable extends Timetable {
     }
 
     this.availableAppointments = availableAppointments;
+
+    return this;
   }
 
   filterAppointmentsWithExceptions(weekdayIndexRU) {
@@ -32,7 +34,7 @@ class AutoTimetable extends Timetable {
     const dayExceptions = this.exceptions[weekdayIndexRU];
     const exceptionsLength = dayExceptions.length;
 
-    if (!exceptionsLength) return;
+    if (!exceptionsLength) return this;
     for (let i = 0; i < exceptionsLength; i++) {
       const exceptionTime = dayExceptions[i];
       const startIndex = availableAppointments.indexOf(exceptionTime);
@@ -40,6 +42,8 @@ class AutoTimetable extends Timetable {
     }
 
     this.availableAppointments = availableAppointments;
+
+    return this;
   }
 
   filterAppointmentsWithService(service) {
@@ -54,6 +58,8 @@ class AutoTimetable extends Timetable {
 
       return true;
     });
+
+    return this;
   }
 }
 

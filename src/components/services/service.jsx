@@ -14,7 +14,7 @@ const Service = ({ service }) => {
 
   return (
     <>
-      <div className={`service__side service__side--left`}>
+      <div className="service__side service__side--left">
         <span className="label">Название</span>
         <span className={titleClassName}>{title}</span>
       </div>

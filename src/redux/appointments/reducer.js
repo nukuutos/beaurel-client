@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
   GET_APPOINTMENTS_SUCCESS,
   SET_APPOINTMENT_DATE,
@@ -63,7 +64,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_APPOINTMENTS_SUCCESS:
+    case GET_APPOINTMENTS_SUCCESS: {
       const { appointments, masterId } = payload;
 
       return {
@@ -74,11 +75,15 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
           bookedAppointments: appointments,
         },
       };
+    }
 
     case SET_APPOINTMENT_DATE:
       return {
         ...state,
-        booking: { ...state.booking, bookingAppointment: { ...state.booking.bookingAppointment, ...payload } },
+        booking: {
+          ...state.booking,
+          bookingAppointment: { ...state.booking.bookingAppointment, ...payload },
+        },
       };
 
     case UNSET_APPOINTMENT_DATE:
@@ -151,18 +156,20 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
     case CHANGE_APPOINTMENT_STATUS: {
       const { nextStatus, appointment, user } = payload;
-      const { status: currentStatus, _id: appointmentId } = appointment;
+      const { status: currentStatus, _id: appointmentId, date } = appointment;
 
       const appointmentsState = { ...state.appointments };
 
+      const stringDate = dayjs(date).format('DD-MM-YYYY');
+
       // find index in current category
-      const indexToDelete = appointmentsState[user][currentStatus].appointments.findIndex((appointment) => {
-        return appointment._id === appointmentId;
-      });
+      const indexToDelete = appointmentsState[user][currentStatus].appointments[
+        stringDate
+      ].findIndex((appointment) => appointment._id === appointmentId);
 
-      appointmentsState[user][currentStatus].appointments.splice(indexToDelete, 1);
+      appointmentsState[user][currentStatus].appointments[stringDate].splice(indexToDelete, 1);
 
-      const { isLoaded: isConfirmedLoaded } = appointmentsState['master']['confirmed'];
+      const { isLoaded: isConfirmedLoaded } = appointmentsState.master.confirmed;
       if (user === 'customer' || nextStatus !== 'confirmed' || !isConfirmedLoaded) {
         return { ...state, appointments: appointmentsState };
       }
@@ -171,12 +178,11 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
       appointment.status = 'confirmed';
       // find index to insert;
-      // not push, inserted it correctly (i think default sort is by createdAt time in onConfirmation, in history by apppoitment time, in confirmed by appointment time, unsuitable by appointemnt time)
-      appointmentsState['master']['confirmed'].appointments.push(appointment);
-
-      console.log(appointmentsState);
-      console.log(appointmentsState);
-      console.log(appointmentsState);
+      // not push, inserted it correctly
+      // appointmentsState.master.confirmed.appointments.push(appointment);
+      if (appointmentsState.master.confirmed.appointments[stringDate]) {
+        appointmentsState.master.confirmed.appointments[stringDate].push(appointment);
+      } else appointmentsState.master.confirmed.appointments[stringDate] = [appointment];
 
       return { ...state, appointments: appointmentsState };
     }
@@ -184,11 +190,11 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
     case UPSERT_APPOINTMENT_REVIEW: {
       const { appointmentId, review } = payload;
       const appointments = { ...state.appointments };
-      const customerHistoryAppointments = appointments['customer']['history'];
+      const customerHistoryAppointments = appointments.customer.history;
 
-      const indexToUpdate = customerHistoryAppointments.appointments.findIndex((appointment) => {
-        return appointment._id === appointmentId;
-      });
+      const indexToUpdate = customerHistoryAppointments.appointments.findIndex(
+        (appointment) => appointment._id === appointmentId
+      );
 
       const appointmentToUpdate = customerHistoryAppointments.appointments[indexToUpdate];
       const updatedAppointment = {
@@ -197,7 +203,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       };
 
       customerHistoryAppointments.appointments[indexToUpdate] = updatedAppointment;
-      appointments['customer']['history'] = customerHistoryAppointments;
+      appointments.customer.history = customerHistoryAppointments;
 
       return { ...state, appointments };
     }

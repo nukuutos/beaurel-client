@@ -1,5 +1,3 @@
-import { getUpdateDate, toDayjs } from "../../booking-timetable/booking-phone-timetable/utils";
-
 const isDisabledServiceWithAutoTimetable = (bookingAppointment, service, timetable) => {
   const { time: startAt, availableAppointments } = bookingAppointment;
   const { sessionTime } = timetable;
@@ -36,35 +34,33 @@ const getIsServiceUnsuitable = (service, today = null) => {
   const { update } = service;
   if (!update || !update.date || !today) return false;
 
-  const updateDate = getUpdateDate(update); // utc
+  // const updateDate = getUpdateDate(update); // utc
+  const { date: updateDate } = update;
 
-  if (updateDate.isBefore(today) && update.status === "unsuitable") return true;
+  if (updateDate.isSameOrBefore(today) && update.status === 'unsuitable') return true;
 
   return false;
 };
 
-const getIsDisabled = (bookingAppointment, service, timetable) => {
-  let { time, date } = bookingAppointment;
+// correct service is service that has valid duration on top level of object
+const getIsDisabled = (bookingAppointment, correctService, timetable) => {
+  const { time, date } = bookingAppointment;
 
   if (!time) return false;
 
-  date = toDayjs(date);
-
-  const isServiceUnsuitable = getIsServiceUnsuitable(service, date);
+  const isServiceUnsuitable = getIsServiceUnsuitable(correctService, date);
   if (isServiceUnsuitable) return true;
 
   const { update } = timetable;
 
-  const updateDate = getUpdateDate(update); // utc
-
-  if (updateDate && !updateDate.isAfter(date)) timetable = update;
+  if (update?.date.isSameOrBefore(date)) timetable = update;
 
   const { type } = timetable;
 
   const timetableDisableMethod =
-    type === "auto" ? isDisabledServiceWithAutoTimetable : isDisabledServiceWithManuallyTimetable;
+    type === 'auto' ? isDisabledServiceWithAutoTimetable : isDisabledServiceWithManuallyTimetable;
 
-  return timetableDisableMethod(bookingAppointment, service, timetable);
+  return timetableDisableMethod(bookingAppointment, correctService, timetable);
 };
 
 export default getIsDisabled;

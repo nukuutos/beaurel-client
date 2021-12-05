@@ -1,23 +1,20 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   getCalendarPageDates,
   getCurrentMonthAndYear,
-  getDateUTC,
   getFirstAndLastDatesOfMonth,
-} from "../../profile/section-cards/booking/booking-timetable/booking-phone-timetable/utils";
+} from '../../profile/section-cards/booking/booking-timetable/booking-timetable-phone/utils';
 
 const getMonthAndYear = (date) => [date.getMonth(), date.getFullYear()];
 
 // case: 0 || 6
 // it's because of sunday. Sunday in russia is a last day of a week
-const getStartDateOfWeek = (date) => {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - (date.getDay() || 6) + 1);
-};
+const getStartDateOfWeek = (date) =>
+  new Date(date.getFullYear(), date.getMonth(), date.getDate() - (date.getDay() || 6) + 1);
 
-const getEndDateOfWeek = (date) => {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - (date.getDay() || 6) + 6);
-};
+const getEndDateOfWeek = (date) =>
+  new Date(date.getFullYear(), date.getMonth(), date.getDate() - (date.getDay() || 6) + 6);
 
 const getFirstAndLastDates = (month, year) => {
   const firstDateOfCurrentMonth = new Date(year, month, 1);
@@ -43,7 +40,7 @@ const generateDates = (firstDate, lastDate) => {
 
     for (let i = 0; i <= 6; i++) {
       week.push(date);
-      date = date.add(1, "day");
+      date = date.add(1, 'day');
     }
 
     weeks.push(week);
