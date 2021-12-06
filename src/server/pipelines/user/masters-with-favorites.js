@@ -1,7 +1,7 @@
 const mastersWithFavorites = (userId) => [
   {
     $match: {
-      role: "master",
+      role: 'master',
     },
   },
   {
@@ -18,9 +18,9 @@ const mastersWithFavorites = (userId) => [
             // for api we can omit it
             masters: {
               $map: {
-                input: "$masters",
-                as: "id",
-                in: { $convert: { input: "$$id", to: "string" } },
+                input: '$masters',
+                as: 'id',
+                in: { $convert: { input: '$$id', to: 'string' } },
               },
             },
           },
@@ -32,27 +32,27 @@ const mastersWithFavorites = (userId) => [
             firstName: 1,
             lastName: 1,
             avatar: 1,
-            placeOfwork: 1,
+            placeOfWork: 1,
             specialization: 1,
           },
         },
         // rating
         {
           $lookup: {
-            from: "reviews",
+            from: 'reviews',
             let: {
-              masterId: "$_id",
+              masterId: '$_id',
             },
             pipeline: [
               {
                 $match: {
-                  $expr: { $eq: ["$masterId", "$$masterId"] },
+                  $expr: { $eq: ['$masterId', '$$masterId'] },
                 },
               },
               {
                 $group: {
                   _id: null,
-                  rating: { $avg: "$value" },
+                  rating: { $avg: '$value' },
                 },
               },
               {
@@ -61,14 +61,14 @@ const mastersWithFavorites = (userId) => [
                 },
               },
             ],
-            as: "rating",
+            as: 'rating',
           },
         },
         {
           $addFields: {
             // rating: { $arrayElemAt: ['$rating.rating', 0] },
-            rating: { $round: [{ $arrayElemAt: ["$rating.rating", 0] }, 1] },
-            _id: { $convert: { input: "$_id", to: "string" } }, // for api we can omit it
+            rating: { $round: [{ $arrayElemAt: ['$rating.rating', 0] }, 1] },
+            _id: { $convert: { input: '$_id', to: 'string' } }, // for api we can omit it
           },
         },
         {
@@ -84,7 +84,7 @@ const mastersWithFavorites = (userId) => [
   },
   {
     $addFields: {
-      favoriteMasters: { $arrayElemAt: ["$favoriteMasters.masters", 0] },
+      favoriteMasters: { $arrayElemAt: ['$favoriteMasters.masters', 0] },
     },
   },
 ];

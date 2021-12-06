@@ -1,21 +1,21 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik, Form } from "formik";
-import { useState, useRef, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Formik, Form } from 'formik';
+import { useState, useRef, useEffect } from 'react';
 
-import useSearch from "./use-search";
-import useAsyncAction from "../../../../hooks/use-async-action/use-async-action";
+import useSearch from './use-search';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 
-import Input from "../../../../components/form/input";
-import Modal from "../../../utils/modal";
-import ModalHeading from "../../../utils/modal/modal-heading";
-import useMediaQuery from "../../../../hooks/use-media-query";
+import Input from '../../../base/form/input';
+import Modal from '../../../base/modal';
+import ModalHeading from '../../../base/modal/modal-heading';
+import useMediaQuery from '../../../../hooks/use-media-query';
 
 const onCityClick = (data, setCity, onClose) => {
   const { city, timezone } = data;
 
   setCity(city);
-  localStorage.setItem("city", city);
-  localStorage.setItem("timezone", timezone);
+  localStorage.setItem('city', city);
+  localStorage.setItem('timezone', timezone);
   onClose();
 };
 
@@ -27,17 +27,17 @@ const CitySearch = ({ onClickClose, setCity }) => {
   const form = useRef();
   const [lastRef, { page, hasMore }, isPaginationLoading] = useSearch(form, setData);
 
-  const [onRenderAsyncAction, isRenderLoading] = useAsyncAction("initial search");
-  const [onSearchAsyncAction, isSubmitLoading, isCancelled] = useAsyncAction("form search");
+  const [onRenderAsyncAction, isRenderLoading] = useAsyncAction('initial search');
+  const [onSearchAsyncAction, isSubmitLoading, isCancelled] = useAsyncAction('form search');
 
   useEffect;
   useEffect(() => {
     const getCities = async () => {
       const config = {
-        method: "get",
+        method: 'get',
         url: `/timezone/city`,
-        params: { city: "", page: 0 }, // add city
-        accessToken: "nothing",
+        params: { city: '', page: 0 }, // add city
+        accessToken: 'nothing',
       };
 
       const data = await onRenderAsyncAction(config);
@@ -50,20 +50,20 @@ const CitySearch = ({ onClickClose, setCity }) => {
 
   return (
     <Modal isMobileBackground onClickClose={onClickClose}>
-      <div className={`city-search ${isPhone ? "" : "card"}`}>
+      <div className={`city-search ${isPhone ? '' : 'card'}`}>
         <ModalHeading title="Выбрать город" onClickClose={onClickClose} />
         {isRenderLoading && <div className="spinner-with-background" />}
         <Formik
           innerRef={form}
-          initialValues={{ city: "" }}
+          initialValues={{ city: '' }}
           onSubmit={async (values, { initialValues }) => {
             const { city } = values;
 
             const config = {
-              method: "get",
+              method: 'get',
               url: `/timezone/city`,
               params: { city, page }, // add city
-              accessToken: "nothing",
+              accessToken: 'nothing',
             };
 
             const data = await onSearchAsyncAction(config);

@@ -175,7 +175,7 @@
     }
   }
   // from profile
-  &__geoposition {
+  &__geolocation {
     color: $color-gray-dark-1;
 
     @include respond(tab-port) {

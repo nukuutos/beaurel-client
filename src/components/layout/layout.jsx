@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 
 import Navbar from './navbar';
-import Alert from '../utils/alert';
+import Alert from '../base/alert';
 
 import City from './city/city';
 

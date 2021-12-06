@@ -4,14 +4,14 @@ import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
 import AppointmentModel from '../server/models/appointment';
 import { setAppointments } from '../redux/appointments/actions';
-import AppointmentsCategoriesController from '../components/appointments/appointments-categories-controller';
-import AppointmentController from '../components/appointments/appointment-controller';
+import AppointmentsCategoriesController from '../components/pages/appointments/appointments-categories-controller';
+import AppointmentController from '../components/pages/appointments/appointment-controller';
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
 import useMediaQuery from '../hooks/use-media-query';
-import { useCarousel } from '../components/appointments/use-carousel/use-carousel';
-import AppointmentsDots from '../components/appointments/appointments-dots';
-import AppointmentsDays from '../components/appointments/appointments-days';
+import { useCarousel } from '../components/pages/appointments/use-carousel/use-carousel';
+import AppointmentsDots from '../components/pages/appointments/appointments-dots';
+import AppointmentsDays from '../components/pages/appointments/appointments-days';
 
 const Appointments = () => {
   const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });

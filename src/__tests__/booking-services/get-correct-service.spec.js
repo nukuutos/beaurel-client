@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import '../../utils/dayjs-plugins';
-import getCorrectService from '../../components/profile/section-cards/booking/booking-services/utils/get-correct-service';
+import getCorrectService from '../../components/pages/profile/section-cards/booking/booking-services/utils/get-correct-service';
 
 describe('Get correct service', () => {
   it('Timetable is fisrt step', () => {

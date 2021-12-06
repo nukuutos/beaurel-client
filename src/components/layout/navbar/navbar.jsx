@@ -1,18 +1,18 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
-import { signOut } from "../../../redux/auth/actions";
-import useMediaQuery from "../../../hooks/use-media-query";
-import Modal from "../../utils/modal";
-import { useState } from "react";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { signOut } from '../../../redux/auth/actions';
+import useMediaQuery from '../../../hooks/use-media-query';
+import Modal from '../../base/modal';
 
 const renderNavigation = (links, isTabView) => {
   const { id: userId, accessToken } = useSelector((state) => state.auth);
 
   const setAccessTokenToCookie = () => {
-    Cookies.set("accessToken", accessToken);
+    Cookies.set('accessToken', accessToken);
   };
 
   const onClick = accessToken ? setAccessTokenToCookie : null;
@@ -20,29 +20,27 @@ const renderNavigation = (links, isTabView) => {
 
   const router = useRouter();
 
-  return links.map((link) => {
-    return (
-      <li
-        onClick={onClick}
-        className={`navbar__link ${router.asPath === link.path ? "navbar__link--active" : ""}`}
-        key={link.path}
-      >
-        {link.path === `/${userId}` ? (
-          <Link href={`/[id]`} as={link.path}>
-            <a>
-              <FontAwesomeIcon className="navbar__icon" icon={link.icon} /> {!isTabView && link.name}
-            </a>
-          </Link>
-        ) : (
-          <Link href={link.path}>
-            <a>
-              <FontAwesomeIcon className="navbar__icon" icon={link.icon} /> {!isTabView && link.name}
-            </a>
-          </Link>
-        )}
-      </li>
-    );
-  });
+  return links.map((link) => (
+    <li
+      onClick={onClick}
+      className={`navbar__link ${router.asPath === link.path ? 'navbar__link--active' : ''}`}
+      key={link.path}
+    >
+      {link.path === `/${userId}` ? (
+        <Link href="/[id]" as={link.path}>
+          <a>
+            <FontAwesomeIcon className="navbar__icon" icon={link.icon} /> {!isTabView && link.name}
+          </a>
+        </Link>
+      ) : (
+        <Link href={link.path}>
+          <a>
+            <FontAwesomeIcon className="navbar__icon" icon={link.icon} /> {!isTabView && link.name}
+          </a>
+        </Link>
+      )}
+    </li>
+  ));
 };
 
 const renderMobileNavigation = (userId, accessToken) => {
@@ -56,35 +54,35 @@ const renderMobileNavigation = (userId, accessToken) => {
   const router = useRouter();
 
   const links = [
-    { name: "Профиль", path: `/${userId}`, icon: "user-alt" },
-    { name: "Записи", path: "/appointments", icon: ["far", "calendar-alt"] },
-    { name: "Поиск", path: "/search", icon: "search" },
-    { name: "Твои Мастера", path: "/masters", icon: "star" },
+    { name: 'Профиль', path: `/${userId}`, icon: 'user-alt' },
+    { name: 'Записи', path: '/appointments', icon: ['far', 'calendar-alt'] },
+    { name: 'Поиск', path: '/search', icon: 'search' },
+    { name: 'Твои Мастера', path: '/masters', icon: 'star' },
   ];
 
-  return links.map((link) => {
-    return (
-      <li
-        onClick={onClick}
-        className={`mobile-navbar__item ${router.asPath === link.path ? "mobile-navbar__item--active" : ""}`}
-        key={link.path}
-      >
-        {link.path === `/${userId}` ? (
-          <Link href={`/[id]`} as={link.path}>
-            <a>
-              <FontAwesomeIcon className="mobile-navbar__icon" icon={link.icon} />
-            </a>
-          </Link>
-        ) : (
-          <Link href={link.path}>
-            <a>
-              <FontAwesomeIcon className="mobile-navbar__icon" icon={link.icon} />
-            </a>
-          </Link>
-        )}
-      </li>
-    );
-  });
+  return links.map((link) => (
+    <li
+      onClick={onClick}
+      className={`mobile-navbar__item ${
+        router.asPath === link.path ? 'mobile-navbar__item--active' : ''
+      }`}
+      key={link.path}
+    >
+      {link.path === `/${userId}` ? (
+        <Link href="/[id]" as={link.path}>
+          <a>
+            <FontAwesomeIcon className="mobile-navbar__icon" icon={link.icon} />
+          </a>
+        </Link>
+      ) : (
+        <Link href={link.path}>
+          <a>
+            <FontAwesomeIcon className="mobile-navbar__icon" icon={link.icon} />
+          </a>
+        </Link>
+      )}
+    </li>
+  ));
 };
 
 const Navbar = ({ links, isAuth }) => {
@@ -97,21 +95,26 @@ const Navbar = ({ links, isAuth }) => {
   const isPhone = useMediaQuery(600);
   const isTabView = isTabLand && !isPhone; // 600px - 1200px
 
-  const mobileSidenavVisibleClassName = isPhone && isMobileNavActive ? "mobile-sidenav--visible" : "";
+  const mobileSidenavVisibleClassName =
+    isPhone && isMobileNavActive ? 'mobile-sidenav--visible' : '';
 
-  const mobileSidenavClassName = isPhone ? "mobile-sidenav" : "";
+  const mobileSidenavClassName = isPhone ? 'mobile-sidenav' : '';
 
   return (
     <>
-      {isPhone && isMobileNavActive && <Modal onBackgroundClose={() => setIsMobileNavActive(false)} />}
-      <nav className={`navbar card card--layout ${mobileSidenavClassName} ${mobileSidenavVisibleClassName}`}>
+      {isPhone && isMobileNavActive && (
+        <Modal onBackgroundClose={() => setIsMobileNavActive(false)} />
+      )}
+      <nav
+        className={`navbar card card--layout ${mobileSidenavClassName} ${mobileSidenavVisibleClassName}`}
+      >
         {renderNavigation(links, isTabView)}
         {isAuth && (
           <li className="navbar__link">
             <Link href="/">
               <a onClick={() => dispatch(signOut())}>
                 <FontAwesomeIcon className="navbar__icon" icon="door-open" />
-                {!isTabView && "Выход"}
+                {!isTabView && 'Выход'}
               </a>
             </Link>
           </li>
@@ -119,7 +122,7 @@ const Navbar = ({ links, isAuth }) => {
       </nav>
 
       {isPhone && (
-        <nav className={`mobile-navbar card card--layout`}>
+        <nav className="mobile-navbar card card--layout">
           <div className="mobile-navbar__main">
             {renderMobileNavigation(userId, accessToken)}
             <li onClick={() => setIsMobileNavActive(true)} className="mobile-navbar__item">

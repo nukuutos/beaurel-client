@@ -3,9 +3,9 @@ import { getProfileSuccess } from '../redux/profile/actions';
 
 import Layout from '../components/layout/layout';
 
-import Header from '../components/profile/header/header';
-import SectionCards from '../components/profile/section-cards/section-cards';
-import SectionReviews from '../components/profile/section-reviews/section-reviews';
+import Header from '../components/pages/profile/header/header';
+import SectionCards from '../components/pages/profile/section-cards/section-cards';
+import SectionReviews from '../components/pages/profile/section-reviews/section-reviews';
 import User from '../server/models/user';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
 import useMediaQuery from '../hooks/use-media-query';
@@ -27,8 +27,8 @@ const Profile = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { id } = query;
 
-  const getProfileCB = async () => await User.getMasterProfile(id);
-  const profile = await handlePublicAndAuthPage(getProfileCB, { req, res, store });
+  const getProfile = async () => await User.getMasterProfile(id);
+  const profile = await handlePublicAndAuthPage(getProfile, { req, res, store });
 
   store.dispatch(getProfileSuccess({ profile: { ...profile, id } }));
 

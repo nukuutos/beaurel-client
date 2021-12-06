@@ -4,14 +4,14 @@ import { useState, useRef } from 'react';
 import Axios from 'axios';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import Select from '../components/form/select';
-import Input from '../components/form/input';
-import MasterCard from '../components/search/master-card';
+import Select from '../components/base/form/select';
+import Input from '../components/base/form/input';
+import MasterCard from '../components/pages/search/master-card';
 import { getMastersSuccess } from '../redux/profile/actions';
 import User from '../server/models/user';
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
-import useSearch from '../components/search/use-search';
+import useSearch from '../components/pages/search/use-search';
 import useMediaQuery from '../hooks/use-media-query';
 
 const specializations = [

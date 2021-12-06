@@ -20,7 +20,7 @@ import {
   DELETE_SERVICE_PARAMETER_SUCCESS,
 } from './types/service-parameter';
 
-import getIdsAndOrders from '../../components/profile/section-cards/services/utils/get-ids-and-orders';
+import getIdsAndOrders from '../../components/pages/profile/section-cards/services/utils/get-ids-and-orders';
 
 const reoderServices = (services) => {
   const copiedServices = [...services];
