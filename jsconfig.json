@@ -1,3 +1,8 @@
 {
-  "include": ["./node_modules/cypress", "cypress/**/*.js"]
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "es2021",
+    "jsx": "react"
+  },
+  "include": ["./src/**/*", "./node_modules/cypress", "./cypress/**/*.js"]
 }
