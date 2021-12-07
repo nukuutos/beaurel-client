@@ -21,10 +21,20 @@
   "rules": {
     "react/jsx-props-no-spreading": 0,
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelComponents": ["CustomInputLabel"],
+        "labelAttributes": ["label"],
+        "controlComponents": ["CustomInput"],
+        "depth": 3
+      }
+    ],
     "jsx-a11y/click-events-have-key-events": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "no-return-assign": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "no-unused-vars": "warn",
     "no-shadow": "warn",
     "no-useless-constructor": "off",

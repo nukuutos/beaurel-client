@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "ES6",
     "target": "es2021",
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "Node"
   },
   "include": ["./src/**/*", "./node_modules/cypress", "./cypress/**/*.js"]
 }
