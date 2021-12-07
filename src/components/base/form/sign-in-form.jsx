@@ -29,7 +29,7 @@ const SignInForm = () => {
 
           if (id) {
             dispatch(signInSuccess({ id, accessToken, role })); // add work success
-            router.push(`/${id}`);
+            router.push('/[id]', `/${id}`);
           }
           // setSubmitting(true);
           // signIn(data);

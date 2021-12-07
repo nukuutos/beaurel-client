@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import RatingIndicators from './rating-indicators/rating-indicators';
 import Stars from '../../../../../base/stars/stars';
-import decimalFormat from '../../../utils/decimal-format';
+import decimalFormat from '../../../../utils/decimal-format';
 import useMediaQuery from '../../../../../../hooks/use-media-query';
 import getWordReview from './get-word-review';
 

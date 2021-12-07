@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
-import { addMaster, deleteMaster } from '../../../../../redux/profile/actions';
+import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import { addMaster, deleteMaster } from '../../../../redux/profile/actions';
 
-const useStarProfile = () => {
-  const [asyncAction] = useAsyncAction();
-  const [{ id: masterId }, { id: userId, accessToken }] = useSelector((state) => [
+const useStarProfile = (masterId) => {
+  const [asyncAction, isLoading] = useAsyncAction();
+  const [{ masters }, { id: userId, accessToken }] = useSelector((state) => [
     state.profile,
     state.auth,
   ]);
+
+  const isFavorite = masters.includes(masterId);
 
   const dispatch = useDispatch();
 
@@ -37,7 +39,12 @@ const useStarProfile = () => {
     await asyncAction(config);
   };
 
-  return [addFavorite, deleteFavorite];
+  const handleClick = (e) => {
+    if (isLoading) return e.stopPropagation();
+    return isFavorite ? deleteFavorite(e) : addFavorite(e);
+  };
+
+  return [handleClick, isFavorite];
 };
 
 export default useStarProfile;

@@ -1,7 +1,7 @@
 import React from 'react';
 import useMediaQuery from '../../../../hooks/use-media-query';
 import Stars from '../../../base/stars/stars';
-import decimalFormat from '../utils/decimal-format';
+import decimalFormat from '../../utils/decimal-format';
 
 const ProfileRating = ({ className = '', ratingScore = null }) => {
   const isPhone = useMediaQuery(600);

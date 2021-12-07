@@ -20,16 +20,6 @@ const useAsyncAction = () => {
     [dispatch]
   );
 
-  // const asyncAction = async (config) => {
-  //   setIsLoading(true);
-
-  //   const data = asyncCall(dispatch, config);
-
-  //   if (!isCancelled.current) setIsLoading(false);
-
-  //   return data || null;
-  // };
-
   // eslint-disable-next-line arrow-body-style
   useEffect(() => {
     return () => {
