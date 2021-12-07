@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import Navbar from './navbar';
+import Navbar from './navigation/navigation';
 
 import masterNavbarLinks from './utils/master-navbar-links';
 import customerNavbarLinks from './utils/customer-navbar-links';
@@ -11,9 +11,9 @@ const NavbarController = () => {
 
   switch (role) {
     case 'master':
-      return <Navbar links={masterNavbarLinks(id)} isAuth />;
+      return <Navbar links={masterNavbarLinks(id)} />;
     case 'user':
-      return <Navbar links={customerNavbarLinks} isAuth />;
+      return <Navbar links={customerNavbarLinks} />;
     default:
       return <Navbar links={guestNavbarLinks} />;
   }
