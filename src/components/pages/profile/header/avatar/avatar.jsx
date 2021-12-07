@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import DisplayAvatar from './display-avatar';
-import EditAvatar from './edit-avatar';
+import EditAvatar from './edit-avatar/edit-avatar';
 
-const Avatar = ({ className = '' }) => {
+const Avatar = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   return (
     <>
-      <DisplayAvatar className={className} setIsEdit={setIsEdit} />
+      <DisplayAvatar setIsEdit={setIsEdit} />
       {isEdit && <EditAvatar setIsEdit={setIsEdit} />}
     </>
   );

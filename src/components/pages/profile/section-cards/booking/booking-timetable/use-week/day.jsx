@@ -1,46 +1,15 @@
-import { useDispatch } from 'react-redux';
-import { setAppointmentDate } from '../../../../../../../redux/appointments/actions';
 import { MONTHS, DAYS_OF_THE_WEEK } from '../utils/week';
-import displayDuration from '../../../services/utils/display-duration';
+import displayDuration from '../../utils/display-duration';
 import Appointment from './appointment';
+import useClick from './use-click';
 
 // date is without timezone offset!!!
 const Day = ({ setStep, date, availableAppointments = [], unavailableAppointments = [] }) => {
-  const dispatch = useDispatch();
+  const appointmentData = { date, availableAppointments, unavailableAppointments };
 
-  const formatedAvailableTimes = availableAppointments.map((time) => displayDuration(time));
+  const [handleClick] = useClick(setStep, appointmentData);
 
-  const toServices = (state) => ({
-    ...state,
-    isTimetable: false,
-    isService: true,
-    step: state.step + 1,
-    lastStepName: 'timetable',
-  });
-
-  const toBookingResult = (state) => ({
-    ...state,
-    isTimetable: false,
-    isResult: true,
-    step: state.step + 1,
-    lastStepName: 'timetable',
-  });
-
-  const handleClick = (availabaleTimeIndex) => () => {
-    setStep((state) => {
-      if (state.step === 1) return toServices(state);
-      return toBookingResult(state);
-    });
-
-    dispatch(
-      setAppointmentDate({
-        date,
-        time: availableAppointments[availabaleTimeIndex],
-        availableAppointments,
-        unavailableAppointments,
-      })
-    );
-  };
+  const formattedAvailableTimes = availableAppointments.map((time) => displayDuration(time));
 
   return (
     <>
@@ -51,7 +20,7 @@ const Day = ({ setStep, date, availableAppointments = [], unavailableAppointment
         </span>
       </div>
       <div className="booking-timetable__appointments">
-        {formatedAvailableTimes.map((time, i) => (
+        {formattedAvailableTimes.map((time, i) => (
           <Appointment onClick={handleClick(i)} key={time} time={time} />
         ))}
       </div>

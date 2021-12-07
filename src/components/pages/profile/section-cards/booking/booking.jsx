@@ -4,7 +4,7 @@ import BookingServices from './booking-services/booking-services';
 import BookingResult from './booking-result/booking-result';
 import BookingSuccess from './booking-success';
 import BookingTimetable from './booking-timetable/booking-timetable';
-import useCreateBackFunctions from './use-create-back-functions';
+import useCreateBackFunctions from './utils/use-create-back-functions';
 
 const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
   const [step, setStep] = useState({

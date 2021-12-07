@@ -1,3 +1,3 @@
-const decimalFormat = (num) => (Number.isInteger(num) ? `${num}.0` : num);
+const decimalFormat = (num) => parseFloat(num).toFixed(1);
 
 export default decimalFormat;

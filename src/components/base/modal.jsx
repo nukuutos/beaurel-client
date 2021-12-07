@@ -1,20 +1,29 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useKey from "../../hooks/use-key";
-import useMediaQuery from "../../hooks/use-media-query";
-import useBlockScroll from "./use-block-scroll";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useKey from '../../hooks/use-key';
+import useMediaQuery from '../../hooks/use-media-query';
+import useBlockScroll from './use-block-scroll';
 
-const Modal = ({ children, onClickClose = null, onBackgroundClose = null, isMobileBackground = false, title = "" }) => {
+const Modal = ({
+  children,
+  onClickClose = null,
+  onBackgroundClose = null,
+  isMobileBackground = false,
+  title = '',
+}) => {
   const isPhone = useMediaQuery(600);
 
   useKey(onClickClose);
-  useBlockScroll("body");
+  useBlockScroll('body');
 
   return (
-    <div onClick={onBackgroundClose} className={`modal ${isPhone && isMobileBackground ? "modal--mobile" : ""}`}>
+    <div
+      onClick={onBackgroundClose}
+      className={`modal ${isPhone && isMobileBackground ? 'modal--mobile' : ''}`}
+    >
       {children}
       {/* desktop close */}
       {isPhone && isMobileBackground ? null : (
-        <FontAwesomeIcon onClick={onClickClose} className={"modal__close"} icon="times" />
+        <FontAwesomeIcon onClick={onClickClose} className="modal__close" icon="times" />
       )}
       {/* mobile close */}
       {/* {isPhone && isMobileBackground && (

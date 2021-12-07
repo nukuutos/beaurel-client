@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import displayDuration from '../../services/utils/display-duration';
+import displayDuration from '../utils/display-duration';
 import { MONTHS } from '../booking-timetable/utils/week';
 import useMediaQuery from '../../../../../../hooks/use-media-query';
 import useBookTime from './use-book-time';

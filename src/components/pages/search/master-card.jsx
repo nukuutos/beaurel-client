@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import StarProfile from '../profile/header/star-profile';
+import StarProfile from '../profile/header/star-profile/star-profile';
 import { deleteMaster, addMaster } from '../../../redux/profile/actions';
 import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 import MasterCardRating from './master-card-rating';

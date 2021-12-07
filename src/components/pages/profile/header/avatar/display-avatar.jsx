@@ -1,19 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
+import getAvatarPath from '../../../utils/get-avatar-path';
 
-const getAvatarPath = (avatar) => {
-  const avatarPath = `http://localhost:5000/${avatar}`;
-  const defaultPath = '/svg/default.svg';
-
-  return avatar ? avatarPath : defaultPath;
-};
-
-const DisplayAvatar = ({ setIsEdit, className = '' }) => {
+const DisplayAvatar = ({ setIsEdit }) => {
   const { avatar } = useSelector((state) => state.profile);
 
   return (
-    <div onClick={() => setIsEdit(true)} className={`avatar ${className}`}>
+    <div onClick={() => setIsEdit(true)} className="avatar profile__avatar">
       <img src={getAvatarPath(avatar)} alt="Profile" className="avatar__image" />
       <div className="avatar__change-image">
         <FontAwesomeIcon className="avatar__pen-icon" icon="pen" />
