@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SubService from '../../../../services/parameter-service/sub-service';
-import Title from '../../../../services/parameter-service/title';
+import SubService from '../../../../services/base/parameter-service/sub-service';
+import Title from '../../../../services/base/parameter-service/title';
 import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
 import goTo from './go-to';

@@ -1,38 +1,23 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import EditParameterService from './edit-parameter-service/edit-parameter-service';
-import EditService from './edit-service/edit-service';
-import AddService from '../add-service/add-service';
-import Modal from '../../../base/modal';
+import AddService from './add-service/add-service';
+import DisplayServices from './display-services/display-services';
 
-const EditServices = ({ services }) => {
-  const { isPublicView } = useSelector((state) => state.profile); // add public view
+const EditServices = () => {
   const [isAddService, setIsAddService] = useState(false);
+
+  const openAddService = () => setIsAddService(true);
+  const closeAddService = () => setIsAddService(false);
 
   return (
     <div className="services__container">
-      {services.length ? (
-        services.map((service, i) =>
-          service.subServices ? (
-            <EditParameterService key={i} service={service} />
-          ) : (
-            <EditService key={i} service={service} />
-          )
-        )
-      ) : (
-        // change it
-        <p />
-      )}
+      <DisplayServices />
 
-      <div
-        className="service service--add service--hover card mt-6"
-        onClick={() => setIsAddService(true)}
-      >
+      <div className="service service--add service--hover card mt-6" onClick={openAddService}>
         <FontAwesomeIcon icon="plus" />
       </div>
 
-      {isAddService && <AddService onClickClose={() => setIsAddService(false)} />}
+      {isAddService && <AddService onClickClose={closeAddService} />}
     </div>
   );
 };

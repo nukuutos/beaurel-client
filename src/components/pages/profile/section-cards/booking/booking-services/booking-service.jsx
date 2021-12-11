@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Service from '../../../../services/service';
+import Service from '../../../../services/base/service';
 import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
 import goTo from './go-to';

@@ -44,7 +44,7 @@ describe('Update unsuitable services', () => {
     // go to services
     cy.visit('/services');
     // click alert
-    cy.get('.udpate-alert__button').click();
+    cy.get('.update-alert__button').click();
     // check alert
     cy.get('.booking-services > .services__container').then(($container) => {
       const children = $container.children();
@@ -80,7 +80,7 @@ describe('Update unsuitable services', () => {
     // go to services
     cy.visit('/services');
     // click alert
-    cy.get('.udpate-alert__button').click();
+    cy.get('.update-alert__button').click();
     // check alert
     cy.get('.booking-services > .services__container').then(($container) => {
       const children = $container.children();

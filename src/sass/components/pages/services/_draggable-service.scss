@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .draggable-service {
   position: relative;
@@ -16,7 +16,7 @@
 
     &:before {
       position: absolute;
-      content: "";
+      content: '';
       top: 0;
       width: 100%;
       height: 1px;
@@ -36,81 +36,4 @@
       }
     }
   }
-
-  // draggable-vertical-lines wrapper
-  // &__icon-wrapper {
-  //   z-index: 1;
-  //   position: absolute;
-  //   top: 0;
-  //   left: -$size;
-  //   height: 100%;
-  //   width: $size;
-  //   background: white;
-
-  //   border-top-left-radius: 0.5rem;
-  //   border-bottom-left-radius: 0.5rem;
-
-  //   display: flex;
-  //   justify-content: flex-start;
-  //   align-items: center;
-  // }
-
-  // shadow with border
-  // &::before {
-  //   z-index: 10;
-  //   content: "";
-  //   display: block;
-  //   position: absolute;
-  //   top: 0;
-  //   bottom: 0;
-  //   right: 0;
-  //   left: -$size;
-  //   border-radius: 0.5rem;
-  //   border: 1px solid transparent;
-  //   // transition: 0.2s border-color;
-  //   transition: 0.2s box-shadow;
-  // }
-
-  // &--shadow::before {
-  //   box-shadow: 0 0 0.5rem rgba($color-black, 0.2);
-  // }
-
-  // &--hover::before {
-  //   box-shadow: 0 0 0.5rem rgba($color-black, 0.2), 0 0 0 1px $color-primary;
-  // }
-
-  // vertical-line after draggable-vertical-lines
-  // .service__side--left::before {
-  //   z-index: 1;
-  //   position: absolute;
-  //   left: -1.6rem;
-  //   top: 0;
-  //   content: "";
-  //   display: block;
-  //   height: 100%;
-  //   width: 1px;
-  //   background: $color-gray-light-1;
-  //   transition: 0.2s background;
-
-  //   @include respond(phone) {
-  //     display: none;
-  //   }
-  // }
-
-  // @include respond(phone) {
-  //   &__mobile-lines {
-  //     grid-row: 2 / 3;
-  //     grid-column: 1 / -1;
-
-  //     &:before {
-  //       position: absolute;
-  //       content: "";
-  //       top: 0;
-  //       width: 100%;
-  //       height: 1px;
-  //       background: $color-gray-light-1;
-  //       margin-top: 1.6rem;
-  //     }
-  //   }
-  // }
 }

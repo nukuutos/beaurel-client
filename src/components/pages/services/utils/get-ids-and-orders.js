@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 const deleteProperties = (object, propertyArray) => {
   const copiedObject = { ...object };
   propertyArray.forEach((property) => delete copiedObject[property]);
@@ -5,18 +7,18 @@ const deleteProperties = (object, propertyArray) => {
 };
 
 const getIdsAndOrders = (services) => {
-  const copiedServices = [...services];
+  const copiedServices = [...cloneDeep(services)];
   const idsAndOrders = [];
 
   for (let service of copiedServices) {
     if (service.subServices) {
       service.subServices.forEach((subService) => {
-        subService = deleteProperties(subService, ["parameter", "price", "duration", "update"]);
+        subService = deleteProperties(subService, ['parameter', 'price', 'duration', 'update']);
         subService.order = service.order;
         idsAndOrders.push(subService);
       });
     } else {
-      service = deleteProperties(service, ["title", "price", "duration", "update"]);
+      service = deleteProperties(service, ['title', 'price', 'duration', 'update']);
       idsAndOrders.push(service);
     }
   }

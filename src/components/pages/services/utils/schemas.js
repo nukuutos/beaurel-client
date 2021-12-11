@@ -11,9 +11,11 @@ export const durationField = (sessionTime) =>
     .positive('Duration can not be negative')
     .integer('Duration must be an integer')
     .max(700, 'Duration can not be more than 8 hours') // edit
-    .test('duration', 'This duration is not suitable for session time', (duration) => {
-      return duration % sessionTime === 0;
-    })
+    .test(
+      'duration',
+      'This duration is not suitable for session time',
+      (duration) => duration % sessionTime === 0
+    )
     .required('Duration is required');
 
 export const priceField = Yup.number()
@@ -36,6 +38,12 @@ export const subServiceSchema = (sessionTime) =>
   });
 
 export const parameterServiceSchema = (sessionTime) =>
-  Yup.object().shape({ title: titleField, subServices: Yup.array().of(subServiceSchema(sessionTime)) });
+  Yup.object().shape({
+    title: titleField,
+    subServices: Yup.array().of(subServiceSchema(sessionTime)),
+  });
 
-export default serviceSchema;
+export const parameterServiceTitleSchema = () =>
+  Yup.object().shape({
+    title: titleField,
+  });

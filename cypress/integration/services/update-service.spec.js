@@ -46,7 +46,7 @@ describe('Update service', () => {
     findService(currentServiceTitle, () =>
       cy.get('.service__mobile-buttons > :nth-child(2)').click()
     );
-    // udpate service
+    // update service
     cy.get('.edit-service__textarea').clear().type(newServiceTitle);
     cy.get('.service__side--right > :nth-child(1) > .input').select(0);
     cy.get(':nth-child(2) > .input').clear().type(newPrice);

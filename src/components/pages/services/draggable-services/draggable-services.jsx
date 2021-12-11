@@ -1,14 +1,15 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { useDispatch } from 'react-redux';
-import { reoderServices } from '../../../../redux/service/actions/service';
+import { useDispatch, useSelector } from 'react-redux';
+import { reorderServices } from '../../../../redux/service/actions/service';
 import DraggableService from './draggable-service';
 import DraggableParameterService from './draggable-parameter-service/draggable-parameter-service';
 
-const DroppableServices = ({ services }) => {
+const DroppableServices = () => {
+  const { services } = useSelector((state) => state.services);
   const dispatch = useDispatch();
 
   return (
-    <DragDropContext onDragEnd={(res) => dispatch(reoderServices(res))}>
+    <DragDropContext onDragEnd={(res) => dispatch(reorderServices(res))}>
       <Droppable droppableId="droppable-services">
         {({ droppableProps, innerRef, placeholder }) => (
           <div

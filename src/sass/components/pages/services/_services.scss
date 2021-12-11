@@ -1,4 +1,4 @@
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/mixins' as *;
 
 .services {
   &__heading {
@@ -44,7 +44,7 @@
     }
   }
 
-  &__reoder-controller {
+  &__reorder-controller {
     grid-column: 4 / 10;
     // grid-row: 3 / 4;
     justify-self: end;

@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getIdsAndOrders from '../utils/get-ids-and-orders';
 import areOrdersEqual from '../utils/are-orders-equal';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import { setInitialOrder } from '../../../../redux/service/actions/service';
 
 const useSaveBeforeUnload = () => {
   const [{ services, initialOrder }, { accessToken, id: profileId }] = useSelector((state) => [
@@ -10,6 +11,7 @@ const useSaveBeforeUnload = () => {
     state.auth,
   ]);
   const [asyncAction] = useAsyncAction();
+  const dispatch = useDispatch();
 
   const servicesRef = useRef();
   servicesRef.current = services;
@@ -26,6 +28,7 @@ const useSaveBeforeUnload = () => {
 
     if (!areOrdersEqual(initialOrder, newOrder)) {
       await asyncAction(config);
+      dispatch(setInitialOrder(newOrder));
     }
   };
 

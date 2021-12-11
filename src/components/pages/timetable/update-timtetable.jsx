@@ -2,7 +2,7 @@ import React from 'react';
 import UpdateSuccess from './update-success';
 import UpdatedDate from './updated-date';
 import Modal from '../../base/modal';
-import UpdateServicesFromTimetable from '../services/update-services/update-services-from/update-services-from-timtetable';
+import UpdateServicesFromTimetable from '../services/services-updates/update-services/update-services-from/update-services-from-timetable/update-services-from-timtetable';
 
 const UpdateTimtetable = ({ submitFunctions, isLoading, updateTimetableState }) => {
   const [{ servicesCountToUpdate, step }, setUpdateTimetable] = updateTimetableState;
