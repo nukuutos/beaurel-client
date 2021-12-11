@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
 import Maps from './maps';
-import useMediaQuery from '../../../../../hooks/use-media-query';
 
 const Geolocation = () => {
   const [isMaps, setIsMaps] = useState(false);
-  const [{ placeOfWork, isPublicView }] = useSelector((state) => [state.profile]);
-  const isPhone = useMediaQuery(600);
+  const [{ placeOfWork, isPublicView }, { isPhone }] = useSelector((state) => [
+    state.profile,
+    state.screenSize,
+  ]);
 
   return (
     <div className="profile__geolocation">

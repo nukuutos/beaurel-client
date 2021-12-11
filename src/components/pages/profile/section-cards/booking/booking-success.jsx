@@ -1,12 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unsetAppointment } from '../../../../../redux/appointments/actions';
-import useMediaQuery from '../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../base/modal/modal-heading';
 
 const BookingSuccess = ({ onClickClose }) => {
   const dispatch = useDispatch();
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <div className={`booking-success ${isPhone ? '' : 'card'}`}>

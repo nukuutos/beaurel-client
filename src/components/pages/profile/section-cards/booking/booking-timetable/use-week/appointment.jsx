@@ -1,13 +1,13 @@
-import useMediaQuery from '../../../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 
 const Appointment = ({ time, onClick }) => {
-  const isTabPort = useMediaQuery(900);
+  const { isPhone, isTabPort } = useSelector((state) => state.screenSize);
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`booking-timetable__appointment ${isTabPort ? 'ml-2' : 'ml-5'}`}
+      className={`booking-timetable__appointment ${isPhone || isTabPort ? 'ml-2' : 'ml-5'}`}
     >
       {time}
     </button>

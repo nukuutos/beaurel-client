@@ -6,13 +6,13 @@ const getServicesUpdateDate = (services) => {
 
     if (isServiceParameter) {
       for (const subService of service.subServices) {
-        if (subService.update) {
-          return getDateUTC(service.update.date);
+        if (subService?.update?.date) {
+          return getDateUTC(subService.update.date);
         }
       }
     }
 
-    if (service.update) {
+    if (service?.update?.date) {
       return getDateUTC(service.update.date);
     }
   }

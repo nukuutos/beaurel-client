@@ -1,10 +1,10 @@
 import React from 'react';
-import useMediaQuery from '../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import Stars from '../../../base/stars/stars';
 import decimalFormat from '../../utils/decimal-format';
 
 const ProfileRating = ({ className = '', ratingScore = null }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return ratingScore ? (
     <div className={`profile__rating ${className}`}>

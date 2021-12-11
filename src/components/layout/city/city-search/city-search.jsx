@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik, Form } from 'formik';
 import { useState, useRef, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
 import useSearch from './use-search';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 
 import Input from '../../../base/form/input';
 import Modal from '../../../base/modal';
 import ModalHeading from '../../../base/modal/modal-heading';
-import useMediaQuery from '../../../../hooks/use-media-query';
 
 const onCityClick = (data, setCity, onClose) => {
   const { city, timezone } = data;
@@ -22,7 +22,7 @@ const onCityClick = (data, setCity, onClose) => {
 const CitySearch = ({ onClickClose, setCity }) => {
   const [data, setData] = useState([]);
 
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const form = useRef();
   const [lastRef, { page, hasMore }, isPaginationLoading] = useSearch(form, setData);

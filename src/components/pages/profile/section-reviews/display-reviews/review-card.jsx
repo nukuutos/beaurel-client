@@ -1,11 +1,11 @@
 import React from 'react';
-import useMediaQuery from '../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import Stars from '../../../../base/stars/stars';
 import TextMore from '../../../../base/text-more/text-more';
 import getAvatarPath from '../../../utils/get-avatar-path';
 
 const ReviewCard = ({ review, customer }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
   const { comment, value, date } = review;
   const { avatar, firstName, lastName } = customer;
 

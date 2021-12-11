@@ -7,6 +7,7 @@ import serviceReducer from './service/reducer';
 import timetableReducer from './timetable/reducer';
 import workReducer from './work/reducer';
 import appointmentsReducer from './appointments/reducer';
+import screenSizeReducer from './screen-size/reducer';
 
 export default combineReducers({
   profile: profileReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   timetable: timetableReducer,
   work: workReducer,
   appointments: appointmentsReducer,
+  screenSize: screenSizeReducer,
 });

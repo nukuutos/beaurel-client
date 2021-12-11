@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useMediaQuery from '../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import AddServiceForm from './add-service-form/add-service-form';
 import AddSubServicesForm from './add-service-parameter-form/add-service-parameter-form';
 import Modal from '../../../../base/modal';
@@ -7,7 +7,7 @@ import ModalHeading from '../../../../base/modal/modal-heading';
 import Switch from './switch';
 
 const AddService = ({ onClickClose }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
   const [serviceType, setServiceType] = useState('service');
 
   return (

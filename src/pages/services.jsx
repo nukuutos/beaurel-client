@@ -9,15 +9,12 @@ import ServiceModel from '../server/models/service';
 import { getTimetableSuccess } from '../redux/timetable/actions';
 import useSaveBeforeUnload from '../components/pages/services/hooks/use-save-before-unload';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
-import useMediaQuery from '../hooks/use-media-query';
 import Switch from '../components/pages/services/switch/switch';
 import ServicesUpdates from '../components/pages/services/services-updates/services-updates';
 
 const Services = () => {
-  const { services } = useSelector((state) => state.services);
+  const [{ services }, { isPhone }] = useSelector((state) => [state.services, state.screenSize]);
   const [currentTab, setCurrentTab] = useState('display'); // reorder, display
-
-  const isPhone = useMediaQuery(600);
 
   useSaveBeforeUnload();
 

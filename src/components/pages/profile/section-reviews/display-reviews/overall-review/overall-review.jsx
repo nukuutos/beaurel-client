@@ -2,13 +2,11 @@ import { useSelector } from 'react-redux';
 import RatingIndicators from './rating-indicators/rating-indicators';
 import Stars from '../../../../../base/stars/stars';
 import decimalFormat from '../../../../utils/decimal-format';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import getWordReview from './get-word-review';
 
 const OverallReview = () => {
-  const { ratingStats } = useSelector((state) => state.profile);
+  const [{ ratingStats }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
   const { avgRating, reviewsCount } = ratingStats;
-  const isPhone = useMediaQuery(600);
 
   return (
     <div className="overall-review profile__overall-review card mt-8">

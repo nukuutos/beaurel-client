@@ -8,17 +8,14 @@ import AppointmentsCategoriesController from '../components/pages/appointments/a
 import AppointmentController from '../components/pages/appointments/appointment-controller';
 import useAsyncAction from '../hooks/use-async-action/use-async-action';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
-import useMediaQuery from '../hooks/use-media-query';
 import { useCarousel } from '../components/pages/appointments/use-carousel/use-carousel';
 import AppointmentsDots from '../components/pages/appointments/appointments-dots';
 import AppointmentsDays from '../components/pages/appointments/appointments-days';
 
 const Appointments = () => {
   const [{ user, category }, setState] = useState({ user: 'master', category: 'onConfirmation' });
-  const isPhone = useMediaQuery(600);
-  const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector(
-    (state) => [state.appointments, state.auth]
-  );
+  const [{ appointments: appointmentsState }, { id: profileId, accessToken }, { isPhone }] =
+    useSelector((state) => [state.appointments, state.auth, state.screenSize]);
   const dispatch = useDispatch();
   const [asyncAction, isLoading] = useAsyncAction();
 

@@ -1,4 +1,3 @@
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useFileUpload from '../../../../../../hooks/use-file-upload';
 import useOnSubmit from './use-on-submit';
@@ -6,7 +5,7 @@ import NoWork from './no-work';
 import UploadedWork from './uploaded-work';
 
 const AddMasterWork = ({ setParentState }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const goToWorks = () => setParentState((state) => ({ ...state, display: 'works' }));
 

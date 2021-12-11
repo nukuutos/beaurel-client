@@ -4,16 +4,14 @@ import { useSelector } from 'react-redux';
 
 import Modal from '../../../../../base/modal';
 import Textarea from '../../../../../base/form/textarea';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import aboutTextSchema from './schema';
 import useOnSubmit from './use-on-submit';
 import submit from './submit';
 
 const AboutEdit = ({ onClickClose }) => {
-  const [{ aboutText }] = useSelector((state) => [state.profile, state.auth]);
+  const [{ aboutText }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
   const [onSubmit] = useOnSubmit(onClickClose);
-  const isPhone = useMediaQuery(600);
 
   return (
     <Modal isMobileBackground onClickClose={onClickClose}>

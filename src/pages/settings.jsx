@@ -1,16 +1,14 @@
+import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import SettingInput from '../components/pages/settings/setting-input/setting-input';
 import NameInput from '../components/pages/settings/name-input/name-input';
 import IdInput from '../components/pages/settings/id-input/id-input';
 import EmailInput from '../components/pages/settings/email-input/email-input';
 import TelephoneInput from '../components/pages/settings/telephone-input/telephone-input';
-import useMediaQuery from '../hooks/use-media-query';
-import CitySettings from '../components/layout/city/city-settings';
 import CityInput from '../components/pages/settings/city-input/city-input';
 
 const Search = () => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <Layout>

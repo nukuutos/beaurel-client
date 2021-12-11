@@ -1,9 +1,9 @@
 import { ErrorMessage, Form } from 'formik';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import Input from '../../../../../base/form/input';
 
 const MasterWorkForm = ({ onBackButtonClick, onSubmit = null }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <Form className="add-master-work__form ">

@@ -1,14 +1,11 @@
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import useGetWorks from './use-get-works';
 import MasterWork from './master-work';
 
 const DisplayMasterWorks = ({ setParentState }) => {
-  const { works } = useSelector((state) => state.work);
-
-  const isPhone = useMediaQuery(600);
+  const [{ works }, { isPhone }] = useSelector((state) => [state.work, state.screenSize]);
 
   const isLoading = useGetWorks();
 

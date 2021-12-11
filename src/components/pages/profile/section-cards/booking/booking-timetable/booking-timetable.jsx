@@ -1,10 +1,10 @@
 import React from 'react';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import BookingTimetableDesktop from './booking-timetable-desktop/booking-timetable-desktop';
 import BookingTimetablePhone from './booking-timetable-phone/booking-timetable-phone';
 
 const BookingTimetable = ({ ...props }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return isPhone ? <BookingTimetablePhone {...props} /> : <BookingTimetableDesktop {...props} />;
 };

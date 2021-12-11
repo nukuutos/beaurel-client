@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import Select from '../../base/form/select';
 import renderDurationOptions from '../services/utils/render-duration-options';
 import displayDuration from '../services/utils/display-duration';
 import Modal from '../../base/modal';
-import useMediaQuery from '../../../hooks/use-media-query';
 import useKeys from '../../../hooks/use-keys';
 
 const MobileEditWorkingDay = ({ onClickCancel, onClickSave, sessionTime }) => (
@@ -127,7 +127,7 @@ const WorkingDay = ({
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.workingDay);
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const onClickSave = () => {
     setFieldValue('auto.workingDay', edit.auto.workingDay);

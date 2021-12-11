@@ -1,11 +1,11 @@
 import React from 'react';
-import useMediaQuery from '../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import DatePicker from '../../base/date-picker/date-picker';
 import ModalHeading from '../../base/modal/modal-heading';
 
 const UpdatedDate = ({ setUpdateTimetable, isLoading, submitFunctions }) => {
   const { setFieldValue, submitForm } = submitFunctions;
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const submit = (date) => {
     setFieldValue('date', date);

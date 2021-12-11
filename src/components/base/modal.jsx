@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import useKey from '../../hooks/use-key';
-import useMediaQuery from '../../hooks/use-media-query';
 import useBlockScroll from './use-block-scroll';
 
 const Modal = ({
@@ -10,7 +10,7 @@ const Modal = ({
   isMobileBackground = false,
   title = '',
 }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   useKey(onClickClose);
   useBlockScroll('body');

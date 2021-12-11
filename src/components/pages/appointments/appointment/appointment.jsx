@@ -1,9 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 import displayDuration from '../../services/utils/display-duration';
 import convertDateToString from './utils/convert-date-to-string';
-import useMediaQuery from '../../../../hooks/use-media-query';
 
 const Appointment = ({ appointment, children }) => {
   const { service, user, time, date, createdAt } = appointment;
@@ -11,7 +11,7 @@ const Appointment = ({ appointment, children }) => {
   const { title, price } = service;
   const { startAt } = time;
 
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <div className="appointments__appointment-card appointment-card card mt-8">

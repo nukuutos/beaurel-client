@@ -8,19 +8,16 @@ import Modal from '../../../base/modal';
 import { unsetTimetableUpdate } from '../../../../redux/timetable/actions';
 import { deleteServicesUpdate } from '../../../../redux/service/actions/service';
 import { setAlert } from '../../../../redux/alert/actions';
-import useMediaQuery from '../../../../hooks/use-media-query';
 import ModalHeading from '../../../base/modal/modal-heading';
 import convertDateToString from '../../appointments/appointment/utils/convert-date-to-string';
 
 const VisualUpdatedTimetable = () => {
   const [isConfirmation, setIsConfirmation] = useState(false);
-  const [{ accessToken, id: profileId }, servicesState, { _id: timetableId, update }] = useSelector(
-    (state) => [state.auth, state.services, state.timetable]
-  );
+  const [{ accessToken, id: profileId }, servicesState, { _id: timetableId, update }, { isPhone }] =
+    useSelector((state) => [state.auth, state.services, state.timetable, state.screenSize]);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
   const { date } = update;
-  const isPhone = useMediaQuery(600);
 
   const deleteTimetableUpdate = async () => {
     const config = {

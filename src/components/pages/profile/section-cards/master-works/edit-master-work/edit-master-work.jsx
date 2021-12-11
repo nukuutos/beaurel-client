@@ -3,15 +3,13 @@ import { useSelector } from 'react-redux';
 
 import workSchema from '../utils/schema';
 import ModalHeading from '../../../../../base/modal/modal-heading';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import useFileUpload from '../../../../../../hooks/use-file-upload';
 import useOnSubmit from './use-on-submit';
 import ChangeButton from '../utils/change-button';
 import MasterWorkForm from '../utils/master-work-form';
 
 const EditMasterWork = ({ state }) => {
-  const { works } = useSelector((state) => state.work);
-  const isPhone = useMediaQuery(600);
+  const [{ works }, { isPhone }] = useSelector((state) => [state.work, state.screenSize]);
 
   const [{ index }, setParentState] = state;
 

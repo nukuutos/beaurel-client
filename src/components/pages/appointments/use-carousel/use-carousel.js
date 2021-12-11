@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
-import useMediaQuery from '../../../../hooks/use-media-query';
 import carouselReducer from './reducer';
 import swipeableConfig from './swipeable-config/swipeable-config';
 
@@ -63,7 +63,7 @@ const createStyles = (state, length = 1) => {
 export function useCarousel(length) {
   const [state, dispatch] = useReducer(carouselReducer, initialCarouselState);
   const [container, setContainer] = useState(null);
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
   const { ref, onMouseDown } = useSwipeable(swipeableConfig({ container, dispatch, length }));
 
   const handlers = createHandlers({

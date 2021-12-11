@@ -26,6 +26,8 @@ const rootReducer = (state, action) => {
     if (!payload.auth.accessToken) nextState.auth = state.auth;
     if (!payload.services.masterId) nextState.services = state.services;
 
+    nextState.screenSize = state.screenSize;
+
     return nextState;
   }
   return combinedReducer(state, action);

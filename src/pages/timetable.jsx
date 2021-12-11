@@ -19,11 +19,9 @@ import { setAlert } from '../redux/alert/actions';
 import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
 import UpdateTimtetable from '../components/pages/timetable/update-timtetable';
 import { servicesToUnsuitable } from '../redux/service/actions/service';
-import useMediaQuery from '../hooks/use-media-query';
 
 const Timetable = () => {
   const [asyncAction, isLoading] = useAsyncAction();
-  const isPhone = useMediaQuery(600);
   const [updateTimetable, setUpdateTimetable] = useState({
     isVisible: false,
     servicesCountToUpdate: null,
@@ -35,11 +33,9 @@ const Timetable = () => {
     isEditing: false,
     element: { sessionTime: false, weekends: false, workingDay: false },
   });
-  const [timetable, servicesState, { accessToken, id: profileId }] = useSelector((state) => [
-    state.timetable,
-    state.services,
-    state.auth,
-  ]);
+  const [timetable, servicesState, { accessToken, id: profileId }, { isPhone }] = useSelector(
+    (state) => [state.timetable, state.services, state.auth, state.screenSize]
+  );
   const dispatch = useDispatch();
 
   const {

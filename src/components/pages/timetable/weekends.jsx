@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FieldArray, insert } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import Modal from '../../base/modal';
 import insertElementInSortedArray from './utils/insert-element-in-sorted-array';
 import weekdaysRU from './utils/weekdays-ru';
-import useMediaQuery from '../../../hooks/use-media-query';
 import useKeys from '../../../hooks/use-keys';
 
 const Weekends = ({ update, editParentState, initialValues, setFieldValue, edit }) => {
@@ -12,7 +12,7 @@ const Weekends = ({ update, editParentState, initialValues, setFieldValue, edit 
   const { isEditing, element } = editState;
   const { weekends } = edit.auto;
   const isDisabled = update || (isEditing && !element.weekends);
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const onClickEdit = () => {
     setFieldValue('auto.weekends', edit.auto.weekends);

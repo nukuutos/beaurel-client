@@ -2,7 +2,6 @@ import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 import UpdateParameterService from './base/update-parameter-service/update-parameter-service';
 import UpdateService from './base/update-service';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useServicesForUpdate from './use-services-for-update';
 import useOnSubmit from './use-on-submit/use-on-submit';
@@ -11,9 +10,10 @@ import getIsEveryServiceDurationCorrect from './get-is-every-duration-correct';
 const UpdateServicesFromServices = ({ close }) => {
   const [handleSubmit, isLoading] = useOnSubmit(close);
   const services = useServicesForUpdate();
-  const { sessionTime } = useSelector((state) => state.timetable.update);
-
-  const isPhone = useMediaQuery(600);
+  const [{ sessionTime }, { isPhone }] = useSelector((state) => [
+    state.timetable.update,
+    state.screenSize,
+  ]);
 
   return (
     <div className={`booking-services ${isPhone ? '' : 'card'}`}>

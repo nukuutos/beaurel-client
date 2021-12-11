@@ -1,9 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import MobileModalHeading from './mobile-modal-heading';
 
 const ModalHeading = ({ title, onClickClose, titleDesktopClassName = '' }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return isPhone ? (
     <MobileModalHeading title={title} onClickClose={onClickClose} />

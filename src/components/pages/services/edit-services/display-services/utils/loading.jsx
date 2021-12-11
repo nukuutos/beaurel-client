@@ -1,10 +1,10 @@
-import useMediaQuery from '../../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import Spinner from '../../../../../base/spinner';
 
 const Loading = () => {
-  const isTablet = useMediaQuery(900);
+  const { isPhone, isTabPort } = useSelector((state) => state.screenSize);
 
-  return isTablet ? (
+  return isPhone || isTabPort ? (
     <div className="spinner-with-background" />
   ) : (
     <Spinner className="service__btn service__btn--first spinner--absolute spinner--tiny" />

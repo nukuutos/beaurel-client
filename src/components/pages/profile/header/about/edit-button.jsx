@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
-import useMediaQuery from '../../../../../hooks/use-media-query';
 
 const EditButton = ({ onClick }) => {
-  const { isPublicView } = useSelector((state) => state.profile);
-  const isPhone = useMediaQuery(600);
+  const [{ isPublicView }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
 
   const className = 'btn btn--secondary profile__about-btn';
   const mobileClassName = 'btn btn--secondary btn--flat mt-2';

@@ -1,9 +1,9 @@
-import useMediaQuery from '../../../../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import ButtonsFormDesktop from './buttons-form-desktop';
 import ButtonsFormTablet from './buttons-form-tablet';
 
 const ButtonsForm = ({ setIsEdit, submitForm, dirty }) => {
-  const isTablet = useMediaQuery(900);
+  const { isTabPort, isPhone } = useSelector((state) => state.screenSize);
 
   const confirmChanges = () => {
     if (dirty) submitForm();
@@ -12,7 +12,7 @@ const ButtonsForm = ({ setIsEdit, submitForm, dirty }) => {
 
   const cancelChanges = () => setIsEdit(false);
 
-  return isTablet ? (
+  return isTabPort || isPhone ? (
     <ButtonsFormTablet confirmChanges={confirmChanges} cancelChanges={cancelChanges} />
   ) : (
     <ButtonsFormDesktop confirmChanges={confirmChanges} cancelChanges={cancelChanges} />

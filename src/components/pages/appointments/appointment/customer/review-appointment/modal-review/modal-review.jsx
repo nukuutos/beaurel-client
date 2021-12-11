@@ -9,13 +9,11 @@ import { upsertAppointmentReview } from '../../../../../../../redux/appointments
 import ReviewStars from './review-stars';
 import { reversedRating } from './utils';
 import ModalHeading from '../../../../../../base/modal/modal-heading';
-import useMediaQuery from '../../../../../../../hooks/use-media-query';
 
 const ModalReview = ({ onClickClose, appointment }) => {
-  const { accessToken } = useSelector((state) => state.auth);
+  const [{ accessToken }, { isPhone }] = useSelector((state) => [state.auth, state.screenSize]);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
-  const isPhone = useMediaQuery(600);
 
   const { review, masterId, _id: appointmentId } = appointment;
 

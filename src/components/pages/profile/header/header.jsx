@@ -3,16 +3,12 @@ import { useSelector } from 'react-redux';
 import Avatar from './avatar/avatar';
 import ProfileRating from './profile-rating';
 import StarProfile from '../../../base/master-card/star-profile/star-profile';
-import useMediaQuery from '../../../../hooks/use-media-query';
 import About from './about/about';
 import Geolocation from './geolocation/geolocation';
 
 const Header = () => {
-  const [{ firstName, lastName, ratingStats, specialization, id }, { id: userId }] = useSelector(
-    (state) => [state.profile, state.auth]
-  );
-
-  const isPhone = useMediaQuery(600);
+  const [{ firstName, lastName, ratingStats, specialization, id }, { id: userId }, { isPhone }] =
+    useSelector((state) => [state.profile, state.auth, state.screenSize]);
 
   const profileName = `${firstName} ${lastName[0]}.`;
 

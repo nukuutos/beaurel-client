@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Sidenav from './sidenav';
-import useMediaQuery from '../../../../../../../hooks/use-media-query';
 import Chevrons from '../chevrons';
 import useCarouselKeys from './use-carousel-keys';
 import useGoToWork from '../use-go-to-work';
 
 const CarouselDesktop = ({ state }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  const [{ works, masterId }, { id: userId }] = useSelector((state) => [state.work, state.auth]);
+  const [{ works, masterId }, { id: userId }, { isPhone }] = useSelector((state) => [
+    state.work,
+    state.auth,
+    state.screenSize,
+  ]);
   const [{ index }, setState] = state;
-  const isPhone = useMediaQuery(600);
 
   const { toNextWork, toPrevWork } = useGoToWork(setState);
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import { phoneRenderAppointments, renderAppointments } from './utils/render';
 
 const AppointmentsDays = ({ handlers, style, renderArguments = [] }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <div {...handlers} style={isPhone ? style : {}} className="appointments__days">

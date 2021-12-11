@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import filterExceptions from './utils/filter-exceptions';
 import displayPossibleServiceDuration from './utils/display-possible-service-duration';
-import useMediaQuery from '../../../hooks/use-media-query';
 import Modal from '../../base/modal';
 import Select from '../../base/form/select';
 import useKeys from '../../../hooks/use-keys';
@@ -116,7 +116,7 @@ const BaseSettings = ({ values, update, initialValues, setFieldValue, editParent
   const [editState, setEditState] = editParentState;
   const { isEditing, element } = editState;
   const isDisabled = update || (isEditing && !element.sessionTime);
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const onClickEdit = () => {
     const filteredExceptions = filterExceptions(exceptions, editingSessionTime, startAt);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '../../../../../base/modal';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useUpdateAvatar from './use-update-avatar';
 import useFileUpload from '../../../../../../hooks/use-file-upload';
@@ -9,8 +8,7 @@ import AvatarCropper from './avatar-cropper/avatar-cropper';
 import NoAvatar from './no-avatar';
 
 const EditAvatar = ({ setIsEdit }) => {
-  const { avatar } = useSelector((state) => state.profile);
-  const isPhone = useMediaQuery(600);
+  const [{ avatar }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
   const [updateAvatar, isLoading] = useUpdateAvatar(setIsEdit);
   const { src, isUploaded, handleFileUpload } = useFileUpload(`http://localhost:5000/${avatar}`);
 

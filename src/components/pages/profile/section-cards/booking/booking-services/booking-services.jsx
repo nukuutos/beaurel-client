@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import BookingService from './booking-service';
 import BookingParameterService from './booking-parameter-service';
-import useMediaQuery from '../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useGetServices from './use-get-services';
 import getIsSuitableUpdate from './get-is-suitable-update';
@@ -10,9 +9,8 @@ import BeforeAfterDate from './before-after-date';
 import BackButton from './back-button';
 
 const BookingServices = ({ stepState, onClickClose }) => {
-  const [{ services }] = useSelector((state) => [state.services]);
+  const [{ services }, { isPhone }] = useSelector((state) => [state.services, state.screenSize]);
   const [servicesSwitcher, setServicesSwitcher] = useState('before'); // before & after update
-  const isPhone = useMediaQuery(600);
 
   const [{ step }] = stepState;
 

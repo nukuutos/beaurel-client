@@ -2,17 +2,18 @@ import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 import UpdateParameterService from '../base/update-parameter-service/update-parameter-service';
 import UpdateService from '../base/update-service';
-import useMediaQuery from '../../../../../../../hooks/use-media-query';
 import ModalHeading from '../../../../../../base/modal/modal-heading';
 import useOnSubmit from '../use-on-submit/use-on-submit';
 import getIsEveryServiceDurationCorrect from '../get-is-every-duration-correct';
 import useGetUnsuitableServices from './use-get-unsuitable-services';
 
 const UpdateServicesFromTimetable = ({ close }) => {
-  const { sessionTime } = useSelector((state) => state.timetable.update);
+  const [{ sessionTime }, { isPhone }] = useSelector((state) => [
+    state.timetable.update,
+    state.screenSize,
+  ]);
   const [unsuitableServices, isLoading] = useGetUnsuitableServices();
   const [handleSubmit] = useOnSubmit(close);
-  const isPhone = useMediaQuery(600);
 
   const desktopClassName = isPhone ? '' : 'card';
 

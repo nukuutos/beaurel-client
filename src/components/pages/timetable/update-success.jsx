@@ -1,9 +1,9 @@
 import React from 'react';
-import useMediaQuery from '../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import ModalHeading from '../../base/modal/modal-heading';
 
 const UpdateSuccess = ({ setUpdateTimetable, servicesCountToUpdate }) => {
-  const isPhone = useMediaQuery(600);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <div className={`update-success ${isPhone ? '' : 'card'}`}>

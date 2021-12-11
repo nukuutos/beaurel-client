@@ -1,10 +1,10 @@
-import useMediaQuery from '../../../../hooks/use-media-query';
+import { useSelector } from 'react-redux';
 import MainNavbar from './navbars/main-navbar';
 
 const NavigationDesktop = ({ links }) => {
-  const isTabLand = useMediaQuery(1200);
+  const { isPhone, isTabPort, isTabLand } = useSelector((state) => state.screenSize);
 
-  return <MainNavbar links={links} isTabView={isTabLand} />;
+  return <MainNavbar links={links} isTabView={isPhone || isTabPort || isTabLand} />;
 };
 
 export default NavigationDesktop;

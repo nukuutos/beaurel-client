@@ -1,0 +1,1 @@
+export const CHANGE_SCREEN_SIZE = 'CHANGE_SCREEN_SIZE';
