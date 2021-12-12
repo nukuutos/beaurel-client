@@ -188,22 +188,22 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
     }
 
     case UPSERT_APPOINTMENT_REVIEW: {
-      const { appointmentId, review } = payload;
+      const { appointmentId, review, stringDate } = payload;
       const appointments = { ...state.appointments };
-      const customerHistoryAppointments = appointments.customer.history;
+      const customerHistoryAppointments = appointments.customer.history.appointments[stringDate];
 
-      const indexToUpdate = customerHistoryAppointments.appointments.findIndex(
+      const indexToUpdate = customerHistoryAppointments.findIndex(
         (appointment) => appointment._id === appointmentId
       );
 
-      const appointmentToUpdate = customerHistoryAppointments.appointments[indexToUpdate];
+      const appointmentToUpdate = customerHistoryAppointments[indexToUpdate];
+
       const updatedAppointment = {
         ...appointmentToUpdate,
         review: { ...appointmentToUpdate.review, ...review },
       };
 
-      customerHistoryAppointments.appointments[indexToUpdate] = updatedAppointment;
-      appointments.customer.history = customerHistoryAppointments;
+      customerHistoryAppointments[indexToUpdate] = updatedAppointment;
 
       return { ...state, appointments };
     }

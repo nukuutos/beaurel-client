@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .appointments {
   &__controller {
@@ -134,7 +134,7 @@
     }
   }
 
-  &__noappointments {
+  &__no-appointments {
     grid-column: 3 / 11;
     padding: 1.6rem 2rem;
     font-weight: 700;
@@ -149,7 +149,7 @@
     &__appointment-types,
     &__days,
     &__date,
-    &__noappointments {
+    &__no-appointments {
       grid-column: 1 / -1;
     }
   }
