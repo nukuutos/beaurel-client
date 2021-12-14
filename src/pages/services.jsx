@@ -39,7 +39,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   const userId = await handleAuthPage(req, res, store);
 
   const { services, timetable } = await ServiceModel.getServices(userId);
-
   store.dispatch(getServicesSuccess({ services, masterId: userId }));
   store.dispatch(getTimetableSuccess({ timetable }));
 

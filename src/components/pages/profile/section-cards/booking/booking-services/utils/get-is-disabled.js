@@ -53,7 +53,7 @@ const getIsDisabled = (bookingAppointment, correctService, timetable) => {
 
   const { update } = timetable;
 
-  if (update?.date.isSameOrBefore(date)) timetable = update;
+  if (update?.date?.isSameOrBefore(date)) timetable = update;
 
   const { type } = timetable;
 

@@ -9,7 +9,6 @@ import { unsetTimetableUpdate } from '../../../../redux/timetable/actions';
 import { deleteServicesUpdate } from '../../../../redux/service/actions/service';
 import { setAlert } from '../../../../redux/alert/actions';
 import ModalHeading from '../../../base/modal/modal-heading';
-import convertDateToString from '../../appointments/appointment/utils/convert-date-to-string';
 
 const VisualUpdatedTimetable = () => {
   const [isConfirmation, setIsConfirmation] = useState(false);
@@ -41,7 +40,7 @@ const VisualUpdatedTimetable = () => {
   return (
     <div className="timetable__timetable-card timetable-card mt-8 card">
       <div className="timetable-card__heading">
-        Расписание {isPhone && <br />}c {convertDateToString(new Date(date))}{' '}
+        Расписание {isPhone && <br />}c {date.format('DD-MM-YY')}
       </div>
       <div
         onClick={() => setIsConfirmation(true)}

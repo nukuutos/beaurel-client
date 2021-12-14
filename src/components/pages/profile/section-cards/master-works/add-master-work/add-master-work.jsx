@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useFileUpload from '../../../../../../hooks/use-file-upload';
 import useOnSubmit from './use-on-submit';

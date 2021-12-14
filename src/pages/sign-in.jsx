@@ -2,9 +2,9 @@ import React from 'react';
 import Layout from '../components/layout/layout';
 
 import SignInForm from '../components/base/form/sign-in-form';
-import authRedirect from '../utils/auth-redirect';
+// import authRedirect from '../utils/auth-redirect';
 
-authRedirect;
+// authRedirect;
 
 const SignIn = () => (
   <Layout>
