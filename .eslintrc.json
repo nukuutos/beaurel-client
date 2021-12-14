@@ -2,8 +2,7 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jest": true,
-    "cypress/globals": true
+    "jest": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -53,13 +52,6 @@
     "no-continue": "off"
   },
   "overrides": [
-    {
-      "files": "cypress/**",
-      "extends": ["plugin:cypress/recommended"],
-      "rules": {
-        "import/no-extraneous-dependencies": 0
-      }
-    },
     {
       "files": "src/__tests__/**",
       "extends": ["plugin:jest/recommended", "plugin:jest/style"],
