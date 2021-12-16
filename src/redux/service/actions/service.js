@@ -3,8 +3,8 @@ import {
   ADD_SERVICE_SUCCESS,
   DELETE_SERVICE_SUCCESS,
   UPDATE_SERVICE_SUCCESS,
-  REODER_SERVICES,
-  REODER_SUB_SERVICES,
+  REORDER_SERVICES,
+  REORDER_SUB_SERVICES,
   SET_INITIAL_ORDER,
   PUT_UPDATE_TO_SERVICES,
   SERVICES_TO_UNSUITABLE,
@@ -31,17 +31,16 @@ export const deleteServiceSuccess = (service) => ({
   payload: service,
 });
 
-export const reoderServices = (result) => ({
-  type: REODER_SERVICES,
+export const reorderServices = (result) => ({
+  type: REORDER_SERVICES,
   payload: result,
 });
 
-export const reoderSubServices = (result) => ({
-  type: REODER_SUB_SERVICES,
+export const reorderSubServices = (result) => ({
+  type: REORDER_SUB_SERVICES,
   payload: result,
 });
 
-// ?
 export const setInitialOrder = (order) => ({
   type: SET_INITIAL_ORDER,
   payload: order,
