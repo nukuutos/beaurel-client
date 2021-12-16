@@ -1,32 +1,34 @@
 import React from 'react';
-import generatePossibleAppointmentsTime from '../utils/generate-possible-appointments-time';
+import { useSelector } from 'react-redux';
+import getPossibleAppointmentTimes from '../utils/get-possible-appointment-times/get-possible-appointment-times';
 import weekdaysRU from '../utils/weekdays-ru';
 
-const VisualUpdatedTimetableAuto = ({ update }) =>
-  weekdaysRU.map((russianWeekdayName, weekdayIndex) => {
-    const {
-      sessionTime,
-      auto: { weekends, workingDay, exceptions },
-    } = update;
+const getTimeClassName = (value, exceptionsDay) => {
+  const isException = exceptionsDay.includes(value);
+  if (isException) return 'weekday__time--exception';
+  return '';
+};
 
-    console.log(exceptions);
+const VisualUpdatedTimetableAuto = () => {
+  const { update } = useSelector((state) => state.timetable);
 
-    const possibleAppointmentsTime = weekends.includes(weekdayIndex)
-      ? []
-      : generatePossibleAppointmentsTime(workingDay, sessionTime);
+  return weekdaysRU.map((weekdayName, weekdayIndex) => {
+    const { exceptions } = update.auto;
+
+    const appointmentTimes = getPossibleAppointmentTimes(update, weekdayIndex);
+    const exceptionsDay = exceptions[weekdayIndex];
 
     return (
-      <div className="timetable-visual__weekday weekday" key={weekdayIndex}>
-        <div className="weekday__name">{russianWeekdayName}</div>
+      <div className="timetable-visual__weekday weekday" key={weekdayName}>
+        <div className="weekday__name">{weekdayName}</div>
         <div className="weekday__appointments">
-          {possibleAppointmentsTime.map(({ time, value }, i) => {
-            console.log(value);
-            const className = exceptions[weekdayIndex].includes(value)
-              ? 'weekday__time--exception'
-              : '';
-
+          {appointmentTimes.map(({ time, value }) => {
+            const className = getTimeClassName(value, exceptionsDay);
             return (
-              <span key={i} className={`weekday__time weekday__time--disabled ${className} mt-5`}>
+              <span
+                key={time}
+                className={`weekday__time weekday__time--disabled ${className} mt-5`}
+              >
                 {time}
               </span>
             );
@@ -35,5 +37,6 @@ const VisualUpdatedTimetableAuto = ({ update }) =>
       </div>
     );
   });
+};
 
 export default VisualUpdatedTimetableAuto;

@@ -1,4 +1,4 @@
-import { getDateUTC } from '../booking-timetable/booking-timetable-phone/utils';
+import { getDateUTC } from '../../../../../../utils/dayjs';
 
 const getServicesUpdateDate = (services) => {
   for (const service of services) {

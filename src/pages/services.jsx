@@ -8,7 +8,7 @@ import DraggableServices from '../components/pages/services/draggable-services/d
 import ServiceModel from '../server/models/service';
 import { getTimetableSuccess } from '../redux/timetable/actions';
 import useSaveBeforeUnload from '../components/pages/services/hooks/use-save-before-unload';
-import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import handleAuthPage from '../utils/auth/handle-auth-page/handle-auth-page';
 import Switch from '../components/pages/services/switch/switch';
 import ServicesUpdates from '../components/pages/services/services-updates/services-updates';
 

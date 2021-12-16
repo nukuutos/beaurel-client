@@ -34,7 +34,6 @@ const getIsServiceUnsuitable = (service, today = null) => {
   const { update } = service;
   if (!update || !update.date || !today) return false;
 
-  // const updateDate = getUpdateDate(update); // utc
   const { date: updateDate } = update;
 
   if (updateDate.isSameOrBefore(today) && update.status === 'unsuitable') return true;

@@ -1,19 +1,20 @@
+import { useSelector } from 'react-redux';
 import displayDuration from '../../services/utils/display-duration';
 
 const weekdaysRU = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-const VisualUpdatedTimetableManually = ({ update }) =>
-  weekdaysRU.map((russianWeekdayName, weekdayIndex) => {
-    const {
-      manually: { appointments },
-    } = update;
+const VisualUpdatedTimetableManually = () => {
+  const { update } = useSelector((state) => state.timetable);
+
+  return weekdaysRU.map((weekdayName, index) => {
+    const { appointments } = update.manually;
 
     return (
-      <div className="timetable-visual__weekday weekday" key={weekdayIndex}>
-        <div className="weekday__name">{russianWeekdayName}</div>
+      <div className="timetable-visual__weekday weekday" key={weekdayName}>
+        <div className="weekday__name">{weekdayName}</div>
         <div className="weekday__appointments">
-          {appointments[weekdayIndex].map((time, i) => (
-            <span key={i} className="weekday__time weekday__time--disabled mt-5">
+          {appointments[index].map((time) => (
+            <span key={time} className="weekday__time weekday__time--disabled mt-5">
               {displayDuration(time)}
             </span>
           ))}
@@ -21,5 +22,6 @@ const VisualUpdatedTimetableManually = ({ update }) =>
       </div>
     );
   });
+};
 
 export default VisualUpdatedTimetableManually;

@@ -6,7 +6,7 @@ import AppointmentModel from '../server/models/appointment';
 import { setAppointments } from '../redux/appointments/actions';
 import AppointmentsCategoriesController from '../components/pages/appointments/appointment-categories-controller/appointments-categories-controller';
 import AppointmentController from '../components/pages/appointments/appointments-controller/appointments-controller';
-import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import handleAuthPage from '../utils/auth/handle-auth-page/handle-auth-page';
 import useGetAppointments from '../components/pages/appointments/use-get-appointments';
 import DisplayAppointments from '../components/pages/appointments/display-appointments/display-appointments';
 import NoAppointments from '../components/pages/appointments/no-appointments';

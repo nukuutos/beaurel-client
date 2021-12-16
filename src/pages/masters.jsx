@@ -4,7 +4,7 @@ import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
 import { getMastersSuccess } from '../redux/profile/actions';
 import User from '../server/models/user';
-import handleAuthPage from '../utils/auth/hande-auth-page/handle-auth-page';
+import handleAuthPage from '../utils/auth/handle-auth-page/handle-auth-page';
 import renderMasters from '../components/pages/masters/render-masters';
 import NoMasters from '../components/pages/masters/no-masters';
 

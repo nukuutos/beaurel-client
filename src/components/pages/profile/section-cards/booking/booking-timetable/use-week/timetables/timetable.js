@@ -1,5 +1,3 @@
-import { getUpdateDate } from '../../booking-timetable-phone/utils';
-
 class Timetable {
   constructor(sessionTime, possibleAppointmentsTime) {
     this.sessionTime = sessionTime;
@@ -9,8 +7,7 @@ class Timetable {
 
   static getCorrectTimetable(timetable, date) {
     const { update } = timetable;
-    const updateDate = getUpdateDate(update);
-    if (updateDate && !updateDate.isAfter(date)) return timetable.update;
+    if (update?.date?.isSameOrBefore(date)) return timetable.update;
     return timetable;
   }
 

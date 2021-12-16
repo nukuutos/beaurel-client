@@ -3,7 +3,7 @@ import { useField } from 'formik';
 
 // type="radio" name="same at the whole groud" value="One"
 
-export const RadioButton = ({ className, ...props }) => {
+const RadioButton = ({ className, ...props }) => {
   const [field, meta] = useField(props);
 
   return (

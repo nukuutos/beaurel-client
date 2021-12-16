@@ -1,16 +1,23 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import { getDateUTC } from '../../../utils/dayjs';
 
-dayjs.extend(utc);
+export const getTomorrow = () => {
+  const date = getDateUTC();
 
-export const toUTCDate = (date) => {
-  date = dayjs(date)
-    .add(dayjs(date).utcOffset(), 'm')
-    .utcOffset(0)
-    .second(0)
-    .minute(0)
-    .hour(0)
-    .millisecond(0);
-
-  return date;
+  return date.add(1, 'day');
 };
+
+export const WEEKDAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+export const MONTHS = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
