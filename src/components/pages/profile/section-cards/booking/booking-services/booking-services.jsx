@@ -16,7 +16,7 @@ const BookingServices = ({ stepState, onClickClose }) => {
 
   const [isLoading] = useGetServices();
 
-  const renderServices = () =>
+  const displayServices = () =>
     services.map((service) => {
       const props = {
         stepState,
@@ -54,7 +54,7 @@ const BookingServices = ({ stepState, onClickClose }) => {
         )}
 
         <div className="services__container booking-services__container">
-          {services.length ? renderServices() : <p className="">Извините, услуги отсутствуют!</p>}
+          {services.length ? displayServices() : <p className="">Извините, услуги отсутствуют!</p>}
         </div>
       </div>
     </>

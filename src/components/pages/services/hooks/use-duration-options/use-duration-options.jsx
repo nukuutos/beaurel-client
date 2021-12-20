@@ -7,6 +7,8 @@ const useDurationOptions = ({ isUpdate } = { isUpdate: false }) => {
   let sessionTimeToUse = sessionTime;
   if (isUpdate && update) sessionTimeToUse = update.sessionTime;
 
+  if (!sessionTimeToUse) return [];
+
   const optionComponents = [];
   const hours24InMins = 1440;
 

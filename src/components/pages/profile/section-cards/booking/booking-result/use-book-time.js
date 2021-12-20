@@ -4,7 +4,8 @@ import { bookAppointmentSuccess } from '../../../../../../redux/appointments/act
 
 const useBookTime = (setStep) => {
   const dispatch = useDispatch();
-  const [{ date, time, service }, { accessToken, id: profileId }] = useSelector((state) => [
+  const [{ id: profileId }, { date, time, service }, { accessToken }] = useSelector((state) => [
+    state.profile,
     state.appointments.booking.bookingAppointment,
     state.auth,
   ]);
