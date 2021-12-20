@@ -66,7 +66,6 @@ const mastersWithFavorites = (userId) => [
         },
         {
           $addFields: {
-            // rating: { $arrayElemAt: ['$rating.rating', 0] },
             rating: { $round: [{ $arrayElemAt: ['$rating.rating', 0] }, 1] },
             _id: { $convert: { input: '$_id', to: 'string' } }, // for api we can omit it
           },

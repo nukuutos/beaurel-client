@@ -1,19 +1,45 @@
-const profileAndReviews = (masterId) => [
-  //get profile
+const profileAndReviews = (masterId, userId = null) => [
   {
-    $match: {
-      _id: masterId,
-    },
-  },
-  {
-    $project: {
-      _id: 0,
-      email: 0,
-      password: 0,
-      isConfirmed: 0,
-      role: 0,
-      createdAt: 0,
-      masters: 0,
+    $facet: {
+      // get masters
+      favorites: [
+        {
+          $match: {
+            _id: userId,
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            masters: {
+              $map: {
+                input: '$masters',
+                as: 'id',
+                in: { $convert: { input: '$$id', to: 'string' } },
+              },
+            },
+          },
+        },
+      ],
+      // get profile with reviews
+      master: [
+        {
+          $match: {
+            _id: masterId,
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            email: 0,
+            password: 0,
+            isConfirmed: 0,
+            role: 0,
+            createdAt: 0,
+            masters: 0,
+          },
+        },
+      ],
     },
   },
   // get review stats(avg, review counters by value, reviews)
@@ -116,8 +142,12 @@ const profileAndReviews = (masterId) => [
   {
     $addFields: {
       // 2 lvls up from [[]]
-      ratingStats: { $arrayElemAt: [{ $arrayElemAt: ['$ratingAndReviews.ratingStats', 0] }, 0] },
+      ratingStats: {
+        $arrayElemAt: [{ $arrayElemAt: ['$ratingAndReviews.ratingStats', 0] }, 0],
+      },
       reviews: { $arrayElemAt: ['$ratingAndReviews.reviews', 0] },
+      master: { $arrayElemAt: ['$master', 0] },
+      favorites: { $arrayElemAt: ['$favorites.masters', 0] },
     },
   },
   {
@@ -125,6 +155,9 @@ const profileAndReviews = (masterId) => [
       ratingAndReviews: 0,
     },
   },
+  // ],
+  //   },
+  // },
 ];
 
 export default profileAndReviews;

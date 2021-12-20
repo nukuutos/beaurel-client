@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { addMaster, deleteMaster } from '../../../../redux/profile/actions';
+import { addFavorite, deleteFavorite } from '../../../../redux/favorites/actions';
 
 const useStarProfile = (masterId) => {
   const [asyncAction, isLoading] = useAsyncAction();
-  const [{ masters }, { id: userId, accessToken }] = useSelector((state) => [
-    state.profile,
+  const [favorites, { id: userId, accessToken }] = useSelector((state) => [
+    state.favorites,
     state.auth,
   ]);
 
-  const isFavorite = masters.includes(masterId);
+  const isFavorite = favorites.includes(masterId);
 
   const dispatch = useDispatch();
 
-  const addFavorite = async (e) => {
+  const addMaster = async (e) => {
     e.stopPropagation();
 
     const config = {
@@ -22,11 +22,11 @@ const useStarProfile = (masterId) => {
       accessToken,
     };
 
-    dispatch(addMaster({ newMasterId: masterId }));
+    dispatch(addFavorite({ newMasterId: masterId }));
     await asyncAction(config);
   };
 
-  const deleteFavorite = async (e) => {
+  const deleteMaster = async (e) => {
     e.stopPropagation();
 
     const config = {
@@ -35,13 +35,13 @@ const useStarProfile = (masterId) => {
       accessToken,
     };
 
-    dispatch(deleteMaster({ deletedMasterId: masterId }));
+    dispatch(deleteFavorite({ deletedMasterId: masterId }));
     await asyncAction(config);
   };
 
   const handleClick = (e) => {
     if (isLoading) return e.stopPropagation();
-    return isFavorite ? deleteFavorite(e) : addFavorite(e);
+    return isFavorite ? deleteMaster(e) : addMaster(e);
   };
 
   return [handleClick, isFavorite];

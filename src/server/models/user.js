@@ -1,24 +1,24 @@
-import { ObjectId } from "mongodb";
-import { connectToDatabase } from "../database";
+import { ObjectId } from 'mongodb';
+import { connectToDatabase } from '../database';
 
-import profileAndReviews from "../pipelines/user/profile-and-reviews";
-import masters from "../pipelines/user/masters";
-import mastersWithFavorites from "../pipelines/user/masters-with-favorites";
-import favoriteMasters from "../pipelines/user/favorite-masters";
+import profileAndReviews from '../pipelines/user/profile-and-reviews';
+import masters from '../pipelines/user/masters';
+import mastersWithFavorites from '../pipelines/user/masters-with-favorites';
+import favoriteMasters from '../pipelines/user/favorite-masters';
 
 class User {
   // it doesnt recognize favarite masters (get every master without recognition)
-  static async findMasters(query = {}) {
+  static async findMasters() {
     const { db } = await connectToDatabase();
-    const data = await db.collection("users").aggregate(masters(query)).toArray();
-    return data;
+    const data = await db.collection('users').aggregate(masters()).toArray();
+    return { masters: data, favoriteMasters: [] };
   }
 
   // it recognizes favorite masters (get every master and recognize favorite)
   static async findMastersWithFavorites(userId) {
     const { db } = await connectToDatabase();
     const data = await db
-      .collection("users")
+      .collection('users')
       .aggregate(mastersWithFavorites(new ObjectId(userId)))
       .toArray();
 
@@ -30,22 +30,23 @@ class User {
     const { db } = await connectToDatabase();
 
     const data = await db
-      .collection("users")
+      .collection('users')
       .aggregate(favoriteMasters(new ObjectId(userId)))
       .toArray();
 
     return data[0];
   }
 
-  static async getMasterProfile(masterId) {
+  static async getMasterProfile(masterId, userId) {
     const { db } = await connectToDatabase();
 
-    const profile = await db
-      .collection("users")
-      .aggregate(profileAndReviews(new ObjectId(masterId)))
-      .toArray();
+    masterId = new ObjectId(masterId);
+    userId = userId ? new ObjectId(userId) : null;
 
-    console.log(profile[0].reviews);
+    const profile = await db
+      .collection('users')
+      .aggregate(profileAndReviews(masterId, userId))
+      .toArray();
 
     return profile[0];
   }

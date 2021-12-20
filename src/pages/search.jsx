@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import { getMastersSuccess } from '../redux/profile/actions';
 import User from '../server/models/user';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
 import useSearch from '../components/pages/search/use-search';
@@ -10,6 +9,7 @@ import useOnSubmit from '../components/pages/search/use-on-submit';
 import SearchForm from '../components/pages/search/search-form';
 import renderMasterCards from '../components/pages/search/render-master-cards';
 import NoMasters from '../components/pages/search/no-masters';
+import { getFavorites } from '../redux/favorites/actions';
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);
@@ -47,9 +47,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 
   const { masters, favoriteMasters } = data;
 
-  store.dispatch(getMastersSuccess({ favoriteMasters }));
+  store.dispatch(getFavorites(favoriteMasters || []));
 
-  return { props: { masters } };
+  return { props: { masters: masters || [] } };
 });
 
 export default Search;

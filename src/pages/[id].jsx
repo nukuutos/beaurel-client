@@ -9,6 +9,7 @@ import SectionCards from '../components/pages/profile/section-cards/section-card
 import SectionReviews from '../components/pages/profile/section-reviews/section-reviews';
 import User from '../server/models/user';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
+import { getFavorites } from '../redux/favorites/actions';
 
 const Profile = () => {
   const { isPhone } = useSelector((state) => state.screenSize);
@@ -25,12 +26,15 @@ const Profile = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { id } = query;
+  const { id: masterId } = query;
 
-  const getProfile = async () => await User.getMasterProfile(id);
+  const getProfile = async (userId) => await User.getMasterProfile(masterId, userId);
   const profile = await handlePublicAndAuthPage(getProfile, { req, res, store });
 
-  store.dispatch(getProfileSuccess({ profile: { ...profile, id } }));
+  const { favorites, master, ...rating } = profile;
+
+  store.dispatch(getProfileSuccess({ profile: { ...master, ...rating, id: masterId } }));
+  store.dispatch(getFavorites(favorites || []));
 
   return { props: {} };
 });

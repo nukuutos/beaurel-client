@@ -1,6 +1,8 @@
-const masters = (matchQuery) => [
+const masters = () => [
   {
-    $match: matchQuery,
+    $match: {
+      role: 'master',
+    },
   },
   {
     $project: {
@@ -24,9 +26,14 @@ const masters = (matchQuery) => [
           },
         },
         {
+          $group: {
+            _id: null,
+            rating: { $avg: '$value' },
+          },
+        },
+        {
           $project: {
             _id: 0,
-            rating: { $avg: '$value' },
           },
         },
       ],
@@ -35,7 +42,7 @@ const masters = (matchQuery) => [
   },
   {
     $addFields: {
-      // rating: { $arrayElemAt: ['$rating.rating', 0] },
+      _id: { $convert: { input: '$_id', to: 'string' } }, // for api we can omit it
       rating: { $round: [{ $arrayElemAt: ['$rating.rating', 0] }, 1] },
     },
   },
