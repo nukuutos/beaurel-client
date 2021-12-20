@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { cloneDeep } from 'lodash';
 import {
   GET_APPOINTMENTS_SUCCESS,
   SET_APPOINTMENT_DATE,
@@ -10,6 +11,7 @@ import {
   SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
   UPSERT_APPOINTMENT_REVIEW,
+  UPDATE_UNSUITABLE_APPOINTMENT,
 } from './types';
 
 // group state like appointments and booking ?
@@ -183,6 +185,51 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       if (appointmentsState.master.confirmed.appointments[stringDate]) {
         appointmentsState.master.confirmed.appointments[stringDate].push(appointment);
       } else appointmentsState.master.confirmed.appointments[stringDate] = [appointment];
+
+      return { ...state, appointments: appointmentsState };
+    }
+
+    case UPDATE_UNSUITABLE_APPOINTMENT: {
+      const { appointmentId, prevDate, duration, date, time } = payload;
+
+      const appointmentsState = { ...state.appointments };
+
+      const prevStringDate = dayjs(prevDate).format('DD-MM-YYYY');
+
+      // find index in current category
+      const index = appointmentsState.master.unsuitable.appointments[prevStringDate].findIndex(
+        (appointment) => appointment._id === appointmentId
+      );
+
+      const appointment = cloneDeep(
+        appointmentsState.master.unsuitable.appointments[prevStringDate][index]
+      );
+
+      appointmentsState.master.unsuitable.appointments[prevStringDate].splice(index, 1);
+
+      const { isLoaded: isConfirmedLoaded } = appointmentsState.master.confirmed;
+
+      if (!isConfirmedLoaded) {
+        return { ...state, appointments: appointmentsState };
+      }
+
+      const confirmedAppointment = {
+        ...appointment,
+        date: dayjs(date, 'DD-MM-YYYY'),
+        time,
+        status: 'confirmed',
+        service: { ...appointment.service, duration },
+      };
+
+      // next code only for master appointments, confirming appointments and confirmed appointments is not Loaded
+
+      appointment.status = 'confirmed';
+      // find index to insert;
+      // not push, inserted it correctly
+      // appointmentsState.master.confirmed.appointments.push(appointment);
+      if (appointmentsState.master.confirmed.appointments[date]) {
+        appointmentsState.master.confirmed.appointments[date].push(confirmedAppointment);
+      } else appointmentsState.master.confirmed.appointments[date] = [confirmedAppointment];
 
       return { ...state, appointments: appointmentsState };
     }

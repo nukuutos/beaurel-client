@@ -1,0 +1,41 @@
+@use '../../../../../../abstracts/colors' as *;
+@use '../../../../../../abstracts/mixins' as *;
+
+.booked-time {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.5rem;
+  background: $color-gray-light-1;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $color-primary-dark-2;
+
+  &__group {
+    display: flex;
+
+    &:first-child {
+      margin-bottom: 0.8rem;
+    }
+
+    & > *:first-child {
+      height: 1.2rem;
+      margin-right: 0.8rem;
+    }
+  }
+
+  @include respond(tab-port) {
+    display: none;
+  }
+
+  @include respond(phone) {
+    align-items: center;
+    border-radius: 0rem;
+    padding-bottom: 1.6rem;
+
+    &__group {
+      width: 10rem;
+    }
+  }
+}

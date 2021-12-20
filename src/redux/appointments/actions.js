@@ -9,6 +9,7 @@ import {
   SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
   UPSERT_APPOINTMENT_REVIEW,
+  UPDATE_UNSUITABLE_APPOINTMENT,
 } from './types';
 
 export const getAppointmentsSuccess = (appointments) => ({
@@ -55,5 +56,10 @@ export const changeAppointmentStatus = (appointmentData) => ({
 
 export const upsertAppointmentReview = (appointmentData) => ({
   type: UPSERT_APPOINTMENT_REVIEW,
+  payload: appointmentData,
+});
+
+export const updateUnsuitableAppointment = (appointmentData) => ({
+  type: UPDATE_UNSUITABLE_APPOINTMENT,
   payload: appointmentData,
 });

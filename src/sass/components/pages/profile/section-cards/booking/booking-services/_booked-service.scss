@@ -1,0 +1,11 @@
+@use '../../../../../../abstracts/colors' as *;
+
+.booked-service {
+  background: $color-gray-light-1;
+  color: $color-primary-dark-2;
+  pointer-events: none;
+
+  & .service__group {
+    color: inherit;
+  }
+}

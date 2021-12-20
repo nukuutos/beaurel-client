@@ -1,7 +1,7 @@
 import OnConfirmationAppointment from './master/on-confirmation-appointment';
 import ConfirmedAppointment from './master/confirmed-appointment';
 import ReviewAppointment from './master/review-appointment';
-import UnsuitableAppointment from './master/unsuitable-appointment';
+import UnsuitableAppointment from './master/unsuitable-appointment/unsuitable-appointment';
 
 const renderMasterAppointment = ({ appointment, category }) => {
   switch (category) {
