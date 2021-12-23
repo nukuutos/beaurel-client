@@ -78,7 +78,15 @@ const services = (masterId) => [
       timetable: {
         sessionTime: '$sessionTime',
         // update: { date: '$update.date', sessionTime: '$update.sessionTime' },
-        update: { date: { $convert: { input: '$update.date', to: 'string' } }, sessionTime: '$update.sessionTime' },
+        update: {
+          date: {
+            $convert: {
+              input: '$update.date',
+              to: 'string',
+            },
+          },
+          sessionTime: '$update.sessionTime',
+        },
       },
     },
   },
@@ -107,6 +115,7 @@ const services = (masterId) => [
                   subServices: {
                     $push: {
                       id: { $convert: { input: '$_id', to: 'string' } },
+                      // id: '$_id',
                       parameter: '$parameter',
                       duration: '$duration',
                       price: '$price',

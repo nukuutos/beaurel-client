@@ -7,15 +7,22 @@ import SubService from './sub-service';
 import AddSubServiceButton from './add-sub-service-button';
 
 const ServiceParameterForm = ({ handleSubmit }) => {
-  const { sessionTime } = useSelector((state) => state.timetable);
+  const { sessionTime, update } = useSelector((state) => state.timetable);
 
   return (
     <Formik
       initialValues={{
         title: '',
-        subServices: [{ parameter: '', duration: sessionTime, price: '' }],
+        subServices: [
+          {
+            parameter: '',
+            duration: sessionTime,
+            price: '',
+            updateDuration: update?.sessionTime || null,
+          },
+        ],
       }}
-      validationSchema={parameterServiceSchema(sessionTime)}
+      validationSchema={parameterServiceSchema(sessionTime, update?.sessionTime)}
       onSubmit={handleSubmit}
     >
       {({ values }) => {

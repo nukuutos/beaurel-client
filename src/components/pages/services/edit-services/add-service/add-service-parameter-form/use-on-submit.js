@@ -4,16 +4,27 @@ import { setAlert } from '../../../../../../redux/alert/actions';
 import { addServiceParameterSuccess } from '../../../../../../redux/service/actions/service-parameter';
 
 const useOnSubmit = (onClickClose) => {
-  const { accessToken, id: profileId } = useSelector((state) => state.auth);
+  const [{ accessToken, id: profileId }, { update }] = useSelector((state) => [
+    state.auth,
+    state.timetable,
+  ]);
   const dispatch = useDispatch();
 
   const [asyncAction, isLoading] = useAsyncAction();
 
   const handleSubmit = async (values, { resetForm }) => {
+    const { title, subServices } = values;
+
+    const subServicesToAPI = subServices.map(({ updateDuration, ...service }) => {
+      const subService = { ...service };
+      if (updateDuration) subService.updateDuration = updateDuration;
+      return subService;
+    });
+
     const config = {
       method: 'post',
       url: `/master/${profileId}/service-parameter`,
-      data: { ...values },
+      data: { title, subServices: subServicesToAPI },
       accessToken,
     };
 
@@ -21,7 +32,22 @@ const useOnSubmit = (onClickClose) => {
 
     if (data) {
       const { ids, ...alert } = data;
-      dispatch(addServiceParameterSuccess({ ids, serviceParameter: values }));
+
+      const subServicesToReducer = subServices.map(({ updateDuration, ...service }) => {
+        const subService = { ...service };
+        if (updateDuration) {
+          subService.update = {
+            status: 'suitable',
+            duration: updateDuration,
+            date: update.date.clone(),
+          };
+        }
+        return subService;
+      });
+
+      const serviceParameter = { title, subServices: subServicesToReducer };
+
+      dispatch(addServiceParameterSuccess({ ids, serviceParameter }));
       dispatch(setAlert(alert));
       resetForm();
       onClickClose();

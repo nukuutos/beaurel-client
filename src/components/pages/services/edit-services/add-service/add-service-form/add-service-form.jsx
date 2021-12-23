@@ -8,15 +8,19 @@ import Select from '../../../../../base/form/select';
 import InputIcon from '../../../../../base/form/input-icon';
 import useOnSubmit from './use-on-submit';
 import useDurationOptions from '../../../hooks/use-duration-options/use-duration-options';
+import useIsUpdateDuration from '../use-is-update-duration';
+import DurationOptions from '../duration-options';
 
 const AddServiceForm = ({ onClickClose }) => {
-  const { sessionTime } = useSelector((state) => state.timetable);
+  const { sessionTime, update } = useSelector((state) => state.timetable);
 
   const durationOptions = useDurationOptions();
+  // updateDurationOptions
+  const isUpdateDuration = useIsUpdateDuration();
 
   const [handleSubmit] = useOnSubmit(onClickClose);
 
-  const schema = serviceSchema(sessionTime);
+  const schema = serviceSchema(sessionTime, update?.sessionTime);
 
   return (
     <Formik
@@ -24,6 +28,7 @@ const AddServiceForm = ({ onClickClose }) => {
         title: '',
         duration: sessionTime,
         price: '',
+        updateDuration: update?.sessionTime || null,
       }}
       validationSchema={schema}
       onSubmit={handleSubmit}
@@ -41,7 +46,7 @@ const AddServiceForm = ({ onClickClose }) => {
             </ErrorMessage>
           </div>
 
-          <div className="add-service__price-and-duration mt-6">
+          <div className="add-service__price-and-duration mt-4">
             <div className="add-service__duration">
               <label className="label " htmlFor="duration">
                 Длительность
@@ -71,6 +76,26 @@ const AddServiceForm = ({ onClickClose }) => {
               </ErrorMessage>
             </div>
           </div>
+
+          {isUpdateDuration && (
+            <div className="add-service__title mt-4">
+              <label className="label " htmlFor="updateDuration">
+                Длительность c
+                <span className="add-service__date"> {update.date.format('DD.MM.YY')}</span>
+              </label>
+              <div className="input--icon input--mini">
+                <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
+                <Select
+                  value={values.updateDuration}
+                  className="input"
+                  name="updateDuration"
+                  as="select"
+                >
+                  <DurationOptions isUpdate />
+                </Select>
+              </div>
+            </div>
+          )}
 
           <button
             disabled={isSubmitting}

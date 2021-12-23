@@ -4,16 +4,24 @@ import { setAlert } from '../../../../../../redux/alert/actions';
 import { addServiceSuccess } from '../../../../../../redux/service/actions/service';
 
 const useOnSubmit = (onClickClose) => {
-  const { accessToken, id: profileId } = useSelector((state) => state.auth);
+  const [{ accessToken, id: profileId }, { update }] = useSelector((state) => [
+    state.auth,
+    state.timetable,
+  ]);
   const dispatch = useDispatch();
 
   const [asyncAction, isLoading] = useAsyncAction();
 
   const handleSubmit = async (values, { resetForm }) => {
+    const { updateDuration, ...service } = values;
+
+    const dataToAPI = { ...service };
+    if (updateDuration) dataToAPI.updateDuration = updateDuration;
+
     const config = {
       method: 'post',
       url: `/master/${profileId}/service`,
-      data: { ...values },
+      data: dataToAPI,
       accessToken,
     };
 
@@ -21,7 +29,18 @@ const useOnSubmit = (onClickClose) => {
 
     if (data) {
       const { id, ...alert } = data;
-      dispatch(addServiceSuccess({ service: { id, ...values } }));
+
+      const serviceToReducer = { id, ...service };
+
+      if (updateDuration) {
+        serviceToReducer.update = {
+          status: 'suitable',
+          duration: updateDuration,
+          date: update.date.clone(),
+        };
+      }
+
+      dispatch(addServiceSuccess({ service: serviceToReducer }));
       dispatch(setAlert(alert));
       resetForm();
       onClickClose();

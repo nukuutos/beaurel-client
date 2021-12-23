@@ -23,24 +23,32 @@ export const priceField = Yup.number()
   .integer('Duration must be an integer')
   .max(30000, 'Price is too big');
 
-export const serviceSchema = (sessionTime) =>
-  Yup.object().shape({
+export const serviceSchema = (sessionTime, updateSessionTime = null) => {
+  const updateDuration = updateSessionTime ? durationField(updateSessionTime) : null;
+
+  return Yup.object().shape({
     title: titleField,
     duration: durationField(sessionTime),
     price: priceField,
+    updateDuration,
   });
+};
 
-export const subServiceSchema = (sessionTime) =>
-  Yup.object().shape({
+export const subServiceSchema = (sessionTime, updateSessionTime) => {
+  const updateDuration = updateSessionTime ? durationField(updateSessionTime) : null;
+
+  return Yup.object().shape({
     parameter: titleField,
     duration: durationField(sessionTime),
     price: priceField,
+    updateDuration,
   });
+};
 
-export const parameterServiceSchema = (sessionTime) =>
+export const parameterServiceSchema = (sessionTime, updateSessionTime) =>
   Yup.object().shape({
     title: titleField,
-    subServices: Yup.array().of(subServiceSchema(sessionTime)),
+    subServices: Yup.array().of(subServiceSchema(sessionTime, updateSessionTime)),
   });
 
 export const parameterServiceTitleSchema = () =>
