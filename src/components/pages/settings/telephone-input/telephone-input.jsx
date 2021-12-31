@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DisplayInput from '../setting-input/display-input';
+import DisplayInput from '../utils/display-input';
 import TelephoneInputEdit from './telephone-input-edit';
 
 const TelephoneInput = ({ data }) => {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import DisplayInput from "../setting-input/display-input";
-import EmailInputEdit from "./email-input-edit";
+import React, { useState } from 'react';
+import DisplayInput from '../utils/display-input';
+import EmailInputEdit from './email-input-edit';
 
 const EmailInput = ({ data }) => {
   const [isEdit, setIsEdit] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import DisplayInput from '../setting-input/display-input';
+import DisplayInput from '../utils/display-input';
 import CitySearch from '../../../layout/city/city-search/city-search';
 
 // standart case

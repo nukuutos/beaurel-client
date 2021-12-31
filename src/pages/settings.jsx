@@ -1,11 +1,15 @@
 import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
 import { wrapper } from '../redux/store';
-import NameInput from '../components/pages/settings/name-input/name-input';
-import IdInput from '../components/pages/settings/id-input/id-input';
+import FirstName from '../components/pages/settings/first-name/first-name';
+import Username from '../components/pages/settings/username/username';
 import EmailInput from '../components/pages/settings/email-input/email-input';
 import TelephoneInput from '../components/pages/settings/telephone-input/telephone-input';
 import CityInput from '../components/pages/settings/city-input/city-input';
+import handleAuthPage from '../utils/auth/handle-auth-page/handle-auth-page';
+import User from '../server/models/user';
+import { setAuthData } from '../redux/auth/actions';
+import LastName from '../components/pages/settings/last-name/last-name';
 
 const Search = () => {
   const { isPhone } = useSelector((state) => state.screenSize);
@@ -16,8 +20,9 @@ const Search = () => {
         <h1 className="settings__heading heading mt-8 ">Настройки</h1>
         <div className="settings__setting-card setting-card mt-8 card">
           <div className="setting-card__heading mb-2 ">Информация о Вас</div>
-          <IdInput data="nukuutos" />
-          <NameInput data="Никита Волошин" />
+          <Username />
+          <FirstName />
+          <LastName />
         </div>
         <div className="settings__setting-card setting-card mt-8 card">
           <div className="setting-card__heading mb-2 ">Контактные данные</div>
@@ -40,7 +45,9 @@ const Search = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { id } = query;
+  const userId = await handleAuthPage(req, res, store);
+  const data = await User.getAuthData(userId);
+  store.dispatch(setAuthData(data));
 
   return { props: { custom: 'custom' } };
 });

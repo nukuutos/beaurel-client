@@ -40,15 +40,29 @@ class User {
   static async getMasterProfile(masterId, userId) {
     const { db } = await connectToDatabase();
 
-    masterId = new ObjectId(masterId);
+    const masterMatchQuery = ObjectId.isValid(masterId)
+      ? { _id: new ObjectId(masterId) }
+      : { username: masterId };
+
     userId = userId ? new ObjectId(userId) : null;
 
     const profile = await db
       .collection('users')
-      .aggregate(profileAndReviews(masterId, userId))
+      .aggregate(profileAndReviews(masterMatchQuery, userId))
       .toArray();
 
     return profile[0];
+  }
+
+  static async getAuthData(userId) {
+    const { db } = await connectToDatabase();
+
+    const query = { _id: new ObjectId(userId) };
+    const projection = { _id: 0, username: 1, firstName: 1, lastName: 1, email: 1, phone: 1 };
+
+    const data = await db.collection('users').findOne(query, { projection });
+
+    return data;
   }
 }
 

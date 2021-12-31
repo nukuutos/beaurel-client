@@ -1,4 +1,4 @@
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/mixins' as *;
 
 .setting-card {
   padding: 1.6rem;
@@ -17,6 +17,7 @@
 
   &__display {
     grid-column: 1 / 7;
+    overflow: hidden;
   }
 
   &__edit-button {
