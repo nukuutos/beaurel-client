@@ -1,0 +1,48 @@
+@use '../../abstracts/colors' as *;
+
+.footer {
+  margin: 6.4rem 0 4.8rem;
+  background: $color-white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2.8rem 0 4rem;
+
+  &__group {
+    color: $color-primary-dark-2;
+    display: flex;
+    align-items: center;
+  }
+
+  &__about {
+    font-size: 2rem;
+    font-weight: 700;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s border-color;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $color-primary-dark-2;
+    }
+  }
+
+  &__instagram {
+    margin-left: 3.6rem;
+    height: 3.2rem;
+    cursor: pointer;
+    transition: 0.2s color;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__logo {
+    margin-top: 2.4rem;
+    font-size: 3.2rem;
+
+    &:after {
+      display: none;
+    }
+  }
+}

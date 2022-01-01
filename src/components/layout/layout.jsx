@@ -5,6 +5,7 @@ import Navigation from './navigation';
 import Alert from '../base/alert';
 
 import City from './city/city';
+import Footer from './footer';
 
 const Layout = ({ children }) => (
   <>
@@ -20,6 +21,8 @@ const Layout = ({ children }) => (
       <City />
 
       {children}
+
+      <Footer />
     </div>
     <Alert />
   </>

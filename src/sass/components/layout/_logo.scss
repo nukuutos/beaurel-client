@@ -1,0 +1,17 @@
+@use '../../abstracts/colors' as *;
+
+.logo {
+  font-size: 4rem;
+  font-weight: 700;
+  color: $color-primary-dark-1;
+  letter-spacing: 0;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 10rem;
+    height: 2px;
+    background: $color-gray;
+    margin: 1.6rem auto 0;
+  }
+}

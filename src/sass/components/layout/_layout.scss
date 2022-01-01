@@ -1,5 +1,5 @@
-@use "../../abstracts/mixins" as *;
-@use "../../abstracts/colors" as *;
+@use '../../abstracts/mixins' as *;
+@use '../../abstracts/colors' as *;
 
 .layout {
   $column-width: 10.4rem;
@@ -40,6 +40,8 @@
   max-width: 82.4rem;
   overflow-x: hidden;
 
+  min-height: 71.2rem;
+
   @include respond(tab-land) {
     grid-row: 2 / 4;
     width: 82.4rem;
@@ -51,9 +53,15 @@
   }
 
   @include respond(phone) {
+    min-height: unset;
     max-width: 36rem;
     padding: 0.8rem;
     column-gap: 0.8rem;
     overflow-y: hidden;
   }
+}
+
+.footer {
+  grid-column: content-start / content-end;
+  grid-row: 4 / 5;
 }

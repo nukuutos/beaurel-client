@@ -48,7 +48,7 @@ import {
   faCalendar as fasCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { faInstagram } from '@fortawesome/free-brands-svg-icons'; // delete
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
   fasCalendar,
