@@ -1,17 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
 
-import SignInForm from '../components/base/form/sign-in-form';
-// import authRedirect from '../utils/auth-redirect';
+import SignInForm from '../components/pages/sign-in/sign-in-form';
 
-// authRedirect;
+const SignIn = () => {
+  const { isPhone } = useSelector((state) => state.screenSize);
 
-const SignIn = () => (
-  <Layout>
-    <h2>Sign In</h2>
-    <SignInForm />
-  </Layout>
-);
+  return (
+    <Layout>
+      <main className={`content ${isPhone ? '' : 'card card--layout'}`}>
+        <div className="sign-in">
+          <h1 className="logo">Beautify</h1>
+          <h2 className="sign-in__heading">Вход</h2>
+          <SignInForm />
+        </div>
+      </main>
+    </Layout>
+  );
+};
+
+// if token => push to profile
 
 // export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
 //   await authRedirect(req, res, store);

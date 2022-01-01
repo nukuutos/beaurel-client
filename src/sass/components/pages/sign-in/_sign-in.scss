@@ -1,0 +1,61 @@
+@use '../../../abstracts/colors' as *;
+
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+  grid-column: 1 / -1;
+
+  &__heading {
+    margin-top: 2.8rem;
+    font-size: 2.8rem;
+    color: $color-primary-dark-2;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    width: 27.6rem;
+  }
+
+  &__input {
+    width: 100%;
+    height: 4rem;
+  }
+
+  &__forget-password {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-gray;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+    align-self: flex-start;
+
+    &:hover {
+      color: $color-gray-dark-1;
+      border-color: $color-gray-dark-1;
+    }
+  }
+
+  &__btn {
+    align-self: stretch;
+    letter-spacing: 0.1px;
+    font-weight: 600;
+    border-width: 2px;
+  }
+
+  &__or {
+    // align-self: stretch;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: $color-gray;
+  }
+}
