@@ -45,12 +45,14 @@ import {
   faGripVertical,
   faBars,
   faArrowLeft,
+  faAddressCard,
   faCalendar as fasCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faAddressCard,
   fasCalendar,
   faBars,
   faGripVertical,

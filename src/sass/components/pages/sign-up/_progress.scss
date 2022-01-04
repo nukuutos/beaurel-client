@@ -1,0 +1,51 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.progress {
+  display: flex;
+  font-size: 2.4rem;
+  color: $color-gray;
+  align-items: center;
+
+  &__indicator {
+    $size: 4rem;
+
+    height: $size;
+    width: $size;
+    border: 2px solid $color-gray;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+
+    &--active {
+      color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &--passed {
+      cursor: pointer;
+      pointer-events: all;
+      color: $color-white;
+      background: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+
+  &__line {
+    height: 2px;
+    width: 4rem;
+    background: $color-gray;
+
+    @include respond(phone) {
+      width: 3.2rem;
+    }
+
+    &--passed {
+      background: $color-primary;
+    }
+  }
+}
