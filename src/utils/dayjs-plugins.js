@@ -5,6 +5,7 @@ import weekday from 'dayjs/plugin/weekday';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import isYesterday from 'dayjs/plugin/isYesterday';
 
 import en from 'dayjs/locale/en';
 
@@ -19,3 +20,4 @@ dayjs.extend(weekday);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(customParseFormat);
+dayjs.extend(isYesterday);

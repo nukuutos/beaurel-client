@@ -1,0 +1,48 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.favorite-master {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  background: $color-gray-light-2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin: 0 0 1.2rem;
+
+  @include respond(phone) {
+    margin: 1.2rem 0 0;
+  }
+
+  &:hover {
+    background: $color-gray-light-1;
+  }
+
+  &__avatar {
+    $size: 4.8rem;
+    height: $size;
+    width: $size;
+    border-radius: 50%;
+  }
+
+  &__name {
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: $color-gray-dark-3;
+  }
+
+  &__group {
+    margin-left: 1.2rem;
+  }
+
+  &__status {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 0.4rem;
+    color: $color-primary;
+  }
+}

@@ -11,7 +11,7 @@ const useAsyncAction = () => {
     async (config) => {
       setIsLoading(true);
 
-      const data = asyncCall(dispatch, config);
+      const data = await asyncCall(dispatch, config);
 
       if (!isCancelled.current) setIsLoading(false);
 

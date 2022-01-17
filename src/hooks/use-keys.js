@@ -5,8 +5,6 @@ const useKeys = (getKeys) => {
     const onKeyDown = (e) => {
       const { key: pressedKey } = e;
 
-      console.log(pressedKey, e);
-
       const keys = getKeys();
 
       keys.forEach(({ key, fn }) => {

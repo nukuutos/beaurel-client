@@ -1,0 +1,66 @@
+@use '../../../abstracts/colors' as *;
+
+.dialog-card {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  background: $color-gray-light-3;
+  margin-top: 1.2rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $color-gray-light-2;
+  }
+
+  &--active {
+    background: $color-white;
+    border-color: $color-primary;
+    cursor: default;
+
+    &:hover {
+      background: $color-white;
+    }
+  }
+
+  &--unread {
+    background: $color-primary-light-2;
+    &:hover {
+      background: $color-primary-light-2;
+    }
+
+    .dialog-card__time {
+      color: $color-primary;
+    }
+  }
+
+  &__avatar {
+    $size: 4rem;
+    height: $size;
+    width: $size;
+    border-radius: 50%;
+  }
+
+  &__name {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0px;
+    color: $color-gray-dark-3;
+  }
+
+  &__last-message {
+    font-size: 1.2rem;
+    margin-top: 0.4rem;
+    color: $color-gray-dark-3;
+  }
+
+  &__time {
+    align-self: flex-start;
+    margin-left: auto;
+    color: $color-gray-dark-2;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}

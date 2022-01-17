@@ -47,11 +47,15 @@ import {
   faArrowLeft,
   faAddressCard,
   faCalendar as fasCalendar,
+  faEnvelope,
+  faCheckDouble,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faCheckDouble,
+  faEnvelope,
   faAddressCard,
   fasCalendar,
   faBars,

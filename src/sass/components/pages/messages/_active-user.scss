@@ -1,0 +1,36 @@
+@use '../../../abstracts/colors' as *;
+
+.active-user {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0 0.8rem;
+
+  &__avatar {
+    $size: 4rem;
+    height: $size;
+    width: $size;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.6rem;
+  }
+
+  &__name {
+    color: $color-gray-dark-3;
+    font-size: 1.6rem;
+    letter-spacing: 0.4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__status {
+    font-size: 1.2rem;
+    color: $color-primary-dark-1;
+    font-weight: 500;
+    margin-top: 0.4rem;
+  }
+}

@@ -1,0 +1,300 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.messages {
+  grid-template-rows: repeat(2, min-content) 1fr;
+  padding: 0.8rem 0rem 0.8rem 1.6rem;
+  max-height: 71.2rem;
+
+  &__header {
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0 1.6rem;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: $color-gray-dark-3;
+  }
+
+  &__new-dialog-icon {
+    height: 1.6rem;
+    color: $color-gray-dark-3;
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__active-user {
+    grid-column: 5 / 12;
+    grid-row: 1 / 2;
+    margin-left: 1.6rem;
+  }
+
+  &__line {
+    $size: 0.2rem;
+    background: $color-gray-light-1;
+
+    &--horizontal {
+      height: $size;
+      grid-row: 2 / 3;
+      grid-column: 1 / -1;
+      margin-bottom: 0.4rem;
+      margin-right: 0.8rem;
+    }
+
+    &--vertical {
+      width: $size;
+      grid-row: 1 / 5;
+      grid-column: 5 / 6;
+      justify-self: flex-start;
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  &__dialogs {
+    grid-column: 1 / 5;
+    grid-row: 3 / 5;
+    padding: 0.4rem 0;
+    display: flex;
+    flex-direction: column;
+
+    &--empty {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__no-dialogs {
+    font-size: 1.2rem;
+    color: $color-gray;
+    font-weight: 500;
+
+    @include respond(tab-port) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__dialog {
+    grid-column: 5 / 13;
+    grid-row: 3 / 4;
+  }
+
+  &__form {
+    grid-column: 5 / -1;
+    grid-row: 4 / 5;
+    display: flex;
+    align-items: center;
+    padding: 1.6rem 0;
+  }
+
+  &__textarea {
+    margin-left: 1.6rem;
+    height: 8.4rem;
+    resize: none;
+    padding: 0.4rem;
+    outline: none;
+
+    height: 3.6rem;
+    padding: 0.8rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    border-radius: 0.7rem;
+    flex: 8;
+    max-height: 9.6rem;
+    // transition: 0.1s height;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  &__send-icon {
+    justify-self: center;
+    align-self: center;
+    grid-column: 12 / 13;
+    grid-row: 4 / 5;
+    height: 2.4rem;
+    color: $color-gray;
+    transition: color 0.2s;
+    cursor: pointer;
+    flex: 1;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__send-spinner {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__arrow-back {
+    display: none;
+  }
+
+  &__favorite-masters {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 33rem;
+    background: $color-white;
+    padding: 0 1.2rem;
+    border-radius: 0.5rem;
+    height: 40rem;
+
+    @include respond(phone) {
+      border-radius: 0;
+      height: 100%;
+    }
+  }
+
+  &__no-favorite-masters {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    color: $color-gray-dark-2;
+    // font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.4rem;
+    text-align: center;
+  }
+
+  &__no-active-user {
+    color: $color-gray;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  &--dialogs {
+    .messages__line--horizontal {
+      grid-column: 1 / 5;
+      margin-right: 0;
+    }
+  }
+
+  & ~ .footer {
+    display: none;
+  }
+
+  @include respond(tab-port) {
+    padding-right: 1.6rem;
+
+    .messages__line--horizontal {
+      margin-right: 0;
+    }
+
+    &--dialogs {
+      .messages__header,
+      .messages__line--horizontal,
+      .messages__dialogs {
+        grid-column: 1/-1;
+      }
+
+      .messages__active-user,
+      .messages__line--vertical,
+      .messages__dialog,
+      .messages__textarea,
+      .messages__send-icon {
+        display: none;
+      }
+    }
+
+    &--active-dialog {
+      .messages__header,
+      .messages__line--vertical,
+      .messages__dialogs {
+        display: none;
+      }
+
+      .messages__active-user {
+        grid-column: 2 / -1;
+      }
+
+      .messages__dialog,
+      .messages__form {
+        grid-column: 1 / -1;
+      }
+
+      .messages__send-icon {
+        grid-column: 11 / 13;
+        justify-self: center;
+      }
+
+      .messages__arrow-back {
+        cursor: pointer;
+        grid-column: 1 / 2;
+        display: block;
+        height: 2rem;
+        align-self: center;
+        margin-left: 1.2rem;
+        margin-bottom: 0.4rem;
+        color: $color-primary-dark-2;
+      }
+    }
+  }
+
+  @include respond(phone) {
+    &--dialogs {
+      height: 90vh;
+    }
+
+    &--active-dialog {
+      height: 100vh;
+      z-index: 1000000;
+
+      .messages__active-user {
+        grid-column: 3 / -1;
+        justify-self: flex-start;
+        margin-left: 0.4rem;
+      }
+
+      .messages__dialog {
+        grid-column: 1 / -1;
+      }
+
+      .messages__textarea {
+        grid-column: 1 / 11;
+        height: 3.6rem;
+      }
+
+      .messages__send-icon {
+        grid-column: 11 / 13;
+        justify-self: flex-end;
+        margin-left: 1.6rem;
+      }
+
+      .messages__arrow-back {
+        display: block;
+        height: 2rem;
+        align-self: center;
+        margin-left: 1.2rem;
+        margin-bottom: 0.4rem;
+        color: $color-primary-dark-2;
+      }
+
+      // hide navbar and footar
+      & ~ .mobile-navbar {
+        display: none;
+      }
+    }
+  }
+}

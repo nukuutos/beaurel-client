@@ -1,0 +1,108 @@
+@use '../../../abstracts/colors' as *;
+
+.dialog {
+  overflow-y: auto;
+  position: relative;
+  //
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0 0.8rem 1.6rem 1.6rem;
+
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-gray;
+    border-radius: 1rem;
+  }
+
+  &__spinner-wrapper {
+    align-self: center;
+    height: 1.5rem;
+    margin: 2rem 0 3.2rem;
+  }
+
+  // &__messages {
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: flex-end;
+  //   padding-bottom: 1.6rem;
+  //   padding-left: 1.6rem;
+  //
+  // }
+
+  &--no-active-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.4px;
+  }
+
+  &__date {
+    color: $color-gray;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 2.8rem 0 0.8rem;
+    align-self: center;
+    // margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    display: block;
+  }
+
+  &__message-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__message {
+    display: flex;
+    white-space: pre-wrap;
+    justify-content: space-between;
+    line-height: 2rem;
+    max-width: 31.6rem;
+    align-self: flex-end;
+    padding: 0.8rem 0.4rem 0.8rem 1.2rem;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: 1rem;
+    margin-top: 1.2rem;
+    word-break: break-all;
+    //
+    // display: inline-flex;
+    margin: 1.2rem 0 0 auto;
+
+    &--recipient {
+      padding: 0.8rem 1.2rem;
+      background: $color-gray-light-1;
+      color: $color-gray-dark-3;
+      align-self: flex-start;
+      //
+      margin: 1.2rem auto 0 0;
+
+      .dialog__message-time {
+        color: $color-gray-dark-1;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__message-time {
+    display: flex;
+    align-self: flex-end;
+    line-height: 1.2rem;
+    font-size: 1.2rem;
+    margin-left: 0.8rem;
+    transform: translateY(0.2rem);
+    word-break: initial;
+  }
+
+  &__message-status {
+    height: 1rem;
+    margin-left: 0.4rem;
+    transform: translateY(32%);
+  }
+}

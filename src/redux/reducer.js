@@ -9,6 +9,7 @@ import workReducer from './work/reducer';
 import appointmentsReducer from './appointments/reducer';
 import screenSizeReducer from './screen-size/reducer';
 import favoritesReducer from './favorites/reducer';
+import messagesReducer from './messages/reducer';
 
 export default combineReducers({
   profile: profileReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   appointments: appointmentsReducer,
   screenSize: screenSizeReducer,
   favorites: favoritesReducer,
+  messages: messagesReducer,
 });
