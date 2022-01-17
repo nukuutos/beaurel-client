@@ -31,7 +31,7 @@ const MasterCard = ({ master, className, masterCardRef = null }) => {
           {placeOfWork}
         </div>
       </div>
-      {isFavoriteIcon && <StarProfile masterId={_id} />}
+      {isFavoriteIcon && <StarProfile masterData={master} />}
     </div>
   );
 };

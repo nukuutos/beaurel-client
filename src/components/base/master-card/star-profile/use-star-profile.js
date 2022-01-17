@@ -2,14 +2,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { addFavorite, deleteFavorite } from '../../../../redux/favorites/actions';
 
-const useStarProfile = (masterId) => {
+const useStarProfile = (masterData) => {
   const [asyncAction, isLoading] = useAsyncAction();
   const [favorites, { id: userId, accessToken }] = useSelector((state) => [
     state.favorites,
     state.auth,
   ]);
 
-  const isFavorite = favorites.includes(masterId);
+  const { _id: masterId } = masterData;
+
+  const isFavorite = favorites.some((master) => master._id === masterId);
 
   const dispatch = useDispatch();
 
@@ -22,7 +24,7 @@ const useStarProfile = (masterId) => {
       accessToken,
     };
 
-    dispatch(addFavorite({ newMasterId: masterId }));
+    dispatch(addFavorite({ newFavoriteMaster: masterData }));
     await asyncAction(config);
   };
 

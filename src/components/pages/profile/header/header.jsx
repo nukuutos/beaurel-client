@@ -14,6 +14,8 @@ const Header = () => {
 
   const isFavoriteIcon = userId && userId !== id;
 
+  const masterData = { firstName, lastName, ratingStats, specialization, _id: id };
+
   return (
     <header className="profile__header">
       <div className="profile__identify">
@@ -27,7 +29,7 @@ const Header = () => {
         {!isPhone && <About />}
       </div>
       {isPhone && <About />}
-      {isFavoriteIcon && <StarProfile masterId={id} />}
+      {isFavoriteIcon && <StarProfile masterData={masterData} />}
     </header>
   );
 };

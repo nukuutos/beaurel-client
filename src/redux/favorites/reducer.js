@@ -12,13 +12,13 @@ const favoritesReducer = (state = INITIAL_STATE, action) => {
     }
 
     case ADD_FAVORITE: {
-      const { newMasterId } = payload;
-      return [...state, newMasterId];
+      const { newFavoriteMaster } = payload;
+      return [...state, newFavoriteMaster];
     }
 
     case DELETE_FAVORITE: {
       const { deletedMasterId } = payload;
-      return state.filter((id) => id !== deletedMasterId);
+      return state.filter((master) => master._id !== deletedMasterId);
     }
 
     default:

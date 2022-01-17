@@ -8,16 +8,16 @@ import renderMasters from '../components/pages/masters/render-masters';
 import NoMasters from '../components/pages/masters/no-masters';
 import { getFavorites } from '../redux/favorites/actions';
 
-const Masters = ({ masters }) => {
-  const { isPhone } = useSelector((state) => state.screenSize);
+const Masters = () => {
+  const [{ isPhone }, favorites] = useSelector((state) => [state.screenSize, state.favorites]);
 
-  const isMasters = masters.length;
+  const isMasters = favorites.length;
 
   return (
     <Layout>
       <main className={`content ${!isPhone ? 'card card--layout' : ''}`}>
         <h1 className="masters__heading heading">Твои Мастера</h1>
-        {isMasters ? renderMasters(masters) : <NoMasters />}
+        {isMasters ? renderMasters(favorites) : <NoMasters />}
       </main>
     </Layout>
   );
@@ -27,9 +27,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   const userId = await handleAuthPage(req, res, store);
   const data = await User.getFavoriteMasters(userId);
 
-  store.dispatch(getFavorites(data.masterIds));
+  store.dispatch(getFavorites(data.masters));
 
-  return { props: { masters: data.masters || [] } };
+  return { props: {} };
 });
 
 export default Masters;
