@@ -5,6 +5,7 @@ import profileAndReviews from '../pipelines/user/profile-and-reviews';
 import masters from '../pipelines/user/masters';
 import mastersWithFavorites from '../pipelines/user/masters-with-favorites';
 import favoriteMasters from '../pipelines/user/favorite-masters';
+import customerProfile from '../pipelines/user/customer-profile';
 
 class User {
   // it doesnt recognize favarite masters (get every master without recognition)
@@ -41,17 +42,35 @@ class User {
     const { db } = await connectToDatabase();
 
     const masterMatchQuery = ObjectId.isValid(masterId)
-      ? { _id: new ObjectId(masterId) }
-      : { username: masterId };
+      ? { _id: new ObjectId(masterId), role: 'master' }
+      : { username: masterId, role: 'master' };
 
     userId = userId ? new ObjectId(userId) : null;
 
     const profile = await db
       .collection('users')
       .aggregate(profileAndReviews(masterMatchQuery, userId))
-      .toArray();
+      .next();
 
-    return profile[0];
+    return profile;
+  }
+
+  static async getCustomerProfile(customerId) {
+    const { db } = await connectToDatabase();
+    const customerMatchQuery = ObjectId.isValid(customerId)
+      ? { _id: new ObjectId(customerId), role: 'customer' }
+      : { username: customerId, role: 'customer' };
+
+    const profile = await db
+      .collection('users')
+      .aggregate(customerProfile(customerMatchQuery))
+      .next();
+
+    if (!profile.appointmentsData.appointmentsCount) {
+      profile.appointmentsData.appointmentsCount = 0;
+    }
+
+    return profile;
   }
 
   static async getAuthData(userId) {

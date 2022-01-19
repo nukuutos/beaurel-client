@@ -6,16 +6,16 @@ import verifyToken from '../../../server/utils/verify-token';
 // Page is auth and public in the same time
 
 const thereIsToken = async (accessToken, cb, { req, res, store }) => {
-  let userId = verifyToken(accessToken);
+  let user = verifyToken(accessToken);
   // if token expired or something do refresh and get userId
-  if (!userId) userId = await refreshToken(req, res, store);
+  if (!user) user = await refreshToken(req, res, store);
 
-  return await cb(userId);
+  return await cb(user);
 };
 
 const thereIsNoToken = async (cb, { req, res, store }) => {
-  const userId = await refreshToken(req, res, store);
-  return await cb(userId);
+  const user = await refreshToken(req, res, store);
+  return await cb(user);
 };
 
 const handlePublicAndAuthPage = async (cb, ctx) => {

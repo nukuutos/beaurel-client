@@ -16,12 +16,12 @@ const refreshToken = async (req, res, store) => {
       const { data } = await axios('/auth/refresh-token', {
         method: 'POST',
         headers: {
-          cookie: 'refreshToken=' + refreshToken,
+          cookie: `refreshToken=${refreshToken}`,
         },
       });
 
       store.dispatch(refreshTokenSuccess(data));
-      return data.id;
+      return data;
     } catch (error) {
       return false;
     }

@@ -27,9 +27,9 @@ const Timetable = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const userId = await handleAuthPage(req, res, store);
+  const user = await handleAuthPage(req, res, store);
 
-  const timetable = await TimetableModel.findOne({ masterId: userId });
+  const timetable = await TimetableModel.findOne({ masterId: user.id });
 
   store.dispatch(getTimetableSuccess({ timetable }));
 

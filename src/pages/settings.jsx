@@ -45,8 +45,8 @@ const Search = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const userId = await handleAuthPage(req, res, store);
-  const data = await User.getAuthData(userId);
+  const user = await handleAuthPage(req, res, store);
+  const data = await User.getAuthData(user.id);
   store.dispatch(setAuthData(data));
 
   return { props: { custom: 'custom' } };

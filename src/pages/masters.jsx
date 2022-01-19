@@ -24,8 +24,8 @@ const Masters = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const userId = await handleAuthPage(req, res, store);
-  const data = await User.getFavoriteMasters(userId);
+  const user = await handleAuthPage(req, res, store);
+  const data = await User.getFavoriteMasters(user.id);
 
   store.dispatch(getFavorites(data.masters));
 

@@ -75,7 +75,6 @@ const profileAndReviews = (masterMatchQuery, userId = null) => [
             email: 0,
             password: 0,
             isConfirmed: 0,
-            role: 0,
             createdAt: 0,
             masters: 0,
             phone: 0,

@@ -40,9 +40,9 @@ const Messages = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const userId = await handleAuthPage(req, res, store);
+  const user = await handleAuthPage(req, res, store);
 
-  const dialogs = await Message.getDialogs(userId);
+  const dialogs = await Message.getDialogs(user.id);
 
   store.dispatch(setDialogs({ dialogs }));
 

@@ -1,22 +1,22 @@
-import getAccessToken from "../utils/get-access-token";
-import verifyToken from "../../../server/utils/verify-token";
-import refreshTokenAuth from "./refresh-token-auth";
+import getAccessToken from '../utils/get-access-token';
+import verifyToken from '../../../server/utils/verify-token';
+import refreshTokenAuth from './refresh-token-auth';
 
 const handleAuthPage = async (req, res, store) => {
-  let userId;
+  let user;
 
   const accessToken = getAccessToken(req, res);
   // if we ve got access token, verify it
-  if (accessToken) userId = verifyToken(accessToken);
+  if (accessToken) user = verifyToken(accessToken);
   // if token not verified or access token is absent => refresh it
-  if (!userId) userId = await refreshTokenAuth(req, res, store);
+  if (!user) user = await refreshTokenAuth(req, res, store);
 
-  if (!userId) {
-    res.writeHead(302, { Location: "/sign-in" });
+  if (!user) {
+    res.writeHead(302, { Location: '/sign-in' });
     res.end();
   }
 
-  return userId;
+  return user;
 };
 
 export default handleAuthPage;

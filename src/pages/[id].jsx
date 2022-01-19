@@ -26,14 +26,29 @@ const Profile = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { id: masterId } = query;
+  const { id: profileId } = query;
 
-  const getProfile = async (userId) => await User.getMasterProfile(masterId, userId);
+  const getProfile = async ({ id: userId, role, username }) => {
+    // customer page is private
+    const isOwner = userId === profileId || username === profileId;
+    const isCustomer = isOwner && role === 'customer';
+
+    let data;
+    if (isCustomer) data = await User.getCustomerProfile(profileId);
+    else data = await User.getMasterProfile(profileId, userId);
+
+    if (!data) {
+      // return 404
+    }
+
+    return data;
+  };
+
   const profile = await handlePublicAndAuthPage(getProfile, { req, res, store });
 
-  const { favorites, master, ...rating } = profile;
+  const { favorites, master, ...restData } = profile;
 
-  store.dispatch(getProfileSuccess({ profile: { ...master, ...rating, id: masterId } }));
+  store.dispatch(getProfileSuccess({ profile: { ...(master || {}), ...restData, id: profileId } }));
   store.dispatch(getFavorites(favorites || []));
 
   return { props: {} };

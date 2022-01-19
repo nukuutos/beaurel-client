@@ -31,10 +31,10 @@ const Appointments = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const userId = await handleAuthPage(req, res, store);
+  const user = await handleAuthPage(req, res, store);
 
   const appointments = await AppointmentModel.getMasterAppointmentsAndCustomers(
-    userId,
+    user.id,
     'onConfirmation'
   );
 

@@ -5,7 +5,7 @@ const { JWT_KEY_ACCESS } = process.env;
 const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, JWT_KEY_ACCESS);
-    return decoded.user.id;
+    return decoded.user;
   } catch (error) {
     return false;
   }

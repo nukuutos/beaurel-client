@@ -36,10 +36,10 @@ const Services = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const userId = await handleAuthPage(req, res, store);
+  const user = await handleAuthPage(req, res, store);
 
-  const { services, timetable } = await ServiceModel.getServices(userId);
-  store.dispatch(getServicesSuccess({ services, masterId: userId }));
+  const { services, timetable } = await ServiceModel.getServices(user.id);
+  store.dispatch(getServicesSuccess({ services, masterId: user.id }));
   store.dispatch(getTimetableSuccess({ timetable }));
 
   return { props: { custom: 'custom' } };
