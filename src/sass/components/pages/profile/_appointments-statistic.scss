@@ -1,0 +1,15 @@
+@use '../../../abstracts/colors' as *;
+
+.appointments-statistic {
+  display: flex;
+  // flex-direction: column;
+  padding: 2rem 2.4rem 2rem 1.6rem;
+  color: $color-gray-dark-3;
+  font-weight: 500;
+
+  &__titles,
+  &__scores {
+    display: flex;
+    flex-direction: column;
+  }
+}

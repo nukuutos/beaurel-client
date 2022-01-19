@@ -1,20 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import ModalHeading from '../../../../../../../../../../base/modal/modal-heading';
-import { MONTHS } from '../../../../../../../../../profile/master-profile/section-cards/booking/booking-timetable/utils/week';
 import displayDuration from '../utils/display-duration';
-import useUpdateAppointment from './use-update-appointment';
+import { MONTHS } from '../booking-timetable/utils/week';
+import useBookTime from './use-book-time';
+import ModalHeading from '../../../../../../base/modal/modal-heading';
 
-const UpdateResult = ({ appointment, setStep, onClickClose }) => {
+const BookingResult = ({ setStep, onClickClose }) => {
   const [{ date, time, service }, { isPhone }] = useSelector((state) => [
     state.appointments.booking.bookingAppointment,
     state.screenSize,
   ]);
 
-  const [bookTime, isLoading] = useUpdateAppointment(appointment, setStep);
+  const [bookTime, isLoading] = useBookTime(setStep);
 
   const displayAppointmentDuration = () => {
-    const endAt = time + Number(service.duration);
+    const endAt = time + service.duration;
     return `${displayDuration(time)} - ${displayDuration(endAt)}`;
   };
 
@@ -41,13 +41,6 @@ const UpdateResult = ({ appointment, setStep, onClickClose }) => {
         <span className="booking-result__label mt-6">Услуга:</span>
         <div className="booking-result__value mt-6">{service.title}</div>
 
-        {service.parameter && (
-          <>
-            <span className="booking-result__label mt-2">Параметр:</span>
-            <div className="booking-result__value mt-2">{service.parameter}</div>
-          </>
-        )}
-
         <span className="booking-result__label mt-2">Время:</span>
         <div className="booking-result__value mt-2">{displayAppointmentDuration()}</div>
 
@@ -70,7 +63,7 @@ const UpdateResult = ({ appointment, setStep, onClickClose }) => {
             className={`btn btn--primary `}
             type="submit"
           >
-            Обновить запись
+            Записаться
           </button>
         </div>
       </div>
@@ -78,4 +71,4 @@ const UpdateResult = ({ appointment, setStep, onClickClose }) => {
   );
 };
 
-export default UpdateResult;
+export default BookingResult;

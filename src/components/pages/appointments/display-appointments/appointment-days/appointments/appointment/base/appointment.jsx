@@ -1,13 +1,13 @@
 import Attributes from './attributes/attributes';
 
-const Appointment = ({ appointment, children }) => {
+const Appointment = ({ className = '', appointment, children }) => {
   const { service, user, time, date } = appointment;
   const { firstName, lastName, avatar } = user; // it can be master or customer
   const { title, price } = service;
   const { startAt } = time;
 
   return (
-    <div className="appointments__appointment-card appointment-card card mt-8">
+    <div className={`${className} appointments__appointment-card appointment-card card mt-8`}>
       <img
         src={`http://localhost:5000/${avatar}`}
         alt="Avatar"

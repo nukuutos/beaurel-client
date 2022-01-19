@@ -6,12 +6,16 @@ import {
 } from './types';
 
 const INITIAL_STATE = {
+  id: null,
   isPublicView: false,
   ratingStats: { ratingCounters: [] },
   lastName: '',
   masters: [],
   reviews: [],
-  id: null,
+  role: 'master',
+  // customer
+  appointmentsData: { siblingAppointment: {}, appointmentsCount: 0 },
+  reviewsCount: 0,
 }; // try every props get null (redirect)
 
 const profileReducer = (state = INITIAL_STATE, action) => {

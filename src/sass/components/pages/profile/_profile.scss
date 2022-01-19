@@ -51,7 +51,8 @@
       height: 13rem;
       width: 1px;
       background: $color-gray;
-      margin-top: 2rem;
+      // margin-top: 2rem;
+      margin-top: 0.8rem;
       display: block;
       content: '';
       position: absolute;
@@ -72,6 +73,10 @@
   &__biography {
     grid-column: 5 / -1;
     grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     @include respond(tab-port) {
       grid-column: 4 / -1;
@@ -133,7 +138,8 @@
 
   &__geolocation {
     color: $color-gray-dark-1;
-    margin-top: 0.8rem;
+    // margin-top: 0.8rem;
+    margin-top: 1.6rem;
 
     @include respond(phone) {
       font-size: 1.2rem;
@@ -148,7 +154,8 @@
   &__about {
     line-height: 2.4rem;
     letter-spacing: 0.1px;
-    margin-top: 1.6rem;
+    // margin-top: 1.6rem;
+    margin-top: 2rem;
 
     @include respond(phone) {
       margin-top: 0.8rem;
@@ -160,6 +167,10 @@
 
   &__about-btn {
     display: inline-block;
+    padding: 0.8rem 2.4rem;
+    border-width: 2px;
+    font-weight: 500;
+    font-family: inherit;
   }
 
   &__star-profile {
@@ -217,6 +228,36 @@
     }
   }
 
+  // &__line {
+  //   grid-column: 1 / -1;
+  //   height: 1px;
+  //   background: $color-gray;
+  // }
+
+  &__no-appointment {
+    grid-column: 1 / 7;
+    margin-top: 2rem;
+    color: $color-gray;
+    font-size: 2rem;
+    justify-self: center;
+    align-self: center;
+    font-weight: 700;
+  }
+
+  &__sibling-appointment {
+    grid-column: 1 / 7;
+    margin-top: 2rem;
+    align-self: center;
+    margin: 3.2rem 0;
+  }
+
+  &__appointments-statistic {
+    grid-column: 7 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__reviews {
     display: contents;
   }
@@ -258,5 +299,12 @@
       // height: 1.2rem;
       transform: translateY(15%);
     }
+  }
+
+  &__horizontal-line {
+    grid-column: 1 / -1;
+    display: block;
+    height: 1px;
+    background: $color-gray;
   }
 }

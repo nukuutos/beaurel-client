@@ -6,10 +6,12 @@ import Maps from './maps';
 
 const Geolocation = () => {
   const [isMaps, setIsMaps] = useState(false);
-  const [{ placeOfWork, isPublicView }, { isPhone }] = useSelector((state) => [
+  const [{ placeOfWork, isPublicView, role, city }, { isPhone }] = useSelector((state) => [
     state.profile,
     state.screenSize,
   ]);
+
+  const isMaster = role === 'master';
 
   return (
     <div className="profile__geolocation">
@@ -17,7 +19,7 @@ const Geolocation = () => {
 
       {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}
 
-      {placeOfWork}
+      {isMaster ? placeOfWork : city}
 
       {!isPublicView && (
         <FontAwesomeIcon

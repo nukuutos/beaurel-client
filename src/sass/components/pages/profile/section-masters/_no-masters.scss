@@ -1,0 +1,28 @@
+@use '../../../../abstracts/colors' as *;
+
+.no-masters {
+  grid-column: 3 / 11;
+  padding: 2.8rem 0rem 2rem;
+  text-align: center;
+
+  margin-top: 4rem;
+
+  &__text {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    font-weight: 700;
+    color: $color-gray-dark-2;
+  }
+
+  &__hearts {
+    display: inline-flex;
+    height: 2.4rem;
+    color: $color-secondary;
+    margin-top: 1.6rem;
+
+    & > *:not(:last-of-type) {
+      margin-right: 0.4rem;
+    }
+  }
+}

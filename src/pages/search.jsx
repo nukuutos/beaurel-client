@@ -38,8 +38,8 @@ const Search = ({ masters }) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
-  const getMasters = async (userId) => {
-    if (userId) return await User.findMastersWithFavorites(userId);
+  const getMasters = async (user) => {
+    if (user.id) return await User.findMastersWithFavorites(user.id);
     return await User.findMasters();
   };
 

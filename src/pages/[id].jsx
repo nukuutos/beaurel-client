@@ -4,22 +4,19 @@ import { getProfileSuccess } from '../redux/profile/actions';
 
 import Layout from '../components/layout/layout';
 
-import Header from '../components/pages/profile/header/header';
-import SectionCards from '../components/pages/profile/section-cards/section-cards';
-import SectionReviews from '../components/pages/profile/section-reviews/section-reviews';
 import User from '../server/models/user';
 import handlePublicAndAuthPage from '../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
 import { getFavorites } from '../redux/favorites/actions';
+import MasterProfile from '../components/pages/profile/master-profile/master-profile';
+import CustomerProfile from '../components/pages/profile/customer-profile/customer-profile';
 
 const Profile = () => {
-  const { isPhone } = useSelector((state) => state.screenSize);
+  const [{ role }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
 
   return (
     <Layout>
       <main className={`content ${!isPhone ? 'card card--layout' : ''}`}>
-        <Header />
-        <SectionCards />
-        <SectionReviews />
+        {role === 'master' ? <MasterProfile /> : <CustomerProfile />}
       </main>
     </Layout>
   );
