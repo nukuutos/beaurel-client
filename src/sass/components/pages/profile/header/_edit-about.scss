@@ -1,5 +1,5 @@
-@use "../../../../abstracts/colors" as *;
-@use "../../../../abstracts/mixins" as *;
+@use '../../../../abstracts/colors' as *;
+@use '../../../../abstracts/mixins' as *;
 
 .edit-about {
   // display: grid;
@@ -13,7 +13,7 @@
 
   @include respond(phone) {
     height: 100%;
-    padding: 2.4rem 0 2rem;
+    padding: 2.4rem 1.2rem 2rem;
     width: 36rem;
   }
 

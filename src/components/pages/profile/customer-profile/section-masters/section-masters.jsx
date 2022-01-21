@@ -4,7 +4,10 @@ import { useSelector } from 'react-redux';
 import FavoriteMasterCard from './favorite-master-card';
 
 const SectionMasters = () => {
-  const favoriteMasters = useSelector((state) => state.favorites);
+  const [favoriteMasters, { isPhone }] = useSelector((state) => [
+    state.favorites,
+    state.screenSize,
+  ]);
 
   return (
     <>
@@ -20,7 +23,7 @@ const SectionMasters = () => {
           </div>
         </div>
       ) : (
-        <div className="no-masters card">
+        <div className={`no-masters ${isPhone ? '' : 'card'}`}>
           <p className="no-masters__text">
             Добавьте вашего первого мастера
             <br />и он отобразится

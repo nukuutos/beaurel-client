@@ -1,5 +1,5 @@
-@use "../../abstracts/colors" as *;
-@use "../../abstracts/mixins" as *;
+@use '../../abstracts/colors' as *;
+@use '../../abstracts/mixins' as *;
 
 .modal {
   position: fixed;
@@ -63,7 +63,7 @@
 
 .back-bar {
   &__main {
-    max-width: 34rem;
+    padding-left: 2.4rem;
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;

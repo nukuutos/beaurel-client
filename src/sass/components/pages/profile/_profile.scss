@@ -85,6 +85,8 @@
 
     @include respond(phone) {
       grid-column: 5 / -1;
+      //
+      justify-content: flex-start;
     }
   }
 
@@ -120,6 +122,8 @@
 
     @include respond(phone) {
       font-size: 2rem;
+      //
+      margin-top: 0.4rem;
     }
   }
 
@@ -138,11 +142,13 @@
 
   &__geolocation {
     color: $color-gray-dark-1;
-    // margin-top: 0.8rem;
+    //
     margin-top: 1.6rem;
 
     @include respond(phone) {
       font-size: 1.2rem;
+      //
+      margin-top: 0.8rem;
     }
   }
 
@@ -156,6 +162,7 @@
     letter-spacing: 0.1px;
     // margin-top: 1.6rem;
     margin-top: 2rem;
+    grid-column: 1 / -1;
 
     @include respond(phone) {
       margin-top: 0.8rem;
@@ -166,11 +173,18 @@
   }
 
   &__about-btn {
+    margin-top: 2rem;
+    align-self: flex-start;
     display: inline-block;
     padding: 0.8rem 2.4rem;
     border-width: 2px;
     font-weight: 500;
     font-family: inherit;
+
+    @include respond(phone) {
+      margin-top: 0.8rem;
+      grid-column: 1 / -1;
+    }
   }
 
   &__star-profile {
@@ -236,12 +250,17 @@
 
   &__no-appointment {
     grid-column: 1 / 7;
-    margin-top: 2rem;
+    margin: 8rem 0;
     color: $color-gray;
     font-size: 2rem;
     justify-self: center;
     align-self: center;
     font-weight: 700;
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+      margin: 6.8rem 0;
+    }
   }
 
   &__sibling-appointment {
@@ -249,6 +268,16 @@
     margin-top: 2rem;
     align-self: center;
     margin: 3.2rem 0;
+
+    @include respond(tab-port) {
+      grid-column: 1 / 9;
+    }
+
+    @include respond(phone) {
+      margin: 1.6rem 0;
+
+      grid-column: 1 / -1;
+    }
   }
 
   &__appointments-statistic {
@@ -256,6 +285,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &--sibling-appointment {
+      @include respond(tab-port) {
+        grid-column: 9 / -1;
+      }
+    }
+
+    @include respond(phone) {
+      display: none;
+    }
   }
 
   &__reviews {
@@ -264,6 +303,14 @@
 
   &__noreview {
     grid-column: 3 / 11;
+
+    @include respond(tab-port) {
+      grid-column: 2 / 12;
+    }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__overall-review {

@@ -1,24 +1,33 @@
 import Attributes from './attributes/attributes';
 
-const Appointment = ({ className = '', appointment, children }) => {
-  const { service, user, time, date } = appointment;
+const statuses = { confirmed: 'подтверждено', onConfirmation: 'на подтвердении' };
+
+const Appointment = ({ className = '', appointment, isProfile = false, children }) => {
+  const { service, user, time, date, status } = appointment;
   const { firstName, lastName, avatar } = user; // it can be master or customer
   const { title, price } = service;
   const { startAt } = time;
 
+  const confirmedClassName = status === 'confirmed' ? 'appointment-card__status--confirmed' : '';
+
   return (
     <div className={`${className} appointments__appointment-card appointment-card card mt-8`}>
-      <img
-        src={`http://localhost:5000/${avatar}`}
-        alt="Avatar"
-        className="appointment-card__avatar mb-2"
-      />
-      <span className="appointment-card__name mt-2">{`${firstName} ${lastName[0]}.`}</span>
-      <div className="appointment-card__header-line" />
+      <div className="appointment-card__header">
+        <img
+          src={`http://localhost:5000/${avatar}`}
+          alt="Avatar"
+          className="appointment-card__avatar"
+        />
+        <span className="appointment-card__name">{`${firstName} ${lastName[0]}.`}</span>
+      </div>
 
-      <span className="appointment-card__service mt-3">{title}</span>
+      {isProfile && (
+        <span className={`appointment-card__status ${confirmedClassName}`}>{statuses[status]}</span>
+      )}
 
-      <Attributes date={date} price={price} startAt={startAt} />
+      <span className="appointment-card__service">{title}</span>
+
+      <Attributes isProfile={isProfile} date={date} price={price} startAt={startAt} />
 
       {children}
     </div>

@@ -14,9 +14,15 @@ const About = () => {
 
   return (
     <>
-      <p className="profile__about">
-        {aboutText ? <DisplayAboutText onClick={openModal} /> : <EditButton onClick={openModal} />}
-      </p>
+      {aboutText ? (
+        <p className="profile__about">
+          <DisplayAboutText onClick={openModal} />
+        </p>
+      ) : (
+        <EditButton onClick={openModal} />
+      )}
+      {/* <EditButton onClick={openModal} /> */}
+
       {isEditAbout && <AboutEdit onClickClose={closeModal} />}
     </>
   );

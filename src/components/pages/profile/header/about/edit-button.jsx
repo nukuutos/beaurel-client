@@ -4,7 +4,7 @@ const EditButton = ({ onClick }) => {
   const [{ isPublicView }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
 
   const className = 'btn btn--secondary profile__about-btn';
-  const mobileClassName = 'btn btn--secondary btn--flat mt-2';
+  const mobileClassName = 'profile__about-btn btn btn--secondary btn--flat mt-2';
 
   return (
     !isPublicView && (

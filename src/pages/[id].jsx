@@ -12,10 +12,11 @@ import CustomerProfile from '../components/pages/profile/customer-profile/custom
 
 const Profile = () => {
   const [{ role }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
+  const customerClassName = role === 'customer' ? 'profile--customer' : '';
 
   return (
     <Layout>
-      <main className={`content ${!isPhone ? 'card card--layout' : ''}`}>
+      <main className={`content ${customerClassName} ${!isPhone ? 'card card--layout' : ''}`}>
         {role === 'master' ? <MasterProfile /> : <CustomerProfile />}
       </main>
     </Layout>

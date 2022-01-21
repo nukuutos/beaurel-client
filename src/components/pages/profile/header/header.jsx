@@ -5,10 +5,11 @@ import ProfileRating from './profile-rating';
 import StarProfile from '../../../base/master-card/star-profile/star-profile';
 import About from './about/about';
 import Geolocation from './geolocation/geolocation';
+import EditButton from './about/edit-button';
 
 const Header = () => {
   const [
-    { firstName, lastName, ratingStats, specialization, id, role },
+    { aboutText, firstName, lastName, ratingStats, specialization, id, role },
     { id: userId },
     { isPhone },
   ] = useSelector((state) => [state.profile, state.auth, state.screenSize]);
@@ -27,9 +28,19 @@ const Header = () => {
         <h1 className="profile__name">{profileName}</h1>
         {isMaster && <h2 className="profile__specialization">{specialization}</h2>}
         <Geolocation />
-        {!isPhone && <About />}
+        {!isPhone && !isFavoriteIcon && <About />}
+        {!isPhone && isFavoriteIcon && (
+          <button type="button" className="profile__about-btn btn btn--secondary ">
+            Написать
+          </button>
+        )}
       </div>
-      {isPhone && <About />}
+      {((aboutText && isFavoriteIcon) || (!isFavoriteIcon && isPhone)) && <About />}
+      {isPhone && isFavoriteIcon && (
+        <button type="button" className="profile__about-btn btn btn--secondary ">
+          Написать
+        </button>
+      )}
       {isFavoriteIcon && <StarProfile masterData={masterData} />}
     </header>
   );

@@ -1,12 +1,7 @@
 const getWordReview = (reviewsCount) => {
-  switch (reviewsCount) {
-    case reviewsCount === 1:
-      return 'отзыв';
-    case reviewsCount < 5:
-      return 'отзыва';
-    default:
-      return 'oтзывов';
-  }
+  if (reviewsCount === 1) return 'отзыв';
+  if (reviewsCount < 5) return 'отзыва';
+  return 'oтзывов';
 };
 
 export default getWordReview;

@@ -6,7 +6,11 @@ const SiblingAppointment = () => {
   const { siblingAppointment } = useSelector((state) => state.profile.appointmentsData);
 
   return siblingAppointment ? (
-    <Appointment className="profile__sibling-appointment" appointment={siblingAppointment} />
+    <Appointment
+      isProfile
+      className="profile__sibling-appointment sibling-appointment"
+      appointment={siblingAppointment}
+    />
   ) : (
     <span className="profile__no-appointment">Нет активных записей</span>
   );

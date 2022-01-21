@@ -19,7 +19,7 @@
   }
 
   &__switch {
-    grid-column: 4 / 10;
+    grid-column: 4 / 11;
     justify-self: flex-end;
 
     @include respond(tab-port) {

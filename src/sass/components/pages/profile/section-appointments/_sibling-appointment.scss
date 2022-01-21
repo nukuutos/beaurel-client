@@ -1,0 +1,17 @@
+.sibling-appointment {
+  .appointment-card__attribute {
+    padding-bottom: 0.4rem;
+    border-bottom: none;
+    margin-left: 0;
+  }
+
+  .appointment-card__time {
+    transform: translateX(-18%);
+  }
+
+  .appointment-card__service {
+    min-height: 6rem;
+    margin-bottom: 0.8rem;
+    margin-top: 0.4rem;
+  }
+}
