@@ -6,7 +6,8 @@ import { getAppointmentsSuccess } from '../../../../../../../redux/appointments/
 import { getTimetableSuccess } from '../../../../../../../redux/timetable/actions';
 
 const useGetDataForBooking = () => {
-  const [timetableState, appointmentsState] = useSelector((state) => [
+  const [{ id: masterId }, timetableState, appointmentsState] = useSelector((state) => [
+    state.profile,
     state.timetable,
     state.appointments,
   ]);
@@ -15,7 +16,6 @@ const useGetDataForBooking = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const masterId = router.query.id;
     const isTimetable = timetableState.masterId === masterId;
     const isAppointments = appointmentsState.booking.masterId === masterId;
 
@@ -28,10 +28,10 @@ const useGetDataForBooking = () => {
 
       const data = await asyncAction(config);
 
-      const { timetable, appointments } = data;
+      const { timetable, appointments, isServices } = data;
 
       if (timetable) {
-        dispatch(getTimetableSuccess({ timetable: { masterId, ...timetable } }));
+        dispatch(getTimetableSuccess({ timetable: { masterId, isServices, ...timetable } }));
         dispatch(getAppointmentsSuccess({ appointments, masterId }));
       }
     };
@@ -43,9 +43,10 @@ const useGetDataForBooking = () => {
     dispatch,
     timetableState.masterId,
     appointmentsState.booking.masterId,
+    masterId,
   ]);
 
-  return [isLoading];
+  return isLoading;
 };
 
 export default useGetDataForBooking;

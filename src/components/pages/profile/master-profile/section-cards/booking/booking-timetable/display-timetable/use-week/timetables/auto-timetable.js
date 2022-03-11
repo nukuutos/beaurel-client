@@ -50,7 +50,7 @@ class AutoTimetable extends Timetable {
     const { duration } = service;
 
     this.availableAppointments = this.availableAppointments.filter((startAt) => {
-      const endAt = startAt + duration;
+      const endAt = startAt + Number(duration);
 
       for (let i = startAt; i < endAt; i += this.sessionTime) {
         if (!this.availableAppointments.includes(i)) return false;

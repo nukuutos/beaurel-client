@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import displayDuration from '../utils/display-duration';
-import { MONTHS } from '../booking-timetable/utils/week';
+import { MONTHS } from '../booking-timetable/display-timetable/utils/week';
 import useBookTime from './use-book-time';
 import ModalHeading from '../../../../../../base/modal/modal-heading';
+import BackButton from './back-button';
 
 const BookingResult = ({ setStep, onClickClose }) => {
   const [{ date, time, service }, { isPhone }] = useSelector((state) => [
@@ -30,8 +31,10 @@ const BookingResult = ({ setStep, onClickClose }) => {
       <div className={`booking-result ${isPhone ? '' : 'card'}`}>
         {isLoading && !isPhone && <div className="spinner-with-background" />}
 
+        <BackButton onClickClose={onClickClose} />
+
         <ModalHeading
-          title="Информация о записи"
+          title="Ваша запись"
           titleDesktopClassName="booking-result__heading"
           onClickClose={onClickClose}
         />
@@ -47,25 +50,16 @@ const BookingResult = ({ setStep, onClickClose }) => {
         <span className="booking-result__label mt-2">Дата:</span>
         <div className="booking-result__value mt-2">{displayDate()}</div>
 
-        <div className="booking-result__buttons mt-6">
-          {!isPhone && (
-            <button
-              onClick={onClickClose}
-              className="btn btn--secondary  btn--gray mr-4"
-              type="submit"
-            >
-              Назад
-            </button>
-          )}
-          <button
-            disabled={isLoading}
-            onClick={bookTime}
-            className={`btn btn--primary `}
-            type="submit"
-          >
-            Записаться
-          </button>
-        </div>
+        {/* <div className="booking-result__buttons mt-6"> */}
+        <button
+          disabled={isLoading}
+          onClick={bookTime}
+          className="booking-result__button btn btn--primary mt-7"
+          type="submit"
+        >
+          Записаться
+        </button>
+        {/* </div> */}
       </div>
     </>
   );

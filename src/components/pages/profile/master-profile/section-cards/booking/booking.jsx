@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '../../../../../base/modal';
+import Modal from '../../../../../base/modal/modal';
 import BookingServices from './booking-services/booking-services';
 import BookingResult from './booking-result/booking-result';
 import BookingSuccess from './booking-success';
@@ -24,7 +24,7 @@ const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
   );
 
   return (
-    <Modal isMobileBackground onClickClose={onClose}>
+    <Modal onClickClose={onClose}>
       {step.isService && <BookingServices onClickClose={closeServices} stepState={stepState} />}
       {step.isTimetable && <BookingTimetable onClickClose={closeTimetable} stepState={stepState} />}
       {step.isResult && <BookingResult onClickClose={backFromBookingResult} setStep={setStep} />}

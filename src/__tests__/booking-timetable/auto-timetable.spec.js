@@ -1,4 +1,4 @@
-import AutoTimetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/use-week/auto-timetable';
+import AutoTimetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/week/auto-timetable';
 
 const sessionTime = 60;
 const possibleAppointmentsTime = [600, 660, 720, 780, 840, 900, 960, 1020]; // 10:00 - 18:00

@@ -1,0 +1,36 @@
+import useGetAppointmentData from '../use-get-appointment-data';
+import useWeek from '../use-week/use-week';
+import Arrows from './arrows';
+import Header from './header';
+import NoAppointments from './no-appointments';
+import useBookingTimetablePhone from './use-booking-timetable-phone';
+import useStartDay from './use-start-day';
+
+const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoading }) => {
+  const [startDayData, setStartDay] = useStartDay();
+  const [weekdayIndex, controllers] = useBookingTimetablePhone(setStartDay);
+  const weekDays = useWeek({ startDayData, step, getHandleClickOnDay });
+  const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
+  const day = weekDays[weekdayIndex];
+
+  const loadingOnGetAppointments = useGetAppointmentData(startDayData);
+
+  return (
+    <>
+      {(isLoading || loadingOnGetAppointments) && <div className="spinner-with-background" />}
+      <div className="booking-timetable">
+        <Header setDate={setStartDay} onClickBack={onClickClose} />
+        {!isUnavailableWeek && (
+          <Arrows startDayData={startDayData} day={day} controllers={controllers} />
+        )}
+        {day}
+        {!day.props.availableAppointments && !isUnavailableWeek && (
+          <p className="booking-timetable__no-appointments">Нет записей</p>
+        )}
+        {isUnavailableWeek && <NoAppointments toNextWeek={controllers.toNextWeek} />}
+      </div>
+    </>
+  );
+};
+
+export default BookingTimetablePhone;

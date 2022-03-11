@@ -3,7 +3,7 @@ import getIsDisabled from '../../components/pages/profile/master-profile/section
 
 import '../../utils/dayjs-plugins';
 
-import { getDateUTC } from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/booking-timetable-phone/utils';
+import { getDateUTC } from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/booking-timetable-phone/utils';
 
 describe('Get is Disabled', () => {
   it('unsuitable service', () => {

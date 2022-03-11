@@ -1,6 +1,6 @@
 import { setAppointmentService } from '../../../../../../../redux/appointments/actions';
 
-const goTo = (setStep, service, dispatch) => {
+const goTo = ({ setStep, service, dispatch, isAfterUpdate }) => {
   const goToBookingResult = (state) => ({
     ...state,
     isService: false,
@@ -20,7 +20,7 @@ const goTo = (setStep, service, dispatch) => {
   const handleOnClick = () => {
     const { id, title, duration } = service;
 
-    dispatch(setAppointmentService({ id, title, duration }));
+    dispatch(setAppointmentService({ id, title, duration, isAfterUpdate }));
 
     setStep((state) => {
       if (state.step === 2) return goToBookingResult(state);

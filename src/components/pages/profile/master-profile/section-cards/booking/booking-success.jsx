@@ -9,11 +9,12 @@ const BookingSuccess = ({ onClickClose }) => {
 
   return (
     <div className={`booking-success ${isPhone ? '' : 'card'}`}>
-      <ModalHeading title="Успех" />
-      <img className="booking-success__svg mt-8" src="/svg/success.svg" alt="Appointment" />
+      <ModalHeading title="Успешно" titleDesktopClassName="booking-success__heading" />
+      <img className="booking-success__svg mt-2" src="/svg/success.svg" alt="Appointment" />
 
       <p className="booking-success__text mt-6">
-        После подверждения записи мастером Вам придёт уведомление и СМС на Ваш номер телефона.
+        {/* После подверждения записи мастером Вам придёт уведомление и СМС на Ваш номер телефона. */}
+        Вы успешно совершили запись, дождитесь ответа мастера!
       </p>
 
       <button

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 class Timetable {
   constructor(sessionTime, possibleAppointmentsTime) {
     this.sessionTime = sessionTime;
@@ -18,11 +20,16 @@ class Timetable {
 
     const { service } = bookingAppointment;
 
-    return [appointments, service];
+    return { bookedAppointments: appointments, service };
+  }
+
+  static getDate({ month, year, day }) {
+    return dayjs(`${year}-${month}-${day}`).utc(true); // 00:00:00Z
   }
 
   getAppointments() {
-    return [this.availableAppointments, this.unavailableAppointments];
+    const { availableAppointments, unavailableAppointments } = this;
+    return { availableAppointments, unavailableAppointments };
   }
 }
 

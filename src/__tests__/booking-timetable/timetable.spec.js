@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import Timetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/use-week/timetables/timetable';
+import Timetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/use-week/timetables/timetable';
 
 const timetable = { sessionTime: 60, update: { sessionTime: 90, date: dayjs('2021-12-02') } };
 const appointmentsState = {

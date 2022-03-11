@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setAppointmentDate } from '../../../../../../../../redux/appointments/actions';
+import { setAppointmentDate } from '../../../../../../../../../../redux/appointments/actions';
 
 const useClick = (setStep, appointmentData) => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const useClick = (setStep, appointmentData) => {
     );
   };
 
-  return [handleClick];
+  return handleClick;
 };
 
 export default useClick;

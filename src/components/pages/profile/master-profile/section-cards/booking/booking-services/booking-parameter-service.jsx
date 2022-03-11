@@ -45,7 +45,12 @@ const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
 
           const isDisabled = getIsDisabled(bookingAppointment, bookingSubService, timetable);
 
-          const handleOnClick = goTo(setStep, bookingSubService, dispatch);
+          const handleOnClick = goTo({
+            setStep,
+            service: bookingSubService,
+            dispatch,
+            isAfterUpdate,
+          });
 
           return (
             <div
