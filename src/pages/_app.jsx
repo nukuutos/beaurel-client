@@ -11,9 +11,11 @@ import '../utils/font-awesome';
 import '../sass/main.scss';
 import useScreenSize from '../hooks/use-screen-size';
 import useSocket from '../hooks/use-socket';
+import useUpdateStatus from '../hooks/use-update-status';
 
 const WrappedApp = ({ Component, pageProps }) => {
   useScreenSize();
+  useUpdateStatus();
   useSocket();
 
   return <Component {...pageProps} />;
