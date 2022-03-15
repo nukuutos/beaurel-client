@@ -15,7 +15,6 @@ const INITIAL_STATE = {
   firstName: null,
   lastName: null,
   phone: null,
-  email: null,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {

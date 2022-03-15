@@ -1,4 +1,9 @@
-import { GET_WORKS_SUCCESS, DELETE_WORK_SUCCESS, ADD_WORK_SUCCESS, UPDATE_WORK_SUCCESS } from './types';
+import {
+  GET_WORKS_SUCCESS,
+  DELETE_WORK_SUCCESS,
+  ADD_WORK_SUCCESS,
+  UPDATE_WORK_SUCCESS,
+} from './types';
 
 const INITIAL_STATE = { masterId: null, works: [] };
 
@@ -39,7 +44,7 @@ const workReducer = (state = INITIAL_STATE, action) => {
 
     case DELETE_WORK_SUCCESS:
       const { deletedId } = payload;
-      console.log(deletedId);
+
       return {
         ...state,
         works: state.works.filter((work) => work._id !== deletedId),

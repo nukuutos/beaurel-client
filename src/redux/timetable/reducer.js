@@ -51,7 +51,7 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
         timetable: { update, ...currentTimetable },
       } = payload;
 
-      if (update) update.date = dayjs(update.date).utc(true);
+      if (update?.date) update.date = dayjs(update.date).utc(true);
 
       return {
         ...state,

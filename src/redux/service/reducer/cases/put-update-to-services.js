@@ -16,13 +16,13 @@ const putUpdateToServices = (state, payload) => {
       serviceIndex = copiedServices.some((service, serviceIndex) => {
         if (!service.subServices) return false;
 
-        service.subServices.some((subService, subServiceIndex) => {
+        const isFound = service.subServices.some((subService, subServiceIndex) => {
           if (subService.id !== id) return false;
           indexes = { service: serviceIndex, subService: subServiceIndex };
           return true;
         });
 
-        return true;
+        return isFound;
       });
     }
 

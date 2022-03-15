@@ -1,4 +1,4 @@
-import { ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITES } from './types';
+import { ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITES, GET_FAVORITES_ON_SCROLL } from './types';
 
 const INITIAL_STATE = [];
 
@@ -19,6 +19,10 @@ const favoritesReducer = (state = INITIAL_STATE, action) => {
     case DELETE_FAVORITE: {
       const { deletedMasterId } = payload;
       return state.filter((master) => master._id !== deletedMasterId);
+    }
+
+    case GET_FAVORITES_ON_SCROLL: {
+      return [...state, ...payload];
     }
 
     default:

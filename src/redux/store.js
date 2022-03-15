@@ -25,12 +25,21 @@ const rootReducer = (state, action) => {
 
     const authState = hydrateState(state.auth, nextState.auth);
 
+    const messagesState = hydrateState(
+      state.messages.activeInterlocutor,
+      nextState.messages.activeInterlocutor
+    );
+
     nextState.auth = authState;
+    nextState.messages.activeInterlocutor = messagesState;
 
     // if (!payload.auth.accessToken) nextState = state.auth;
     if (!payload.services.masterId) nextState.services = state.services;
-
+    if (state.masterTools.isViewed) nextState.masterTools = state.masterTools;
+    // if (state.timezone.city)
+    nextState.timezone = state.timezone;
     nextState.screenSize = state.screenSize;
+    nextState.modal = state.modal;
 
     return nextState;
   }

@@ -10,6 +10,8 @@ import {
   CHANGE_APPOINTMENT_STATUS,
   UPSERT_APPOINTMENT_REVIEW,
   UPDATE_UNSUITABLE_APPOINTMENT,
+  SET_APPOINTMENTS_NOTIFICATIONS,
+  GET_APPOINTMENTS_ON_SCROLL,
 } from './types';
 
 export const getAppointmentsSuccess = (appointments) => ({
@@ -62,4 +64,14 @@ export const upsertAppointmentReview = (appointmentData) => ({
 export const updateUnsuitableAppointment = (appointmentData) => ({
   type: UPDATE_UNSUITABLE_APPOINTMENT,
   payload: appointmentData,
+});
+
+export const setAppointmentsNotifications = (notifications) => ({
+  type: SET_APPOINTMENTS_NOTIFICATIONS,
+  payload: notifications,
+});
+
+export const getAppointmentsOnScroll = (appointments) => ({
+  type: GET_APPOINTMENTS_ON_SCROLL,
+  payload: appointments,
 });
