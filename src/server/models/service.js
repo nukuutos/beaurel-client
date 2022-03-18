@@ -5,25 +5,23 @@ import services from '../pipelines/service/services';
 class Service {
   static async getServices(masterId) {
     const { db } = await connectToDatabase();
-    const data = await db
-      .collection('timetables')
-      .aggregate(services(new ObjectId(masterId)))
-      .toArray();
+    const pipeline = services(new ObjectId(masterId));
+    const data = await db.collection('timetables').aggregate(pipeline).next();
+    const { timetable, services: unsortedServices } = data || {};
+    const sortedServices = this.sortServices(unsortedServices);
+    return { ...data, services: sortedServices, timetable: timetable || [] };
+  }
 
-    let { services: servicesData, timetable } = data[0];
-
-    // indexes or good sort algo, okay?
-    // sort subServices
-    servicesData = servicesData.map((service) => {
+  static sortServices(services) {
+    if (!services) return [];
+    // sort sub services
+    services = services.map((service) => {
       if (!service.subServices) return service;
       service.subServices.sort((a, b) => a.subOrder - b.subOrder);
       return service;
     });
-
     // sort services
-    servicesData = servicesData.sort((a, b) => a.order - b.order);
-
-    return { services: servicesData, timetable };
+    return services.sort((a, b) => a.order - b.order);
   }
 }
 

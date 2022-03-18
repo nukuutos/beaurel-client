@@ -1,19 +1,13 @@
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../database';
+import timetable from '../pipelines/timetable/timetable';
 
 class Timetable {
-  static async findOne(query, projection = null) {
+  static async getData(masterId) {
     const { db } = await connectToDatabase();
-
-    if (query.masterId) query.masterId = new ObjectId(query.masterId);
-
-    const data = await db.collection('timetables').findOne(query, { projection: projection });
-
-    if (data.masterId) data.masterId = String(data.masterId);
-    if (data._id) data._id = String(data._id);
-    if (data.update && data.update.date) data.update.date = String(data.update.date);
-
-    return data;
+    const pipeline = timetable(new ObjectId(masterId));
+    const data = await db.collection('timetables').aggregate(pipeline).next();
+    return data || {};
   }
 }
 
