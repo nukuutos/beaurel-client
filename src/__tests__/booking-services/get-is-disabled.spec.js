@@ -1,9 +1,8 @@
 import getCorrectService from '../../components/pages/profile/master-profile/section-cards/booking/booking-services/utils/get-correct-service';
 import getIsDisabled from '../../components/pages/profile/master-profile/section-cards/booking/booking-services/utils/get-is-disabled';
+import { getDateUTC } from '../../utils/dayjs';
 
 import '../../utils/dayjs-plugins';
-
-import { getDateUTC } from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/booking-timetable-phone/utils';
 
 describe('Get is Disabled', () => {
   it('unsuitable service', () => {
@@ -56,6 +55,20 @@ describe('Get is Disabled', () => {
     });
     isDisabled = getIsDisabled(bookingAppointment, service, timetable);
     expect(isDisabled).toBeFalsy();
+
+    // if services first and service update is expired
+    bookingAppointment = {
+      time: null,
+      date: null,
+    };
+    correctService = getCorrectService({
+      step: 1,
+      service,
+      today: null,
+      isAfterUpdate: false,
+    });
+    isDisabled = getIsDisabled(bookingAppointment, service, timetable);
+    expect(isDisabled).toBeTruthy();
   });
 
   it('auto timetable', () => {

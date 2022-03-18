@@ -1,4 +1,4 @@
-import ManuallyTimetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/week/manually-timetable';
+import ManuallyTimetable from '../../components/pages/profile/master-profile/section-cards/booking/booking-timetable/display-timetable/use-week/timetables/manually-timetable';
 
 const sessionTime = 60;
 const appointments = {
