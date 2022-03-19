@@ -1,29 +1,15 @@
 const limit = 10;
-
-const masterAppointmentsAndCustomers = (masterId, status) => [
-  { $match: { $or: [{ masterId }, { customerId: masterId }] } },
+// with sessionTime
+const customerAppointmentsAndMasters = (customerId, status) => [
+  { $match: { customerId } },
   {
     $facet: {
       appointmentsNotifications: [
         {
           $match: {
             $and: [
-              {
-                $or: [
-                  {
-                    $and: [
-                      { $expr: { $eq: ['$customerId', masterId] } },
-                      { $expr: { $eq: ['$isViewed.customer', false] } },
-                    ],
-                  },
-                  {
-                    $and: [
-                      { $expr: { $eq: ['$masterId', masterId] } },
-                      { $expr: { $eq: ['$isViewed.master', false] } },
-                    ],
-                  },
-                ],
-              },
+              { $expr: { $eq: ['$customerId', customerId] } },
+              { $expr: { $eq: ['$isViewed.customer', false] } },
               {
                 $expr: {
                   $in: ['$status', ['confirmed', 'onConfirmation', 'unsuitable']],
@@ -43,19 +29,10 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
         {
           $group: {
             _id: null,
-            master: {
-              $addToSet: {
-                $cond: {
-                  if: { $eq: ['$masterId', masterId] },
-                  then: '$status',
-                  else: '$$REMOVE',
-                },
-              },
-            },
             customer: {
               $addToSet: {
                 $cond: {
-                  if: { $eq: ['$customerId', masterId] },
+                  if: { $eq: ['$customerId', customerId] },
                   then: '$status',
                   else: '$$REMOVE',
                 },
@@ -63,12 +40,12 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
             },
           },
         },
+        { $addFields: { master: [] } },
         { $project: { _id: 0 } },
       ],
       appointments: [
         {
           $match: {
-            masterId,
             status,
           },
         },
@@ -83,10 +60,10 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
           $lookup: {
             from: 'users',
             let: {
-              customerId: '$customerId',
+              masterId: '$masterId',
             },
             pipeline: [
-              { $match: { $expr: { $eq: ['$_id', '$$customerId'] } } },
+              { $match: { $expr: { $eq: ['$_id', '$$masterId'] } } },
               {
                 $project: {
                   _id: { $convert: { input: '$_id', to: 'string' } },
@@ -145,7 +122,7 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
     $lookup: {
       from: 'messages',
       let: {
-        userId: masterId,
+        userId: customerId,
       },
       pipeline: [
         {
@@ -176,33 +153,6 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
     },
   },
   { $project: { messagesNotifications: 0, appointmentsNotifications: 0 } },
-  {
-    $lookup: {
-      from: 'users',
-      let: {
-        masterId,
-      },
-      pipeline: [
-        {
-          $match: {
-            $expr: { $eq: ['$_id', '$$masterId'] },
-          },
-        },
-        { $project: { _id: 0, tools: 1 } },
-      ],
-      as: 'tools',
-    },
-  },
-  {
-    $addFields: {
-      'globalData.tools': { $arrayElemAt: ['$tools.tools', 0] },
-    },
-  },
-  {
-    $project: {
-      tools: 0,
-    },
-  },
 ];
 
-export default masterAppointmentsAndCustomers;
+export default customerAppointmentsAndMasters;

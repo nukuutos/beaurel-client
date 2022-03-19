@@ -1,9 +1,4 @@
-const mastersWithFavorites = (userId) => [
-  {
-    $match: {
-      role: 'master',
-    },
-  },
+const mastersWithFavorites = (userId, city) => [
   {
     $facet: {
       favoriteMasters: [
@@ -70,6 +65,7 @@ const mastersWithFavorites = (userId) => [
         },
       ],
       masters: [
+        { $match: { city, 'tools.isServices': true, 'tools.isTimetable': true, role: 'master' } },
         {
           $project: {
             firstName: 1,
@@ -122,11 +118,157 @@ const mastersWithFavorites = (userId) => [
           $limit: 10,
         },
       ],
+      // notifications
+      notifications: [
+        {
+          $match: {
+            _id: userId,
+          },
+        },
+        { $project: { _id: 1 } },
+        {
+          $lookup: {
+            from: 'appointments',
+            let: {
+              userId: '$_id',
+            },
+            pipeline: [
+              {
+                $match: {
+                  $and: [
+                    {
+                      $or: [
+                        {
+                          $and: [
+                            { $expr: { $eq: ['$customerId', '$$userId'] } },
+                            { $expr: { $eq: ['$isViewed.customer', false] } },
+                          ],
+                        },
+                        {
+                          $and: [
+                            { $expr: { $eq: ['$masterId', '$$userId'] } },
+                            { $expr: { $eq: ['$isViewed.master', false] } },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      $expr: {
+                        $in: ['$status', ['confirmed', 'onConfirmation', 'unsuitable']],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                $project: {
+                  _id: 1,
+                  masterId: 1,
+                  customerId: 1,
+                  status: 1,
+                },
+              },
+              {
+                $group: {
+                  _id: null,
+                  master: {
+                    $addToSet: {
+                      $cond: {
+                        if: { $eq: ['$masterId', '$$userId'] },
+                        then: '$status',
+                        else: '$$REMOVE',
+                      },
+                    },
+                  },
+                  customer: {
+                    $addToSet: {
+                      $cond: {
+                        if: { $eq: ['$customerId', '$$userId'] },
+                        then: '$status',
+                        else: '$$REMOVE',
+                      },
+                    },
+                  },
+                },
+              },
+              { $project: { _id: 0 } },
+            ],
+            as: 'appointments',
+          },
+        },
+        {
+          $lookup: {
+            from: 'messages',
+            let: {
+              userId: '$_id',
+            },
+            pipeline: [
+              {
+                $match: {
+                  isUnread: true,
+                  $expr: { $eq: ['$recipientId', '$$userId'] },
+                },
+              },
+              {
+                $group: {
+                  _id: null,
+                  isUnread: { $first: '$isUnread' },
+                },
+              },
+              { $project: { _id: 0 } },
+            ],
+            as: 'messages',
+          },
+        },
+        { $project: { _id: 0 } },
+        {
+          $addFields: {
+            appointments: { $arrayElemAt: ['$appointments', 0] },
+            messages: { $arrayElemAt: ['$messages', 0] },
+          },
+        },
+      ],
     },
   },
   {
     $addFields: {
-      favoriteMasters: { $arrayElemAt: ['$favoriteMasters.masters', 0] },
+      globalData: {
+        notifications: { $arrayElemAt: ['$notifications', 0] },
+        favorites: { $arrayElemAt: ['$favoriteMasters.masters', 0] },
+      },
+    },
+  },
+  {
+    $project: {
+      notifications: 0,
+      favoriteMasters: 0,
+    },
+  },
+  {
+    $lookup: {
+      from: 'users',
+      let: {
+        userId,
+      },
+      pipeline: [
+        {
+          $match: {
+            $expr: { $eq: ['$_id', '$$userId'] },
+          },
+        },
+        { $project: { _id: 0, tools: 1 } },
+      ],
+      as: 'tools',
+    },
+  },
+  {
+    $addFields: {
+      'globalData.tools': { $arrayElemAt: ['$tools.tools', 0] },
+    },
+  },
+  {
+    $project: {
+      tools: 0,
     },
   },
 ];

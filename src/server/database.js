@@ -28,8 +28,6 @@ export async function connectToDatabase() {
     return cached.conn;
   }
 
-  console.log(MONGODB_URI, DB_NAME);
-
   if (!cached.promise) {
     const opts = {
       useNewUrlParser: true,

@@ -1,7 +1,10 @@
-const masters = () => [
+const masters = (city) => [
   {
     $match: {
       role: 'master',
+      city,
+      'tools.isServices': true,
+      'tools.isTimetable': true,
     },
   },
   {
@@ -10,6 +13,7 @@ const masters = () => [
       lastName: 1,
       avatar: 1,
       placeOfWork: 1,
+      specialization: 1,
     },
   },
   // rating
