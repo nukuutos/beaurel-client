@@ -9,6 +9,8 @@ const useAsyncAction = () => {
 
   const asyncAction = useCallback(
     async (config) => {
+      isCancelled.current = false;
+
       setIsLoading(true);
 
       const data = await asyncCall(dispatch, config);
