@@ -9,19 +9,18 @@ import Progress from '../components/pages/sign-up/progress/progress';
 import useProgress from '../components/pages/sign-up/use-progress';
 
 const SignIn = () => {
-  const { isPhone } = useSelector((state) => state.screenSize);
   const [isCustomer, setIsCustomer] = useState(true);
   const [state, setState, actions] = useProgress();
 
   const { goToNextStep, resetProgress, disableProgressBar } = actions;
 
-  const stepsCount = isCustomer ? 4 : 5;
+  const stepsCount = isCustomer ? 5 : 6;
 
   return (
     <Layout>
-      <main className={`content ${isPhone ? '' : 'card card--layout'}`}>
+      <main className="content">
         <div className="sign-up">
-          <h1 className="logo">Beautify</h1>
+          <h1 className="logo">Beaurel</h1>
 
           <Progress count={stepsCount} state={[state, setState]} />
 
