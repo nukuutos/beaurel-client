@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from 'react';
 
 const useBlockScroll = (htmlTag) => {
   useEffect(() => {
     const element = document.querySelector(htmlTag);
-    element.style.overflow = "hidden";
+    element.style.overflow = 'hidden';
 
     return () => {
-      element.style.overflow = "visible";
+      element.style.overflow = 'visible';
     };
   }, []);
 };

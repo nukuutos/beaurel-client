@@ -1,9 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useStarProfile from './use-star-profile';
+import useProfileMasterData from './use-profile-master-data';
 
-const StarProfile = ({ masterData }) => {
-  const [handleClick, isFavorite] = useStarProfile(masterData);
+const StarProfile = ({ masterData = null }) => {
+  const data = useProfileMasterData(masterData);
+  const [handleClick, isFavorite] = useStarProfile(data);
 
   return (
     <button type="button" onClick={handleClick} className="profile__star-profile">

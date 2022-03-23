@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const renderStars = (score, starSize = 'medium') => {
+const DisplayStars = ({ score, starSize = 'medium' }) => {
   const [int, decimal] = String(score)
     .split('.')
     .map((num) => Number(num));
@@ -18,4 +18,4 @@ const renderStars = (score, starSize = 'medium') => {
   return stars;
 };
 
-export default renderStars;
+export default DisplayStars;
