@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../../../base/modal';
+import Modal from '../../../base/modal/modal';
 import MainNavbar from './navbars/main-navbar';
 import Sidenav from './navbars/sidenav';
 
@@ -14,8 +14,10 @@ const NavigationPhone = ({ links }) => {
 
   return (
     <>
-      {isActive && <Modal onBackgroundClose={closeNavigation} />}
-      <MainNavbar links={links} className={mainNavbarClassName} />
+      {isActive && (
+        <Modal closeOnTouch className="modal--transparent" onClickClose={closeNavigation} />
+      )}
+      <MainNavbar closeNavigation={closeNavigation} links={links} className={mainNavbarClassName} />
       <Sidenav openNavigation={openNavigation} />
     </>
   );

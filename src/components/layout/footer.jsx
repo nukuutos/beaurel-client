@@ -7,7 +7,7 @@ const Footer = () => (
       <span className="footer__about">О нас</span>
       <FontAwesomeIcon className="footer__instagram" icon={['fab', 'instagram']} />
     </div>
-    <h1 className="logo footer__logo">Beautify</h1>
+    <h1 className="logo footer__logo">Beaurel</h1>
   </footer>
 );
 

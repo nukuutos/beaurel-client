@@ -1,17 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import useSidenav from './use-navbar/use-sidenav/use-sidenav';
+import { useSelector } from 'react-redux';
+import SidenavLinks from './navbar-links/sidenav-links/sidenav-links';
 
 const Sidenav = ({ openNavigation }) => {
-  const sidenavLinks = useSidenav();
+  const { id } = useSelector((state) => state.auth);
+
+  const publicClassName = id ? '' : 'mobile-navbar__main--public';
 
   return (
     <nav className="mobile-navbar card card--layout">
-      <div className="mobile-navbar__main">
-        {sidenavLinks}
-        <li onClick={openNavigation} className="mobile-navbar__item">
-          <FontAwesomeIcon className="mobile-navbar__icon" icon="bars" />
-        </li>
+      <div className={`mobile-navbar__main ${publicClassName}`}>
+        <SidenavLinks />
+        {id && (
+          <li onClick={openNavigation} className="mobile-navbar__item mobile-navbar__item--menu">
+            <FontAwesomeIcon className="mobile-navbar__icon" icon="bars" />
+          </li>
+        )}
       </div>
     </nav>
   );

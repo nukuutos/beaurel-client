@@ -1,118 +1,39 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Formik, Form } from 'formik';
-import { useState, useRef, useEffect } from 'react';
-
+import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import useSearch from './use-search';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-
-import Input from '../../../base/form/input';
-import Modal from '../../../base/modal';
+import useScroll from './use-scroll';
+import Modal from '../../../base/modal/modal';
 import ModalHeading from '../../../base/modal/modal-heading';
+import useLoadOnRender from './use-load-on-render';
+import CityCard from './city-card';
+import CitySearchForm from './city-search-form/city-search-form';
 
-const onCityClick = (data, setCity, onClose) => {
-  const { city, timezone } = data;
-
-  setCity(city);
-  localStorage.setItem('city', city);
-  localStorage.setItem('timezone', timezone);
-  onClose();
-};
-
-const CitySearch = ({ onClickClose, setCity }) => {
+const CitySearch = ({ onClickClose }) => {
+  const [{ city }, { isPhone }] = useSelector((state) => [state.timezone, state.screenSize]);
   const [data, setData] = useState([]);
 
-  const { isPhone } = useSelector((state) => state.screenSize);
-
   const form = useRef();
-  const [lastRef, { page, hasMore }, isPaginationLoading] = useSearch(form, setData);
-
-  const [onRenderAsyncAction, isRenderLoading] = useAsyncAction('initial search');
-  const [onSearchAsyncAction, isSubmitLoading, isCancelled] = useAsyncAction('form search');
-
-  useEffect;
-  useEffect(() => {
-    const getCities = async () => {
-      const config = {
-        method: 'get',
-        url: `/timezone/city`,
-        params: { city: '', page: 0 }, // add city
-        accessToken: 'nothing',
-      };
-
-      const data = await onRenderAsyncAction(config);
-
-      if (data && !isCancelled.current) setData(data.cities);
-    };
-
-    getCities();
-  }, []);
+  const [lastRef, { page, hasMore }] = useScroll(form, setData);
+  const isLoading = useLoadOnRender(setData);
 
   return (
-    <Modal isMobileBackground onClickClose={onClickClose}>
+    <Modal onClickClose={onClickClose}>
       <div className={`city-search ${isPhone ? '' : 'card'}`}>
-        <ModalHeading title="Выбрать город" onClickClose={onClickClose} />
-        {isRenderLoading && <div className="spinner-with-background" />}
-        <Formik
-          innerRef={form}
-          initialValues={{ city: '' }}
-          onSubmit={async (values, { initialValues }) => {
-            const { city } = values;
-
-            const config = {
-              method: 'get',
-              url: `/timezone/city`,
-              params: { city, page }, // add city
-              accessToken: 'nothing',
-            };
-
-            const data = await onSearchAsyncAction(config);
-
-            if (data) setData(data.cities);
-
-            hasMore.current = true;
-            page.current = 0;
-          }}
-        >
-          {({ submitForm, handleChange }) => (
-            <Form className="city-search__form mb-1">
-              <div className="city-search__bar">
-                <label className="label label--primary">Город</label>
-                <div className="input--icon">
-                  <FontAwesomeIcon className="input__icon" icon="search" />
-                  <Input
-                    onChange={(e) => {
-                      handleChange(e);
-                      submitForm();
-                    }}
-                    type="text"
-                    className="input ml-2"
-                    name="city"
-                  />
-                </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
-        {/* {!isSubmitLoading && <Spinner />} */}
+        <ModalHeading
+          titleDesktopClassName="city-search__heading"
+          title="Выбрать город"
+          onClickClose={onClickClose}
+        />
+        {isLoading && <div className="spinner-with-background" />}
+        <div className="current-city">
+          <span className="current-city__label">Ваше местоположение</span>
+          <span className="current-city__value">{city}</span>
+        </div>
+        <CitySearchForm setData={setData} page={page} hasMore={hasMore} form={form} />
         {data.map((cityData, i) =>
           data.length - 5 === i ? (
-            <div
-              ref={lastRef}
-              key={i}
-              onClick={() => onCityClick(cityData, setCity, onClickClose)}
-              className="city-search__city mt-5"
-            >
-              {cityData.city}
-            </div>
+            <CityCard cityData={cityData} cityRef={lastRef} />
           ) : (
-            <div
-              key={i}
-              onClick={() => onCityClick(cityData, setCity, onClickClose)}
-              className="city-search__city mt-5"
-            >
-              {cityData.city}
-            </div>
+            <CityCard cityData={cityData} />
           )
         )}
       </div>
