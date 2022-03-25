@@ -1,12 +1,11 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .appointment-types {
   padding: 1.6rem 0;
-  // background: $color-gray-light-3;
+  margin-top: 3.2rem;
   background: $color-white;
   text-align: center;
-
   font-size: 1.6rem;
 
   & > *:not(:last-child) {
@@ -14,18 +13,35 @@
   }
 
   @include respond(phone) {
-    padding: 1.6rem 1.2rem;
     overflow-x: auto;
-    // padding: 1.2rem 3.2rem 1.6rem;
-    // text-align: left;
-    // color: $color-primary;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    margin-top: 2.4rem;
+
+    & > *:not(:last-child) {
+      margin-right: 0.8rem;
+    }
   }
 
   &__type {
+    position: relative;
     padding: 0.4rem 0.8rem;
     transition: 0.2s background;
     border-radius: 1rem;
     cursor: pointer;
+
+    &--notification::after {
+      right: -0.2rem;
+      top: 0;
+      content: '';
+      display: block;
+      position: absolute;
+      $diameter: 0.6rem;
+      width: $diameter;
+      height: $diameter;
+      border-radius: 50%;
+      background: $color-primary;
+    }
 
     &:hover {
       background: $color-gray-light-1;

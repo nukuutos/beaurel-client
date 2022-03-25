@@ -1,13 +1,15 @@
+import { useSelector } from 'react-redux';
 import getClassName from './get-class-name';
 
 const AppointmentsController = ({ userState }) => {
+  const { isNotification } = useSelector((state) => state.appointments);
   const [user, setState] = userState;
 
   const switchToMaster = () => setState((state) => ({ ...state, user: 'master' }));
   const switchToCustomer = () => setState((state) => ({ ...state, user: 'customer' }));
 
-  const masterAppointmentsClassName = getClassName(user, 'master');
-  const customerAppointmentsClassName = getClassName(user, 'customer');
+  const masterAppointmentsClassName = getClassName(user, 'master', isNotification);
+  const customerAppointmentsClassName = getClassName(user, 'customer', isNotification);
 
   return (
     <h1 className="appointments__controller appointment-controller card mt-8">

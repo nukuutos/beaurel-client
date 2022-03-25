@@ -4,7 +4,7 @@ import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 import { setAppointments } from '../../../redux/appointments/actions';
 
 const useGetAppointments = (state) => {
-  const [{ appointments: appointmentsState }, { id: profileId, accessToken }] = useSelector(
+  const [{ appointments: appointmentsState }, { id: profileId, accessToken, role }] = useSelector(
     (state) => [state.appointments, state.auth]
   );
 
@@ -18,7 +18,8 @@ const useGetAppointments = (state) => {
   const getAppointments = useCallback(async () => {
     const config = {
       method: 'get',
-      url: `/profile/${profileId}/appointment/${user}?category=${category}`,
+      url: `/profile/${profileId}/appointment/${user}`,
+      params: { page: 0, category },
       accessToken,
     };
 
@@ -29,9 +30,13 @@ const useGetAppointments = (state) => {
     }
   }, [accessToken, asyncAction, profileId, dispatch, user, category]);
 
+  const isSameRole = role === user;
+  const isOnConfirmationCategory = category === 'onConfirmation';
+  const needToLoadCategory = !(isSameRole && isOnConfirmationCategory); // for SSR data
+
   useEffect(() => {
-    if (!isLoaded) getAppointments();
-  }, [isLoaded, getAppointments]);
+    if (!isLoaded && needToLoadCategory) getAppointments();
+  }, [isLoaded, getAppointments, needToLoadCategory]);
 
   return [appointments, isLoading];
 };

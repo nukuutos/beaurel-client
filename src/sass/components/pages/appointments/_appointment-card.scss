@@ -8,6 +8,8 @@
   row-gap: 0.8rem;
   padding: 1.2rem 0 0;
   background: $color-white;
+  position: relative;
+  overflow: visible;
 
   & > *:last-child {
     padding: 1.2rem;
@@ -16,6 +18,17 @@
 
   @include respond(phone) {
     padding-top: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  &__new {
+    position: absolute;
+    color: $color-primary;
+    font-weight: 700;
+    font-size: 1.6rem;
+    top: 0;
+    right: 0;
+    transform: translateY(-125%);
   }
 
   &__header {
@@ -27,6 +40,7 @@
     justify-self: flex-start;
     align-items: center;
     padding-bottom: 0.8rem;
+    cursor: pointer;
   }
 
   &__avatar {
@@ -72,7 +86,7 @@
     align-items: center;
     grid-column: 10 / -1;
 
-    color: $color-primary-dark-2;
+    color: $color-gray-dark-2;
 
     & > * {
       height: 1.6rem;
@@ -142,5 +156,9 @@
 
   &__no-review {
     font-weight: 500;
+
+    &--fail {
+      color: $color-fail;
+    }
   }
 }

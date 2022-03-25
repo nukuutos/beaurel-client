@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .edit-review {
   // display: grid;
@@ -67,16 +67,5 @@
     font-size: 1.2rem;
     color: $color-gray;
     align-self: flex-end;
-  }
-
-  &__button {
-    align-self: flex-end;
-
-    @include respond(phone) {
-      align-self: stretch;
-      & > * {
-        width: 100%;
-      }
-    }
   }
 }
