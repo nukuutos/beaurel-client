@@ -11,6 +11,11 @@
     margin-bottom: 2rem;
   }
 
+  &__no-masters {
+    grid-column: 1 / -1;
+    padding-top: 4rem;
+  }
+
   @include respond(phone) {
     &__heading {
       grid-column: 1 / -1;
@@ -19,7 +24,6 @@
 
     &__master-card {
       grid-column: 1 / -1;
-      margin-top: 1.6rem;
     }
   }
 }
