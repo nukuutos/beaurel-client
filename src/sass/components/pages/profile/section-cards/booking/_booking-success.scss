@@ -1,16 +1,23 @@
-@use "../../../../../abstracts/colors" as *;
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/colors' as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .booking-success {
   width: 36rem;
   background: $color-white;
-
-  // display: grid;
-  // grid-template-columns: repeat(12, 1fr);
-  // column-gap: 1.6rem;
   display: flex;
   flex-direction: column;
   padding: 0 2rem 2.4rem;
+
+  &__heading {
+    text-transform: uppercase;
+    color: #2ec32e;
+    font-weight: 500;
+
+    &::after {
+      height: 2px;
+      background: #e8e2ed;
+    }
+  }
 
   @include respond(phone) {
     padding-top: 2.4rem;
@@ -21,7 +28,13 @@
   }
 
   &__text {
-    line-height: 2.4rem;
+    text-align: center;
+    line-height: 2.8rem;
+    font-weight: 500;
+    color: $color-gray-dark-2;
+    font-size: 2rem;
+    margin-top: 2.8rem;
+    // font-weight: 500;
   }
 
   &__button {

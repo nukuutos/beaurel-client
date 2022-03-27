@@ -1,8 +1,8 @@
-@use "../../../../../abstracts/colors" as *;
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/colors' as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .booking-result {
-  width: 45.2rem;
+  width: 44rem;
   background: $color-white;
 
   display: grid;
@@ -11,16 +11,28 @@
   padding: 0 0 2.4rem;
 
   @include respond(phone) {
-    padding: 2.4rem 0;
+    padding: 1.2rem 0 2.4rem;
   }
 
   &__heading {
     grid-column: 2 / 12;
+
+    text-transform: uppercase;
+    color: #502f66;
+    font-weight: 500;
+    margin-top: 1.2rem;
+
+    &::after {
+      height: 2px;
+      background: #e8e2ed;
+    }
   }
 
   &__svg {
     grid-column: 4 / 10;
     justify-self: center;
+    transform: scale(1.2);
+    margin: 2rem 0;
 
     @include respond(phone) {
       margin-top: 3.2rem;
@@ -28,8 +40,11 @@
   }
 
   &__label {
-    grid-column: 3 / 5;
+    grid-column: 4 / 5;
     line-height: 2.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    justify-self: flex-end;
   }
 
   &__value {
@@ -39,16 +54,16 @@
     font-weight: 700;
   }
 
-  &__buttons {
+  &__button {
     grid-column: 2 / 12;
 
-    display: flex;
-    justify-content: flex-end;
+    // display: flex;
+    // justify-content: flex-end;
 
-    @include respond(phone) {
-      & > * {
-        flex: 1;
-      }
-    }
+    // @include respond(phone) {
+    //   & > * {
+    //     flex: 1;
+    //   }
+    // }
   }
 }

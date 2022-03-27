@@ -28,7 +28,7 @@ const useGetDataForBooking = () => {
 
       const data = await asyncAction(config);
 
-      const { timetable, appointments, isServices } = data;
+      const { timetable, appointments, isServices } = data || {};
 
       if (timetable) {
         dispatch(getTimetableSuccess({ timetable: { masterId, isServices, ...timetable } }));

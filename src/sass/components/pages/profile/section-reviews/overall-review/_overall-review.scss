@@ -1,5 +1,5 @@
-@use "../../../../../abstracts/colors" as *;
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/colors' as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .overall-review {
   display: grid;
@@ -7,7 +7,6 @@
   column-gap: 1.6rem;
   padding: 3.6rem 1.6rem;
 
-  // background: $color-gray-light-3;
   background: $color-white;
   color: $color-gray-dark-1;
 
@@ -19,9 +18,10 @@
 
   @include respond(phone) {
     margin-top: 2rem;
-
     column-gap: 1.6rem;
     padding: 2rem;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   &__result {
@@ -57,12 +57,6 @@
       }
     }
   }
-
-  // &__reviews-count {
-  // 	@include respond(phone) {
-  // 		font-size: 1.2rem;
-  // 	}
-  // }
 
   &__rating-indicators {
     grid-column: 7 / -1;

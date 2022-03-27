@@ -1,4 +1,4 @@
-@use "../../../../../../abstracts/colors" as *;
+@use '../../../../../../abstracts/colors' as *;
 
 .booking-service-parameter {
   overflow: unset;
@@ -6,7 +6,7 @@
   &--hover {
     &:hover {
       //important box-shadow && 0.1s!
-      box-shadow: 0 0 0 1px $color-primary;
+      box-shadow: 0 0 0 2px $color-primary;
 
       .service-parameter__icon {
         color: $color-primary;

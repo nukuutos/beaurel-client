@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../../redux/alert/actions';
 import { addWorkSuccess } from '../../../../../../../redux/work/actions';
 
 const useOnSubmit = (file, goToWorks) => {
@@ -29,9 +28,8 @@ const useOnSubmit = (file, goToWorks) => {
     const data = await asyncAction(config);
 
     if (data) {
-      const { _id, ...alert } = data;
+      const { _id } = data;
       dispatch(addWorkSuccess({ work: { _id, title } }));
-      dispatch(setAlert(alert));
       goToWorks();
     }
   };

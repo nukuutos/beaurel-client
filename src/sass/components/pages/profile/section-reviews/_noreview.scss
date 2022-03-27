@@ -19,9 +19,14 @@
     font-weight: 700;
     padding: 3.6rem 1.2rem 0;
     text-align: center;
+    color: $color-gray-dark-2;
 
     @include respond(phone) {
       padding-top: 1.6rem;
+
+      &--owner {
+        line-height: 3.2rem;
+      }
     }
   }
 
@@ -32,6 +37,10 @@
       &:not(:last-of-type) {
         margin-right: 0.8rem;
       }
+    }
+
+    &--owner > * {
+      height: 2.4rem;
     }
   }
 }

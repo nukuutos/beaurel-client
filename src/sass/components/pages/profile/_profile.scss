@@ -21,10 +21,6 @@
       @include respond(tab-port) {
         margin-top: 1.6rem;
       }
-
-      @include respond(phone) {
-        margin-top: 1.2rem;
-      }
     }
 
     @include respond(tab-port) {
@@ -32,6 +28,13 @@
     }
 
     @include respond(phone) {
+      grid-template-columns:
+        1fr repeat(2, minmax(min-content, max-content)) 0.2fr repeat(
+          4,
+          minmax(min-content, max-content)
+        )
+        4fr;
+
       margin-top: 0rem;
       column-gap: 0.8rem;
     }
@@ -153,8 +156,8 @@
   }
 
   &__map-marker {
-    height: 1.2rem;
-    margin-right: 0.4rem;
+    height: 1.6rem;
+    margin-right: 0.8rem;
   }
 
   &__about {
@@ -190,14 +193,15 @@
   &__star-profile {
     grid-row: 1 / 2;
     grid-column: 12 / 13;
-    justify-self: end;
+    justify-self: center;
     align-self: start;
     position: relative;
 
     @include respond(phone) {
+      grid-column: -2 / -1;
       margin-top: 0.4rem;
-      margin-right: 0.4rem;
-      justify-self: flex-start;
+      margin-right: 1.2rem;
+      justify-self: flex-end;
     }
   }
 
@@ -211,12 +215,10 @@
     overflow-x: auto;
 
     &:after {
-      // margin-top: 2.4rem; // because of svg import
       position: absolute;
       bottom: 0;
       width: 100%;
       height: 1px;
-      // grid-column: 1 / -1;
       display: block;
       content: '';
       background: $color-gray;
@@ -242,15 +244,9 @@
     }
   }
 
-  // &__line {
-  //   grid-column: 1 / -1;
-  //   height: 1px;
-  //   background: $color-gray;
-  // }
-
   &__no-appointment {
     grid-column: 1 / 7;
-    margin: 8rem 0;
+    margin: 9rem 0;
     color: $color-gray;
     font-size: 2rem;
     justify-self: center;
@@ -259,7 +255,7 @@
 
     @include respond(phone) {
       grid-column: 1 / -1;
-      margin: 6.8rem 0;
+      margin: 8rem 0;
     }
   }
 
@@ -268,13 +264,15 @@
     margin-top: 2rem;
     align-self: center;
     margin: 3.2rem 0;
+    margin-left: 1rem;
 
     @include respond(tab-port) {
       grid-column: 1 / 9;
+      margin-left: 0;
     }
 
     @include respond(phone) {
-      margin: 1.6rem 0;
+      margin: 2.8rem 0;
 
       grid-column: 1 / -1;
     }
@@ -343,15 +341,11 @@
     }
 
     @include respond(phone) {
-      // height: 1.2rem;
       transform: translateY(15%);
     }
   }
 
   &__horizontal-line {
-    grid-column: 1 / -1;
-    display: block;
-    height: 1px;
     background: $color-gray;
   }
 }

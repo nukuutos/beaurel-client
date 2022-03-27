@@ -31,10 +31,7 @@ const useGetAppointmentData = ({ startDay, today }) => {
     if (dateToLoad.current === formattedDate) {
       getData(dateToLoad.current);
       dateToLoad.current = date.add(4, 'week').startOf('day').format();
-      console.log('load');
     }
-
-    console.log(dateToLoad, formattedDate);
   }, [timezone, date, asyncAction, masterId, dispatch]);
 
   return isLoading;

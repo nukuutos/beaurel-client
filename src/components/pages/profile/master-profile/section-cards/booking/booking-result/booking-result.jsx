@@ -31,7 +31,7 @@ const BookingResult = ({ setStep, onClickClose }) => {
       <div className={`booking-result ${isPhone ? '' : 'card'}`}>
         {isLoading && !isPhone && <div className="spinner-with-background" />}
 
-        <BackButton onClickClose={onClickClose} />
+        {!isPhone && <BackButton onClickClose={onClickClose} />}
 
         <ModalHeading
           title="Ваша запись"

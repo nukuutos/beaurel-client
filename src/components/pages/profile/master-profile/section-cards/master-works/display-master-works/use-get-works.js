@@ -1,34 +1,30 @@
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
 import { getWorksSuccess } from '../../../../../../../redux/work/actions';
 
 const useGetWorks = () => {
-  const { masterId } = useSelector((state) => state.work);
+  const [{ id: masterId }, workState] = useSelector((state) => [state.profile, state.work]);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
-    const queryMasterId = router.query.id;
-
     const getWorks = async () => {
       const config = {
         method: 'get',
-        url: `/master/${queryMasterId}/work`,
+        url: `/master/${masterId}/work`,
         accessToken: null,
       };
 
       const data = await asyncAction(config);
 
-      if (data) dispatch(getWorksSuccess({ works: data.works, masterId: queryMasterId }));
+      if (data) dispatch(getWorksSuccess({ works: data.works, masterId }));
     };
 
-    const isWorks = masterId === queryMasterId;
+    const isWorks = workState.masterId === masterId;
 
     if (!isWorks) getWorks();
-  }, [router.query.id, masterId, asyncAction, dispatch]);
+  }, [masterId, asyncAction, dispatch, workState.masterId]);
 
   return isLoading;
 };

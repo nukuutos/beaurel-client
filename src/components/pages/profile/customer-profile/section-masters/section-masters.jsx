@@ -12,7 +12,7 @@ const SectionMasters = () => {
   return (
     <>
       <div className="profile__horizontal-line" />
-      {!favoriteMasters.length ? (
+      {favoriteMasters.length ? (
         <div className="profile__masters-section masters-section">
           <h3 className="masters-section__heading">Мастера</h3>
 

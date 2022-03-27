@@ -1,13 +1,25 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import Stars from '../../../../base/stars/stars';
 import decimalFormat from '../../../utils/decimal-format';
 import getAvatarPath from '../../../utils/get-avatar-path';
 
-const FavoriteMasterCard = ({ firstName, lastName, specialization, avatar, rating }) => {
+const FavoriteMasterCard = ({
+  _id,
+  username,
+  firstName,
+  lastName,
+  specialization,
+  avatar,
+  rating,
+}) => {
+  const router = useRouter();
   const name = `${firstName} ${lastName[0]}.`;
 
+  const goToMaster = () => router.push('/[id]', `/${username || _id}`);
+
   return (
-    <div className="favorite-master-card card">
+    <div onClick={goToMaster} className="favorite-master-card card">
       <img
         src={getAvatarPath(avatar)}
         alt="Favorite master"

@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 
-import Modal from '../../../../../base/modal';
+import Modal from '../../../../../base/modal/modal';
 import Textarea from '../../../../../base/form/textarea';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import aboutTextSchema from './schema';
@@ -14,7 +14,7 @@ const AboutEdit = ({ onClickClose }) => {
   const [onSubmit] = useOnSubmit(onClickClose);
 
   return (
-    <Modal isMobileBackground onClickClose={onClickClose}>
+    <Modal onClickClose={onClickClose}>
       <section className={`edit-about ${isPhone ? '' : 'card'}`}>
         <ModalHeading title="O себе" onClickClose={onClickClose} />
         <Formik

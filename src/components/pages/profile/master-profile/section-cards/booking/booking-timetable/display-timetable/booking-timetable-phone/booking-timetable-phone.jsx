@@ -21,7 +21,7 @@ const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoad
       <div className="booking-timetable">
         <Header setDate={setStartDay} onClickBack={onClickClose} />
         {!isUnavailableWeek && (
-          <Arrows startDayData={startDayData} day={day} controllers={controllers} />
+          <Arrows step={step} startDayData={startDayData} day={day} controllers={controllers} />
         )}
         {day}
         {!day.props.availableAppointments && !isUnavailableWeek && (

@@ -1,28 +1,21 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import Modal from '../../../../../base/modal';
-import Carousel from './carousel/carousel';
-import AddMasterWork from './add-master-work/add-master-work';
-import EditMasterWork from './edit-master-work/edit-master-work';
-import DisplayMasterWorks from './display-master-works/display-master-works';
-import MobileModalHeading from '../../../../../base/modal/mobile-modal-heading';
+import useGetWorks from './display-master-works/use-get-works';
+import MainMasterWorks from './main-master-works';
+import NoMasterWorksCustomer from './no-master-works-customer';
 
 const MasterWorks = ({ onClickClose }) => {
-  const [state, setState] = useState({ index: null, display: 'works' });
-  const { isPhone } = useSelector((state) => state.screenSize);
+  const [{ works }, { id, username }] = useSelector((state) => [state.work, state.auth]);
+  const { asPath } = useRouter();
+  const isLoading = useGetWorks();
 
-  const carouselOnClose = () => setState({ index: null, display: 'works' });
+  const isOwner = asPath === `/${id}` || asPath === `/${username}`;
+  const isWorks = works.length;
 
-  const onClose = state.display === 'carousel' ? carouselOnClose : onClickClose;
-
-  return (
-    <Modal isMobileBackground onClickClose={onClose}>
-      {isPhone && <MobileModalHeading onClickClose={onClose} title="Работы мастера" />}
-      {state.display === 'works' && <DisplayMasterWorks setParentState={setState} />}
-      {state.display === 'carousel' && <Carousel state={[state, setState]} />}
-      {state.display === 'edit' && <EditMasterWork state={[state, setState]} />}
-      {state.display === 'add' && <AddMasterWork setParentState={setState} />}
-    </Modal>
+  return isOwner || isWorks || isLoading ? (
+    <MainMasterWorks isLoading={isLoading} onClickClose={onClickClose} />
+  ) : (
+    <NoMasterWorksCustomer onClickClose={onClickClose} />
   );
 };
 

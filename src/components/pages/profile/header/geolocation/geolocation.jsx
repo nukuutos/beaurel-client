@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-
-import Maps from './maps';
+import EditPlaceOfWork from './edit-place-of-work/edit-place-of-work';
+import displayPlaceOfWork from '../../../utils/display-place-of-work';
 
 const Geolocation = () => {
-  const [isMaps, setIsMaps] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [{ placeOfWork, isPublicView, role, city }, { isPhone }] = useSelector((state) => [
     state.profile,
     state.screenSize,
@@ -13,17 +13,20 @@ const Geolocation = () => {
 
   const isMaster = role === 'master';
 
+  const openEditModal = () => setIsEdit(true);
+  const closeEditModal = () => setIsEdit(false);
+
   return (
     <div className="profile__geolocation">
       <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
 
-      {isMaps && <Maps onClickClose={() => setIsMaps(false)} />}
+      {isEdit && (isMaster ? <EditPlaceOfWork onClickClose={closeEditModal} /> : null)}
 
-      {isMaster ? placeOfWork : city}
+      {isMaster ? displayPlaceOfWork(placeOfWork) : city}
 
       {!isPublicView && (
         <FontAwesomeIcon
-          onClick={() => setIsMaps(true)}
+          onClick={openEditModal}
           className={`profile__edit ${isPhone ? 'ml-3' : 'ml-4'}`}
           icon="pen"
         />

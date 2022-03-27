@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../redux/alert/actions';
 import { updateAboutSuccess } from '../../../../../../redux/profile/actions';
 
 const useOnSubmit = (onClickClose) => {
@@ -20,7 +19,6 @@ const useOnSubmit = (onClickClose) => {
 
     if (alert) {
       dispatch(updateAboutSuccess(values.aboutText.trim()));
-      dispatch(setAlert(alert));
       onClickClose();
     }
   };

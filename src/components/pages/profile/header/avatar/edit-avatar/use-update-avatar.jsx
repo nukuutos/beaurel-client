@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../redux/alert/actions';
 import { updateAvatarSuccess } from '../../../../../../redux/profile/actions';
 
 const useUpdateAvatar = (setIsEdit) => {
@@ -21,9 +20,8 @@ const useUpdateAvatar = (setIsEdit) => {
     const data = await asyncAction(config);
 
     if (data) {
-      const { avatar, ...alert } = data;
+      const { avatar } = data;
       dispatch(updateAvatarSuccess({ avatar }));
-      dispatch(setAlert(alert));
       setIsEdit(false);
     }
   };

@@ -11,7 +11,7 @@ const useStartDay = () => {
 
   let today;
 
-  if (service?.isAfterUpdate) {
+  if (service?.isAfterUpdate && update?.date) {
     today = dayjs(update.date).tz(timezone).utc(true).subtract(1, 'day');
   } else {
     today = getToday(timezone);

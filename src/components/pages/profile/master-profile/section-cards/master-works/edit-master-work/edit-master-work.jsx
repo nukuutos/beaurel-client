@@ -31,7 +31,11 @@ const EditMasterWork = ({ state }) => {
 
   return (
     <div className={`add-master-work ${isPhone ? '' : 'card'}`}>
-      <ModalHeading title="Обновить работу" onClickClose={goToCarousel} />
+      <ModalHeading
+        title="Обновить работу"
+        // titleDesktopClassName="booking-services__heading"
+        onClickClose={goToCarousel}
+      />
 
       {isLoading && <div className="spinner-with-background" />}
 

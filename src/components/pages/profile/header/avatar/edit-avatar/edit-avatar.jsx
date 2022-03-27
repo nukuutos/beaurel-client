@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Modal from '../../../../../base/modal';
+import Modal from '../../../../../base/modal/modal';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useUpdateAvatar from './use-update-avatar';
 import useFileUpload from '../../../../../../hooks/use-file-upload';
@@ -15,7 +15,7 @@ const EditAvatar = ({ setIsEdit }) => {
   const isUserImage = avatar || isUploaded;
 
   return (
-    <Modal isMobileBackground onClickClose={() => setIsEdit(false)}>
+    <Modal onClickClose={() => setIsEdit(false)}>
       <div className={`upload-avatar ${isPhone ? '' : 'card'}`}>
         {isLoading && <div className="spinner-with-background" />}
         <ModalHeading title="Фото профиля" onClickClose={() => setIsEdit(false)} />

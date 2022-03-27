@@ -21,7 +21,6 @@ const About = () => {
       ) : (
         <EditButton onClick={openModal} />
       )}
-      {/* <EditButton onClick={openModal} /> */}
 
       {isEditAbout && <AboutEdit onClickClose={closeModal} />}
     </>

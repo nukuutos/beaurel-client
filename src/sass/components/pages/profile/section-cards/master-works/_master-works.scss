@@ -1,5 +1,5 @@
-@use "../../../../../abstracts/colors" as *;
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/colors' as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .master-works {
   position: relative;
@@ -26,6 +26,8 @@
   @include respond(phone) {
     min-height: unset;
     max-width: unset;
+    max-height: unset;
+
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
     background: $color-white;

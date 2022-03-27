@@ -1,12 +1,17 @@
-@use "../../../../abstracts/colors" as *;
+@use '../../../../abstracts/colors' as *;
+@use '../../../../abstracts/mixins' as *;
 
 .star-profile {
   position: relative;
-  height: 2rem;
-  color: $color-secondary-light;
+  height: 2.4rem;
+  color: $color-primary;
   cursor: pointer;
   z-index: 10;
   transition: 0.3s transform;
+
+  @include respond(phone) {
+    height: 2rem;
+  }
 
   &--unstar {
     z-index: 1;

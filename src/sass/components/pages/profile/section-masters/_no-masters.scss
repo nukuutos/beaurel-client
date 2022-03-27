@@ -23,12 +23,12 @@
     margin-top: 1.6rem;
 
     & > *:not(:last-of-type) {
-      margin-right: 0.4rem;
+      margin-right: 0.8rem;
     }
   }
 
   @include respond(phone) {
     grid-column: 1 / -1;
-    margin-top: 1.6rem;
+    margin-top: 0;
   }
 }

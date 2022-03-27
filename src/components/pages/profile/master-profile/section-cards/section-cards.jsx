@@ -11,6 +11,7 @@ const SectionCards = () => {
     isServices: false,
     isTimetable: false,
   });
+
   const { isPhone } = useSelector((state) => state.screenSize);
 
   const onMasterWorksClickClose = () => setState({ ...state, isMasterWorks: false });
@@ -19,8 +20,8 @@ const SectionCards = () => {
 
   return (
     <section className="profile__cards">
-      {cardsData(state, setState, isPhone).map((props, i) => (
-        <Card {...props} key={i} />
+      {cardsData(state, setState, isPhone).map((props) => (
+        <Card {...props} key={props.fileName} />
       ))}
       {state.isMasterWorks && <MasterWorks onClickClose={onMasterWorksClickClose} />}
       {state.isServices && <Booking isService onClickClose={onServiceClickClose} />}

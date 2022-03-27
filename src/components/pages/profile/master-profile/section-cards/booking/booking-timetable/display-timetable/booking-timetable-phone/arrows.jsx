@@ -7,15 +7,15 @@ const Arrows = ({ controllers, startDayData, day, step }) => {
   const { today } = startDayData;
   const { untilDate, fromDate } = useTimeFrame();
 
-  const isDaySameOrBeforeToday =
-    day.props.date.isSameOrBefore(today) ||
-    !getIsFromDate(day.props.date.subtract(1, 'd'), fromDate);
+  const isDayAfterToday =
+    day.props.date.isAfter(today.add(1, 'd')) &&
+    getIsFromDate(day.props.date.subtract(1, 'd'), fromDate);
 
   const isUntilDate = step === 1 || getIsUntilDate(day.props.date.add(1, 'd'), untilDate);
 
   return (
     <>
-      {!isDaySameOrBeforeToday && (
+      {isDayAfterToday && (
         <button type="button" onClick={toPrevDay} className="booking-timetable__side">
           <div className="booking-timetable__arrow btn-icon">
             <FontAwesomeIcon icon="chevron-left" />

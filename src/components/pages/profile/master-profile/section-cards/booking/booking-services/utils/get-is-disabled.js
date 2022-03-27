@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const isDisabledServiceWithAutoTimetable = (bookingAppointment, service, timetable) => {
   const { time: startAt, availableAppointments } = bookingAppointment;
   const { sessionTime } = timetable;
@@ -30,14 +32,13 @@ const isDisabledServiceWithManuallyTimetable = (bookingAppointment, service) => 
   return false;
 };
 
-const getIsServiceUnsuitable = (service, today = null) => {
+const getIsServiceUnsuitable = (service, today) => {
+  today = today || dayjs().startOf('day').utc(true);
+
   const { update } = service;
   if (!update || !update.date || !today) return false;
-
   const { date: updateDate } = update;
-
   if (updateDate.isSameOrBefore(today) && update.status === 'unsuitable') return true;
-
   return false;
 };
 
@@ -45,10 +46,10 @@ const getIsServiceUnsuitable = (service, today = null) => {
 const getIsDisabled = (bookingAppointment, correctService, timetable) => {
   const { time, date } = bookingAppointment;
 
-  if (!time) return false;
-
   const isServiceUnsuitable = getIsServiceUnsuitable(correctService, date);
   if (isServiceUnsuitable) return true;
+
+  if (!time) return false;
 
   const { update } = timetable;
 
