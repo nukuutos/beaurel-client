@@ -1,4 +1,4 @@
-@use "../../abstracts/colors" as *;
+@use '../../abstracts/colors' as *;
 
 .mobile-navbar {
   position: fixed;
@@ -19,19 +19,29 @@
     &--end {
       justify-content: flex-end;
     }
-  }
 
-  a:visited,
-  a:link {
-    color: inherit;
+    &--public {
+      justify-content: space-around;
+    }
   }
 
   &__item {
-    display: block;
+    position: relative;
     color: $color-primary-dark-2;
-    padding: 1.6rem;
     border-radius: 1.6rem;
     cursor: pointer;
+
+    a:visited,
+    a:link,
+    &--menu {
+      color: inherit;
+      padding: 1.6rem;
+      display: block;
+    }
+
+    &--menu {
+      color: $color-primary-dark-2;
+    }
 
     &:hover {
       background: $color-primary-light-2;
@@ -45,12 +55,31 @@
       &:hover {
         background: $color-secondary-light;
       }
+
+      &.navbar__link--notification::after {
+        background: $color-white;
+      }
+    }
+
+    &--notification::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+
+      $radius: 0.6rem;
+      width: $radius;
+      height: $radius;
+      background: $color-primary;
+      border-radius: 50%;
     }
   }
 
   &__icon {
     height: 1.6rem;
     margin: auto 0;
+    color: inherit;
 
     &--big {
       height: 2rem;

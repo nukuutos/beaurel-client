@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .city {
   grid-column: 2 / 4;
@@ -11,17 +11,23 @@
   cursor: pointer;
   background: $color-white;
   transition: 0.2s background;
+  margin-top: 2.4rem;
 
   &__icon {
     height: 1.6rem;
-    // color: $color-gray;
+    margin-right: 2.4rem;
+    @include respond(tab-land) {
+      margin-right: 0;
+    }
   }
 
   &:hover {
-    background: $color-primary-light-2;
+    background: $color-secondary-light;
+    color: $color-white;
   }
 
   @include respond(tab-land) {
+    margin-top: 0;
     grid-column: content-start / content-end;
     grid-row: 1 / 2;
     justify-self: flex-end;

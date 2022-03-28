@@ -14,14 +14,18 @@
   column-gap: 1.6rem;
 
   @include respond(tab-land) {
-    // grid-template-columns: 1fr [content-start] max-content [content-end] 1fr;
     grid-template-columns: 1fr [content-start] minmax(min-content, max-content) [content-end] 1fr;
     margin: 2rem 0 0;
     column-gap: 0;
   }
 
   @include respond(phone) {
+    grid-template-columns: [content-start] minmax(min-content, max-content) [content-end];
     margin: 1rem 0 7rem;
+
+    &--messenger {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -42,6 +46,8 @@
 
   min-height: 71.2rem;
 
+  @include layout-card;
+
   @include respond(tab-land) {
     grid-row: 2 / 4;
     width: 82.4rem;
@@ -54,10 +60,15 @@
 
   @include respond(phone) {
     min-height: unset;
-    max-width: 36rem;
+    width: 100vw;
     padding: 0.8rem;
     column-gap: 0.8rem;
     overflow-y: hidden;
+
+    &--loading {
+      height: 85vh;
+      z-index: 10;
+    }
   }
 }
 
