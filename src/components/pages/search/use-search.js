@@ -15,7 +15,7 @@ const useSearch = (form, setData) => {
   const refToLoadData = useCallback(
     (node) => {
       // if we have already loading or it first time
-      if (isLoadingRef.current || page === 0) return;
+      if (isLoadingRef.current) return;
 
       // if observer has already existed
       if (observer.current) observer.current.disconnect();
@@ -28,16 +28,18 @@ const useSearch = (form, setData) => {
           const { specialization, search } = form.current.values;
           page.current++;
 
+          const city = localStorage.getItem('city');
+
           const config = {
             method: 'get',
             url: `/master`,
-            params: { specialization, name: search, page: page.current }, // add city
-            accessToken: 'nothing',
+            params: { specialization, name: search, page: page.current, city }, // add city
+            accessToken: null,
           };
 
           const data = await asyncAction(config);
 
-          if (data && data.masters.length) setData((masters) => [...masters, ...data.masters]);
+          if (data?.masters.length) setData((masters) => [...masters, ...data.masters]);
           else hasMore.current = false;
         }
       });
