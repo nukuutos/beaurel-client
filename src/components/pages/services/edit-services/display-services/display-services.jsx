@@ -5,8 +5,10 @@ import EditService from './edit-service/edit-service';
 
 const DisplayServices = () => {
   const { services } = useSelector((state) => state.services);
+  const isServices = !!services.length;
 
-  return services.length ? (
+  return (
+    isServices &&
     services.map((service) =>
       service.subServices ? (
         <EditParameterService key={service.title} service={service} />
@@ -14,9 +16,6 @@ const DisplayServices = () => {
         <EditService key={service.title} service={service} />
       )
     )
-  ) : (
-    // change it
-    <p>У вас нет услуг!</p>
   );
 };
 

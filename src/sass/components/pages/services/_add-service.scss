@@ -136,11 +136,10 @@
 
   &__button {
     grid-column: 1 / -1;
-    justify-self: flex-end;
-
-    @include respond(phone) {
-      justify-self: stretch;
-    }
+    // justify-self: flex-end;
+    // @include respond(phone) {
+    //   justify-self: stretch;
+    // }
   }
 
   &__add {

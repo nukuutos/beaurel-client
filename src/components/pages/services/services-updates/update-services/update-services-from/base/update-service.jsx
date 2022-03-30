@@ -3,12 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import Select from '../../../../../../base/form/select';
 import displayDuration from '../../../../utils/display-duration';
-import useDurationOptions from '../../../../hooks/use-duration-options/use-duration-options';
+import DurationOptions from '../../../../duration-options/duration-options';
 import getInputClassName from './get-input-class-name';
 
 const UpdateService = ({ index, values, initialValues }) => {
   const { sessionTime } = useSelector((state) => state.timetable.update);
-  const durationOptions = useDurationOptions({ isUpdate: true });
 
   const { duration: initialDuration } = initialValues.services[index];
   const { title, duration, price } = values.services[index];
@@ -33,7 +32,7 @@ const UpdateService = ({ index, values, initialValues }) => {
             as="select"
           >
             <option className="input__hide">{displayInitialDuration}</option>
-            {durationOptions}
+            <DurationOptions isUpdate />
           </Select>
         </div>
 

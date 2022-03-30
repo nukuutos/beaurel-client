@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../../redux/alert/actions';
 import { putUpdateToServices } from '../../../../../../../redux/service/actions/service';
 import prepareDataForApi from './prepare-data-for-api';
 
@@ -28,7 +27,6 @@ const useOnSubmit = (close) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(setAlert(alert));
       if (isServicesLoaded) dispatch(putUpdateToServices({ services: data }));
       close();
     }

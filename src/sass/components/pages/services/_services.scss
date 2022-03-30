@@ -11,6 +11,18 @@
     }
   }
 
+  &__add-service-indicator {
+    width: 4rem;
+    transform: translate(50%, 0.4rem) rotate(180deg);
+    align-self: flex-end;
+
+    &--bottom {
+      margin-top: 2rem;
+      width: 4rem;
+      transform: translateX(-50%);
+    }
+  }
+
   &__add-service-svg {
     grid-column: 1 / -1;
     justify-self: center;
@@ -63,6 +75,10 @@
     display: flex;
     flex-direction: column;
 
+    &--update {
+      grid-column: 3 / 11;
+    }
+
     &--droppable {
       grid-column: 4 / 10;
     }
@@ -81,5 +97,9 @@
 
     display: flex;
     flex-direction: column;
+  }
+
+  &__no-timetable {
+    grid-column: 1 / -1;
   }
 }

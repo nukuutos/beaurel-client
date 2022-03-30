@@ -2,56 +2,69 @@ import * as Yup from 'yup';
 
 export const titleField = Yup.string()
   .trim()
-  .min(2, 'Minimum length is 2 characters')
-  .max(30, 'Maximum length is 30 characters')
-  .required('Field is required'); // wth???
+  .min(3, 'Минимальная длина - 3 символа!')
+  .max(50, 'Максимальная длина - 50 символов!')
+  .required('Не заполнено!');
 
-export const durationField = (sessionTime) =>
-  Yup.number()
-    .positive('Duration can not be negative')
-    .integer('Duration must be an integer')
-    .max(700, 'Duration can not be more than 8 hours') // edit
-    .test(
-      'duration',
-      'This duration is not suitable for session time',
-      (duration) => duration % sessionTime === 0
-    )
-    .required('Duration is required');
+export const durationField = Yup.number().required('Не заполнено!');
 
 export const priceField = Yup.number()
-  .positive('Duration can not be negative')
-  .integer('Duration must be an integer')
-  .max(30000, 'Price is too big');
+  .positive('Цена не может быть отрицательной!')
+  .integer('Цена - это число!')
+  .max(99999, 'Цена не может превышать 99999!')
+  .required('Не заполнено!');
 
-export const serviceSchema = (sessionTime, updateSessionTime = null) => {
-  const updateDuration = updateSessionTime ? durationField(updateSessionTime) : null;
+export const serviceSchema = Yup.object().shape({
+  title: titleField,
+  duration: durationField,
+  price: priceField,
+});
 
-  return Yup.object().shape({
-    title: titleField,
-    duration: durationField(sessionTime),
-    price: priceField,
-    updateDuration,
-  });
-};
+export const subServiceSchema = Yup.object().shape({
+  parameter: titleField,
+  duration: durationField,
+  price: priceField,
+});
 
-export const subServiceSchema = (sessionTime, updateSessionTime) => {
-  const updateDuration = updateSessionTime ? durationField(updateSessionTime) : null;
+export const parameterServiceSchema = Yup.object().shape({
+  title: titleField,
+  subServices: Yup.array().of(subServiceSchema),
+});
 
-  return Yup.object().shape({
-    parameter: titleField,
-    duration: durationField(sessionTime),
-    price: priceField,
-    updateDuration,
-  });
-};
+export const parameterServiceTitleSchema = Yup.object().shape({
+  title: titleField,
+});
 
-export const parameterServiceSchema = (sessionTime, updateSessionTime) =>
+export const invalidDurationField = (sessionTime) =>
+  Yup.number()
+    .test('duration', 'Неверная длительность!', (duration) => duration % sessionTime === 0)
+    .required('Не заполнено!');
+
+export const updateServiceDurationSchema = (sessionTime) =>
   Yup.object().shape({
-    title: titleField,
-    subServices: Yup.array().of(subServiceSchema(sessionTime, updateSessionTime)),
+    duration: invalidDurationField(sessionTime),
   });
 
-export const parameterServiceTitleSchema = () =>
+export const updateSubServiceDurationSchema = (sessionTime) =>
   Yup.object().shape({
-    title: titleField,
+    duration: invalidDurationField(sessionTime),
   });
+
+export const updateServiceSchema = Yup.object().shape({
+  title: titleField,
+  duration: durationField,
+  price: priceField,
+  updateDuration: durationField,
+});
+
+export const updateSubServiceSchema = Yup.object().shape({
+  parameter: titleField,
+  duration: durationField,
+  price: priceField,
+  updateDuration: durationField,
+});
+
+export const updateParameterServiceSchema = Yup.object().shape({
+  title: titleField,
+  subServices: Yup.array().of(updateSubServiceSchema),
+});

@@ -6,6 +6,8 @@ import Title from './title';
 import SubService from './sub-service';
 import AddSubServiceButton from './add-sub-service-button';
 
+const SUB_SERVICES_LIMIT = 10;
+
 const ServiceParameterForm = ({ handleSubmit }) => {
   const { sessionTime, update } = useSelector((state) => state.timetable);
 
@@ -22,11 +24,12 @@ const ServiceParameterForm = ({ handleSubmit }) => {
           },
         ],
       }}
-      validationSchema={parameterServiceSchema(sessionTime, update?.sessionTime)}
+      validationSchema={parameterServiceSchema}
       onSubmit={handleSubmit}
     >
       {({ values }) => {
         const formClassName = getFormClassName(values.subServices);
+        const isSubServicesLimit = values.subServices.length >= SUB_SERVICES_LIMIT;
 
         return (
           <Form className={formClassName}>
@@ -37,7 +40,7 @@ const ServiceParameterForm = ({ handleSubmit }) => {
                   {values.subServices.map((subService, i) => (
                     <SubService subService={subService} index={i} {...arrayProps} />
                   ))}
-                  <AddSubServiceButton {...arrayProps} />
+                  {!isSubServicesLimit && <AddSubServiceButton {...arrayProps} />}
                 </>
               )}
             </FieldArray>

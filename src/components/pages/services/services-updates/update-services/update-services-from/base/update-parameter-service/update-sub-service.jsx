@@ -5,12 +5,11 @@ import { useSelector } from 'react-redux';
 import Select from '../../../../../../../base/form/select';
 import displayDuration from '../../../../../utils/display-duration';
 import getInputClassName from '../get-input-class-name';
-import useDurationOptions from '../../../../../hooks/use-duration-options/use-duration-options';
+import DurationOptions from '../../../../../duration-options/duration-options';
 
 const UpdateSubService = ({ subService, initialDuration, fieldName, isLast }) => {
   const { parameter, duration, price } = subService;
   const { sessionTime } = useSelector((state) => state.timetable.update);
-  const durationOptions = useDurationOptions({ isUpdate: true });
 
   const lastClassName = isLast ? 'service-parameter-update__sub-service--last' : '';
   const inputClassName = getInputClassName(duration, sessionTime);
@@ -30,7 +29,7 @@ const UpdateSubService = ({ subService, initialDuration, fieldName, isLast }) =>
           <FontAwesomeIcon className="input__icon" icon="clock" />
           <Select value={duration} className="input" name={fieldName} as="select">
             <option className="input__hide">{displayInitialDuration}</option>
-            {durationOptions}
+            <DurationOptions isUpdate />
           </Select>
         </div>
 

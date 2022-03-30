@@ -7,10 +7,10 @@ const UpdatedServices = ({ close }) => {
   const updatedServices = useServicesUpdate();
 
   return (
-    <div className="booking-services card">
+    <div className="booking-services booking-services--update card">
       <ModalHeading titleDesktopClassName="services__heading" title="Услуги" onClickClose={close} />
 
-      <div className="services__container">
+      <div className="services__container services__container--update">
         {updatedServices.map((service) =>
           service.subServices ? (
             <UpdatedParameterService key={service.title} service={service} />

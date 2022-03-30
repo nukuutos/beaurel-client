@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import AddServiceForm from './add-service-form/add-service-form';
 import AddSubServicesForm from './add-service-parameter-form/add-service-parameter-form';
-import Modal from '../../../../base/modal';
+import Modal from '../../../../base/modal/modal';
 import ModalHeading from '../../../../base/modal/modal-heading';
 import Switch from './switch';
 
@@ -11,7 +11,7 @@ const AddService = ({ onClickClose }) => {
   const [serviceType, setServiceType] = useState('service');
 
   return (
-    <Modal onClickClose={onClickClose} isMobileBackground>
+    <Modal onClickClose={onClickClose}>
       <div className={`add-service ${isPhone ? '' : 'card'}`}>
         <ModalHeading
           titleDesktopClassName="add-service__heading"

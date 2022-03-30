@@ -5,19 +5,14 @@ import { useSelector } from 'react-redux';
 import Input from '../../../../../../base/form/input';
 import InputIcon from '../../../../../../base/form/input-icon';
 import Select from '../../../../../../base/form/select';
-import useDurationOptions from '../../../../hooks/use-duration-options/use-duration-options';
 import DurationOptions from '../../duration-options';
 import useIsUpdateDuration from '../../use-is-update-duration';
 
 const SubService = ({ subService, remove, index }) => {
   const { update } = useSelector((state) => state.timetable);
 
-  const durationOptions = useDurationOptions();
   const isUpdateDuration = useIsUpdateDuration();
   const removeSubService = () => remove(index);
-
-  console.log('suka');
-  console.log(subService.updateDuration);
 
   return (
     <>
@@ -62,7 +57,7 @@ const SubService = ({ subService, remove, index }) => {
               name={`subServices.${index}.duration`}
               as="select"
             >
-              {durationOptions}
+              <DurationOptions />
             </Select>
           </div>
         </div>

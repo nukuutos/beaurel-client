@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../../redux/alert/actions';
 import { deleteServiceSuccess } from '../../../../../../../redux/service/actions/service';
 
 const useDeleteService = (service) => {
@@ -17,11 +16,10 @@ const useDeleteService = (service) => {
       accessToken,
     };
 
-    const alert = await asyncAction(config);
+    const data = await asyncAction(config);
 
-    if (alert) {
+    if (data) {
       dispatch(deleteServiceSuccess({ serviceId: id, order }));
-      dispatch(setAlert(alert));
     }
   };
 

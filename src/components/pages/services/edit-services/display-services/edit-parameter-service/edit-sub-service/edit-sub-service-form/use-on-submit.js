@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../../../redux/alert/actions';
 import { updateSubServiceSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
 
 const useOnSubmit = ({ subService, title, setIsEdit }) => {
@@ -17,11 +16,10 @@ const useOnSubmit = ({ subService, title, setIsEdit }) => {
       accessToken,
     };
 
-    const alert = await asyncAction(config);
+    const data = await asyncAction(config);
 
-    if (alert) {
+    if (data) {
       dispatch(updateSubServiceSuccess({ updatedSubService: { title, subOrder, ...values } }));
-      dispatch(setAlert(alert));
       setIsEdit(false);
     }
   };

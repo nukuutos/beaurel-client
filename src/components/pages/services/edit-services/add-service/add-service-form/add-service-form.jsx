@@ -7,20 +7,16 @@ import Input from '../../../../../base/form/input';
 import Select from '../../../../../base/form/select';
 import InputIcon from '../../../../../base/form/input-icon';
 import useOnSubmit from './use-on-submit';
-import useDurationOptions from '../../../hooks/use-duration-options/use-duration-options';
 import useIsUpdateDuration from '../use-is-update-duration';
 import DurationOptions from '../duration-options';
 
 const AddServiceForm = ({ onClickClose }) => {
   const { sessionTime, update } = useSelector((state) => state.timetable);
 
-  const durationOptions = useDurationOptions();
   // updateDurationOptions
   const isUpdateDuration = useIsUpdateDuration();
 
   const [handleSubmit] = useOnSubmit(onClickClose);
-
-  const schema = serviceSchema(sessionTime, update?.sessionTime);
 
   return (
     <Formik
@@ -30,7 +26,7 @@ const AddServiceForm = ({ onClickClose }) => {
         price: '',
         updateDuration: update?.sessionTime || null,
       }}
-      validationSchema={schema}
+      validationSchema={serviceSchema}
       onSubmit={handleSubmit}
     >
       {({ isSubmitting, values }) => (
@@ -54,7 +50,7 @@ const AddServiceForm = ({ onClickClose }) => {
               <div className="input--icon input--mini mr-4">
                 <FontAwesomeIcon className="input__icon input__icon--m" icon="clock" />
                 <Select value={values.duration} className="input" name="duration" as="select">
-                  {durationOptions}
+                  <DurationOptions />
                 </Select>
               </div>
             </div>

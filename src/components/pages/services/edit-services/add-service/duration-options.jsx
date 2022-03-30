@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
-import displayDuration from '../../hooks/use-duration-options/display-duration';
+import displayDuration from '../../duration-options/display-duration';
 
-const DurationOptions = ({ isUpdate = false }) => {
+const nineHours = 540;
+
+const DurationOptions = ({ maxDuration = nineHours, isUpdate = false }) => {
   const { sessionTime, update } = useSelector((state) => state.timetable);
 
   let sessionTimeToUse = sessionTime;
@@ -10,9 +12,8 @@ const DurationOptions = ({ isUpdate = false }) => {
   if (!sessionTimeToUse) return [];
 
   const optionComponents = [];
-  const hours24InMins = 1440;
 
-  for (let i = sessionTimeToUse; i < hours24InMins; i += sessionTimeToUse) {
+  for (let i = sessionTimeToUse; i <= maxDuration; i += sessionTimeToUse) {
     optionComponents.push(
       <option value={i} key={i}>
         {displayDuration(i)}

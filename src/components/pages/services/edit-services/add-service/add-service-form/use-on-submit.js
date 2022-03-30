@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../../../redux/alert/actions';
 import { addServiceSuccess } from '../../../../../../redux/service/actions/service';
 
 const useOnSubmit = (onClickClose) => {
@@ -28,7 +27,7 @@ const useOnSubmit = (onClickClose) => {
     const data = await asyncAction(config);
 
     if (data) {
-      const { id, ...alert } = data;
+      const { id } = data;
 
       const serviceToReducer = { id, ...service };
 
@@ -41,7 +40,6 @@ const useOnSubmit = (onClickClose) => {
       }
 
       dispatch(addServiceSuccess({ service: serviceToReducer }));
-      dispatch(setAlert(alert));
       resetForm();
       onClickClose();
     }

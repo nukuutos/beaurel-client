@@ -1,6 +1,6 @@
 import React from 'react';
 import NeedUpdateAlert from './need-update-alert';
-import Modal from '../../../../base/modal';
+import Modal from '../../../../base/modal/modal';
 import UpdateServicesFromServices from './update-services-from/update-services-from-services';
 import useIsNeedUpdateAlert from './utils/use-is-need-update-alert';
 
@@ -15,7 +15,7 @@ const UpdateServices = ({ isUpdateServices, setIsUpdateServices }) => {
       {isUpdateAlert && <NeedUpdateAlert openUpdateServices={openUpdateServices} />}
 
       {isUpdateServices.update && (
-        <Modal isMobileBackground onClickClose={closeUpdateServices}>
+        <Modal onClickClose={closeUpdateServices}>
           <UpdateServicesFromServices close={closeUpdateServices} />
         </Modal>
       )}

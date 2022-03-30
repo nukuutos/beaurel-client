@@ -2,7 +2,7 @@ import React from 'react';
 import useIsViewUpdateAlert from './utils/use-is-view-alert';
 import UpdateDateAlert from './update-date-alert';
 import ServicesUpdates from './view-services-update/updated-services';
-import Modal from '../../../../base/modal';
+import Modal from '../../../../base/modal/modal';
 
 const ViewServicesUpdate = ({ isUpdateServices, setIsUpdateServices }) => {
   const isViewUpdateAlert = useIsViewUpdateAlert();

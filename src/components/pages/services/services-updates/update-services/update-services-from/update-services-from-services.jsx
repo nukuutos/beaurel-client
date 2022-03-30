@@ -16,7 +16,7 @@ const UpdateServicesFromServices = ({ close }) => {
   ]);
 
   return (
-    <div className={`booking-services ${isPhone ? '' : 'card'}`}>
+    <div className={`booking-services booking-services--update ${isPhone ? '' : 'card'}`}>
       <ModalHeading
         titleDesktopClassName="services__heading"
         title="Обновить услуги"
@@ -30,7 +30,7 @@ const UpdateServicesFromServices = ({ close }) => {
           const isCorrect = getIsEveryServiceDurationCorrect(values.services, sessionTime);
           const btnDisabledClassName = isCorrect ? '' : 'btn--disabled';
           return (
-            <Form className="services__container">
+            <Form className="services__container services__container--update">
               {values.services.length &&
                 values.services.map((service, i) =>
                   service.subServices ? (

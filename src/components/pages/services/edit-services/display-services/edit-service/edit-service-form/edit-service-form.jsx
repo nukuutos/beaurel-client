@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
 
 import Textarea from '../../../../../../base/form/textarea';
 import Select from '../../../../../../base/form/select';
@@ -10,22 +9,17 @@ import { serviceSchema } from '../../../../utils/schemas';
 import useOnSubmit from './use-on-submit';
 import Loading from '../../utils/loading';
 import ButtonsForm from '../../utils/buttons-form/buttons-form';
-import useDurationOptions from '../../../../hooks/use-duration-options/use-duration-options';
+import DurationOptions from '../../../../duration-options/duration-options';
 
 const EditServiceForm = ({ service, setIsEdit }) => {
-  const { sessionTime } = useSelector((state) => state.timetable);
-
   const { title, duration, price } = service;
 
   const [handleSubmit, isLoading] = useOnSubmit(service, setIsEdit);
 
-  const durationOptions = useDurationOptions();
-  const schema = serviceSchema(sessionTime);
-
   return (
     <Formik
       initialValues={{ title, duration, price }}
-      validationSchema={schema}
+      validationSchema={serviceSchema}
       onSubmit={handleSubmit}
     >
       {({ values, ...restFormikProps }) => (
@@ -38,7 +32,7 @@ const EditServiceForm = ({ service, setIsEdit }) => {
             <div className="edit-service__input input--icon ml-4">
               <FontAwesomeIcon className="input__icon" icon="clock" />
               <Select value={values.duration} className="input" name="duration" as="select">
-                {durationOptions}
+                <DurationOptions />
               </Select>
             </div>
 

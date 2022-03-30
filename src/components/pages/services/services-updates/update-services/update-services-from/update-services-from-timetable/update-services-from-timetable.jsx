@@ -18,11 +18,11 @@ const UpdateServicesFromTimetable = ({ close }) => {
   const desktopClassName = isPhone ? '' : 'card';
 
   return isLoading ? (
-    <div className={`booking-services ${desktopClassName}`}>
+    <div className={`booking-services booking-services--update ${desktopClassName}`}>
       <div className="spinner-with-background" />
     </div>
   ) : (
-    <div className={`booking-services ${desktopClassName}`}>
+    <div className={`booking-services booking-services--update ${desktopClassName}`}>
       <ModalHeading titleDesktopClassName="services__heading" title="Услуги" onClickClose={close} />
       <Formik
         enableReinitialize
@@ -34,7 +34,7 @@ const UpdateServicesFromTimetable = ({ close }) => {
           const btnDisabledClassName = isCorrect ? '' : 'btn--disabled';
 
           return (
-            <Form className="services__container">
+            <Form className="services__container services__container--update">
               {values.services.length &&
                 values.services.map((service, i) =>
                   service.subServices ? (
