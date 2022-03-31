@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import Input from '../../../base/form/input';
 import useOnSubmit from '../utils/use-on-submit';
 import EditButtons from '../utils/edit-buttons';
+import { lastNameSchema } from '../schemas/name';
 
 const LastNameEdit = ({ data, setIsEdit }) => {
   const formikRef = useRef(null);
@@ -23,6 +24,7 @@ const LastNameEdit = ({ data, setIsEdit }) => {
   return (
     <Formik
       innerRef={formikRef}
+      validationSchema={lastNameSchema}
       initialValues={{
         lastName: data,
       }}
@@ -33,6 +35,9 @@ const LastNameEdit = ({ data, setIsEdit }) => {
           <div className="setting-card__input">
             <span className="label">Фамилия</span>
             <Input name="lastName" className="input" type="text" />
+            <ErrorMessage name="lastName">
+              {(msg) => <div className="error mt-1">{msg}</div>}
+            </ErrorMessage>
           </div>
           <EditButtons isLoading={isLoading} handleEdit={handleEdit} close={closeEdit} />
         </Form>

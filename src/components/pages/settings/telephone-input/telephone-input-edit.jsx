@@ -2,13 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import Input from '../../../base/form/input';
+import phoneSchema from '../schemas/phone';
 
 const TelephoneInputEdit = ({ data, setIsEdit }) => (
   <Formik
     initialValues={{
       telephone: data,
     }}
-    // validationSchema={serviceSchema(sessionTime)}
+    validationSchema={phoneSchema}
     onSubmit={async (values, { resetForm }) => {
       // const { date, ...service } = values;
       // const config = {
@@ -31,6 +32,9 @@ const TelephoneInputEdit = ({ data, setIsEdit }) => (
         <div className="setting-card__input">
           <label className="label">Телефон</label>
           <Input name="telephone" className="input" type="text" />
+          <ErrorMessage name="telephone">
+            {(msg) => <div className="error mt-1">{msg}</div>}
+          </ErrorMessage>
         </div>
         <div onClick={() => null} className="setting-card__success-button btn-icon mt-3">
           <FontAwesomeIcon icon="check" />

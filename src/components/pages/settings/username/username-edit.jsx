@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import Input from '../../../base/form/input';
 import useOnSubmit from './use-on-submit';
 import EditButtons from '../utils/edit-buttons';
+import usernameSchema from '../schemas/username';
 
 const UsernameEdit = ({ data, setIsEdit }) => {
   const formikRef = useRef(null);
@@ -22,6 +23,7 @@ const UsernameEdit = ({ data, setIsEdit }) => {
   return (
     <Formik
       innerRef={formikRef}
+      validationSchema={usernameSchema}
       initialValues={{
         username: data,
       }}
@@ -34,6 +36,9 @@ const UsernameEdit = ({ data, setIsEdit }) => {
               Username
             </label>
             <Input name="username" className="input" type="text" />
+            <ErrorMessage name="username">
+              {(msg) => <div className="error mt-1">{msg}</div>}
+            </ErrorMessage>
           </div>
           <EditButtons isLoading={isLoading} handleEdit={handleEdit} close={closeEdit} />
         </Form>

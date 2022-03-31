@@ -1,4 +1,4 @@
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/mixins' as *;
 
 .settings {
   &__heading {
@@ -7,12 +7,14 @@
 
   &__setting-card {
     grid-column: 3 / 11;
+    margin-top: 3.2rem;
 
     @include respond(tab-port) {
       grid-column: 2 / 12;
     }
 
     @include respond(phone) {
+      margin-top: 2.4rem;
       grid-column: 1 / -1;
     }
   }

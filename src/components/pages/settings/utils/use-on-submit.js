@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../redux/alert/actions';
 import { setAuthData } from '../../../../redux/auth/actions';
 
 const useOnSubmit = (setIsEdit) => {
@@ -16,11 +15,10 @@ const useOnSubmit = (setIsEdit) => {
       accessToken,
     };
 
-    const alert = await asyncCall(config);
+    const data = await asyncCall(config);
 
-    if (alert) {
+    if (data) {
       dispatch(setAuthData(values));
-      dispatch(setAlert(alert));
       setIsEdit(false);
     }
   };
