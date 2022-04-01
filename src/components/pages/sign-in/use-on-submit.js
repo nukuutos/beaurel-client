@@ -20,7 +20,7 @@ const useOnSubmit = () => {
 
     if (id) {
       dispatch(signInSuccess({ id, accessToken, role, username }));
-      router.push('/[id]', `/${id}`);
+      router.push('/[id]', `/${username || id}`);
     }
   };
 
