@@ -1,8 +1,9 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React, { useRef, useState } from 'react';
 import Names from './names';
 import Passwords from './passwords';
 import Phone from './phone';
+import PlaceOfWork from './place-of-work';
 import { masterSchema } from './schemas';
 import Specialization from './specialization';
 import useOnSubmit from './use-on-submit';
@@ -26,16 +27,24 @@ const MasterCase = ({ goNext, current, disableProgressBar }) => {
             confirmedPassword: '',
             specialization: '',
             phone: '',
+            placeOfWork: {
+              street: '',
+              house: '',
+              floor: '',
+              building: '',
+              room: { type: 'cabinet', value: '' },
+            },
           }}
           onSubmit={handleSubmit}
         >
           {(props) => (
-            <>
+            <Form className="sign-up__form">
               {current === 2 && <Specialization goNext={goNext} {...props} />}
               {current === 3 && <Names goNext={goNext} {...props} />}
               {current === 4 && <Passwords goNext={goNext} {...props} />}
-              {current === 5 && <Phone goNext={goNext} {...props} />}
-            </>
+              {current === 5 && <PlaceOfWork goNext={goNext} {...props} />}
+              {current === 6 && <Phone goNext={goNext} {...props} />}
+            </Form>
           )}
         </Formik>
       )}

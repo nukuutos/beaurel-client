@@ -25,7 +25,7 @@ const ChoiceCards = ({ resetProgress, goNext, state }) => {
 
   return (
     <>
-      <h2 className="sign-up__heading">Как будете использовать Beautify?</h2>
+      <h2 className="sign-up__heading">Как будете использовать Beaurel?</h2>
       <div className="sign-up__choice-cards">
         <div onClick={setCustomer} className={`${customerClassName}`}>
           <FontAwesomeIcon className="choice-card__icon" icon="user-alt" />

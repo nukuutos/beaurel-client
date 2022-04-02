@@ -14,7 +14,15 @@ const useProgress = () => {
 
   const actions = { resetProgress, disableProgressBar, goToNextStep };
 
-  return [state, setState, actions];
+  const setStateWrapper = () => {
+    const getNull = () => null;
+
+    if (state.current === 3) return getNull;
+
+    return setState;
+  };
+
+  return [state, setStateWrapper, actions];
 };
 
 export default useProgress;

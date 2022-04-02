@@ -1,5 +1,7 @@
 import { Formik } from 'formik';
 import React, { useRef, useState } from 'react';
+import City from './city';
+import CityCustomer from './city-customer';
 import Names from './names';
 import Passwords from './passwords';
 import Phone from './phone';
@@ -31,7 +33,8 @@ const CustomerCase = ({ goNext, current, disableProgressBar }) => {
             <>
               {current === 2 && <Names goNext={goNext} {...props} />}
               {current === 3 && <Passwords goNext={goNext} {...props} />}
-              {current === 4 && <Phone goNext={goNext} {...props} />}
+              {current === 4 && <CityCustomer goNext={goNext} {...props} />}
+              {current === 5 && <Phone goNext={goNext} {...props} />}
             </>
           )}
         </Formik>

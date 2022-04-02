@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 
 const useOnSubmit = ({ phone, setIsVerification, disableProgressBar }) => {
+  const { city } = useSelector((state) => state.timezone);
   const [asyncAction, isLoading] = useAsyncAction();
 
   const handleSubmit = async (values) => {
@@ -9,7 +11,7 @@ const useOnSubmit = ({ phone, setIsVerification, disableProgressBar }) => {
     const config = {
       method: 'post',
       url: `/auth/sign-up`,
-      data: { ...values, phone: phoneValue },
+      data: { ...values, phone: phoneValue, city },
       accessToken: null,
     };
 

@@ -8,6 +8,10 @@
   margin-top: 10rem;
   grid-column: 1 / -1;
 
+  @include respond(phone) {
+    margin-top: 2rem;
+  }
+
   &__progress {
     margin-top: 4rem;
   }
@@ -49,6 +53,14 @@
     display: flex;
     flex-direction: column;
     width: 27.6rem;
+
+    &--horizontal {
+      flex-direction: row;
+    }
+  }
+
+  &__label--optional {
+    color: $color-gray;
   }
 
   &__input {
@@ -69,6 +81,39 @@
       text-transform: uppercase;
       height: unset;
     }
+
+    &--inactive * {
+      color: $color-gray;
+      border-color: $color-gray;
+    }
+
+    &--city {
+      // border: 2px solid $color-gray-dark-2;
+      border: 1px solid $color-black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.4rem;
+      cursor: pointer;
+      transition: 0.2s background;
+
+      // padding-right: 0.8rem;
+
+      & > * {
+        height: 1.6rem;
+        color: $color-primary-dark-2;
+        color: $color-black;
+        transition: 0.2s color;
+      }
+
+      &:hover {
+        border-color: $color-primary-dark-1;
+
+        & > * {
+          color: $color-primary;
+        }
+      }
+    }
   }
 
   &__phone-number {
@@ -78,8 +123,9 @@
     align-items: center;
 
     padding: 0 0.8rem;
-    background: $color-gray-light-1;
-    color: $color-primary-dark-2;
+    // background: $color-gray-light-1;
+    color: $color-gray;
+    font-weight: 500;
 
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;

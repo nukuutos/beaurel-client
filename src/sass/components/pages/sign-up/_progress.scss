@@ -7,13 +7,32 @@
   color: $color-gray;
   align-items: center;
 
+  &--disabled {
+    color: $color-gray-light-1;
+
+    & .progress__indicator {
+      border-color: $color-gray-light-1;
+    }
+
+    & .progress__line {
+      background: $color-gray-light-1;
+    }
+  }
+
+  &--inactive {
+    & .progress__indicator {
+      pointer-events: none;
+    }
+  }
+
   &__indicator {
     $size: 4rem;
 
     height: $size;
     width: $size;
-    border: 2px solid $color-gray;
+    border: 3px solid $color-gray;
     border-radius: 50%;
+    font-weight: 500;
 
     display: flex;
     justify-content: center;
@@ -36,8 +55,8 @@
   }
 
   &__line {
-    height: 2px;
-    width: 4rem;
+    height: 3px;
+    width: 3rem;
     background: $color-gray;
 
     @include respond(phone) {
