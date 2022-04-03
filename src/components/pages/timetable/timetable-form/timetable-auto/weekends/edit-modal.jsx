@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Modal from '../../../../../base/modal';
+import Modal from '../../../../../base/modal/modal';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import weekdaysRU from '../../../utils/weekdays-ru';
 import getWeekdayData from './get-weekday-data';
@@ -10,7 +10,7 @@ const EditModal = ({ values, handleClicks, ...fieldArrayProps }) => {
   const [handleEdit, handleCancel] = handleClicks;
 
   return (
-    <Modal isMobileBackground onClickClose={handleCancel}>
+    <Modal onClickClose={handleCancel}>
       <div className={`weekends weekends--mobile ${isPhone ? '' : 'card'}`}>
         <ModalHeading
           titleDesktopClassName="weekends__heading"
@@ -18,7 +18,7 @@ const EditModal = ({ values, handleClicks, ...fieldArrayProps }) => {
           title="Выходные"
         />
 
-        <p className="weekends__text mt-6">Выбери свои выходные!</p>
+        <p className="weekends__text">Выбери свои выходные!</p>
 
         <div className="weekends__days">
           {weekdaysRU.map((weekdayName, weekdayIndex) => {

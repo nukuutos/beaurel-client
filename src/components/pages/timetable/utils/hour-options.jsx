@@ -3,11 +3,12 @@ const displayHour = (hour) => {
   return hour.length === 1 ? `0${hour}` : hour;
 };
 
-const HourOptions = () => {
-  const optionComponents = [];
-  const hours24InMins = 1440;
+const hours24InMins = 1440;
 
-  for (let i = 0; i < hours24InMins; i += 60) {
+const HourOptions = ({ startAt = 0, endAt = hours24InMins }) => {
+  const optionComponents = [];
+
+  for (let i = startAt; i < endAt; i += 60) {
     optionComponents.push(
       <option value={i} key={i}>
         {displayHour(i / 60)}

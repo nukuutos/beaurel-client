@@ -6,17 +6,15 @@ const Header = ({ openModal }) => {
   const { date } = update;
 
   return (
-    <>
-      <div className="timetable-card__heading">
-        Расписание {isPhone && <br />}c {date.format('DD-MM-YY')}
-      </div>
+    <div className="timetable-card__heading timetable-card__heading--timetable">
+      Расписание {isPhone && <br />}c {date.format('DD-MM-YY')}
       <div
         onClick={openModal}
         className={`timetable-card__delete-btn btn btn--secondary btn--flat btn--fail `}
       >
         Отменить
       </div>
-    </>
+    </div>
   );
 };
 

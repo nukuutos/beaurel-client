@@ -1,6 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import schema from '../schema';
 import BaseSettings from './base-settings/base-settings';
 import FormButtons from './form-buttons';
 import TimetableAuto from './timetable-auto/timetable-auto';
@@ -31,7 +32,12 @@ const TimetableForm = () => {
   const editState = [state, setState];
 
   return (
-    <Formik initialValues={initialValues} enableReinitialize onSubmit={handleSubmit}>
+    <Formik
+      validationSchema={schema}
+      initialValues={initialValues}
+      enableReinitialize
+      onSubmit={handleSubmit}
+    >
       {(formikProps) => {
         const { type } = formikProps.values;
 

@@ -7,11 +7,11 @@ import MinOptions from '../../../../utils/min-options';
 import weekdaysRU from '../../../../utils/weekdays-ru';
 import useHandleAdd from './use-handle-add';
 
-const AddTime = ({ modalState, values, setFieldError, errors, ...fieldArrayProps }) => {
+const AddTime = ({ modalState, values, ...fieldArrayProps }) => {
   const [{ weekdayIndex: index }, setState] = modalState;
   const { hours, mins } = values.manually;
 
-  const handleAdd = useHandleAdd({ values, setFieldError, modalState, index, ...fieldArrayProps });
+  const handleAdd = useHandleAdd({ values, modalState, index, ...fieldArrayProps });
   const weekday = weekdaysRU[index].toUpperCase();
   const closeModal = () => setState({ isOpen: false, weekdayIndex: null });
 
@@ -36,7 +36,7 @@ const AddTime = ({ modalState, values, setFieldError, errors, ...fieldArrayProps
             name="manually.hours"
             as="select"
           >
-            <HourOptions startAt={480} endAt={1380} />
+            <HourOptions startAt={480} endAt={1320} />
           </Select>
           :
           <Select
@@ -49,11 +49,7 @@ const AddTime = ({ modalState, values, setFieldError, errors, ...fieldArrayProps
           </Select>
         </div>
 
-        {errors.manually?.hours && (
-          <div className="error mt-1 add-time__error">{errors.manually.hours}</div>
-        )}
-
-        <div onClick={handleAdd} className="btn btn--primary add-time__button mt-8">
+        <div onClick={handleAdd} className="btn btn--primary add-time__button mt-4">
           Добавить
         </div>
       </div>

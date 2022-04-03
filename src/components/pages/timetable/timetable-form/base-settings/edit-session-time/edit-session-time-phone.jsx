@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from '../../../../../base/form/select';
-import Modal from '../../../../../base/modal';
+import Modal from '../../../../../base/modal/modal';
 import PossibleServiceDurations from '../possible-service-durations';
 import SessionTimeOptions from './session-time-options';
 
@@ -8,7 +8,7 @@ const EditSessionTimePhone = ({ handleClicks, values }) => {
   const [handleEdit, handleCancel] = handleClicks;
 
   return (
-    <Modal isMobileBackground>
+    <Modal>
       <nav className="modal__back-bar card card--layout">
         <div className="back-bar__main">
           <FontAwesomeIcon

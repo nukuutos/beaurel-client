@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setAlert } from '../../../../redux/alert/actions';
 import { servicesToUnsuitable } from '../../../../redux/service/actions/service';
 import { setTimetableUpdate } from '../../../../redux/timetable/actions';
 
@@ -43,7 +42,7 @@ const useOnSubmit = (setUpdateTimetable) => {
     const responseData = await asyncAction(config);
 
     if (responseData) {
-      const { unsuitableServices, ...alert } = responseData;
+      const { unsuitableServices } = responseData;
 
       const isServices = servicesState.services.length;
       const isMasterServices = servicesState.masterId === profileId; // in redux state
@@ -59,7 +58,6 @@ const useOnSubmit = (setUpdateTimetable) => {
 
       setUpdateTimetable(handleState);
       dispatch(setTimetableUpdate({ update }));
-      dispatch(setAlert(alert));
       resetForm();
     }
   };
