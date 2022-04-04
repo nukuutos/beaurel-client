@@ -1,0 +1,81 @@
+@use '../../../../abstracts/colors' as *;
+
+.create-timetable {
+  &__possible-service-durations {
+    font-size: 1.6rem;
+    margin-top: 2.4rem;
+  }
+  &__session-time {
+    padding: 1.2rem 0.8rem;
+    font-size: 1.6rem;
+    flex: 1;
+  }
+  &__group {
+    display: flex;
+  }
+  &__choice-cards {
+    width: 39.6rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4.4rem;
+
+    & > .choice-card {
+      min-height: 16.6rem;
+    }
+
+    & > *:first-child {
+      margin-right: 0;
+    }
+
+    & .choice-card__description {
+      line-height: 2.4rem;
+    }
+  }
+
+  &__working-day {
+    display: flex;
+    align-items: center;
+
+    & > *:not(span) {
+      flex: 1;
+      font-size: 1.6rem;
+      padding: 1.2rem 2.8rem 1.2rem 0.8rem;
+    }
+
+    & span {
+      color: $color-gray-dark-1;
+      font-weight: 700;
+      margin: 0 1.2rem;
+    }
+  }
+
+  &__weekends {
+    margin-top: 1.2rem;
+    width: 28rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 1.6rem;
+    -moz-column-gap: 1.6rem;
+    column-gap: 1.6rem;
+  }
+
+  &__auto-timetable {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 55rem;
+    margin-top: 3.6rem;
+    border: 2px solid $color-gray-light-2;
+    border-radius: 0.4rem;
+    padding-bottom: 1.6rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 100%;
+  }
+}

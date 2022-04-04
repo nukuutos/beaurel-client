@@ -1,4 +1,5 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .add-time {
   display: grid;
@@ -8,18 +9,22 @@
   background: $color-white;
   width: 34rem;
   padding: 2.8rem 1.6rem;
+  border-radius: 0.5rem;
 
   &__heading {
     grid-column: 2 / 12;
+    margin-top: 0;
   }
 
   &__label {
-    grid-column: 2 / 3;
+    grid-column: 2 / 4;
     align-self: center;
+    justify-self: flex-end;
+    justify-self: flex-start;
   }
 
   &__value {
-    grid-column: 3 / 4;
+    grid-column: 4 / -1;
     font-weight: 700;
     // align-self: center;
     display: flex;
@@ -28,5 +33,19 @@
 
   &__button {
     grid-column: 2 / 12;
+  }
+
+  &__error {
+    grid-column: 2 / 12;
+  }
+
+  @include respond(phone) {
+    &__button {
+      grid-column: 1 / -1;
+    }
+
+    &__label {
+      grid-column: 1 / 4;
+    }
   }
 }

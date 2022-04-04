@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 // what about min/max-content of cards' labels?
 
@@ -27,12 +27,28 @@
     }
   }
 
+  @include respond(phone) {
+    &--timetable {
+      padding: 1.6rem 0 0;
+    }
+  }
+
   &__heading {
     font-size: 2rem;
     grid-column: 1 / -1;
     grid-row: 1 / 2;
     // for updated timetable
     line-height: 2.8rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include respond(phone) {
+      &--timetable {
+        padding: 0 0.8rem 0 1.6rem;
+      }
+    }
   }
 
   &__label {
@@ -67,6 +83,7 @@
 
     @include respond(phone) {
       grid-column: 1 / 5;
+      line-height: 1.6rem;
     }
   }
 
@@ -129,9 +146,17 @@
   }
 
   &__delete-btn {
-    grid-row: 1 / 2;
-    grid-column: 2 / -1;
-    justify-self: flex-end;
-    align-self: center;
+    line-height: 1;
+  }
+
+  &__error {
+    grid-column: 1 / -1;
+
+    @include respond(phone) {
+      margin-top: 1.6rem;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      text-align: center;
+    }
   }
 }
