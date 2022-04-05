@@ -23,6 +23,15 @@
     cursor: pointer;
   }
 
+  &__background {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
   @include respond(phone) {
     padding-top: 6.8rem;
 
@@ -38,6 +47,10 @@
       background: $color-white;
       align-items: flex-start;
       bottom: -5.6rem; // mobile nav
+    }
+
+    &--transparent {
+      background: rgba($color-black, 0.7);
     }
 
     &__back-bar {

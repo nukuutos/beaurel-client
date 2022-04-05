@@ -1,4 +1,4 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
 
 .input {
   background-color: transparent;
@@ -71,8 +71,8 @@
 
   &--display {
     height: 5.6rem;
-    background: $color-gray-light-2;
+    background: $color-gray-light-3;
     border-radius: 0.5rem;
-    padding: 0.8rem 1.2rem;
+    padding: 0.8rem;
   }
 }

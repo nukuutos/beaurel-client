@@ -1,6 +1,7 @@
 @use 'mixins' as *;
 
 @use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 @use '../../../abstracts/animation' as *;
 
 .btn {
@@ -20,6 +21,7 @@
     padding: 1.2rem 2.4rem;
     border-radius: 0.3rem;
     font-size: 1.6rem;
+    font-family: inherit;
 
     display: flex;
     align-items: center;
@@ -36,7 +38,7 @@
   &--secondary {
     background: $color-white;
 
-    border: 1px solid $color-primary;
+    border: 2px solid $color-primary;
     color: $color-primary;
     transition: 0.2s color, 0.2s background;
 

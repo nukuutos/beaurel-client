@@ -1,7 +1,8 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .date-picker {
-  width: 32rem;
+  // width: 32rem;
   padding: 0 0.4rem 1.2rem;
   background: $color-white;
 
@@ -10,8 +11,8 @@
 
   &__month-and-year {
     grid-column: 2 / 7;
-    font-weight: 500;
-    color: $color-primary-dark-1;
+    font-weight: 700;
+    color: $color-primary;
     justify-self: center;
     align-self: center;
     font-size: 2rem;
@@ -19,21 +20,24 @@
 
   &__arrow {
     border: 2px solid transparent;
-    padding: 0.4rem;
+    // padding: rem;
+    height: 3rem;
+    width: 3rem;
     color: $color-gray;
     transition: 0.2s color, 0.2s border-color;
     cursor: pointer;
-    border-radius: 0.5rem;
+    border-radius: 50%;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     & > * {
       height: 1.6rem;
     }
 
     &:hover {
-      border-color: $color-primary-dark-1;
-      color: $color-primary-dark-1;
+      border-color: $color-primary;
+      color: $color-primary;
     }
 
     &--right {
@@ -48,6 +52,7 @@
 
     &--disabled {
       pointer-events: none;
+      opacity: 0;
     }
   }
 
@@ -56,7 +61,7 @@
     border-radius: 0.5rem;
     padding: 0.8rem 2rem 0.6rem;
     color: $color-white;
-    background: $color-primary-dark-1;
+    background: $color-primary;
     grid-column: 1 / -1;
     justify-self: flex-start;
   }
@@ -70,32 +75,29 @@
   &__date {
     color: $color-gray-dark-2;
     margin: 0.4rem;
-    border-radius: 0.5rem;
-    border: 2px solid transparent;
-    transition: 0.2s border-color;
     cursor: pointer;
-    width: 3rem;
-    height: 3rem;
+    padding: 1rem;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &:hover {
-      border-color: $color-primary-dark-1;
+      background: $color-gray-light-2;
+
+      @include respond(tab-port) {
+        background: $color-primary;
+      }
     }
 
     &--active {
-      border-color: $color-primary-dark-1;
-      background: $color-primary-dark-1;
+      background: $color-primary;
       color: $color-white;
       pointer-events: none;
     }
 
     &--unavailable {
       color: $color-gray;
-      &:hover {
-        border-color: transparent;
-      }
     }
 
     &--disabled {
@@ -113,11 +115,11 @@
     flex: 1;
 
     &--ok {
-      border-color: $color-primary-dark-1;
-      color: $color-primary-dark-1;
+      border-color: $color-primary;
+      color: $color-primary;
 
       &:hover {
-        background: $color-primary-dark-1;
+        background: $color-primary;
         color: $color-white;
       }
     }

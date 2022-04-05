@@ -1,0 +1,63 @@
+@use '../../abstracts/colors' as *;
+@use '../../abstracts/mixins' as *;
+
+.no-master-tools {
+  padding: 6.4rem 9.2rem;
+  background: $color-white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond(phone) {
+    padding: 6.4rem 0.8rem;
+    box-shadow: none;
+
+    &__svg {
+      max-width: 30rem;
+    }
+  }
+
+  &__text {
+    color: $color-gray;
+    font-size: 2rem;
+    line-height: 3.2rem;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+
+    &--customer {
+      margin-top: 5.2rem;
+      font-size: 2.4rem;
+      color: $color-primary;
+    }
+
+    &--center {
+      text-align: center;
+    }
+  }
+
+  &__link {
+    transform: translateX(-0.4rem);
+  }
+
+  span {
+    display: inline-flex;
+  }
+
+  &__completed-step {
+    align-items: center;
+
+    & > * {
+      height: 2rem;
+      color: $color-success;
+      margin-left: 1.2rem;
+    }
+  }
+
+  &__sad-smile {
+    margin-top: 4rem;
+    font-size: 5.2rem;
+    font-weight: 700;
+    transform: rotate(90deg);
+    color: $color-gray;
+  }
+}

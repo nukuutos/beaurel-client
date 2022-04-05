@@ -1,4 +1,4 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
 
 .btn-text {
   border: none;
@@ -16,5 +16,28 @@
     color: $color-white;
     border-color: $color-white;
     background: $color-primary;
+  }
+
+  &--visit {
+    border-bottom: none;
+    align-items: center;
+    display: inline-flex;
+    // font-size: 2.4rem;
+    // padding: 0.4rem 1.6rem 0.4rem 0.8rem;
+    padding: 0.2rem 1.2rem 0.2rem 0.4rem;
+    transition: 0.4s background, 0.2s color;
+
+    & > * {
+      // height: 2rem;
+      // transform: translateY(1px);
+      height: 1.6rem;
+      padding-left: 0.8rem;
+      transform: translateY(2px);
+      transition: 0.2s transform;
+    }
+
+    &:hover > * {
+      transform: translate(4px, 1px);
+    }
   }
 }

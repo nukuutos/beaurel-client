@@ -1,5 +1,5 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .btn-icon {
   & > * {
@@ -39,6 +39,13 @@
     &:hover {
       color: $color-success;
       border-color: $color-success;
+    }
+  }
+
+  &--disabled {
+    &:hover {
+      color: $color-gray-light-1;
+      border-color: $color-gray-light-1;
     }
   }
 

@@ -1,4 +1,4 @@
-@use "../../abstracts/colors" as *;
+@use '../../abstracts/colors' as *;
 
 .switch {
   justify-self: center;
@@ -7,7 +7,8 @@
   border-radius: 5px;
   display: inline-flex;
   justify-content: space-between;
-  border: 1px solid $color-gray;
+  border: 2px solid $color-gray-light-1;
+  font-weight: 700;
 
   &__radio {
     display: none;
@@ -21,13 +22,14 @@
     transition: all 0.1s;
     position: relative;
 
-    &:first-of-type::after {
+    // &:first-of-type::after {
+    &:not(:last-of-type)::after {
       height: 100%;
-      width: 1px;
+      width: 2px;
       content: '';
       display: block;
       margin: auto 0;
-      background: $color-gray;
+      background: $color-gray-light-1;
       position: absolute;
       right: 0;
       top: 0;

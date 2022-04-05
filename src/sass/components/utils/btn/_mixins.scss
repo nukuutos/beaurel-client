@@ -1,15 +1,21 @@
+@use '../../../abstracts/mixins' as *;
+
 @mixin color-btn($color) {
   &.btn--primary {
     background: $color;
   }
 
   &.btn--secondary {
-    border: 1px solid $color;
+    border: 2px solid $color;
     color: $color;
 
     &:hover {
       background: $color;
       border-color: $color;
+    }
+
+    @include respond(phone) {
+      background: unset;
     }
   }
 }
