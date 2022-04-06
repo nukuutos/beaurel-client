@@ -34,6 +34,7 @@ import {
   faCaretLeft,
   faChevronLeft, // хз
   faChevronRight, // хз
+  faChevronDown,
   faChevronCircleLeft,
   faChevronCircleRight,
   faLongArrowAltLeft,
@@ -49,11 +50,22 @@ import {
   faCalendar as fasCalendar,
   faEnvelope,
   faCheckDouble,
+  faComment,
+  faCircleNotch,
+  faCogs,
+  faHome,
+  faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faExclamationTriangle,
+  faChevronDown,
+  faHome,
+  faCogs,
+  faCircleNotch,
+  faComment,
   faCheckDouble,
   faEnvelope,
   faAddressCard,
