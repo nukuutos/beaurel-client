@@ -10,7 +10,7 @@ const useDialog = (interlocutorId) => {
   const dispatch = useDispatch();
   const [asyncAction, isLoading] = useAsyncAction();
 
-  const needToGetMessages = interlocutorId && !dialogsMessages[interlocutorId];
+  const needToGetMessages = interlocutorId && !dialogsMessages[interlocutorId]?.isLoaded;
 
   useEffect(() => {
     const updateScroll = () => {
@@ -33,9 +33,7 @@ const useDialog = (interlocutorId) => {
       }
     };
 
-    if (needToGetMessages) {
-      getMessages();
-    }
+    if (needToGetMessages) getMessages();
   }, [profileId, accessToken, asyncAction, interlocutorId, dispatch, needToGetMessages]);
 
   return [dialogRef, isLoading];

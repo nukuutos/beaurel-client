@@ -1,12 +1,16 @@
 @use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .dialog {
   overflow-y: auto;
   position: relative;
-  //
   display: flex;
   flex-direction: column-reverse;
   padding: 0 0.8rem 1.6rem 1.6rem;
+
+  @include respond(phone) {
+    padding: 0 0.8rem 1.6rem;
+  }
 
   &::-webkit-scrollbar {
     width: 0.4rem;
@@ -23,15 +27,6 @@
     height: 1.5rem;
     margin: 2rem 0 3.2rem;
   }
-
-  // &__messages {
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: flex-end;
-  //   padding-bottom: 1.6rem;
-  //   padding-left: 1.6rem;
-  //
-  // }
 
   &--no-active-user {
     display: flex;

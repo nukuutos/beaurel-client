@@ -14,11 +14,12 @@ const useGetFavoriteMasters = () => {
         method: 'get',
         url: `/profile/${profileId}/favorite`,
         accessToken,
+        params: { page: 0 },
       };
 
-      const { data } = await asyncAction(config);
+      const data = await asyncAction(config);
 
-      if (data) dispatch(getFavorites(data.masters));
+      if (data) dispatch(getFavorites(data));
     };
 
     getFavoriteMasters();

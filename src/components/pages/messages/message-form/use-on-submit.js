@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
 import { pushMessage } from '../../../../redux/messages/actions';
 
-const useOnSubmit = (activeDialog) => {
-  const { id: profileId, accessToken } = useSelector((state) => state.auth);
+const useOnSubmit = () => {
+  const [{ activeInterlocutor }, { id: profileId, accessToken }] = useSelector((state) => [
+    state.messages,
+    state.auth,
+  ]);
   const dispatch = useDispatch();
   const [asyncAction, isLoading] = useAsyncAction();
 
-  const { interlocutorId, user } = activeDialog;
+  const { _id: interlocutorId, ...user } = activeInterlocutor;
 
   const updateScroll = () => {
     const dialog = document.querySelector('.messages__dialog');

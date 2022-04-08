@@ -1,29 +1,29 @@
 import { useSelector } from 'react-redux';
-import Modal from '../../../base/modal';
+import Modal from '../../../base/modal/modal';
 import ModalHeading from '../../../base/modal/modal-heading';
-import FavoriteMaster from './favorite-master';
+import DisplayFavoriteMasters from './display-favorite-masters';
 import NoFavoriteMasters from './no-favoirte-master';
 import useGetFavoriteMasters from './use-get-favorite-masters';
+import useOnScroll from './use-on-scroll';
 
-const FavoriteMasters = ({ closeFavoriteMasters, setActiveDialog }) => {
+const FavoriteMasters = ({ closeFavoriteMasters }) => {
   const favorites = useSelector((state) => state.favorites);
   const isLoading = useGetFavoriteMasters();
 
   const isFavorites = !!favorites.length;
 
+  const [refToLoadData, isLoadingOnScroll] = useOnScroll();
+
   return (
-    <Modal isMobileBackground onClickClose={closeFavoriteMasters}>
+    <Modal onClickClose={closeFavoriteMasters}>
       <div className="messages__favorite-masters">
         <ModalHeading onClickClose={closeFavoriteMasters} title="Выберете мастера" />
         {isLoading && <div className="spinner-with-background" />}
         {!isLoading && isFavorites ? (
-          favorites.map((favorite) => (
-            <FavoriteMaster
-              onClickClose={closeFavoriteMasters}
-              setActiveDialog={setActiveDialog}
-              master={favorite}
-            />
-          ))
+          <DisplayFavoriteMasters
+            refToLoadData={refToLoadData}
+            closeFavoriteMasters={closeFavoriteMasters}
+          />
         ) : (
           <NoFavoriteMasters />
         )}

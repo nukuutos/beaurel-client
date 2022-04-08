@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setMessagesViewed } from '../../../../redux/messages/actions';
+import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
+import { setMessagesViewed } from '../../../../../redux/messages/actions';
 
 const useSetViewed = (interlocutorId) => {
   const [{ id: profileId, accessToken }, { dialogsMessages }] = useSelector((state) => [
@@ -12,7 +12,7 @@ const useSetViewed = (interlocutorId) => {
   const dispatch = useDispatch();
 
   const observer = useRef();
-  const messages = dialogsMessages[interlocutorId] || [];
+  const messages = dialogsMessages[interlocutorId]?.messages || [];
 
   const messageToSetRead = useCallback(
     (node) => {

@@ -1,5 +1,19 @@
-import { MONTHS } from '../../../base/date-picker/utils';
 import getDateInfo from './get-date-info';
+
+const MONTHS = [
+  'Января',
+  'Февраля',
+  'Марта',
+  'Апреля',
+  'Мая',
+  'Июня',
+  'Июля',
+  'Августа',
+  'Сентября',
+  'Октября',
+  'Ноября',
+  'Декабря',
+];
 
 const getMessageDate = ({ createdAt, nextMessageDate }) => {
   const currentMessageDateInfo = getDateInfo(createdAt);

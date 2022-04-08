@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux';
-import Message from './message';
+import Message from './message.jsx/message';
 import useGetMessages from './use-get-messages';
+import useMessages from './use-messages';
 import useSetViewed from './use-set-viewed';
 
-const DisplayMessages = ({ interlocutorId }) => {
-  const { dialogsMessages } = useSelector((state) => state.messages);
+const DisplayMessages = () => {
+  const { activeInterlocutor } = useSelector((state) => state.messages);
 
-  const messages = dialogsMessages[interlocutorId] ? dialogsMessages[interlocutorId] : [];
+  const { _id: interlocutorId } = activeInterlocutor;
 
+  const messages = useMessages();
   const [messageToStartLoadData, isLoading] = useGetMessages(interlocutorId);
   const messageToSetIsRead = useSetViewed(interlocutorId);
 
@@ -16,7 +18,9 @@ const DisplayMessages = ({ interlocutorId }) => {
   return (
     <>
       {messages.map((messageObject, index) => {
-        if (index === messages.length - 1) {
+        const isLastMessage = index === messages.length - 1;
+
+        if (isLastMessage) {
           return (
             <Message
               refToLoad={messageToStartLoadData}
@@ -32,7 +36,6 @@ const DisplayMessages = ({ interlocutorId }) => {
           messageObject.isUnread
         ) {
           wasFirstRecipientMessage = true;
-          console.log(messageObject);
 
           return (
             <Message
@@ -52,6 +55,7 @@ const DisplayMessages = ({ interlocutorId }) => {
           />
         );
       })}
+
       {isLoading && (
         <div className="dialog__spinner-wrapper">
           <div className="spinner--tiny spinner dialog__spinner" />

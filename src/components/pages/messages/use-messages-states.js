@@ -1,23 +1,20 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const useMessagesState = () => {
-  const [state, setState] = useState({
-    activeDialog: { user: {} },
-    isFavoriteMasters: false,
-  });
+  const { activeInterlocutor } = useSelector((state) => state.messages);
+  const [isFavoriteMasters, setIsFavoriteMasters] = useState(false);
 
-  const messagesClassName = state.activeDialog.interlocutorId
+  const messagesClassName = activeInterlocutor._id
     ? 'messages--active-dialog'
     : 'messages--dialogs';
 
-  const showFavoriteMasters = () => setState((state) => ({ ...state, isFavoriteMasters: true }));
-  const closeFavoriteMasters = () => setState((state) => ({ ...state, isFavoriteMasters: false }));
-  const backToDialogs = () => setState((state) => ({ ...state, activeDialog: { user: {} } }));
-  const setActiveDialog = (data) => setState((state) => ({ ...state, activeDialog: data }));
+  const showFavoriteMasters = () => setIsFavoriteMasters(true);
+  const closeFavoriteMasters = () => setIsFavoriteMasters(false);
 
-  const functions = { showFavoriteMasters, closeFavoriteMasters, backToDialogs, setActiveDialog };
+  const functions = { showFavoriteMasters, closeFavoriteMasters };
 
-  return [state, messagesClassName, functions];
+  return [isFavoriteMasters, messagesClassName, functions];
 };
 
 export default useMessagesState;

@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveInterlocutor } from '../../../../redux/messages/actions';
 import getAvatarPath from '../../utils/get-avatar-path';
 import getLastMessage from './get-last-message';
 import getTime from './get-time';
@@ -5,10 +7,12 @@ import getTime from './get-time';
 const getUnreadClassName = ({ isUnread, senderId, interlocutorId }) =>
   isUnread && senderId === interlocutorId ? 'dialog-card--unread' : '';
 
-const getActiveClassName = ({ activeDialog, interlocutorId }) =>
-  activeDialog?.interlocutorId === interlocutorId ? 'dialog-card--active' : '';
+const getActiveClassName = ({ activeInterlocutor, interlocutorId }) =>
+  activeInterlocutor?._id === interlocutorId ? 'dialog-card--active' : '';
 
-const DialogCard = ({ dialog, activeDialog, setDialog }) => {
+const DialogCard = ({ dialogCardToRef = null, dialog }) => {
+  const { activeInterlocutor } = useSelector((state) => state.messages);
+  const dispatch = useDispatch();
   const { _id: interlocutorId, senderId, user, message, isUnread, createdAt } = dialog;
   const { firstName, lastName, avatar } = user;
 
@@ -16,14 +20,17 @@ const DialogCard = ({ dialog, activeDialog, setDialog }) => {
   const name = `${firstName} ${lastName[0]}.`;
 
   const unreadClassName = getUnreadClassName({ isUnread, senderId, interlocutorId });
-  const activeClassName = getActiveClassName({ activeDialog, interlocutorId });
+  const activeClassName = getActiveClassName({ activeInterlocutor, interlocutorId });
 
   const lastMessage = getLastMessage({ interlocutorId, senderId, message });
   const time = getTime(createdAt);
 
+  const setInterlocutor = () => dispatch(setActiveInterlocutor({ _id: interlocutorId, ...user }));
+
   return (
     <div
-      onClick={() => setDialog({ interlocutorId, user })}
+      ref={dialogCardToRef}
+      onClick={setInterlocutor}
       className={`messages__dialog-card dialog-card ${unreadClassName} ${activeClassName}`}
     >
       <img src={avatarUrl} alt="User" className="dialog-card__avatar" />
