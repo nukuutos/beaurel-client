@@ -16,7 +16,12 @@ const ForgotPassword = () => {
           <h1 className="logo">Beaurel</h1>
           {isLoading && <div className="spinner-with-background" />}
           {state.current < 4 && (
-            <ForgotPasswordForm state={state} setState={setState} handleSubmit={handleSubmit} />
+            <ForgotPasswordForm
+              goToNextStep={goToNextStep}
+              state={state}
+              setState={setState}
+              handleSubmit={handleSubmit}
+            />
           )}
 
           {state.current === 4 && <PasswordChangesSuccess />}
