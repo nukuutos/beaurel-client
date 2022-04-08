@@ -12,7 +12,7 @@ const translateRoomValues = {
 const createSetSwitchValue =
   ({ value, setFieldValue, setValue }) =>
   () => {
-    setFieldValue('room.type', value);
+    setFieldValue('placeOfWork.room.type', value);
     setValue(value);
   };
 
