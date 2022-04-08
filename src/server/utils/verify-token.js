@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-const { JWT_KEY_ACCESS } = process.env;
+const { JWT_ACCESS_KEY } = process.env;
 
 const verifyToken = (token) => {
   try {
-    const decoded = jwt.verify(token, JWT_KEY_ACCESS);
+    const decoded = jwt.verify(token, JWT_ACCESS_KEY);
     return decoded.user;
   } catch (error) {
     return false;
