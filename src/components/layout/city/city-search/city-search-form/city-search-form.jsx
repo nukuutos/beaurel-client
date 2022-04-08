@@ -5,12 +5,13 @@ import Input from '../../../../base/form/input';
 import useHandleSubmit from './use-handle-submit';
 
 const CitySearchForm = ({ setData, page, hasMore, form }) => {
-  const [handleSubmit] = useHandleSubmit({ setData, page, hasMore });
+  const [handleSubmit, isLoading, cancelSubmit] = useHandleSubmit({ setData, page, hasMore });
 
   return (
     <Formik innerRef={form} initialValues={{ city: '' }} onSubmit={handleSubmit}>
       {({ submitForm, handleChange }) => {
         const handleType = (event) => {
+          if (cancelSubmit) cancelSubmit();
           handleChange(event);
           submitForm();
         };

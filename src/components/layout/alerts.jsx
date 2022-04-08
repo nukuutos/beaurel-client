@@ -16,12 +16,10 @@ const Alert = ({ message }) => (
 const Alerts = () => {
   const alerts = useSelector((state) => state.alerts);
   const dispatch = useDispatch();
-  // const [state, setState] = useState([]);
 
   useEffect(() => {
     const time = setTimeout(() => {
       dispatch(deleteAlert());
-      // setState((state) => state.slice(0, -1));
     }, 4000);
 
     return () => clearTimeout(time);
