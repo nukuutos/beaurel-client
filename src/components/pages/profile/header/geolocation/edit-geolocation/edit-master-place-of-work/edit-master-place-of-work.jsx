@@ -1,19 +1,19 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Modal from '../../../../../base/modal/modal';
-import City from '../../../../sign-up/cases/city';
-import EditPlaceOfWorkForm from './edit-place-of-work-form/edit-place-of-work-form';
+import Modal from '../../../../../../base/modal/modal';
+import City from '../city';
+import EditMasterPlaceOfWorkForm from './edit-master-place-of-work-form/edit-master-place-of-work-form';
 import placeOfWorkSchema from './schema';
 import useHandleSubmit from './use-handle-submit';
 
-const EditPlaceOfWork = ({ onClickClose }) => {
+const EditMasterPlaceOfWork = ({ onClickClose }) => {
   const [{ street, house, building, floor, room }, { city }] = useSelector((state) => [
     state.profile.placeOfWork,
     state.timezone,
   ]);
 
-  const [handleSubmit, isLoading] = useHandleSubmit();
+  const [handleSubmit, isLoading] = useHandleSubmit(onClickClose);
 
   const [isCitySearch, setIsCitySearch] = useState(false);
 
@@ -38,7 +38,7 @@ const EditPlaceOfWork = ({ onClickClose }) => {
           isCitySearch ? (
             <City {...props} closeCity={closeCity} />
           ) : (
-            <EditPlaceOfWorkForm {...props} openCity={openCity} closeCity={closeCity} />
+            <EditMasterPlaceOfWorkForm {...props} openCity={openCity} closeCity={closeCity} />
           )
         }
       </Formik>
@@ -46,4 +46,4 @@ const EditPlaceOfWork = ({ onClickClose }) => {
   );
 };
 
-export default EditPlaceOfWork;
+export default EditMasterPlaceOfWork;

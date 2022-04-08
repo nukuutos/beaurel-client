@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { setCityAndTimezone } from '../../../../../../redux/timezone/actions';
+import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
+import { updateProfileCity } from '../../../../../../../redux/profile/actions';
+import { setCityAndTimezone } from '../../../../../../../redux/timezone/actions';
 
-const useHandleSubmit = () => {
+const useHandleSubmit = (closeModal) => {
   const { id: userId, accessToken } = useSelector((state) => state.auth);
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
@@ -18,7 +19,9 @@ const useHandleSubmit = () => {
     const data = await asyncAction(config);
 
     if (data) {
+      dispatch(updateProfileCity(values.city));
       dispatch(setCityAndTimezone({ ...values, timezone: null }));
+      closeModal();
     }
   };
 

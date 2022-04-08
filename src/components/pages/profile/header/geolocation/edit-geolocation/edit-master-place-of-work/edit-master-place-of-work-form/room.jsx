@@ -1,7 +1,7 @@
 import { ErrorMessage } from 'formik';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Input from '../../../../../../base/form/input';
+import Input from '../../../../../../../base/form/input';
 
 const translateRoomValues = {
   salon: 'Салон',

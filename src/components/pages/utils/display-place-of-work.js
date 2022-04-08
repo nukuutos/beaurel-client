@@ -22,9 +22,13 @@ const displayPlaceOfWork = (placeOfWork) => {
   const roomType = translateRoomType[type];
   const roomValue = getRoomValue(type, value);
 
-  stringToDisplay += `${floor} этаж, ${roomType} ${roomValue}`;
+  stringToDisplay += `${floor} этаж, ${roomType}`;
 
-  return stringToDisplay;
+  return (
+    <>
+      {stringToDisplay} {roomValue}
+    </>
+  );
 };
 
 export default displayPlaceOfWork;

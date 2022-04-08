@@ -4,6 +4,7 @@ import {
   CHANGE_IS_PUBLIC_VIEW,
   UPDATE_AVATAR_SUCCESS,
   UPDATE_PLACE_OF_WORK,
+  UPDATE_PROFILE_CITY,
 } from './types';
 
 const INITIAL_STATE = {
@@ -52,6 +53,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         placeOfWork: payload,
+      };
+    }
+
+    case UPDATE_PROFILE_CITY: {
+      return {
+        ...state,
+        city: payload,
       };
     }
 

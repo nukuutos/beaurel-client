@@ -4,6 +4,7 @@ import {
   CHANGE_IS_PUBLIC_VIEW,
   UPDATE_AVATAR_SUCCESS,
   UPDATE_PLACE_OF_WORK,
+  UPDATE_PROFILE_CITY,
 } from './types';
 
 export const getProfileSuccess = (profile) => ({
@@ -24,6 +25,11 @@ export const updateAvatarSuccess = (avatar) => ({
 export const updatePlaceOfWork = (placeOfWork) => ({
   type: UPDATE_PLACE_OF_WORK,
   payload: placeOfWork,
+});
+
+export const updateProfileCity = (city) => ({
+  type: UPDATE_PROFILE_CITY,
+  payload: city,
 });
 
 export const changeIsPublicView = () => ({
