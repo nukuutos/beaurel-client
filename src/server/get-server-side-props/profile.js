@@ -33,7 +33,7 @@ const getProfileServerSideProps = wrapper.getServerSideProps(async ({ store, req
   const { globalData, master, ...profileData } = data;
 
   // return 404
-  if (!master.id && !profileData.id) {
+  if (!master?.id && !profileData?.id) {
     res.statusCode = 302;
     res.setHeader('Location', `/not-found`); // Replace <link> with your url link
     return;
