@@ -8,6 +8,7 @@ const useEditState = ({ values, editState, setFieldValue }) => {
   const handleEdit = () => {
     setFieldValue('auto.weekends', weekends);
     setEditState({ isEditing: false, element: { ...editState, weekends: false } });
+    // need to delete exceptions on day that we mark as weekend
   };
 
   const handleCancel = () => {

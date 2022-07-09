@@ -7,7 +7,7 @@ const getWeekendsString = (weekends) => {
 };
 
 const DisplayWeekends = ({ values }) => {
-  const { weekends } = values.edit.auto;
+  const { weekends } = values.auto;
   const stringWeekends = getWeekendsString(weekends);
   return (
     <>
