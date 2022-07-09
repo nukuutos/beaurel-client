@@ -17,7 +17,7 @@ const EditMasterWork = ({ state }) => {
 
   const [{ index }, setParentState] = state;
 
-  const initialSrc = `https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id} .webp`;
+  const initialSrc = `https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id}.webp`;
 
   const { src, file, handleFileUpload } = useFileUpload(initialSrc);
 

@@ -24,7 +24,7 @@ const CarouselPhone = ({ state }) => {
           {isChevrons && <Chevrons toNextWork={toNextWork} toPrevWork={toPrevWork} />}
 
           <img
-            src={`https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id} .webp`}
+            src={`https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id}.webp`}
             className="carousel__image"
             alt="Master's work"
           />
