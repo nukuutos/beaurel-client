@@ -1,5 +1,4 @@
 import cookie from 'cookie';
-import { signOut } from '../../redux/auth/actions';
 import { wrapper } from '../../redux/store';
 import refreshToken from '../../utils/auth/handle-auth-page/refresh-token-auth';
 
@@ -9,7 +8,7 @@ const handleRefreshToken = async ({ req, res, store }) => {
   if (user) {
     const { id, username } = user;
     res.writeHead(302, { Location: `${username || id}` });
-    res.end();
+    return res.end();
   }
 };
 

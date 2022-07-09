@@ -1,24 +1,13 @@
-import React, { useRef } from 'react';
-import { ErrorMessage, Form, Formik } from 'formik';
-import Input from '../../../base/form/input';
+import { Form, Formik } from 'formik';
 import useOnSubmit from './use-on-submit';
 import EditButtons from '../utils/edit-buttons';
 import usernameSchema from '../schemas/username';
+import ErrorInput from '../../../base/form/error-input';
+import useEdit from '../use-edit';
 
 const UsernameEdit = ({ data, setIsEdit }) => {
-  const formikRef = useRef(null);
-
   const [handleSubmit, isLoading] = useOnSubmit(setIsEdit);
-
-  const closeEdit = () => setIsEdit(false);
-
-  const handleEdit = (event) => {
-    const { dirty, submitForm } = formikRef.current;
-
-    event.preventDefault();
-    if (dirty) submitForm();
-    else closeEdit();
-  };
+  const { handleEdit, closeEdit, formikRef } = useEdit({ setIsEdit });
 
   return (
     <Formik
@@ -31,15 +20,7 @@ const UsernameEdit = ({ data, setIsEdit }) => {
     >
       {() => (
         <Form className="setting-card__form">
-          <div className="setting-card__input">
-            <label htmlFor="username" className="label">
-              Username
-            </label>
-            <Input name="username" className="input" type="text" />
-            <ErrorMessage name="username">
-              {(msg) => <div className="error mt-1">{msg}</div>}
-            </ErrorMessage>
-          </div>
+          <ErrorInput name="username" className="setting-card__input" label="username" />
           <EditButtons isLoading={isLoading} handleEdit={handleEdit} close={closeEdit} />
         </Form>
       )}

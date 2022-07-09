@@ -5,6 +5,7 @@ import {
   UPDATE_AVATAR_SUCCESS,
   UPDATE_PLACE_OF_WORK,
   UPDATE_PROFILE_CITY,
+  GET_REVIEWS_ON_SCROLL,
 } from './types';
 
 export const getProfileSuccess = (profile) => ({
@@ -30,6 +31,11 @@ export const updatePlaceOfWork = (placeOfWork) => ({
 export const updateProfileCity = (city) => ({
   type: UPDATE_PROFILE_CITY,
   payload: city,
+});
+
+export const getReviewsOnScroll = (reviews) => ({
+  type: GET_REVIEWS_ON_SCROLL,
+  payload: reviews,
 });
 
 export const changeIsPublicView = () => ({

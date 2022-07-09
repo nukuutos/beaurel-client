@@ -1,7 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import useTimeFrame from '../use-week/use-time-frame';
 import { getIsUntilDate } from '../use-week/utils/time-frame';
+import ChevronLeft from '../../../../../../../../base/icons/chevron-left';
+import ChevronRight from '../../../../../../../../base/icons/chevron-right';
 
 const BookingTimetableHeader = ({ step, startDateState }) => {
   const [startDayData, setStartDay] = startDateState;
@@ -30,7 +32,7 @@ const BookingTimetableHeader = ({ step, startDateState }) => {
         onClick={prevWeek}
         className={`booking-timetable__arrow ${leftArrowDisabledClassName} btn-icon mr-6`}
       >
-        <FontAwesomeIcon icon="chevron-left" />
+        <ChevronLeft />
       </button>
       <h2 className="heading booking-timetable__heading ">Выберите Время</h2>
       <button
@@ -38,7 +40,7 @@ const BookingTimetableHeader = ({ step, startDateState }) => {
         onClick={nextWeek}
         className={`booking-timetable__arrow ${rightArrowDisabledClassName} btn-icon ml-6`}
       >
-        <FontAwesomeIcon icon="chevron-right" />
+        <ChevronRight />
       </button>
     </div>
   );

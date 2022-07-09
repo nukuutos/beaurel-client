@@ -11,6 +11,11 @@
     margin-top: 2.8rem;
     grid-row: 2 / 3;
     grid-column: 2 / 6;
+    align-self: flex-end;
+
+    @include respond(phone) {
+      align-self: flex-start;
+    }
   }
 
   &__name {
@@ -45,11 +50,14 @@
   &__no-masters {
     grid-column: 1 / -1;
     justify-self: center;
+    position: relative;
     width: 36rem;
+    height: 29rem;
     margin-top: 5.6rem;
 
     @include respond(phone) {
       width: 28rem;
+      height: 22rem;
     }
   }
 

@@ -1,13 +1,13 @@
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
-import Input from '../../../base/form/input';
+import ErrorInput from '../../../base/form/error-input';
 import Modal from '../../../base/modal/modal';
 import ModalHeading from '../../../base/modal/modal-heading';
 import { updatePasswordSchema } from './schema';
 import useOnSubmit from './use-on-submit';
 
 const UpdatePasswordForm = ({ onClickClose }) => {
-  const [handleSubmit, isLoading] = useOnSubmit({ onClickClose });
+  const [handleSubmit] = useOnSubmit({ onClickClose });
 
   return (
     <Modal onClickClose={onClickClose}>
@@ -24,50 +24,26 @@ const UpdatePasswordForm = ({ onClickClose }) => {
         >
           {() => (
             <Form className="update-password__form">
-              <div className="update-password__group">
-                <label className="label" htmlFor="password">
-                  Ваш текущий пароль
-                </label>
-                <Input
-                  className="input update-password__input"
-                  name="password"
-                  id="password"
-                  type="password"
-                />
-                <ErrorMessage name="password">
-                  {(msg) => <div className="error mt-1">{msg}</div>}
-                </ErrorMessage>
-              </div>
+              <ErrorInput
+                className="update-password__group"
+                name="password"
+                label="Ваш текущий пароль"
+                type="password"
+              />
 
-              <div className="update-password__group mt-6">
-                <label className="label" htmlFor="newPassword">
-                  Новый пароль
-                </label>
-                <Input
-                  className="input update-password__input"
-                  name="newPassword"
-                  id="newPassword"
-                  type="password"
-                />
-                <ErrorMessage name="newPassword">
-                  {(msg) => <div className="error mt-1">{msg}</div>}
-                </ErrorMessage>
-              </div>
+              <ErrorInput
+                className="update-password__group mt-6"
+                name="newPassword"
+                label="Новый пароль"
+                type="password"
+              />
 
-              <div className="update-password__group mt-6">
-                <label className="label" htmlFor="newConfirmedPassword">
-                  Подтвердите новый пароль
-                </label>
-                <Input
-                  className="input update-password__input"
-                  name="newConfirmedPassword"
-                  id="newConfirmedPassword"
-                  type="password"
-                />
-                <ErrorMessage name="newConfirmedPassword">
-                  {(msg) => <div className="error mt-1">{msg}</div>}
-                </ErrorMessage>
-              </div>
+              <ErrorInput
+                className="update-password__group mt-6"
+                name="newConfirmedPassword"
+                label="Подтвердите новый пароль"
+                type="password"
+              />
 
               <button type="submit" className="btn btn--primary mt-6">
                 Изменить

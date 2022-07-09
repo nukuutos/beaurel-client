@@ -1,9 +1,19 @@
 import { useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
+
 import Layout from '../components/layout/layout';
-import MasterProfile from '../components/pages/profile/master-profile/master-profile';
-import CustomerProfile from '../components/pages/profile/customer-profile/customer-profile';
+
 import getProfileServerSideProps from '../server/get-server-side-props/profile';
-import Header from '../components/pages/profile/header/header';
+
+const Header = dynamic(() => import('../components/pages/profile/header/header'));
+
+const MasterProfile = dynamic(() =>
+  import('../components/pages/profile/master-profile/master-profile')
+);
+
+const CustomerProfile = dynamic(() =>
+  import('../components/pages/profile/customer-profile/customer-profile')
+);
 
 const Profile = () => {
   const { role } = useSelector((state) => state.profile);

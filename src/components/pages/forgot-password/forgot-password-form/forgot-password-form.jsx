@@ -4,7 +4,7 @@ import Passwords from '../passwords';
 import Phone from '../phone';
 import Progress from '../progress/progress';
 import schema from '../schema';
-import VerificationCode from '../verification-code/verification-code';
+import VerificationCode from '../verification-code';
 
 const ForgotPasswordForm = ({ goToNextStep, state, setState, handleSubmit }) => (
   <>

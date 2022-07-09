@@ -2,14 +2,14 @@
 @use '../../../../abstracts/mixins' as *;
 
 .profile-card {
-  grid-column: span 4;
-  // margin-left: -1rem; //  it's bigger on 20px than i expected because of export of svg scene from figma
+  flex-shrink: 0;
   position: relative;
   cursor: pointer;
 
   transition: 0.2s transform;
 
   height: 16.7rem;
+  width: 25rem;
   box-shadow: 0 0 0.5rem rgb(0 0 0 / 25%);
   border-radius: 0.9rem;
 
@@ -25,6 +25,7 @@
 
   @include respond(phone) {
     height: 12rem;
+    width: 18rem;
 
     &:not(:first-of-type) {
       margin-left: 0.8rem;

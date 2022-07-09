@@ -10,7 +10,7 @@ const InputIcon = ({ inputClassName, wrapperClassName, children, ...props }) => 
   return (
     <div className={`input--icon ${wrapperClassName}`}>
       {children}
-      <input className={inputClassName} {...field} {...props} />
+      <input className={inputClassName} {...field} {...props} autoComplete="off" />
     </div>
   );
 };

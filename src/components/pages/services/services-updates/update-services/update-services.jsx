@@ -1,8 +1,15 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
+import ModalFallback from '../../../shared/modal-fallback';
 import NeedUpdateAlert from './need-update-alert';
-import Modal from '../../../../base/modal/modal';
-import UpdateServicesFromServices from './update-services-from/update-services-from-services';
 import useIsNeedUpdateAlert from './utils/use-is-need-update-alert';
+
+const UpdateServicesFromServices = dynamic(
+  () => import('./update-services-from/update-services-from-services'),
+  {
+    loading: () => <ModalFallback />,
+  }
+);
 
 const UpdateServices = ({ isUpdateServices, setIsUpdateServices }) => {
   const isUpdateAlert = useIsNeedUpdateAlert();
@@ -13,12 +20,7 @@ const UpdateServices = ({ isUpdateServices, setIsUpdateServices }) => {
   return (
     <>
       {isUpdateAlert && <NeedUpdateAlert openUpdateServices={openUpdateServices} />}
-
-      {isUpdateServices.update && (
-        <Modal onClickClose={closeUpdateServices}>
-          <UpdateServicesFromServices close={closeUpdateServices} />
-        </Modal>
-      )}
+      {isUpdateServices.update && <UpdateServicesFromServices close={closeUpdateServices} />}
     </>
   );
 };

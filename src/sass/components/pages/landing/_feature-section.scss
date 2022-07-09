@@ -1,0 +1,94 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.feature-section {
+  height: unset;
+  padding-top: 5.6rem;
+  padding-bottom: 14rem;
+
+  @include respond(tab-port) {
+    padding-bottom: 10rem;
+  }
+
+  @include respond(phone) {
+    padding-bottom: 4rem;
+  }
+
+  @include respond(phone) {
+    padding-top: 0;
+  }
+
+  &__carousel {
+    padding: 1rem 0;
+    display: flex;
+    width: 200%;
+    transition: 0.4s transform;
+    height: 93rem;
+    position: relative;
+
+    @include respond(tab-land) {
+      height: 83rem;
+    }
+
+    @include respond(tab-port) {
+      height: 58rem;
+    }
+
+    @include respond(phone) {
+      height: 71rem;
+    }
+  }
+
+  &__features {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+    justify-content: center;
+    width: 50%;
+    align-self: center;
+
+    &:last-of-type {
+      left: 50%;
+    }
+
+    @include respond(tab-port) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    @include respond(phone) {
+      padding: 0 1.6rem;
+    }
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 500;
+    color: $color-primary;
+    letter-spacing: 0;
+    opacity: 0;
+    transition: 0.4s opacity;
+
+    &--visible {
+      opacity: 1;
+    }
+
+    @include respond(tab-land) {
+      font-size: 2.8rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6rem;
+    align-self: center;
+
+    @include respond(tab-land) {
+      margin-bottom: 4rem;
+    }
+  }
+}

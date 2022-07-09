@@ -1,0 +1,86 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.section-action {
+  // position: relative;
+  height: unset;
+  padding-bottom: 18rem;
+
+  @include respond(tab-port) {
+    padding-bottom: 12rem;
+  }
+
+  &__svg-wrapper {
+    position: relative;
+    padding-bottom: 27%;
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: $color-gray-light-3;
+      transition: 2s transform;
+    }
+
+    &--visible::after {
+      transform: translateX(-100%);
+    }
+  }
+
+  &__svg {
+    position: absolute;
+    fill: $color-primary-dark-1;
+  }
+
+  &__just-try {
+    position: relative;
+    font-size: 20rem;
+    font-weight: bold;
+    align-self: center;
+    letter-spacing: -1px;
+    color: $color-primary-dark-1;
+    opacity: 0;
+    transition: 0.8s opacity;
+
+    &--visible {
+      opacity: 1;
+    }
+
+    @include respond(tab-port) {
+      font-size: 14rem;
+    }
+
+    @include respond(phone) {
+      font-size: 8rem;
+    }
+  }
+
+  &__btn {
+    align-self: center;
+    margin-top: 6rem;
+    font-size: 2.8rem;
+    border-width: 4px;
+    color: $color-primary-dark-1;
+    border-color: $color-primary-dark-1;
+    opacity: 0;
+    transition: 0.2s color, 0.2s background, 0.8s opacity;
+
+    &--visible {
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: $color-primary-dark-1;
+    }
+
+    @include respond(tab-port) {
+      margin-top: 6rem;
+      font-size: 2rem;
+      border-width: 3px;
+    }
+  }
+}

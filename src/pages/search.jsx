@@ -1,14 +1,18 @@
 import { useState, useRef } from 'react';
-import Layout from '../components/layout/layout';
 
+import dynamic from 'next/dynamic';
 import useSearch from '../components/pages/search/use-search';
 import useOnSubmit from '../components/pages/search/use-on-submit';
-import SearchForm from '../components/pages/search/search-form';
-import NoMasters from '../components/pages/search/no-masters';
-import getSearchServerSideProps from '../server/get-server-side-props/search';
 import useMasterTools from '../components/pages/search/use-master-tools';
-import NoMasterTools from '../components/pages/search/no-master-tools';
-import DisplayMasterCards from '../components/pages/search/display-master-cards';
+
+import getSearchServerSideProps from '../server/get-server-side-props/search';
+
+import Layout from '../components/layout/layout';
+
+const SearchForm = dynamic(() => import('../components/pages/search/search-form'));
+const NoMasters = dynamic(() => import('../components/pages/search/no-masters'));
+const NoMasterTools = dynamic(() => import('../components/pages/search/no-master-tools'));
+const DisplayMasterCards = dynamic(() => import('../components/pages/search/display-master-cards'));
 
 const Search = ({ masters }) => {
   const [data, setData] = useState(masters);

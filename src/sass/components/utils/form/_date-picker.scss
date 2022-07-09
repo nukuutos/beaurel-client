@@ -23,8 +23,8 @@
     // padding: rem;
     height: 3rem;
     width: 3rem;
-    color: $color-gray;
-    transition: 0.2s color, 0.2s border-color;
+    fill: $color-gray;
+    transition: 0.2s fill, 0.2s border-color;
     cursor: pointer;
     border-radius: 50%;
     display: flex;
@@ -37,7 +37,7 @@
 
     &:hover {
       border-color: $color-primary;
-      color: $color-primary;
+      fill: $color-primary;
     }
 
     &--right {
@@ -86,6 +86,10 @@
       background: $color-gray-light-2;
 
       @include respond(tab-port) {
+        background: $color-gray-light-2;
+      }
+
+      @include respond(phone) {
         background: $color-primary;
       }
     }

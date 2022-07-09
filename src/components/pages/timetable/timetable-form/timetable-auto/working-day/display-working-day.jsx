@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import displayDuration from '../../../../services/utils/display-duration';
+import Pen from '../../../../../base/icons/pen';
+import displayDuration from '../../../../utils/display-duration';
 
 const DisplayWorkingDay = ({ editState, values, isDisabled }) => {
   const { startAt, endAt } = values.auto.workingDay;
@@ -21,7 +21,7 @@ const DisplayWorkingDay = ({ editState, values, isDisabled }) => {
           onClick={openEditModal}
           className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn-icon"
         >
-          <FontAwesomeIcon icon="pen" />
+          <Pen />
         </div>
       )}
     </>

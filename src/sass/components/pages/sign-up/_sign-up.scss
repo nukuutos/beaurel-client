@@ -20,7 +20,12 @@
     margin-top: 4rem;
     font-size: 2rem;
     color: $color-primary-dark-2;
+    &--center {
+      line-height: 2.8rem;
+      text-align: center;
+    }
   }
+
   &__sub-heading {
     color: $color-gray;
     font-weight: 500;
@@ -35,6 +40,27 @@
 
     @include respond(phone) {
       width: 33rem;
+    }
+  }
+
+  &__agreement {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: $color-gray-dark-1;
+    margin-top: 4rem;
+    line-height: 2rem;
+    text-align: center;
+  }
+
+  &__agreement-rules {
+    color: $color-primary;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s border-color;
+
+    &:hover {
+      border-color: $color-primary;
     }
   }
 
@@ -64,11 +90,13 @@
   }
 
   &__input {
-    width: 100%;
-    height: 4rem;
+    // width: 100%;
+    // height: 4rem;
 
     &--phone {
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
+      height: unset;
+      padding: 1.2rem 0 !important;
     }
 
     &--verification {
@@ -100,10 +128,7 @@
       // padding-right: 0.8rem;
 
       & > * {
-        height: 1.6rem;
-        color: $color-primary-dark-2;
-        color: $color-black;
-        transition: 0.2s color;
+        height: 0.8rem;
       }
 
       &:hover {
@@ -122,9 +147,11 @@
     justify-content: center;
     align-items: center;
 
-    padding: 0 0.8rem;
+    padding: 0 0.4rem 0 1.2rem;
     // background: $color-gray-light-1;
-    color: $color-gray;
+    // color: rgba($color-gray-dark-1, 0.5);
+    // color: rgba($color-gray-dark-2, 0.5);
+    color: $color-gray-dark-2;
     font-weight: 500;
 
     border-top-left-radius: 0.5rem;

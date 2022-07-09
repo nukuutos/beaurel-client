@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useSelector } from 'react-redux';
-import AddService from './add-service/add-service';
+import dynamic from 'next/dynamic';
 import DisplayServices from './display-services/display-services';
+import ModalFallback from '../../shared/modal-fallback';
+import Plus from '../../../base/icons/plus';
+import ChevronRight from '../../../base/icons/chevron-right';
+
+const AddService = dynamic(() => import('./add-service/add-service'), {
+  loading: () => <ModalFallback />,
+});
 
 const SERVICES_LIMIT = 20;
 
@@ -22,7 +29,7 @@ const EditServices = () => {
 
       {!isServicesLimit && isServices && (
         <div className="service service--add service--hover card mt-6" onClick={openAddService}>
-          <FontAwesomeIcon icon="plus" />
+          <Plus />
         </div>
       )}
 
@@ -36,7 +43,7 @@ const EditServices = () => {
 
           <p className="no-master-tools__text no-master-tools__text--center mt-9">
             <span onClick={openAddService} className="btn-text btn-text--visit mt-5">
-              Добавить услугу <FontAwesomeIcon icon="chevron-right" />
+              Добавить услугу <ChevronRight />
             </span>
           </p>
         </div>

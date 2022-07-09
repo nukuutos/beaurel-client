@@ -35,11 +35,19 @@ const Appointments = ({ user, category }) => {
             user={user}
             appointment={appointment}
             category={category}
+            key={appointment._id}
           />
         );
       }
 
-      return <AppointmentComponent user={user} appointment={appointment} category={category} />;
+      return (
+        <AppointmentComponent
+          user={user}
+          appointment={appointment}
+          category={category}
+          key={appointment._id}
+        />
+      );
     });
 
     days.push(

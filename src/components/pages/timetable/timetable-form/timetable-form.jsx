@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import schema from '../schema';
+import { editTimetableSchema } from '../schema';
 import BaseSettings from './base-settings/base-settings';
 import FormButtons from './form-buttons';
 import TimetableAuto from './timetable-auto/timetable-auto';
@@ -33,7 +33,7 @@ const TimetableForm = () => {
 
   return (
     <Formik
-      validationSchema={schema}
+      validationSchema={editTimetableSchema}
       initialValues={initialValues}
       enableReinitialize
       onSubmit={handleSubmit}

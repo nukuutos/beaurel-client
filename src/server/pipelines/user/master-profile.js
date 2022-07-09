@@ -1,3 +1,5 @@
+const REVIEWS_LIMIT = 10;
+
 const profileAndReviews = (masterMatchQuery, userId = null) => [
   {
     $facet: {
@@ -33,7 +35,7 @@ const profileAndReviews = (masterMatchQuery, userId = null) => [
                   _id: 1,
                   firstName: 1,
                   lastName: 1,
-                  avatar: 1,
+                  isAvatar: 1,
                   placeOfWork: 1,
                   specialization: 1,
                 },
@@ -235,6 +237,8 @@ const profileAndReviews = (masterMatchQuery, userId = null) => [
           $facet: {
             // getting reviews
             reviews: [
+              { $sort: { createdAt: -1 } },
+              { $limit: REVIEWS_LIMIT },
               {
                 $lookup: {
                   from: 'users',
@@ -254,7 +258,7 @@ const profileAndReviews = (masterMatchQuery, userId = null) => [
                         username: 1,
                         firstName: 1,
                         lastName: 1,
-                        avatar: 1,
+                        isAvatar: 1,
                       },
                     },
                   ],

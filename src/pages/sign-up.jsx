@@ -1,14 +1,26 @@
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
+// import ChoiceCards from '../components/pages/sign-up/choice-cards';
+// import CustomerCase from '../components/pages/sign-up/cases/customer-case/customer-case';
+// import MasterCase from '../components/pages/sign-up/cases/master-case/master-case';
+// import Progress from '../components/pages/sign-up/progress/progress';
 
-import ChoiceCards from '../components/pages/sign-up/choice-cards';
-import CustomerCase from '../components/pages/sign-up/cases/customer-case';
-import MasterCase from '../components/pages/sign-up/cases/master-case';
-import Progress from '../components/pages/sign-up/progress/progress';
 import useProgress from '../components/pages/sign-up/use-progress';
 
-const SignIn = () => {
+// const Layout = dynamic(() => import('../components/layout/layout'));
+const ChoiceCards = dynamic(() => import('../components/pages/sign-up/choice-cards'));
+const Progress = dynamic(() => import('../components/pages/sign-up/progress/progress'));
+
+const CustomerCase = dynamic(() =>
+  import('../components/pages/sign-up/cases/customer-case/customer-case')
+);
+
+const MasterCase = dynamic(() =>
+  import('../components/pages/sign-up/cases/master-case/master-case')
+);
+
+const SignUp = () => {
   const [isCustomer, setIsCustomer] = useState(true);
   const [state, setState, actions] = useProgress();
 
@@ -22,7 +34,11 @@ const SignIn = () => {
         <div className="sign-up">
           <h1 className="logo">Beaurel</h1>
 
-          <Progress count={stepsCount} state={[state, setState]} />
+          <Progress
+            keyName={isCustomer ? 'customer' : 'master'}
+            count={stepsCount}
+            state={[state, setState]}
+          />
 
           {state.current === 1 && (
             <ChoiceCards
@@ -51,4 +67,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

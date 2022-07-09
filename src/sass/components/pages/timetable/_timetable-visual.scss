@@ -7,6 +7,7 @@
 
   &__weekday {
     grid-column: span 1;
+    overflow-y: auto;
   }
 
   @include respond(phone) {

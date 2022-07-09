@@ -1,4 +1,5 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .select {
   appearance: none;
@@ -6,8 +7,13 @@
   background-position: right 0.8rem center;
   outline: none;
   border-radius: 1rem;
+  cursor: pointer;
 
   &:focus {
     border-color: $color-primary;
+  }
+
+  &--no-arrow {
+    background: none;
   }
 }

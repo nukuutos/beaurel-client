@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ErrorMessage, Form } from 'formik';
 import React from 'react';
 import Input from '../../../../../../../base/form/input';
+import ChevronDown from '../../../../../../../base/icons/chevron-down';
 import ModalHeading from '../../../../../../../base/modal/modal-heading';
 import Room from './room';
 
-const EditMasterPlaceOfWorkForm = ({ openCity, closeCity, ...formikProps }) => {
+const EditMasterPlaceOfWorkForm = ({ openCity, onClickClose, closeCity, ...formikProps }) => {
   const { values, errors, dirty, submitForm, setFieldValue } = formikProps;
 
   const handleClick = (event) => {
@@ -18,7 +18,11 @@ const EditMasterPlaceOfWorkForm = ({ openCity, closeCity, ...formikProps }) => {
 
   return (
     <Form className="sign-up__form edit-place-of-work card">
-      <ModalHeading titleDesktopClassName="edit-place-of-work__heading" title="Место работы" />
+      <ModalHeading
+        onClickClose={onClickClose}
+        titleDesktopClassName="edit-place-of-work__heading"
+        title="Место работы"
+      />
 
       <div className="sign-up__group">
         <div className="sign-up__group mt-7">
@@ -27,7 +31,7 @@ const EditMasterPlaceOfWorkForm = ({ openCity, closeCity, ...formikProps }) => {
           </label>
           <div onClick={openCity} className="sign-up__input--city input sign-up__input">
             {values.city}
-            <FontAwesomeIcon icon="chevron-down" />
+            <ChevronDown />
           </div>
         </div>
         <div className="sign-up__group mt-5">

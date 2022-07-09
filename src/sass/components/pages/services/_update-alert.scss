@@ -29,10 +29,11 @@
   }
 
   @include respond(phone) {
-    font-size: 1.2rem;
+    line-height: 2rem;
+    font-size: 1.6rem;
 
     &__text--error {
-      line-height: 2rem;
+      font-size: 1.2rem;
     }
   }
 }

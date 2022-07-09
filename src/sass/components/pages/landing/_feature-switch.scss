@@ -1,0 +1,85 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+.feature-switch {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: 0.4s opacity;
+
+  &--visible {
+    opacity: 1;
+  }
+
+  &__options {
+    box-shadow: 0 0 5px rgba($color-black, 0.25);
+    display: flex;
+    border-radius: 0.8rem;
+  }
+
+  &__option {
+    padding: 0.8rem 0;
+    font-weight: 500;
+    background: $color-white;
+    color: $color-gray;
+    flex: 1;
+    text-align: center;
+    font-size: 2rem;
+    cursor: pointer;
+
+    &:nth-of-type(odd) {
+      border-bottom-left-radius: 0.8rem;
+      border-top-left-radius: 0.8rem;
+    }
+
+    &:nth-of-type(even) {
+      border-bottom-right-radius: 0.8rem;
+      border-top-right-radius: 0.8rem;
+    }
+
+    &:hover {
+      background: rgba($color-primary-light-3, 0.1);
+    }
+
+    &--active {
+      pointer-events: none;
+      background: $color-primary;
+      color: $color-white;
+
+      &:hover {
+        background: $color-primary;
+      }
+    }
+
+    @include respond(tab-land) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__indicators {
+    display: flex;
+    margin-top: 1.2rem;
+
+    @include respond(phone) {
+      margin-top: 0;
+    }
+  }
+
+  &__indicator {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: $color-white;
+    box-shadow: 0 0 5px rgba($color-black, 0.25);
+
+    &:first-of-type {
+      margin-right: 0.6rem;
+    }
+
+    &--active {
+      background: $color-primary-light-1;
+      transform: scale(1.1);
+    }
+  }
+}

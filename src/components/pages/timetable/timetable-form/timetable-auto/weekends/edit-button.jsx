@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Pen from '../../../../../base/icons/pen';
 
 const EditButton = ({ editState }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
@@ -15,7 +15,7 @@ const EditButton = ({ editState }) => {
 
   return (
     <div onClick={openEditModal} className={`timetable-card__btn-edit ${phoneClassName} btn-icon`}>
-      <FontAwesomeIcon icon="pen" />
+      <Pen />
     </div>
   );
 };

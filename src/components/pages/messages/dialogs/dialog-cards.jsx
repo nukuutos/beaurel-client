@@ -11,9 +11,9 @@ const DialogCards = () => {
     const isPreLast = dialogs.length - 2 === i;
 
     return isPreLast ? (
-      <DialogCard dialogCardToRef={refToLoadData} dialog={dialog} />
+      <DialogCard dialogCardToRef={refToLoadData} dialog={dialog} key={dialog._id} />
     ) : (
-      <DialogCard dialog={dialog} />
+      <DialogCard dialog={dialog} key={dialog._id} />
     );
   });
 };

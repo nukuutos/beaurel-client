@@ -1,16 +1,18 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import StarProfile from './star-profile/star-profile';
 import getAvatarPath from '../../pages/utils/get-avatar-path';
 import DisplayRating from './display-rating';
 import displayPlaceOfWork from '../../pages/utils/display-place-of-work';
+import MapMarker from '../icons/map-marker';
 
 const MasterCard = ({ master, className, masterCardRef = null }) => {
   const [{ id: userId }, { isPhone }] = useSelector((state) => [state.auth, state.screenSize]);
 
-  const { firstName, lastName, rating, placeOfWork, avatar, specialization, _id } = master;
+  const { firstName, lastName, rating, placeOfWork, isAvatar, specialization, _id } = master;
 
   const router = useRouter();
 
@@ -20,15 +22,24 @@ const MasterCard = ({ master, className, masterCardRef = null }) => {
 
   return (
     <div onClick={goToProfile} ref={masterCardRef} className={`${className} master-card card`}>
-      <div className="master-card__identify">
-        <img src={getAvatarPath(avatar)} alt="Profile avatar" className="master-card__avatar" />
+      <div className="master-card__identity">
+        <div className="master-card__avatar">
+          <Image
+            quality={100}
+            layout="fill"
+            src={getAvatarPath(_id, isAvatar)}
+            alt="Profile avatar"
+            className="master-card__image"
+            sizes="(max-width: 600px) 60px, (max-width: 900px) 76px, 90px"
+          />
+        </div>
         <DisplayRating rating={rating} />
       </div>
       <div className="master-card__biography">
         <h1 className="master-card__name">{`${firstName} ${lastName}`}</h1>
         <h2 className="master-card__specialization">{specialization}</h2>
         <div className="master-card__geolocation">
-          <FontAwesomeIcon className="master-card__map-marker" icon="map-marker-alt" />
+          <MapMarker className="master-card__map-marker" />
           {displayPlaceOfWork(placeOfWork)}
         </div>
       </div>

@@ -10,7 +10,7 @@ const Input = ({ className, ...props }) => {
   className += errorClass;
   // className += successClass;
 
-  return <input className={className} {...field} {...props} />;
+  return <input className={className} {...field} {...props} autoComplete="off" />;
 };
 
 export default Input;

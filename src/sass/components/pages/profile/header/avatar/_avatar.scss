@@ -1,4 +1,4 @@
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .avatar {
   $diameter: 14rem;
@@ -8,16 +8,7 @@
   position: relative;
 
   &__image {
-    width: $diameter;
     border-radius: 50%;
-
-    @include respond(tab-port) {
-      width: $diameterTabPort;
-    }
-
-    @include respond(phone) {
-      width: $diameterPhone;
-    }
   }
 
   &__change-image {
@@ -56,7 +47,7 @@
 
   &__pen-icon {
     height: 2.4rem;
-    color: #ad60e2;
+    fill: #ad60e2;
 
     @include respond(phone) {
       height: 1.6rem;

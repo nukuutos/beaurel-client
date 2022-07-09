@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import Modal from '../../../../../../base/modal/modal';
 import City from '../city';
 import EditMasterPlaceOfWorkForm from './edit-master-place-of-work-form/edit-master-place-of-work-form';
-import placeOfWorkSchema from './schema';
 import useHandleSubmit from './use-handle-submit';
+import placeOfWorkSchema from '../../../../../schemas/place-of-work';
 
 const EditMasterPlaceOfWork = ({ onClickClose }) => {
   const [{ street, house, building, floor, room }, { city }] = useSelector((state) => [
@@ -17,11 +17,11 @@ const EditMasterPlaceOfWork = ({ onClickClose }) => {
 
   const [isCitySearch, setIsCitySearch] = useState(false);
 
-  const openCity = () => setIsCitySearch(true);
-  const closeCity = () => setIsCitySearch(false);
+  const openCitySearch = () => setIsCitySearch(true);
+  const closeCitySearch = () => setIsCitySearch(false);
 
   return (
-    <Modal onClickClose={!isCitySearch ? onClickClose : closeCity}>
+    <Modal onClickClose={isCitySearch ? closeCitySearch : onClickClose}>
       <Formik
         validationSchema={placeOfWorkSchema}
         initialValues={{
@@ -36,9 +36,14 @@ const EditMasterPlaceOfWork = ({ onClickClose }) => {
       >
         {(props) =>
           isCitySearch ? (
-            <City {...props} closeCity={closeCity} />
+            <City {...props} closeCity={closeCitySearch} />
           ) : (
-            <EditMasterPlaceOfWorkForm {...props} openCity={openCity} closeCity={closeCity} />
+            <EditMasterPlaceOfWorkForm
+              {...props}
+              onClickClose={onClickClose}
+              openCity={openCitySearch}
+              closeCity={closeCitySearch}
+            />
           )
         }
       </Formik>

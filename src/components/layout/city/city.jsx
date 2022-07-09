@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useSelector } from 'react-redux';
 import CitySearch from './city-search/city-search';
+import Crosshairs from '../../base/icons/crosshairs';
 
 const City = () => {
   const [isSearchCity, setIsSearchCity] = useState(false);
@@ -13,7 +14,7 @@ const City = () => {
   return (
     <>
       <div onClick={openModal} className="city card">
-        <FontAwesomeIcon className="city__icon" icon="crosshairs" />
+        <Crosshairs className="city__icon" />
         {isDesktop && city}
       </div>
       {isSearchCity && <CitySearch onClickClose={closeModal} />}

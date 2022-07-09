@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 import Textarea from '../../../base/form/textarea';
+import Envelope from '../../../base/icons/envelope';
 import getHandleKeyPresses from './get-handle-key-presses';
 import schema from './schema';
 import useOnSubmit from './use-on-submit';
@@ -37,11 +37,7 @@ const MessageForm = () => {
                 <div className="spinner spinner--tiny" />
               </div>
             ) : (
-              <FontAwesomeIcon
-                onClick={submitForm}
-                className="messages__send-icon"
-                icon="envelope"
-              />
+              <Envelope onClick={submitForm} className="messages__send-icon" />
             )}
           </Form>
         );

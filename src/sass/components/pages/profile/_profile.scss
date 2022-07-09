@@ -40,7 +40,29 @@
     }
   }
 
-  &__identify {
+  &__avatar {
+    $diameter: 14rem;
+    $diameterTabPort: 11.6rem;
+    $diameterPhone: 6.8rem;
+
+    position: relative;
+
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
+
+    @include respond(tab-port) {
+      width: $diameterTabPort;
+      height: $diameterTabPort;
+    }
+
+    @include respond(phone) {
+      width: $diameterPhone;
+      height: $diameterPhone;
+    }
+  }
+
+  &__identity {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
 
@@ -145,6 +167,7 @@
 
   &__geolocation {
     color: $color-gray-dark-1;
+    fill: $color-gray-dark-1;
     //
     margin-top: 1.6rem;
 
@@ -331,13 +354,13 @@
   }
 
   &__edit {
-    color: $color-gray-light-1;
-    transition: 0.2s color;
+    fill: $color-gray-light-1;
+    transition: 0.2s fill;
     height: 1.6rem;
     cursor: pointer;
 
     &:hover {
-      color: $color-primary;
+      fill: $color-primary;
     }
 
     @include respond(phone) {

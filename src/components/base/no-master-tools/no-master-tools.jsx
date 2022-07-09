@@ -1,9 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMasterTools } from '../../../redux/master-tools/actions';
 import Modal from '../modal/modal';
 import MobileModalHeading from '../modal/mobile-modal-heading';
+import ChevronRight from '../icons/chevron-right';
+import Check from '../icons/check';
 
 const TimetableCase = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const TimetableCase = () => {
         onClick={goToTimetable}
         className="no-master-tools__link btn-text btn-text--visit mt-2 mb-2"
       >
-        1. Создать расписание <FontAwesomeIcon icon="chevron-right" />
+        1. Создать расписание <ChevronRight />
       </span>
       <br />
       2. <span className="ml-1">Создать услуги</span>
@@ -49,11 +50,11 @@ const ServicesCase = () => {
       <br />
       <span className="no-master-tools__completed-step mt-2 mb-2">
         1. Создать расписание
-        <FontAwesomeIcon icon="check" />
+        <Check />
       </span>
       <br />
       <span onClick={goToServices} className="no-master-tools__link btn-text btn-text--visit">
-        2. Создать услуги <FontAwesomeIcon icon="chevron-right" />
+        2. Создать услуги <ChevronRight />
       </span>
     </>
   );

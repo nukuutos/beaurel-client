@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import EditManuallyAppointments from '../../../shared/edit-manually-appointments/edit-manually-appointments';
 import weekdaysRU from '../../../utils/weekdays-ru';
-import EditModal from './edit-modal/edit-modal';
 import DisplayDay from './display-day';
 
 const VisualTimetableManually = ({ values, editState, errors, setFieldError }) => {
@@ -20,10 +20,11 @@ const VisualTimetableManually = ({ values, editState, errors, setFieldError }) =
             index={index}
             editState={editState}
             values={values}
+            key={weekdayName}
           />
         ))}
         {isOpen && (
-          <EditModal
+          <EditManuallyAppointments
             errors={errors}
             setFieldError={setFieldError}
             modalState={modalState}

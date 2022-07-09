@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
+import Pen from '../../../../base/icons/pen';
 
 const DisplayAboutText = ({ onClick }) => {
   const { isPublicView, aboutText } = useSelector((state) => state.profile);
@@ -7,9 +7,7 @@ const DisplayAboutText = ({ onClick }) => {
   return (
     <>
       {aboutText}
-      {!isPublicView && (
-        <FontAwesomeIcon onClick={onClick} className="profile__edit ml-4" icon="pen" />
-      )}
+      {!isPublicView && <Pen onClick={onClick} className="profile__edit ml-4" />}
     </>
   );
 };

@@ -8,9 +8,17 @@
   padding: 1.6rem 0;
   overflow: visible;
 
+  &__list {
+    display: contents;
+  }
+
   &__link {
     color: $color-primary-dark-2;
     position: relative;
+
+    & * {
+      fill: $color-primary-dark-2;
+    }
 
     &:not(:first-of-type) {
       margin-top: 1.2rem;
@@ -62,6 +70,10 @@
       color: $color-white;
       pointer-events: none;
       cursor: pointer;
+
+      & * {
+        fill: $color-white;
+      }
 
       &:hover {
         background: $color-secondary-light;

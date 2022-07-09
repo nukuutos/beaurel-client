@@ -1,9 +1,15 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .radio-button {
   position: relative;
   width: 1.6rem;
   height: 1.6rem;
+
+  @include respond(phone) {
+    width: 2rem;
+    height: 2rem;
+  }
 
   &--disabled {
     .radio-button__input {
@@ -53,6 +59,12 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      @include respond(phone) {
+        $size: 0.8rem;
+        width: $size;
+        height: $size;
+      }
     }
   }
 }

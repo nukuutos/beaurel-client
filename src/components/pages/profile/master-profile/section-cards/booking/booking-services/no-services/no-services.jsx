@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import NoServicesCustomer from './no-services-customer';
-import NoServicesMaster from './no-services-master';
+import NoToolsMaster from '../../shared/no-tools-master';
 
 const NoServices = ({ onClickClose }) => {
   const [{ id: profileId }, { id: userId }] = useSelector((state) => [state.profile, state.auth]);
   return profileId === userId ? (
-    <NoServicesMaster onClickClose={onClickClose} />
+    <NoToolsMaster onClickClose={onClickClose} />
   ) : (
     <NoServicesCustomer onClickClose={onClickClose} />
   );

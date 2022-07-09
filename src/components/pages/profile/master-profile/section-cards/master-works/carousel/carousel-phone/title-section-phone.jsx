@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import SidenavPhone from './sidenav-phone';
+import Sidenav from '../sidenav';
 
 const TitleSectionPhone = ({ setIsDeleting, state }) => {
   const [{ works, masterId }, { id: userId }] = useSelector((state) => [state.work, state.auth]);
@@ -12,7 +12,9 @@ const TitleSectionPhone = ({ setIsDeleting, state }) => {
   return (
     <figcaption className="carousel__title mt-2">
       {works[index].title}
-      {isOwner && <SidenavPhone setIsDeleting={setIsDeleting} state={state} />}
+      {isOwner && (
+        <Sidenav className="carousel__mobile-buttons" setIsDeleting={setIsDeleting} state={state} />
+      )}
     </figcaption>
   );
 };

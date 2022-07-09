@@ -23,13 +23,13 @@
   }
 
   &__new-dialog-icon {
-    height: 2rem;
-    color: $color-gray-light-1;
-    transition: color 0.2s;
+    height: 1.6rem;
+    fill: $color-gray-light-1;
+    transition: fill 0.2s;
     cursor: pointer;
 
     &:hover {
-      color: $color-primary;
+      fill: $color-primary;
     }
 
     @include respond(phone) {
@@ -150,14 +150,14 @@
     align-self: center;
     grid-column: 12 / 13;
     grid-row: 4 / 5;
-    height: 2.4rem;
-    color: $color-gray;
-    transition: color 0.2s;
+    height: 2rem;
+    fill: $color-gray;
+    transition: fill 0.2s;
     cursor: pointer;
     flex: 1;
 
     &:hover {
-      color: $color-primary;
+      fill: $color-primary;
     }
   }
 

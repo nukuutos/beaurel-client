@@ -48,7 +48,7 @@ class Appointment {
     }));
 
     const sortedDaysWithAppointments = daysWithAppointments.sort((a, b) =>
-      a.date.isBefore(b.date) ? 1 : -1
+      a.date.isBefore(b.date) ? -1 : 1
     );
 
     const formattedAppointments = {};
@@ -57,6 +57,7 @@ class Appointment {
       const { date, appointments } = day;
       const stringDate = date.format('DD-MM-YYYY');
       formattedAppointments[stringDate] = appointments;
+      // console.log(date.format(), stringDate);
     }
 
     return formattedAppointments;

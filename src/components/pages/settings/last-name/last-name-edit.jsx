@@ -1,25 +1,13 @@
-import React, { useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ErrorMessage, Form, Formik } from 'formik';
-import Input from '../../../base/form/input';
+import { Form, Formik } from 'formik';
 import useOnSubmit from '../utils/use-on-submit';
 import EditButtons from '../utils/edit-buttons';
 import { lastNameSchema } from '../schemas/name';
+import ErrorInput from '../../../base/form/error-input';
+import useEdit from '../use-edit';
 
 const LastNameEdit = ({ data, setIsEdit }) => {
-  const formikRef = useRef(null);
-
   const [handleSubmit, isLoading] = useOnSubmit(setIsEdit);
-
-  const closeEdit = () => setIsEdit(false);
-
-  const handleEdit = (event) => {
-    const { dirty, submitForm } = formikRef.current;
-
-    event.preventDefault();
-    if (dirty) submitForm();
-    else closeEdit();
-  };
+  const { formikRef, handleEdit, closeEdit } = useEdit({ setIsEdit });
 
   return (
     <Formik
@@ -32,13 +20,7 @@ const LastNameEdit = ({ data, setIsEdit }) => {
     >
       {() => (
         <Form className="setting-card__form">
-          <div className="setting-card__input">
-            <span className="label">Фамилия</span>
-            <Input name="lastName" className="input" type="text" />
-            <ErrorMessage name="lastName">
-              {(msg) => <div className="error mt-1">{msg}</div>}
-            </ErrorMessage>
-          </div>
+          <ErrorInput name="lastName" className="setting-card__input" label="Фамилия" />
           <EditButtons isLoading={isLoading} handleEdit={handleEdit} close={closeEdit} />
         </Form>
       )}

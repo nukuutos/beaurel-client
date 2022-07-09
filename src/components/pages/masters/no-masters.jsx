@@ -1,6 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
+import ChevronRight from '../../base/icons/chevron-right';
 
 const NoMasters = () => {
   const router = useRouter();
@@ -8,13 +9,15 @@ const NoMasters = () => {
 
   return (
     <div className="masters__no-masters no-master-tools">
-      <img className="no-master-tools__svg" alt="No favorite masters" src="/svg/no-favorites.svg" />
+      <div className="masters__no-masters-image">
+        <Image priority layout="fill" alt="No favorite masters" src="/svg/no-favorites.svg" />
+      </div>
 
       <p className="no-master-tools__text no-master-tools__text--center mt-9">
         Добавьте мастера в избранные, и он
         <br /> отобразится здесь! <br />
         <span onClick={goToTimetable} className="btn-text btn-text--visit mt-5">
-          Найти мастера <FontAwesomeIcon icon="chevron-right" />
+          Найти мастера <ChevronRight />
         </span>
       </p>
     </div>

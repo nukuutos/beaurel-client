@@ -1,7 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useDispatch } from 'react-redux';
 import { setActiveInterlocutor } from '../../../redux/messages/actions';
+import Plus from '../../base/icons/plus';
+import ArrowLeft from '../../base/icons/arrow-left';
 
 const Header = ({ showFavoriteMasters }) => {
   const dispatch = useDispatch();
@@ -12,16 +14,10 @@ const Header = ({ showFavoriteMasters }) => {
     <>
       <div className="messages__header">
         <h1 className="messages__heading">Сообщения</h1>
-        {/* <div className="btn-icon"> */}
-        <FontAwesomeIcon
-          onClick={showFavoriteMasters}
-          className="messages__new-dialog-icon"
-          icon="plus"
-        />
-        {/* </div> */}
+        <Plus onClick={showFavoriteMasters} className="messages__new-dialog-icon" />
       </div>
 
-      <FontAwesomeIcon onClick={backToDialogs} icon="arrow-left" className="messages__arrow-back" />
+      <ArrowLeft onClick={backToDialogs} className="messages__arrow-back" />
     </>
   );
 };

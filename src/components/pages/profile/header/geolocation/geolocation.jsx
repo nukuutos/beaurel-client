@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
 import displayPlaceOfWork from '../../../utils/display-place-of-work';
-import EditGeolocation from './edit-geolocation/edit-geolocation';
+import ModalFallback from '../../../shared/modal-fallback';
+import Pen from '../../../../base/icons/pen';
+import MapMarker from '../../../../base/icons/map-marker';
+
+const EditGeolocation = dynamic(() => import('./edit-geolocation/edit-geolocation'), {
+  loading: () => <ModalFallback />,
+});
 
 const Geolocation = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -14,21 +21,18 @@ const Geolocation = () => {
   const isMaster = role === 'master';
 
   const openEditModal = () => setIsEdit(true);
+  const closeEditModal = () => setIsEdit(false);
 
   return (
     <div className="profile__geolocation">
-      <FontAwesomeIcon className="profile__map-marker" icon="map-marker-alt" />
+      <MapMarker className="profile__map-marker" />
 
-      {isEdit && <EditGeolocation />}
+      {isEdit && <EditGeolocation closeEditModal={closeEditModal} />}
 
       {isMaster ? displayPlaceOfWork(placeOfWork) : city}
 
       {!isPublicView && (
-        <FontAwesomeIcon
-          onClick={openEditModal}
-          className={`profile__edit ${isPhone ? 'ml-3' : 'ml-4'}`}
-          icon="pen"
-        />
+        <Pen onClick={openEditModal} className={`profile__edit ${isPhone ? 'ml-3' : 'ml-4'}`} />
       )}
     </div>
   );

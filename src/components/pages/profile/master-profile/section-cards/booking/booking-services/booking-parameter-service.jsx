@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import SubService from '../../../../../services/base/parameter-service/sub-service';
-import Title from '../../../../../services/base/parameter-service/title';
+import ParameterServiceTitle from '../../../../../services/base/parameter-service/parameter-service-title';
 import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
 import goTo from './go-to';
+import ChevronRight from '../../../../../../base/icons/chevron-right';
 
 const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
   const [{ bookingAppointment }, timetable] = useSelector((state) => [
@@ -31,7 +32,7 @@ const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
       } booking-service-parameter card mt-6`}
     >
       <div onClick={() => setIsShown(!isShown)} className="service">
-        <Title title={title} shownState={[isShown, setIsShown]} />
+        <ParameterServiceTitle title={title} shownState={[isShown, setIsShown]} />
       </div>
 
       {isShown &&
@@ -65,7 +66,7 @@ const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
               <SubService subService={bookingSubService} />
 
               <div className="booking-service__arrow">
-                <FontAwesomeIcon icon="chevron-right" />
+                <ChevronRight />
               </div>
             </div>
           );

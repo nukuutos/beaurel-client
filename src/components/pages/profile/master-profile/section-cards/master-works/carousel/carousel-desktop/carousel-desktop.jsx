@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Sidenav from './sidenav';
 import Chevrons from '../chevrons';
 import useCarouselKeys from './use-carousel-keys';
 import useGoToWork from '../use-go-to-work';
+import Sidenav from '../sidenav';
 
 const CarouselDesktop = ({ state }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -28,10 +28,12 @@ const CarouselDesktop = ({ state }) => {
       {isChevrons && <Chevrons toNextWork={toNextWork} toPrevWork={toPrevWork} />}
 
       <div className="carousel__main">
-        {isOwner && <Sidenav setIsDeleting={setIsDeleting} state={state} />}
+        {isOwner && (
+          <Sidenav className="carousel__sidenav" setIsDeleting={setIsDeleting} state={state} />
+        )}
 
         <img
-          src={`http://localhost:5000/images/works/${works[index]._id}.png`}
+          src={`https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id} .webp`}
           className="carousel__image"
           alt="Master's work"
         />

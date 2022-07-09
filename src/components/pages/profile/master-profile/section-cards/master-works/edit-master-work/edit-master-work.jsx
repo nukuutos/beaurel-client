@@ -9,11 +9,15 @@ import ChangeButton from '../utils/change-button';
 import MasterWorkForm from '../utils/master-work-form';
 
 const EditMasterWork = ({ state }) => {
-  const [{ works }, { isPhone }] = useSelector((state) => [state.work, state.screenSize]);
+  const [{ id: masterId }, { works }, { isPhone }] = useSelector((state) => [
+    state.auth,
+    state.work,
+    state.screenSize,
+  ]);
 
   const [{ index }, setParentState] = state;
 
-  const initialSrc = `http://localhost:5000/images/works/${works[index]._id}.png`;
+  const initialSrc = `https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id} .webp`;
 
   const { src, file, handleFileUpload } = useFileUpload(initialSrc);
 

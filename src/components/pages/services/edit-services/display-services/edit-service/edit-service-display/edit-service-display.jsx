@@ -1,7 +1,7 @@
 import Service from '../../../../base/service';
-import Loading from '../../utils/loading';
+import Loading from '../../shared/loading';
 import useDeleteService from './use-delete-service';
-import ButtonsDisplay from '../../utils/buttons-display/buttons-display';
+import ButtonsDisplay from '../../shared/buttons-display/buttons-display';
 
 const EditServiceDisplay = ({ service, setIsEdit }) => {
   const [deleteService, isLoading] = useDeleteService(service);

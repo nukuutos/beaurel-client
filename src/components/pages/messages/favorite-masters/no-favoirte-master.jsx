@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import React from 'react';
+import ChevronRight from '../../../base/icons/chevron-right';
 
 const NoFavoriteMasters = () => {
   const router = useRouter();
@@ -11,7 +11,7 @@ const NoFavoriteMasters = () => {
       Добавьте мастера в избранные, и он
       <br /> отобразится здесь! <br />
       <span onClick={goToSearch} className="btn-text btn-text--visit mt-5">
-        Найти мастера <FontAwesomeIcon icon="chevron-right" />
+        Найти мастера <ChevronRight />
       </span>
     </p>
   );

@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveInterlocutor } from '../../../redux/messages/actions';
 import getAvatarPath from '../../pages/utils/get-avatar-path';
+import MapMarker from '../icons/map-marker';
 import Modal from '../modal/modal';
 import ModalHeading from '../modal/modal-heading';
 import useCustomerCard from './use-customer-card';
@@ -11,8 +11,8 @@ import useCustomerCard from './use-customer-card';
 const CustomerCard = ({ user, onClickClose }) => {
   const [{ role }, { isPhone }] = useSelector((state) => [state.auth, state.screenSize]);
   const dispatch = useDispatch();
-  const { firstName, lastName, avatar, _id } = user;
-  const avatarUrl = getAvatarPath(avatar);
+  const { firstName, lastName, isAvatar, _id } = user;
+  const avatarUrl = getAvatarPath(_id, isAvatar);
   const name = `${firstName} ${lastName[0]}.`;
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const CustomerCard = ({ user, onClickClose }) => {
           <img src={avatarUrl} alt="Customer" className="customer-card__avatar" />
           <h2 className="customer-card__name">{name}</h2>
           <span className="customer-card__city">
-            <FontAwesomeIcon icon="map-marker-alt" /> {city}
+            <MapMarker /> {city}
           </span>
         </div>
         <div className="customer-card__right">

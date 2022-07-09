@@ -1,4 +1,4 @@
-import displayDuration from '../../../services/utils/display-duration';
+import displayDuration from '../../../utils/display-duration';
 
 // return for example time 10:00 and value in minutes 600
 const generateTimes = (workingDay, sessionTime) => {

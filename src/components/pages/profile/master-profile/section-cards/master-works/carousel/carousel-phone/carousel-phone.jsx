@@ -7,7 +7,7 @@ import TitleSectionPhone from './title-section-phone';
 
 const CarouselPhone = ({ state }) => {
   const [isDeleting, setIsDeleting] = useState(false);
-  const { works } = useSelector((state) => state.work);
+  const [{ id: masterId }, { works }] = useSelector((state) => [state.profile, state.work]);
   const [{ index }, setState] = state;
 
   const { toNextWork, toPrevWork } = useGoToWork(setState);
@@ -24,7 +24,7 @@ const CarouselPhone = ({ state }) => {
           {isChevrons && <Chevrons toNextWork={toNextWork} toPrevWork={toPrevWork} />}
 
           <img
-            src={`http://localhost:5000/images/works/${works[index]._id}.png`}
+            src={`https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id} .webp`}
             className="carousel__image"
             alt="Master's work"
           />

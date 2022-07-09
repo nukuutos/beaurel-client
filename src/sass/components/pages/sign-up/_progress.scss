@@ -60,7 +60,7 @@
     background: $color-gray;
 
     @include respond(phone) {
-      width: 3.2rem;
+      width: 1.6rem;
     }
 
     &--passed {

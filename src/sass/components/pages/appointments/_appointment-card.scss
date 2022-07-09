@@ -47,8 +47,11 @@
     $size: 3.6rem;
     width: $size;
     height: $size;
+    position: relative;
+  }
+
+  &__image {
     border-radius: 50%;
-    background: $color-black;
   }
 
   &__name {
@@ -87,6 +90,7 @@
     grid-column: 10 / -1;
 
     color: $color-gray-dark-2;
+    fill: $color-gray-dark-2;
 
     & > * {
       height: 1.6rem;

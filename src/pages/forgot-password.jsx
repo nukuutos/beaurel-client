@@ -1,8 +1,22 @@
-import Layout from '../components/layout/layout';
+import 'regenerator-runtime/runtime';
+import dynamic from 'next/dynamic';
+
 import useProgress from '../components/pages/sign-up/use-progress';
 import useOnSubmit from '../components/pages/forgot-password/use-on-submit';
-import PasswordChangesSuccess from '../components/pages/forgot-password/password-changed-success';
-import ForgotPasswordForm from '../components/pages/forgot-password/forgot-password-form/forgot-password-form';
+
+import Layout from '../components/layout/layout';
+// import PasswordChangesSuccess from '../components/pages/forgot-password/password-changed-success';
+// import ForgotPasswordForm from '../components/pages/forgot-password/forgot-password-form/forgot-password-form';
+
+// const Layout = dynamic(() => import('../components/layout/layout'));
+
+const PasswordChangesSuccess = dynamic(() =>
+  import('../components/pages/forgot-password/password-changed-success')
+);
+
+const ForgotPasswordForm = dynamic(() =>
+  import('../components/pages/forgot-password/forgot-password-form/forgot-password-form')
+);
 
 const ForgotPassword = () => {
   const [state, setState, actions] = useProgress();

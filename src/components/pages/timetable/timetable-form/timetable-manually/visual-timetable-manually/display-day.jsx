@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FieldArray } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import displayDuration from '../../../../services/utils/display-duration';
+import Plus from '../../../../../base/icons/plus';
+import displayDuration from '../../../../utils/display-duration';
 
 const DisplayDay = ({ editState, modalState, values, weekdayName, index }) => {
   const [, setState] = modalState;
@@ -44,7 +44,7 @@ const DisplayDay = ({ editState, modalState, values, weekdayName, index }) => {
               onClick={openModal}
               className={`weekday__time ${disabledClassName} weekday__time--add mt-5`}
             >
-              <FontAwesomeIcon icon="plus" />
+              <Plus />
             </span>
           </div>
         </div>

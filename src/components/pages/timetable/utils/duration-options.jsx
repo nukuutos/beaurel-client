@@ -1,5 +1,5 @@
 import React from 'react';
-import displayDuration from '../../services/utils/display-duration';
+import displayDuration from '../../utils/display-duration';
 
 const hours24InMins = 1440;
 

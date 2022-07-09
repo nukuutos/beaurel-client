@@ -10,6 +10,7 @@
   border: 2px solid $color-gray;
   border-radius: 0.5rem;
   color: $color-primary-dark-2;
+  fill: $color-primary-dark-2;
 
   flex: 1;
   height: 16rem;
@@ -45,5 +46,6 @@
 
   &__heading {
     color: $color-primary-dark-2;
+    font-size: 1.6rem;
   }
 }

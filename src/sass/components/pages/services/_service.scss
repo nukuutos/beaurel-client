@@ -65,6 +65,7 @@
     letter-spacing: 0;
     // color: $color-gray-dark-3;
     color: #353238;
+    fill: #353238;
     font-weight: 500;
 
     & > * {
@@ -108,6 +109,7 @@
       top: initial;
       flex: 1;
       color: $color-gray;
+      fill: $color-gray;
       transition: 0.2s color;
       padding-top: 1.2rem + 1.6rem;
       padding-bottom: 1.2rem;
@@ -131,6 +133,7 @@
 
         &:hover {
           color: $color-fail;
+          fill: $color-fail;
         }
       }
 
@@ -141,10 +144,12 @@
 
       &:hover {
         color: $color-primary;
+        fill: $color-primary;
       }
 
       &--confirm:hover {
         color: $color-success;
+        fill: $color-success;
       }
     }
   }
@@ -173,20 +178,20 @@
 
   &--add {
     padding-bottom: 1.2rem;
-    transition: 0.2s color;
-    color: $color-gray;
+    transition: 0.2s fill;
+    fill: $color-gray;
 
     // icon
     & > * {
       grid-column: 1 / -1;
       justify-self: center;
       align-self: center;
-      height: 2.4rem;
+      height: 2rem;
       color: inherit;
     }
 
     &:hover {
-      color: $color-primary;
+      fill: $color-primary;
     }
   }
 }

@@ -6,6 +6,11 @@
   background: $color-white;
   color: $color-black;
 
+  @include respond(phone) {
+    width: 100%;
+    box-shadow: none;
+  }
+
   &__heading {
     margin-bottom: 0;
   }

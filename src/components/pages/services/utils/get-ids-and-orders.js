@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 
 const deleteProperties = (object, propertyArray) => {
   const copiedObject = { ...object };

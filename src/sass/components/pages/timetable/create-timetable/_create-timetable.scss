@@ -1,18 +1,29 @@
 @use '../../../../abstracts/colors' as *;
+@use '../../../../abstracts/mixins' as *;
 
 .create-timetable {
   &__possible-service-durations {
     font-size: 1.6rem;
     margin-top: 2.4rem;
+
+    @include respond(phone) {
+      & > span {
+        line-height: 2.8rem;
+        display: block;
+      }
+    }
   }
+
   &__session-time {
     padding: 1.2rem 0.8rem;
     font-size: 1.6rem;
     flex: 1;
   }
+
   &__group {
     display: flex;
   }
+
   &__choice-cards {
     width: 39.6rem;
     display: flex;
@@ -29,6 +40,10 @@
 
     & .choice-card__description {
       line-height: 2.4rem;
+    }
+
+    @include respond(phone) {
+      width: 33.3rem;
     }
   }
 
@@ -67,6 +82,13 @@
     border: 2px solid $color-gray-light-2;
     border-radius: 0.4rem;
     padding-bottom: 1.6rem;
+
+    @include respond(phone) {
+      width: 90vw;
+      padding-bottom: 0;
+      grid-template-columns: unset;
+      grid-template-rows: repeat(7, 1fr);
+    }
   }
 
   &__form {

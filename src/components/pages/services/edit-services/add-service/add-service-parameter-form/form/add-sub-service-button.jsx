@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Plus from '../../../../../../base/icons/plus';
 
 const AddSubServiceButton = ({ push }) => {
   const { sessionTime, update } = useSelector((state) => state.timetable);
@@ -18,7 +18,7 @@ const AddSubServiceButton = ({ push }) => {
         })
       }
     >
-      <FontAwesomeIcon icon="plus" />
+      <Plus />
     </button>
   );
 };

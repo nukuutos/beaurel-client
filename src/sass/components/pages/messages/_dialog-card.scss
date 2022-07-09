@@ -40,6 +40,10 @@
     $size: 4rem;
     height: $size;
     width: $size;
+    position: relative;
+  }
+
+  &__image {
     border-radius: 50%;
   }
 

@@ -1,3 +1,4 @@
+@use 'fonts';
 @use '../abstracts/colors' as *;
 @use '../abstracts/mixins' as *;
 
@@ -37,11 +38,13 @@ li {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 button {
   background: $color-white;
   font-weight: inherit;
+  font-family: inherit;
   text-decoration: none;
   cursor: pointer;
   border: none;
@@ -49,6 +52,20 @@ button {
   border-color: transparent;
   background-color: transparent;
   letter-spacing: 0.1px;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+svg {
+  width: unset;
+  fill: inherit;
+}
+
+textarea,
+input,
+label {
+  font-weight: inherit;
+  font-family: inherit;
   font-size: inherit;
   line-height: inherit;
 }

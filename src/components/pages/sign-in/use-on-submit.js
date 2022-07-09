@@ -16,9 +16,10 @@ const useOnSubmit = () => {
       accessToken: null,
     };
 
-    const { id, accessToken, role, username } = await asyncAction(config);
+    const responseData = await asyncAction(config);
 
-    if (id) {
+    if (responseData) {
+      const { id, accessToken, role, username } = responseData;
       dispatch(signInSuccess({ id, accessToken, role, username }));
       router.push('/[id]', `/${username || id}`);
     }

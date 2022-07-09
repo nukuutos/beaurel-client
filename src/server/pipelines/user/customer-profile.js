@@ -8,7 +8,7 @@ const customerProfile = (matchQuery) => [
       role: 1,
       firstName: 1,
       lastName: 1,
-      avatar: 1,
+      isAvatar: 1,
       city: 1,
       aboutText: 1,
       masters: 1,
@@ -30,7 +30,7 @@ const customerProfile = (matchQuery) => [
           $project: {
             firstName: 1,
             lastName: 1,
-            avatar: 1,
+            isAvatar: 1,
             specialization: 1,
             username: 1,
           },
@@ -125,7 +125,7 @@ const customerProfile = (matchQuery) => [
                       $project: {
                         firstName: 1,
                         lastName: 1,
-                        avatar: 1,
+                        isAvatar: 1,
                         _id: { $convert: { input: '$_id', to: 'string' } },
                       },
                     },

@@ -1,16 +1,32 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
-import getAvatarPath from '../../../utils/get-avatar-path';
+import React, { useEffect, useState } from 'react';
 
-const DisplayAvatar = ({ setIsEdit }) => {
-  const { avatar } = useSelector((state) => state.profile);
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
+import getAvatarPath from '../../../utils/get-avatar-path';
+import Pen from '../../../../base/icons/pen';
+
+const DisplayAvatar = ({ setIsEdit, isEdit, editCounter }) => {
+  const [avatar, setAvatar] = useState('/svg/default.svg');
+  const { id: userId, isAvatar } = useSelector((state) => state.profile);
+
+  useEffect(() => {
+    const url = getAvatarPath(userId, isAvatar, editCounter);
+    setAvatar(url);
+  }, [isAvatar, userId, isEdit, editCounter]);
 
   return (
     <div onClick={() => setIsEdit(true)} className="avatar profile__avatar">
-      <img src={getAvatarPath(avatar)} alt="Profile" className="avatar__image" />
+      <Image
+        sizes="(max-width: 600px) 68px, (max-width: 900px) 116px, 140px"
+        quality={100}
+        objectFit="contain"
+        layout="fill"
+        src={avatar}
+        alt="Profile"
+        className="avatar__image"
+      />
       <div className="avatar__change-image">
-        <FontAwesomeIcon className="avatar__pen-icon" icon="pen" />
+        <Pen className="avatar__pen-icon" />
       </div>
     </div>
   );

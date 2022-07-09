@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveInterlocutor } from '../../../../redux/messages/actions';
 import getAvatarPath from '../../utils/get-avatar-path';
@@ -14,9 +15,9 @@ const DialogCard = ({ dialogCardToRef = null, dialog }) => {
   const { activeInterlocutor } = useSelector((state) => state.messages);
   const dispatch = useDispatch();
   const { _id: interlocutorId, senderId, user, message, isUnread, createdAt } = dialog;
-  const { firstName, lastName, avatar } = user;
+  const { firstName, lastName, isAvatar } = user;
 
-  const avatarUrl = getAvatarPath(avatar);
+  const avatarUrl = getAvatarPath(interlocutorId, isAvatar);
   const name = `${firstName} ${lastName[0]}.`;
 
   const unreadClassName = getUnreadClassName({ isUnread, senderId, interlocutorId });
@@ -33,9 +34,18 @@ const DialogCard = ({ dialogCardToRef = null, dialog }) => {
       onClick={setInterlocutor}
       className={`messages__dialog-card dialog-card ${unreadClassName} ${activeClassName}`}
     >
-      <img src={avatarUrl} alt="User" className="dialog-card__avatar" />
+      <div className="dialog-card__avatar">
+        <Image
+          layout="fill"
+          src={avatarUrl}
+          alt="User"
+          className="dialog-card__image"
+          sizes="40px"
+        />
+      </div>
+
       <div className="active-user__group">
-        <h3 className="dialog-card__name">{name}</h3>
+        <h2 className="dialog-card__name">{name}</h2>
         <span className="dialog-card__last-message">{lastMessage}</span>
       </div>
       <div className="dialog-card__time">{time}</div>

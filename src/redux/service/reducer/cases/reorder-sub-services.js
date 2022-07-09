@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 
 const reorderSubServices = (state, payload) => {
   const { source, destination, title } = payload;

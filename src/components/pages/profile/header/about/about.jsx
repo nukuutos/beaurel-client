@@ -1,9 +1,14 @@
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ModalFallback from '../../../shared/modal-fallback';
 
-import AboutEdit from './about-edit/about-edit';
 import DisplayAboutText from './display-about-text';
 import EditButton from './edit-button';
+
+const AboutEdit = dynamic(() => import('./about-edit/about-edit'), {
+  loading: () => <ModalFallback />,
+});
 
 const About = () => {
   const { aboutText } = useSelector((state) => state.profile);

@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 60rem;
+  justify-self: center;
 
   @include respond(phone) {
     padding: 6.4rem 0.8rem;
@@ -47,8 +49,8 @@
     align-items: center;
 
     & > * {
-      height: 2rem;
-      color: $color-success;
+      height: 1.8rem;
+      fill: $color-success;
       margin-left: 1.2rem;
     }
   }

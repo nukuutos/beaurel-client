@@ -1,4 +1,4 @@
-import displayDuration from '../../../../utils/display-duration';
+import displayDuration from '../../../../../../../../utils/display-duration';
 import { DAYS_OF_THE_WEEK, MONTHS } from '../../utils/week';
 import Appointment from './appointment';
 

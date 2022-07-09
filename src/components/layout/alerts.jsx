@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAlert } from '../../redux/alerts/actions';
+import ExclamationTriangle from '../base/icons/exclamation-triangle';
 
 const Alert = ({ message }) => (
   <div className="alert card">
-    <FontAwesomeIcon icon="exclamation-triangle" className="alert__icon" />
+    <ExclamationTriangle className="alert__icon" />
     <div className="alert__body">
       <div className="alert__title">Ошибка</div>
       <div className="alert__message">{message}</div>

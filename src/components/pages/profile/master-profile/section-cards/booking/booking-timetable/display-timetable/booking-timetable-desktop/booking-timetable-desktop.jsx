@@ -1,5 +1,5 @@
 import useGetAppointmentData from '../use-get-appointment-data';
-import useStartDay from './use-start-day';
+import useStartDay from '../use-start-day';
 import useWeek from '../use-week/use-week';
 import BackButton from './back-button';
 import BookingTimetableHeader from './header';

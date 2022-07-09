@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useKey from '../../../hooks/use-key';
 import { setModalCloseFunction } from '../../../redux/modal/actions';
+import Cross from '../icons/cross';
 import useBlockScroll from '../use-block-scroll';
 
 const Modal = ({ children, closeOnTouch = false, className = '', onClickClose = null }) => {
@@ -25,7 +25,7 @@ const Modal = ({ children, closeOnTouch = false, className = '', onClickClose = 
     <div className={`modal ${className} ${isPhone ? 'modal--mobile' : ''}`}>
       <div onClick={handleClickOnBackground} className="modal__background" />
       {children}
-      {!isPhone && <FontAwesomeIcon onClick={onClickClose} className="modal__close" icon="times" />}
+      {!isPhone && <Cross onClick={onClickClose} className="modal__close" />}
     </div>
   );
 };

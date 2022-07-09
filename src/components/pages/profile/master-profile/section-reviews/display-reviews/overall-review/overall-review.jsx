@@ -7,15 +7,15 @@ import getWordReview from './get-word-review';
 const OverallReview = () => {
   const [{ ratingStats }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
   const { avgRating, reviewsCount } = ratingStats;
+  const starsClassNameSize = isPhone ? 'stars--small-big' : 'stars--medium';
 
   return (
     <div className="overall-review profile__overall-review card mt-8">
       <div className="overall-review__result">
         <span className="overall-review__score">{decimalFormat(avgRating)}</span>
         <Stars
-          starSize={isPhone ? 'small-big' : 'medium'}
           score={decimalFormat(avgRating)}
-          className="overall-review__stars mt-2"
+          className={`overall-review__stars ${starsClassNameSize} mt-2`}
         />
         <span className="overall-review__reviews-count mt-4 ">
           {reviewsCount} {getWordReview(reviewsCount)}

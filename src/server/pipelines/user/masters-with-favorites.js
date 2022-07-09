@@ -24,7 +24,7 @@ const mastersWithFavorites = (userId, city) => [
                   _id: 1,
                   firstName: 1,
                   lastName: 1,
-                  avatar: 1,
+                  isAvatar: 1,
                   placeOfWork: 1,
                   specialization: 1,
                 },
@@ -70,7 +70,7 @@ const mastersWithFavorites = (userId, city) => [
           $project: {
             firstName: 1,
             lastName: 1,
-            avatar: 1,
+            isAvatar: 1,
             placeOfWork: 1,
             specialization: 1,
           },

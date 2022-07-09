@@ -34,6 +34,7 @@ const refreshToken = async (req, res, store) => {
       path: '/',
       expires: new Date(0),
     });
+
     res.setHeader('Set-Cookie', [refreshTokenCookie, deletedAccessTokenCookie]);
 
     const data = {

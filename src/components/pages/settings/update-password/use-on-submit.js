@@ -8,7 +8,7 @@ const useOnSubmit = ({ onClickClose }) => {
   const handleSubmit = async (data) => {
     const config = {
       method: 'put',
-      url: `/auth/${userId}/password`,
+      url: `/profile/${userId}/password`,
       data,
       accessToken,
     };

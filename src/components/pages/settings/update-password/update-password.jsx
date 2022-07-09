@@ -1,5 +1,10 @@
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import UpdatePasswordForm from './update-password-form';
+import ModalFallback from '../../shared/modal-fallback';
+
+const UpdatePasswordForm = dynamic(() => import('./update-password-form'), {
+  loading: () => <ModalFallback />,
+});
 
 const UpdatePassword = () => {
   const [isEditModal, setIsEditModal] = useState(false);

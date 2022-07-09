@@ -1,6 +1,6 @@
 import SubService from '../../../../../base/parameter-service/sub-service';
-import Loading from '../../../utils/loading';
-import ButtonsDisplay from '../../../utils/buttons-display/buttons-display';
+import Loading from '../../../shared/loading';
+import ButtonsDisplay from '../../../shared/buttons-display/buttons-display';
 import useSubServiceDelete from './use-sub-service-delete';
 
 const EditSubServiceDisplay = ({ events, subService, setIsEdit, serviceProps }) => {

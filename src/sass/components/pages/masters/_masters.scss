@@ -16,6 +16,12 @@
     padding-top: 4rem;
   }
 
+  &__no-masters-image {
+    position: relative;
+    width: 33.6rem;
+    height: 29.2rem;
+  }
+
   @include respond(phone) {
     &__heading {
       grid-column: 1 / -1;
@@ -24,6 +30,11 @@
 
     &__master-card {
       grid-column: 1 / -1;
+    }
+
+    &__no-masters-image {
+      width: 30rem;
+      height: 26.1rem;
     }
   }
 }

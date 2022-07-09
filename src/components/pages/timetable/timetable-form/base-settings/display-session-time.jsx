@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Pen from '../../../../base/icons/pen';
 
 const DisplaySessionTime = ({ values, editState, isDisabled }) => {
   const { sessionTime } = values;
@@ -19,7 +19,7 @@ const DisplaySessionTime = ({ values, editState, isDisabled }) => {
           onClick={editSessionTime}
           className="timetable-card__btn-edit timetable-card__btn-edit--absolute btn-icon"
         >
-          <FontAwesomeIcon icon="pen" />
+          <Pen />
         </div>
       )}
     </>

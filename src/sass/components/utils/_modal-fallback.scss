@@ -1,0 +1,8 @@
+@use '../../abstracts/mixins' as *;
+
+.modal-fallback {
+  width: 35rem;
+  height: 35rem;
+
+  @include layout-card;
+}

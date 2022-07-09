@@ -54,9 +54,10 @@
   }
 
   @include respond(phone) {
-    padding: 0 0.4rem 1.6rem;
-    width: 36rem;
+    padding: 0 1.2rem 1.6rem;
+    width: 100%;
     overflow-y: unset;
+    box-shadow: none;
   }
 
   &__btn-back {
@@ -75,17 +76,17 @@
 
     font-weight: 700;
     color: #b5b1b8;
+    fill: #b5b1b8;
 
     letter-spacing: 0.6px;
     line-height: 0;
-    transition: 0.2s color;
+    transition: 0.2s color, 0.2s fill;
 
     // margin-bottom: 0.8rem;
 
     &:hover {
       & > * {
-        // color: $color-primary;
-        color: $color-primary-dark-1;
+        fill: $color-primary-dark-1;
       }
 
       color: $color-primary-dark-1;
@@ -94,8 +95,8 @@
 
     & > * {
       color: $color-gray;
-      height: 2rem;
-      transition: 0.2s color;
+      height: 1.6rem;
+      transition: 0.2s color, 0.2s fill;
       margin-right: 1.6rem;
     }
   }

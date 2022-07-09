@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CustomerCard from '../../../../../../base/customer-card/customer-card';
 import getAvatarPath from '../../../../../utils/get-avatar-path';
 import Attributes from './attributes/attributes';
@@ -14,7 +15,7 @@ const Appointment = ({
   children,
 }) => {
   const { service, user, time, date, status, isViewed, isSocket, _id: appointmentId } = appointment;
-  const { firstName, lastName, avatar, _id } = user;
+  const { firstName, lastName, isAvatar, _id } = user;
   const { title, price } = service;
   const { startAt } = time;
 
@@ -34,7 +35,15 @@ const Appointment = ({
         className={`${className} appointments__appointment-card appointment-card card mt-8`}
       >
         <div onClick={openProfile} className="appointment-card__header">
-          <img src={getAvatarPath(avatar)} alt="Avatar" className="appointment-card__avatar" />
+          <div className="appointment-card__avatar">
+            <Image
+              layout="fill"
+              src={getAvatarPath(_id, isAvatar)}
+              alt="Avatar"
+              className="appointment-card__image"
+              sizes="36px"
+            />
+          </div>
           <span className="appointment-card__name">{`${firstName} ${lastName[0]}.`}</span>
         </div>
 

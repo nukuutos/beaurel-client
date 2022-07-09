@@ -3,7 +3,7 @@
 
 .btn-icon {
   & > * {
-    height: 1.6rem;
+    height: 1.35rem;
   }
 
   display: flex;
@@ -15,36 +15,36 @@
   width: $size;
 
   border: 1px solid $color-gray-light-1;
-  color: $color-gray-light-1;
+  fill: $color-gray-light-1;
 
   border-radius: 50%;
 
-  transition: 0.2s color, 0.2s border, 0.2s box-shadow;
+  transition: 0.2s fill, 0.2s border, 0.2s box-shadow;
   cursor: pointer;
 
   &:hover {
     border: 1px solid $color-primary;
-    color: $color-primary;
+    fill: $color-primary;
     box-shadow: 0 0 5px rgba($color-black, 0.25);
   }
 
   &--fail {
     &:hover {
-      color: $color-fail;
+      fill: $color-fail;
       border-color: $color-fail;
     }
   }
 
   &--success {
     &:hover {
-      color: $color-success;
+      fill: $color-success;
       border-color: $color-success;
     }
   }
 
   &--disabled {
     &:hover {
-      color: $color-gray-light-1;
+      fill: $color-gray-light-1;
       border-color: $color-gray-light-1;
     }
   }

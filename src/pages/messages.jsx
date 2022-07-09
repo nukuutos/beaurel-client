@@ -1,13 +1,25 @@
 import { useSelector } from 'react-redux';
-import Layout from '../components/layout/layout';
-import ActiveUser from '../components/pages/messages/active-user/active-user';
-import Dialog from '../components/pages/messages/dialog/dialog';
-import FavoriteMasters from '../components/pages/messages/favorite-masters/favorite-masters';
-import Dialogs from '../components/pages/messages/dialogs/dialogs';
-import MessageForm from '../components/pages/messages/message-form/message-form';
+import dynamic from 'next/dynamic';
+
 import useMessagesState from '../components/pages/messages/use-messages-states';
-import Header from '../components/pages/messages/header';
+import Layout from '../components/layout/layout';
+// import ActiveUser from '../components/pages/messages/active-user/active-user';
+// import Dialog from '../components/pages/messages/dialog/dialog';
+// import Dialogs from '../components/pages/messages/dialogs/dialogs';
+// import MessageForm from '../components/pages/messages/message-form/message-form';
+// import Header from '../components/pages/messages/header';
+
 import getMessagesServerSideProps from '../server/get-server-side-props/messages';
+
+// const Layout = dynamic(() => import('../components/layout/layout'));
+const ActiveUser = dynamic(() => import('../components/pages/messages/active-user/active-user'));
+const Dialog = dynamic(() => import('../components/pages/messages/dialog/dialog'));
+const Dialogs = dynamic(() => import('../components/pages/messages/dialogs/dialogs'));
+const MessageForm = dynamic(() => import('../components/pages/messages/message-form/message-form'));
+const Header = dynamic(() => import('../components/pages/messages/header'));
+const FavoriteMasters = dynamic(() =>
+  import('../components/pages/messages/favorite-masters/favorite-masters')
+);
 
 const Messages = () => {
   const { activeInterlocutor } = useSelector((state) => state.messages);

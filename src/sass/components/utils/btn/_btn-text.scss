@@ -8,12 +8,14 @@
 
   display: inline-block;
   color: $color-primary;
+  fill: $color-primary;
   border-bottom: 1px solid $color-primary;
   cursor: pointer;
-  transition: 0.2s background, 0.2s color, 0.2s border-color;
+  transition: 0.2s background, 0.2s color, 0.2s border-color, 0.2s fill;
 
   &:hover {
     color: $color-white;
+    fill: $color-white;
     border-color: $color-white;
     background: $color-primary;
   }

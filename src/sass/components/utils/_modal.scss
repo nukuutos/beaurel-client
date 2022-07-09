@@ -18,8 +18,8 @@
     position: absolute;
     top: 3rem;
     right: 4rem;
-    color: $color-white;
-    height: 4rem;
+    fill: $color-white;
+    height: 3.6rem;
     cursor: pointer;
   }
 
@@ -36,7 +36,7 @@
     padding-top: 6.8rem;
 
     &__close {
-      height: 3rem;
+      height: 2.8rem;
 
       top: 1.6rem;
       right: 1.6rem;
@@ -92,5 +92,6 @@
 
   &__icon {
     height: 2rem;
+    fill: $color-primary-dark-2;
   }
 }

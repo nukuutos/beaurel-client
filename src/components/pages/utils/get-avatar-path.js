@@ -1,8 +1,11 @@
-const getAvatarPath = (avatar) => {
-  const avatarPath = `http://localhost:5000/${avatar}`;
+const getAvatarPath = (userId, isAvatar, editCounter = null) => {
+  let avatarPath = `https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${userId}/avatar.webp`;
+
+  if (editCounter) avatarPath += `?${editCounter}`;
+
   const defaultPath = '/svg/default.svg';
 
-  return avatar ? avatarPath : defaultPath;
+  return isAvatar ? avatarPath : defaultPath;
 };
 
 export default getAvatarPath;

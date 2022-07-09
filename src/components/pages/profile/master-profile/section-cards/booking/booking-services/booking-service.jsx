@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Service from '../../../../../services/base/service';
 import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
 import goTo from './go-to';
+import ChevronRight from '../../../../../../base/icons/chevron-right';
 
 // bookingAppointment.date is utc 00:00:00!!!
 
@@ -36,7 +37,7 @@ const BookingService = ({ service, stepState, isAfterUpdate }) => {
       <Service service={bookingService} />
 
       <div className="booking-service__arrow">
-        <FontAwesomeIcon icon="chevron-right" />
+        <ChevronRight />
       </div>
     </div>
   );

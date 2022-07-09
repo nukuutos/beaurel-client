@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ChevronRight from '../../base/icons/chevron-right';
 
 const NoTimetableCase = () => {
   const { isPhone } = useSelector((state) => state.screenSize);
@@ -21,7 +21,7 @@ const NoTimetableCase = () => {
         {!isPhone && <br />} свои услуги
         <br />
         <span onClick={goToTimetable} className="btn-text btn-text--visit mt-5">
-          Создать расписание <FontAwesomeIcon icon="chevron-right" />
+          Создать расписание <ChevronRight />
         </span>
       </p>
     </div>

@@ -9,10 +9,12 @@ const ProfileRating = () => {
     state.screenSize,
   ]);
 
+  const starsClassNameSize = isPhone ? 'stars--small-extra' : 'stars--small';
+
   return avgRating ? (
     <div className="profile__rating">
       <span className="profile__rating-score mr-1">{decimalFormat(avgRating)}</span>
-      <Stars score={decimalFormat(avgRating)} starSize={isPhone ? 'small-extra' : 'small'} />
+      <Stars score={decimalFormat(avgRating)} className={`stars--small ${starsClassNameSize}`} />
     </div>
   ) : (
     <div className="profile__rating" />

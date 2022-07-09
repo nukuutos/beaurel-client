@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import Input from '../../../../base/form/input';
+import Search from '../../../../base/icons/search';
 import useHandleSubmit from './use-handle-submit';
 
 const CitySearchForm = ({ setData, page, hasMore, form }) => {
@@ -21,7 +21,7 @@ const CitySearchForm = ({ setData, page, hasMore, form }) => {
             <div className="city-search__bar">
               <span className="label label--primary">Поиск города</span>
               <div className="input--icon">
-                <FontAwesomeIcon className="input__icon" icon="search" />
+                <Search className="input__icon" />
                 <Input onChange={handleType} type="text" className="input ml-2" name="city" />
               </div>
             </div>

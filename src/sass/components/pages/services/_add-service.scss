@@ -28,11 +28,6 @@
 
   &__heading {
     grid-column: 1 / -1;
-
-    // @include respond(phone) {
-    //   width: 36rem;
-    //   justify-self: center;
-    // }
   }
 
   &__switch {
@@ -44,11 +39,6 @@
     & > *:first-child {
       margin: 0;
     }
-
-    // @include respond(phone) {
-    //   width: 36rem;
-    //   justify-self: center;
-    // }
   }
 
   &__switch-label {
@@ -78,11 +68,6 @@
         border-color: $color-gray;
       }
     }
-
-    // @include respond(phone) {
-    //   width: 36rem;
-    //   justify-self: center;
-    // }
   }
 
   &__parameter {
@@ -119,27 +104,15 @@
   &__price-and-duration {
     grid-column: 1 / -1;
 
-    // display: grid;
-    // grid-template-columns: repeat(12, 1fr);
-    // column-gap: 1.6rem;
     display: flex;
 
     & > * {
       flex: 1;
     }
-
-    // @include respond(phone) {
-    //   width: 36rem;
-    //   justify-self: center;
-    // }
   }
 
   &__button {
     grid-column: 1 / -1;
-    // justify-self: flex-end;
-    // @include respond(phone) {
-    //   justify-self: stretch;
-    // }
   }
 
   &__add {
@@ -150,8 +123,8 @@
     align-items: center;
     background: $color-gray-light-3;
     height: 5.6rem;
-    color: $color-gray;
-    transition: 0.2s color;
+    fill: $color-gray;
+    transition: 0.2s fill;
     cursor: pointer;
 
     // icon
@@ -160,17 +133,11 @@
       justify-self: center;
       align-self: center;
       height: 2rem;
-      color: inherit;
     }
 
     &:hover {
-      color: $color-primary;
+      fill: $color-primary;
     }
-
-    // @include respond(phone) {
-    //   width: 36rem;
-    //   justify-self: center;
-    // }
   }
 
   &__date {
@@ -178,8 +145,7 @@
   }
 
   &__delete {
-    // grid-column: 12 / 13;
     align-self: flex-end;
-    // justify-self: center;
+    margin-bottom: 0.4rem;
   }
 }

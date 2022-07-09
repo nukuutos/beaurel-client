@@ -1,14 +1,14 @@
 import { Form, Formik } from 'formik';
 import ChoiceCards from '../choice-cards';
 import WorkingDay from './working-day';
-import Weekends from './weekends/weekends';
-import TimetableAuto from './visual-timetable-auto/timetable-auto';
-import SessionTime from './session-time/session-time';
+import Weekends from './weekends';
+import TimetableAuto from './timetable-auto';
+import SessionTime from './session-time';
 import useOnSubmit from './use-on-submit';
 import VisualTimetableManually from './visual-timetable-manually/visual-timetable-manually';
-import Progress from '../progress/progress';
+import ProgressBar from '../../../shared/progress-bar/progress-bar';
 import useProgress from '../use-progress';
-import schema from './schema';
+import { createTimetableSchema } from '../../schema';
 
 const CreateTimetableForm = () => {
   const [state, setState, actions] = useProgress();
@@ -20,7 +20,7 @@ const CreateTimetableForm = () => {
 
   return (
     <Formik
-      validationSchema={schema}
+      validationSchema={createTimetableSchema}
       initialValues={{
         sessionTime: 60,
         type: 'auto',
@@ -45,7 +45,7 @@ const CreateTimetableForm = () => {
 
         return (
           <>
-            <Progress count={stepsCount} state={[state, setState]} />
+            <ProgressBar count={stepsCount} state={[state, setState]} />
             <Form className="create-timetable__form">
               {current === 1 && <SessionTime goNext={goNext} {...props} />}
               {current === 2 && (

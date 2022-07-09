@@ -1,0 +1,341 @@
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.landing {
+  padding-top: 4.4rem;
+  padding-bottom: 4.4rem;
+  width: 100%;
+  height: 100%;
+  background: $color-primary-light-3;
+  display: grid;
+  grid-template-columns: minmax(5.6rem, 1fr) [content-start] minmax(min-content, 136rem) [content-end] minmax(
+      5.6rem,
+      1fr
+    );
+
+  @include respond(tab-port) {
+    padding-top: 0;
+    padding-bottom: 0;
+    grid-template-columns: [content-start] minmax(min-content, 136rem) [content-end];
+  }
+
+  @include respond(phone) {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__main {
+    grid-column: content-start / content-end;
+    background: $color-gray-light-3;
+    border-top-right-radius: 4rem;
+    border-top-left-radius: 4rem;
+    border-bottom-left-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+    overflow: hidden;
+
+    @include respond(tab-port) {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &--disable-scroll {
+      height: 100vh;
+      overflow: hidden;
+    }
+  }
+
+  &__section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &--intro {
+      height: calc(100vh - 4.4rem);
+
+      @include respond(tab-port) {
+        height: calc(100vh);
+      }
+    }
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2.8rem 4rem 2rem;
+    align-items: center;
+
+    @include respond(tab-land) {
+      padding-top: 2rem;
+    }
+
+    @include respond(tab-port) {
+      padding-right: 2.8rem;
+      padding-left: 2.8rem;
+      align-items: center;
+    }
+
+    @include respond(phone) {
+      padding: 1.6rem 2rem;
+    }
+  }
+
+  &__logo {
+    color: $color-gray-light-1;
+    font-size: 4.2rem;
+    font-weight: 700;
+    transition: 0.1s color;
+    cursor: default;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    @include respond(tab-land) {
+      font-size: 3.2rem;
+      color: $color-primary;
+    }
+  }
+
+  &__navigation {
+    display: flex;
+
+    @include respond(phone) {
+      display: none;
+    }
+  }
+
+  &__navigation-list {
+    display: contents;
+  }
+
+  &__nav-item {
+    color: $color-gray;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 0.4rem 0 0.2rem;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s color, 0.2s border-color;
+    cursor: pointer;
+
+    &:not(:last-of-type) {
+      margin-right: 4rem;
+    }
+
+    &:hover {
+      color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    @include respond(tab-port) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__svg-scene {
+    position: relative;
+    width: 46.1rem;
+    height: 39.7rem;
+
+    @include respond(tab-land) {
+      width: 33.4rem;
+      height: 28.7rem;
+    }
+
+    @include respond(tab-port) {
+      width: 35.7rem;
+      height: 30.7rem;
+      margin-bottom: 5.2rem;
+    }
+
+    @include respond(phone) {
+      width: 25.6rem;
+      height: 22rem;
+      margin-bottom: 4.4rem;
+    }
+  }
+
+  &__find-yourself {
+    color: $color-primary-light-2;
+    font-size: 2.8rem;
+    margin-bottom: 2.8rem;
+
+    @include respond(tab-land) {
+      margin-bottom: 2.4rem;
+    }
+
+    @include respond(phone) {
+      display: none;
+    }
+  }
+
+  &__primary-heading {
+    color: $color-primary;
+    font-size: 7.2rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+
+    @include respond(tab-land) {
+      display: none;
+    }
+  }
+
+  &__people-types {
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: $color-primary-dark-2;
+    margin-bottom: 4.8rem;
+
+    @include respond(tab-land) {
+      font-size: 2.4rem;
+      margin-bottom: 2.8rem;
+    }
+
+    @include respond(phone) {
+      font-size: 2rem;
+      margin-bottom: 2.4rem;
+    }
+  }
+
+  &__introduction {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 10rem;
+    flex: 1;
+
+    @include respond(tab-land) {
+      padding-bottom: 6rem;
+    }
+
+    @include respond(tab-port) {
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+
+    @include respond(phone) {
+      padding-bottom: 0;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+
+    & > *:first-of-type {
+      margin-right: 2.8rem;
+    }
+
+    @include respond(tab-land) {
+      & > *:first-of-type {
+        margin-right: 2.4rem;
+      }
+    }
+
+    @include respond(phone) {
+      flex-direction: column;
+
+      & > *:first-of-type {
+        margin-right: 0;
+        margin-bottom: 2.4rem;
+      }
+    }
+  }
+
+  &__btn {
+    font-size: 2rem;
+    border-width: 3px;
+
+    &--become-master {
+      transition: 0.2s background-color;
+
+      &:hover {
+        background-color: $color-primary-dark-1;
+      }
+    }
+
+    @include respond(tab-land) {
+      font-size: 1.6rem;
+      border-width: 2px;
+    }
+  }
+
+  &__go-to-features-btn {
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    fill: $color-gray;
+    width: 6rem;
+    height: 6rem;
+    background: rgba($color-gray, 0.1);
+    align-self: center;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s fill, 0.2s background, 0.2s transform;
+
+    & > * {
+      height: 1.2rem;
+      animation: 1s moveArrow alternate infinite both;
+
+      @keyframes moveArrow {
+        from {
+          transform: translateY(-0.3rem);
+        }
+        to {
+          transform: translateY(0.3rem);
+        }
+      }
+    }
+
+    &:hover {
+      background: rgba($color-gray, 0.25);
+      fill: $color-primary;
+      transform: translate(-50%, -0.4rem);
+    }
+
+    @include respond(tab-land) {
+      display: none;
+    }
+  }
+
+  &__footer {
+    height: 10rem;
+    width: 100%;
+    background-color: $color-primary-dark-1;
+    font-size: 4rem;
+    font-weight: bold;
+    color: $color-white;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // padding-left: 2rem;
+  }
+
+  &__footer-logo {
+    opacity: 0;
+    transition: 0.8s opacity;
+
+    &--visible {
+      opacity: 1;
+    }
+  }
+}

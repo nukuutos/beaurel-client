@@ -5,6 +5,7 @@ import {
   UPDATE_AVATAR_SUCCESS,
   UPDATE_PLACE_OF_WORK,
   UPDATE_PROFILE_CITY,
+  GET_REVIEWS_ON_SCROLL,
 } from './types';
 
 const INITIAL_STATE = {
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
   masters: [],
   reviews: [],
   role: 'master',
+  isAvatar: false,
   // customer
   appointmentsData: { siblingAppointment: {}, appointmentsCount: 0 },
   reviewsCount: 0,
@@ -41,11 +43,11 @@ const profileReducer = (state = INITIAL_STATE, action) => {
     }
 
     case UPDATE_AVATAR_SUCCESS: {
-      const { avatar } = payload;
+      // const { avatar } = payload;
 
       return {
         ...state,
-        avatar,
+        isAvatar: true,
       };
     }
 
@@ -67,6 +69,15 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isPublicView: !state.isPublicView,
+      };
+    }
+
+    case GET_REVIEWS_ON_SCROLL: {
+      const newReviews = [...state.reviews, ...payload];
+
+      return {
+        ...state,
+        reviews: newReviews,
       };
     }
 

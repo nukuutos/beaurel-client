@@ -31,9 +31,9 @@ const CitySearch = ({ onClickClose }) => {
         <CitySearchForm setData={setData} page={page} hasMore={hasMore} form={form} />
         {data.map((cityData, i) =>
           data.length - 5 === i ? (
-            <CityCard cityData={cityData} cityRef={lastRef} />
+            <CityCard cityData={cityData} cityRef={lastRef} key={cityData.city + cityData.region} />
           ) : (
-            <CityCard cityData={cityData} />
+            <CityCard cityData={cityData} key={cityData.city + cityData.region} />
           )
         )}
       </div>

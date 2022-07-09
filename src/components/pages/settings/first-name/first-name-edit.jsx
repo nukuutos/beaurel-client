@@ -1,24 +1,13 @@
-import React, { useRef } from 'react';
-import { ErrorMessage, Form, Formik } from 'formik';
-import Input from '../../../base/form/input';
+import { Form, Formik } from 'formik';
 import useOnSubmit from '../utils/use-on-submit';
 import EditButtons from '../utils/edit-buttons';
 import { firstNameSchema } from '../schemas/name';
+import useEdit from '../use-edit';
+import ErrorInput from '../../../base/form/error-input';
 
 const FirstNameEdit = ({ data, setIsEdit }) => {
-  const formikRef = useRef(null);
-
   const [handleSubmit, isLoading] = useOnSubmit(setIsEdit);
-
-  const closeEdit = () => setIsEdit(false);
-
-  const handleEdit = (event) => {
-    const { dirty, submitForm } = formikRef.current;
-
-    event.preventDefault();
-    if (dirty) submitForm();
-    else closeEdit();
-  };
+  const { formikRef, handleEdit, closeEdit } = useEdit({ setIsEdit });
 
   return (
     <Formik
@@ -31,16 +20,7 @@ const FirstNameEdit = ({ data, setIsEdit }) => {
     >
       {() => (
         <Form className="setting-card__form">
-          <div className="setting-card__input">
-            <label htmlFor="firstName" className="label">
-              Имя
-            </label>
-            <Input name="firstName" className="input" type="text" />
-            <ErrorMessage name="firstName">
-              {(msg) => <div className="error mt-1">{msg}</div>}
-            </ErrorMessage>
-          </div>
-
+          <ErrorInput name="firstName" className="setting-card__input" label="Имя" />
           <EditButtons isLoading={isLoading} handleEdit={handleEdit} close={closeEdit} />
         </Form>
       )}

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import MasterWork from './master-work';
+import Plus from '../../../../../../base/icons/plus';
 
 const MASTER_WORKS_LIMIT = 18;
 
@@ -26,7 +26,7 @@ const DisplayMasterWorks = ({ setParentState, isLoading }) => {
 
       {!isMasterWorksLimit && (
         <div onClick={goToAddWork} className="master-works__add-work">
-          <FontAwesomeIcon icon="plus" />
+          <Plus />
         </div>
       )}
     </div>

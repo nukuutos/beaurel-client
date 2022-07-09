@@ -8,6 +8,7 @@ import favoriteMasters from '../../pipelines/user/favorite-masters';
 import customerProfile from '../../pipelines/user/customer-profile';
 import settings from '../../pipelines/settings/settings';
 import { getCustomerMatchQuery, getMasterMatchQuery, handleUserId } from './utils';
+import notifications from '../../pipelines/user/notifications';
 
 class User {
   static async findMasters(city) {
@@ -81,6 +82,16 @@ class User {
 
     if (!userData) throw new Error('Invalid token!');
     return { _id: userId, ...userData };
+  }
+
+  static async getNotifications(userId) {
+    const { db } = await connectToDatabase();
+
+    const pipeline = notifications(new ObjectId(userId));
+
+    const data = await db.collection('users').aggregate(pipeline).next();
+
+    return data;
   }
 }
 

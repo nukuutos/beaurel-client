@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import displayDuration from '../../services/utils/display-duration';
+import displayDuration from '../../utils/display-duration';
 
 const weekdaysRU = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 

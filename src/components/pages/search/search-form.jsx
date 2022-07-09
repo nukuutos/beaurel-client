@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import specializations from '../../../config/specializations';
 import Input from '../../base/form/input';
 import Select from '../../base/form/select';
+import Search from '../../base/icons/search';
 
 const SearchForm = ({ form, handleSubmit, cancelSubmit }) => {
   const handleFormChange = (e) => {
@@ -30,6 +30,7 @@ const SearchForm = ({ form, handleSubmit, cancelSubmit }) => {
               className="input select"
               name="specialization"
               as="select"
+              isIconOnValue={false}
             >
               <option value="" className="option">
                 Все
@@ -47,7 +48,7 @@ const SearchForm = ({ form, handleSubmit, cancelSubmit }) => {
               Имя, id
             </label>
             <div className="input--icon">
-              <FontAwesomeIcon className="input__icon" icon="search" />
+              <Search className="input__icon" />
               <Input
                 onChange={handleFormChange}
                 id="name"

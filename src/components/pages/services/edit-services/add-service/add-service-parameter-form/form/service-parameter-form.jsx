@@ -2,7 +2,7 @@ import { FieldArray, Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import { parameterServiceSchema } from '../../../../utils/schemas';
 import getFormClassName from './get-form-class-name';
-import Title from './title';
+import Title from '../../shared/title';
 import SubService from './sub-service';
 import AddSubServiceButton from './add-sub-service-button';
 
@@ -33,7 +33,7 @@ const ServiceParameterForm = ({ handleSubmit }) => {
 
         return (
           <Form className={formClassName}>
-            <Title />
+            <Title className="add-service__title mt-5" />
             <FieldArray name="subServices">
               {(arrayProps) => (
                 <>

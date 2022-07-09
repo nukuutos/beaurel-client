@@ -46,7 +46,8 @@ const rootReducer = (state, action) => {
   return combinedReducer(state, action);
 };
 
-const initStore = () => createStore(rootReducer, bindMiddleware([logger]));
+// const initStore = () => createStore(rootReducer, bindMiddleware([logger]));
+const initStore = () => createStore(rootReducer, bindMiddleware([]));
 
 export const wrapper = createWrapper(initStore, {
   deserializeState: (state) => deserialize(state),

@@ -23,15 +23,21 @@
   }
 
   &__customer-photo {
+    position: relative;
     grid-column: 1 / 3;
     grid-row: 1 / 4;
     height: 6.8rem;
-    border-radius: 50%;
+    width: 6.8rem;
     cursor: pointer;
 
     @include respond(phone) {
       height: 4.4rem;
+      width: 4.4rem;
     }
+  }
+
+  &__image {
+    border-radius: 50%;
   }
 
   &__customer-name {

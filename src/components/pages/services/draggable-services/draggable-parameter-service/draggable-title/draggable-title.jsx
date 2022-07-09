@@ -1,4 +1,4 @@
-import Title from '../../../base/parameter-service/title';
+import ParameterServiceTitle from '../../../base/parameter-service/parameter-service-title';
 import DraggableHorizontalLines from '../../utils/draggable-horizontal-lines';
 import getDraggingIconClassName from '../../utils/get-dragging-icon-class-name';
 import getTitleClassName from './get-title-class-name';
@@ -13,7 +13,7 @@ const DraggableTitle = ({ title, shownState, isDragging }) => {
 
   return (
     <div onClick={toggleServiceParameter} className={titleClassName}>
-      <Title shownState={shownState} title={title} />
+      <ParameterServiceTitle shownState={shownState} title={title} />
       {!isShown && (
         <div className="draggable-service__lines">
           <DraggableHorizontalLines className={iconClassName} />

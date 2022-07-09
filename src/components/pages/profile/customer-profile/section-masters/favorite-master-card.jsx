@@ -10,7 +10,7 @@ const FavoriteMasterCard = ({
   firstName,
   lastName,
   specialization,
-  avatar,
+  isAvatar,
   rating,
 }) => {
   const router = useRouter();
@@ -21,17 +21,13 @@ const FavoriteMasterCard = ({
   return (
     <div onClick={goToMaster} className="favorite-master-card card">
       <img
-        src={getAvatarPath(avatar)}
+        src={getAvatarPath(_id, isAvatar)}
         alt="Favorite master"
         className="favorite-master-card__avatar"
       />
       <span className="favorite-master-card__name">{name}</span>
       <span className="favorite-master-card__specialization">{specialization}</span>
-      <Stars
-        className="favorite-master-card__stars"
-        score={decimalFormat(rating)}
-        starSize="small"
-      />
+      <Stars className="favorite-master-card__stars stars--small" score={decimalFormat(rating)} />
     </div>
   );
 };

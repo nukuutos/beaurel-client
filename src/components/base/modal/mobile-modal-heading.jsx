@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ArrowLeft from '../icons/arrow-left';
 
 const MobileModalHeading = ({ onClickClose, title }) => (
   <nav className="modal__back-bar card card--layout">
     <div className="back-bar__main">
-      <FontAwesomeIcon onClick={onClickClose} className="back-bar__icon mr-6" icon="arrow-left" />
+      <ArrowLeft onClick={onClickClose} className="back-bar__icon mr-6" />
       {title}
     </div>
   </nav>

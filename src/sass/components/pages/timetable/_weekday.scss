@@ -70,13 +70,13 @@
       display: flex;
       justify-content: center;
       background: $color-white;
-      color: $color-primary-dark-1;
-      // transition: 0.2s color, 0.2s background;
+      fill: $color-primary-dark-1;
+      transition: 0.2s fill, 0.2s background, 0.2s border-color;
 
       &:hover {
         border-color: $color-primary-dark-1;
         background: $color-primary-dark-1;
-        color: $color-white;
+        fill: $color-white;
       }
 
       & > * {
@@ -112,6 +112,12 @@
 
         & > * {
           height: 1.2rem;
+        }
+
+        &:hover {
+          border-color: $color-primary-dark-1;
+          background: $color-primary-dark-1;
+          fill: $color-white;
         }
       }
     }

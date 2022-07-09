@@ -1,4 +1,4 @@
-import Title from '../../../../base/parameter-service/title';
+import ParameterServiceTitle from '../../../../base/parameter-service/parameter-service-title';
 import getClassName from '../../../../utils/get-title-class-name';
 
 const UpdatedTitle = ({ title, shownState }) => {
@@ -9,7 +9,7 @@ const UpdatedTitle = ({ title, shownState }) => {
 
   return (
     <div onClick={toggleServiceParameter} className={`service ${classNameService}`}>
-      <Title shownState={shownState} title={title} />
+      <ParameterServiceTitle shownState={shownState} title={title} />
     </div>
   );
 };

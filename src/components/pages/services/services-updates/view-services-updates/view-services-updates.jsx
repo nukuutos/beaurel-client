@@ -1,8 +1,12 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import useIsViewUpdateAlert from './utils/use-is-view-alert';
 import UpdateDateAlert from './update-date-alert';
-import ServicesUpdates from './view-services-update/updated-services';
-import Modal from '../../../../base/modal/modal';
+import ModalFallback from '../../../shared/modal-fallback';
+
+const ServicesUpdates = dynamic(() => import('./view-services-update/updated-services'), {
+  loading: () => <ModalFallback />,
+});
 
 const ViewServicesUpdate = ({ isUpdateServices, setIsUpdateServices }) => {
   const isViewUpdateAlert = useIsViewUpdateAlert();
@@ -13,11 +17,7 @@ const ViewServicesUpdate = ({ isUpdateServices, setIsUpdateServices }) => {
   return (
     <>
       {isViewUpdateAlert && <UpdateDateAlert openServicesUpdates={openServicesUpdates} />}
-      {isUpdateServices.view && (
-        <Modal onClickClose={closeServicesUpdates}>
-          <ServicesUpdates close={closeServicesUpdates} />
-        </Modal>
-      )}
+      {isUpdateServices.view && <ServicesUpdates close={closeServicesUpdates} />}
     </>
   );
 };

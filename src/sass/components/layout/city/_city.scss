@@ -16,6 +16,8 @@
   &__icon {
     height: 1.6rem;
     margin-right: 2.4rem;
+    fill: $color-primary-dark-2;
+
     @include respond(tab-land) {
       margin-right: 0;
     }
@@ -24,6 +26,10 @@
   &:hover {
     background: $color-secondary-light;
     color: $color-white;
+
+    & * {
+      fill: $color-white;
+    }
   }
 
   @include respond(tab-land) {

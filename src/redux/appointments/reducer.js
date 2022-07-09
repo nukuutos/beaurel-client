@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 import {
   GET_APPOINTMENTS_ON_SCROLL,
   GET_APPOINTMENTS_SUCCESS,
@@ -168,7 +168,13 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       const { type, appointments, user } = payload;
 
       const appointmentsState = { ...state.appointments };
-      appointmentsState[user][type] = { isLoaded: true, appointments };
+      const userAppointments = { ...appointmentsState[user] };
+      const userAppointmentsCategory = { ...userAppointments[type], isLoaded: true, appointments };
+
+      userAppointments[type] = userAppointmentsCategory;
+      appointmentsState[user] = userAppointments;
+
+      // userAppointmentsCategory = { isLoaded: true, appointments };
 
       // notification
       const isNotification = { ...state.isNotification };

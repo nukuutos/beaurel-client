@@ -1,4 +1,4 @@
-@use "../../../abstracts/colors" as *;
+@use '../../../abstracts/colors' as *;
 
 .service-parameter {
   border-radius: 0.5rem;
@@ -9,7 +9,7 @@
 
   &__sub-service {
     &::before {
-      content: "";
+      content: '';
       width: 100%;
       height: 1px;
       background: $color-gray-light-2;
@@ -41,18 +41,17 @@
   }
 
   &__icon {
-    color: $color-gray;
-    transition: 0.2s color, 0.2s transform;
+    fill: $color-gray;
     margin: auto;
-    transition: 0.2s color;
+    transition: 0.2s fill;
 
     & > * {
-      height: 2.8rem;
+      height: 1.6rem;
     }
 
     &--rotated {
       transform: rotate(-90deg);
-      color: $color-gray-dark-2;
+      fill: $color-gray-dark-2;
     }
   }
 
@@ -62,7 +61,7 @@
       box-shadow: 0 0 0 1px $color-primary;
 
       .service-parameter__icon {
-        color: $color-primary;
+        fill: $color-primary;
       }
     }
   }

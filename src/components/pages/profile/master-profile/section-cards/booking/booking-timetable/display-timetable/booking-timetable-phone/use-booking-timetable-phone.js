@@ -43,17 +43,7 @@ const useBookingTimetablePhone = (setWeekByDate) => {
     else setWeekdayIndex(fromDate.weekday());
   }, [toNextDay, fromDate]);
 
-  // const swipeableSettings = {
-  //   onSwipedLeft: toNextDay,
-  //   onSwipedRight: toPrevDay,
-  //   delta: 10,
-  // };
-
-  // const day = weekDays[dateCounter];
-
   const controllers = { toPrevDay, toNextDay, toNextWeek };
-
-  // const handlers = useSwipeable(isUnavailableWeek ? {} : swipeableSettings);
 
   return [weekdayIndex, controllers];
 };

@@ -5,15 +5,15 @@ import getAvatarPath from '../../utils/get-avatar-path';
 
 const FavoriteMaster = ({ refToLoadData, master, onClickClose }) => {
   const dispatch = useDispatch();
-  const { avatar, firstName, lastName, specialization, _id } = master;
+  const { isAvatar, firstName, lastName, specialization, _id } = master;
   const displayName = `${firstName} ${lastName[0].toUpperCase()}`;
-  const avatarUrl = getAvatarPath(avatar);
+  const avatarUrl = getAvatarPath(_id, isAvatar);
 
   const handleClick = () => {
     dispatch(
       setActiveInterlocutor({
         _id,
-        avatar,
+        isAvatar,
         firstName,
         lastName,
         specialization,

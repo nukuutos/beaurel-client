@@ -1,13 +1,14 @@
 import Axios from 'axios';
 import handleUnauthorizedCall from './utils/handle-unauthorized-call';
 import axios from '../../../utils/axios';
+import { addAlert } from '../../../redux/alerts/actions';
 
 const asyncCall = async (dispatch, config) => {
-  const { accessToken, addingHeaders, ...confingProps } = config;
+  const { accessToken, addingHeaders, ...configProps } = config;
 
   try {
     const { data } = await axios({
-      ...confingProps,
+      ...configProps,
       headers: {
         ...addingHeaders,
         Authorization: `Bearer ${accessToken}`,
@@ -22,9 +23,16 @@ const asyncCall = async (dispatch, config) => {
 
     const { response } = error;
 
-    // handle unauthorized error
     let data = null;
-    if (response.status === 401) data = await handleUnauthorizedCall(dispatch, config);
+
+    if (!response) {
+      dispatch(addAlert({ message: 'Ошибка подключения!' }));
+    } else if (response.status === 401) {
+      data = await handleUnauthorizedCall(dispatch, config);
+    } else {
+      const message = response.data?.message || 'Что-то пошло не так!';
+      dispatch(addAlert({ message }));
+    }
 
     return data;
   }

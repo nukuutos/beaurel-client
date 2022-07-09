@@ -8,7 +8,7 @@ const endAtField = Yup.number()
     return this.parent.startAt < value;
   });
 
-const schema = Yup.object().shape({
+export const editTimetableSchema = Yup.object().shape({
   edit: Yup.object().shape({
     auto: Yup.object().shape({
       workingDay: Yup.object().shape({ startAt: startAtField, endAt: endAtField }),
@@ -16,4 +16,8 @@ const schema = Yup.object().shape({
   }),
 });
 
-export default schema;
+export const createTimetableSchema = Yup.object().shape({
+  auto: Yup.object().shape({
+    workingDay: Yup.object().shape({ startAt: startAtField, endAt: endAtField }),
+  }),
+});

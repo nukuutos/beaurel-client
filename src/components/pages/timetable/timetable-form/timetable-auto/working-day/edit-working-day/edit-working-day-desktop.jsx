@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from '../../../../../../base/form/select';
+import Check from '../../../../../../base/icons/check';
+import Cross from '../../../../../../base/icons/cross';
 import DurationOptions from '../../../../utils/duration-options';
 import useWorkingDayKeys from '../use-working-day-keys';
 
@@ -42,13 +43,13 @@ const EditWorkingDayDesktop = ({ handleClicks, handleChange, validateField, erro
           endAtError ? 'btn-icon--disabled' : ''
         } timetable-card__btn-edit--bottom`}
       >
-        <FontAwesomeIcon icon="check" />
+        <Check />
       </div>
       <div
         onClick={handleCancel}
         className="timetable-card__btn-edit btn-icon btn-icon--fail timetable-card__btn-edit--bottom"
       >
-        <FontAwesomeIcon icon="times" />
+        <Cross />
       </div>
 
       {endAtError ? <div className="timetable-card__error error mt-1">{endAtError}</div> : null}

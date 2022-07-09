@@ -1,0 +1,218 @@
+@use '../../../abstracts/mixins' as *;
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+$delay-step: 0.4s;
+$duration: 0.4s;
+
+$heading-duration: $duration;
+$heading-delay: 0.2s;
+
+$find-yourself-duration: $duration;
+$find-yourself-delay: $heading-duration + $heading-delay + $delay-step;
+
+$people-types-duration: $duration;
+$people-types-delay: $find-yourself-duration + $find-yourself-delay + $delay-step;
+
+$become-master-duration: $duration;
+$become-master-delay: $people-types-duration + $people-types-delay + $delay-step;
+
+$search-masters-duration: $duration;
+$search-masters-delay: $become-master-duration + $become-master-delay + $delay-step;
+//
+$svg-scene-duration: $duration;
+$svg-scene-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+$go-to-features-btn-duration: $duration;
+$go-to-features-btn-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+$header-duration: $duration;
+$header-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+.landing {
+  &__header {
+    animation: $header-duration appear $header-delay both;
+    z-index: 1;
+  }
+
+  &__people-types {
+    animation: $people-types-duration appear $people-types-delay both;
+  }
+
+  &__find-yourself {
+    animation: $find-yourself-duration appear $find-yourself-delay both;
+  }
+
+  &__btn {
+    animation: $search-masters-duration appear $search-masters-delay both;
+
+    &--become-master {
+      animation: $become-master-duration appear $become-master-delay both;
+    }
+  }
+
+  &__svg-scene {
+    animation: $svg-scene-duration appear $svg-scene-delay both;
+  }
+
+  &__go-to-features-btn {
+    animation: $go-to-features-btn-duration appear $go-to-features-btn-delay both;
+  }
+
+  @include respond(tab-land) {
+    $people-types-duration: $duration;
+    $people-types-delay: 0.2s;
+
+    $find-yourself-duration: $duration;
+    $find-yourself-delay: $people-types-duration + $people-types-delay + $delay-step;
+
+    $become-master-duration: $duration;
+    $become-master-delay: $find-yourself-duration + $find-yourself-delay + $delay-step;
+
+    $search-masters-duration: $duration;
+    $search-masters-delay: $become-master-duration + $become-master-delay + $delay-step;
+
+    $svg-scene-duration: $duration;
+    $svg-scene-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+    $go-to-features-btn-duration: $duration;
+    $go-to-features-btn-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+    $header-duration: $duration;
+    $header-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+    &__header {
+      animation: $header-duration appear $header-delay both;
+    }
+
+    &__people-types {
+      animation: $people-types-duration appear $people-types-delay both;
+    }
+
+    &__find-yourself {
+      animation: $find-yourself-duration appear $find-yourself-delay both;
+    }
+
+    &__btn {
+      animation: $search-masters-duration appear $search-masters-delay both;
+
+      &--become-master {
+        animation: $become-master-duration appear $become-master-delay both;
+      }
+    }
+
+    &__svg-scene {
+      animation: $svg-scene-duration appear $svg-scene-delay both;
+    }
+
+    &__go-to-features-btn {
+      animation: $go-to-features-btn-duration appear $go-to-features-btn-delay both;
+    }
+  }
+
+  @include respond(tab-port) {
+    $svg-scene-duration: $duration;
+    $svg-scene-delay: 0.2s;
+
+    $people-types-duration: $duration;
+    $people-types-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+    $find-yourself-duration: $duration;
+    $find-yourself-delay: $people-types-duration + $people-types-delay + $delay-step;
+
+    $become-master-duration: $duration;
+    $become-master-delay: $find-yourself-duration + $find-yourself-delay + $delay-step;
+
+    $search-masters-duration: $duration;
+    $search-masters-delay: $become-master-duration + $become-master-delay + $delay-step;
+
+    $go-to-features-btn-duration: $duration;
+    $go-to-features-btn-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+    $header-duration: $duration;
+    $header-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+    &__header {
+      animation: $header-duration appear $header-delay both;
+    }
+
+    &__people-types {
+      animation: $people-types-duration appear $people-types-delay both;
+    }
+
+    &__find-yourself {
+      animation: $find-yourself-duration appear $find-yourself-delay both;
+    }
+
+    &__btn {
+      animation: $search-masters-duration appear $search-masters-delay both;
+
+      &--become-master {
+        animation: $become-master-duration appear $become-master-delay both;
+      }
+    }
+
+    &__svg-scene {
+      animation: $svg-scene-duration appear $svg-scene-delay both;
+    }
+
+    &__go-to-features-btn {
+      animation: $go-to-features-btn-duration appear $go-to-features-btn-delay both;
+    }
+  }
+
+  @include respond(phone) {
+    $svg-scene-duration: $duration;
+    $svg-scene-delay: 0.2s;
+
+    $people-types-duration: $duration;
+    $people-types-delay: $svg-scene-duration + $svg-scene-delay + $delay-step;
+
+    $become-master-duration: $duration;
+    $become-master-delay: $people-types-duration + $people-types-delay + $delay-step;
+
+    $search-masters-duration: $duration;
+    $search-masters-delay: $become-master-duration + $become-master-delay + $delay-step;
+
+    $go-to-features-btn-duration: $duration;
+    $go-to-features-btn-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+    $header-duration: $duration;
+    $header-delay: $search-masters-duration + $search-masters-delay + $delay-step;
+
+    &__header {
+      animation: $header-duration appear $header-delay both;
+    }
+
+    &__people-types {
+      animation: $people-types-duration appear $people-types-delay both;
+    }
+
+    &__find-yourself {
+      animation: $find-yourself-duration appear $find-yourself-delay both;
+    }
+
+    &__btn {
+      animation: $search-masters-duration appear $search-masters-delay both;
+
+      &--become-master {
+        animation: $become-master-duration appear $become-master-delay both;
+      }
+    }
+
+    &__svg-scene {
+      animation: $svg-scene-duration appear $svg-scene-delay both;
+    }
+
+    &__go-to-features-btn {
+      animation: $go-to-features-btn-duration appear $go-to-features-btn-delay both;
+    }
+  }
+}

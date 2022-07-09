@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Heart from '../../../../base/icons/heart';
 import FavoriteMasterCard from './favorite-master-card';
 
 const SectionMasters = () => {
@@ -31,9 +31,9 @@ const SectionMasters = () => {
             здесь!
           </p>
           <div className="no-masters__hearts">
-            <FontAwesomeIcon icon="heart" />
-            <FontAwesomeIcon icon="heart" />
-            <FontAwesomeIcon icon="heart" />
+            <Heart />
+            <Heart />
+            <Heart />
           </div>
         </div>
       )}

@@ -1,6 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import displayDuration from '../utils/display-duration';
+
+import Title from './shared/title';
+import displayDuration from '../../utils/display-duration';
+import Ruble from '../../../base/icons/ruble';
+import Time from '../../../base/icons/time.';
 
 const Service = ({ service }) => {
   const { title, duration, price } = service;
@@ -13,18 +16,15 @@ const Service = ({ service }) => {
 
   return (
     <>
-      <div className="service__side service__side--left">
-        <span className="label">Название</span>
-        <span className={titleClassName}>{title}</span>
-      </div>
+      <Title className={titleClassName}>{title}</Title>
 
       <div className="service__side service__side--right">
         <span className={durationClassName}>
-          <FontAwesomeIcon icon={['fas', 'clock']} />
+          <Time />
           {displayDuration(duration)}
         </span>
         <span className={priceClassName}>
-          <FontAwesomeIcon icon="ruble-sign" />
+          <Ruble />
           {price}
         </span>
       </div>

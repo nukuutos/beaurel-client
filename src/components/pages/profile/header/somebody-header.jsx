@@ -1,32 +1,24 @@
 import { useSelector } from 'react-redux';
-import ProfileRating from './profile-rating';
-import Geolocation from './geolocation/geolocation';
-import Avatar from './avatar/avatar';
 import About from './about/about';
 import MessageButton from './message-button';
 import StarProfile from '../../../base/master-card/star-profile/star-profile';
-import useName from './use-name';
+import Identity from './identity';
+import Biography from './biography';
 
 const SomebodyHeader = () => {
-  const [{ aboutText, specialization, role }, { id: userId }, { isPhone }] = useSelector(
-    (state) => [state.profile, state.auth, state.screenSize]
-  );
-
-  const profileName = useName();
-  const isMaster = role === 'master';
+  const [{ aboutText }, { id: userId }, { isPhone }] = useSelector((state) => [
+    state.profile,
+    state.auth,
+    state.screenSize,
+  ]);
 
   return (
     <header className="profile__header">
-      <div className="profile__identify">
-        <Avatar />
-        {isMaster && <ProfileRating />}
-      </div>
-      <div className="profile__biography ">
-        <h1 className="profile__name">{profileName}</h1>
-        {isMaster && <h2 className="profile__specialization">{specialization}</h2>}
-        <Geolocation />
-        {!isPhone && <MessageButton />}
-      </div>
+      <Identity />
+      <Biography>
+        <MessageButton />
+      </Biography>
+
       {aboutText && <About />}
       {isPhone && <MessageButton />}
       {userId && <StarProfile />}

@@ -1,6 +1,6 @@
-import Title from '../../../../../base/parameter-service/title';
-import Loading from '../../../utils/loading';
-import ButtonsDisplay from '../../../utils/buttons-display/buttons-display';
+import ParameterServiceTitle from '../../../../../base/parameter-service/parameter-service-title';
+import Loading from '../../../shared/loading';
+import ButtonsDisplay from '../../../shared/buttons-display/buttons-display';
 import useDeleteService from './use-delete-service';
 import getClassName from '../../../../../utils/get-title-class-name';
 
@@ -23,7 +23,7 @@ const EditTitleDisplay = ({ service, setIsEdit, shownState }) => {
       onClick={() => setIsShown(!isShown)}
       className={`service service--edit-mobile ${className}`}
     >
-      <Title shownState={shownState} title={title} />
+      <ParameterServiceTitle shownState={shownState} title={title} />
 
       {isLoading ? (
         <Loading />

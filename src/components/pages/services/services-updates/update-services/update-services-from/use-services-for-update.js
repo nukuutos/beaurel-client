@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 
 const useServicesForUpdate = () => {
   const { services } = useSelector((state) => state.services);

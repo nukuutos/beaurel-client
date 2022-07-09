@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import ChevronLeft from '../../../../../../base/icons/chevron-left';
+import ChevronRight from '../../../../../../base/icons/chevron-right';
 
 const Chevrons = ({ toNextWork, toPrevWork }) => (
   <>
@@ -8,14 +9,14 @@ const Chevrons = ({ toNextWork, toPrevWork }) => (
       onClick={toPrevWork}
       className="carousel__chevron carousel__chevron--left"
     >
-      <FontAwesomeIcon icon="chevron-left" />
+      <ChevronLeft />
     </button>
     <button
       type="button"
       onClick={toNextWork}
       className="carousel__chevron carousel__chevron--right"
     >
-      <FontAwesomeIcon icon="chevron-right" />
+      <ChevronRight />
     </button>
   </>
 );

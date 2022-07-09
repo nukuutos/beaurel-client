@@ -8,11 +8,18 @@
   flex-direction: column;
   align-items: center;
 
+  &__svg {
+    position: relative;
+    height: 22.5rem;
+    width: 30rem;
+  }
+
   @include respond(phone) {
     padding: 3.2rem 0 4rem;
 
     &__svg {
       height: 20rem;
+      width: 26.7rem;
     }
   }
 

@@ -33,7 +33,7 @@ const useSearch = (form, setData) => {
           const config = {
             method: 'get',
             url: `/master`,
-            params: { specialization, name: search, page: page.current, city }, // add city
+            params: { specialization, name: search, page: page.current, city },
             accessToken: null,
           };
 

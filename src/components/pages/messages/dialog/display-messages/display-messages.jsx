@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import Message from './message.jsx/message';
+import Message from './message/message';
 import useGetMessages from './use-get-messages';
 import useMessages from './use-messages';
 import useSetViewed from './use-set-viewed';
@@ -26,6 +26,7 @@ const DisplayMessages = () => {
               refToLoad={messageToStartLoadData}
               messageData={messageObject}
               interlocutorId={interlocutorId}
+              key={messageObject._id}
             />
           );
         }
@@ -43,6 +44,7 @@ const DisplayMessages = () => {
               interlocutorId={interlocutorId}
               nextMessageDate={messages[index + 1].createdAt}
               refToSetMessageVisibility={messageToSetIsRead}
+              key={messageObject._id}
             />
           );
         }
@@ -52,6 +54,7 @@ const DisplayMessages = () => {
             messageData={messageObject}
             interlocutorId={interlocutorId}
             nextMessageDate={messages[index + 1].createdAt}
+            key={messageObject._id}
           />
         );
       })}

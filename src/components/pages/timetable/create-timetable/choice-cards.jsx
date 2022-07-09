@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import CircleNotch from '../../../base/icons/circle-notch';
+import Cogs from '../../../base/icons/cogs';
 
 const ChoiceCards = ({ resetProgress, goNext, values, setFieldValue }) => {
   const { type } = values;
@@ -28,7 +29,7 @@ const ChoiceCards = ({ resetProgress, goNext, values, setFieldValue }) => {
       <h2 className="sign-up__heading">Как будете использовать Beaurel?</h2>
       <div className="create-timetable__choice-cards">
         <div onClick={setAuto} className={autoClassName}>
-          <FontAwesomeIcon className="choice-card__icon" icon="circle-notch" />
+          <CircleNotch className="choice-card__icon" />
           <h4 className="choice-card__heading mt-3">Автоматический</h4>
           <p className="choice-card__description mt-3">
             Укажите время работы и выходные дни, исключите ненужные записи по необоходимости, и
@@ -37,7 +38,7 @@ const ChoiceCards = ({ resetProgress, goNext, values, setFieldValue }) => {
         </div>
 
         <div onClick={setManually} className={`mt-6 ${manuallyClassName}`}>
-          <FontAwesomeIcon className="choice-card__icon" icon="cogs" />
+          <Cogs className="choice-card__icon" />
           <h4 className="choice-card__heading mt-3">Ручной</h4>
           <p className="choice-card__description mt-3">
             Укажите день недели и время - ваше время для записи готово!

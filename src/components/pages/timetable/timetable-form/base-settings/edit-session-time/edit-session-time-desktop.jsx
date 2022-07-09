@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useKeys from '../../../../../../hooks/use-keys';
 import Select from '../../../../../base/form/select';
-import SessionTimeOptions from './session-time-options';
+import Check from '../../../../../base/icons/check';
+import Cross from '../../../../../base/icons/cross';
+import SessionTimeOptions from '../../../shared/session-time-options';
 
 const EditSessionTimeDesktop = ({ handleClicks }) => {
   const [handleEdit, handleCancel] = handleClicks;
@@ -28,10 +29,10 @@ const EditSessionTimeDesktop = ({ handleClicks }) => {
         onClick={handleEdit}
         className="timetable-card__btn-edit--primary btn-icon btn-icon--success"
       >
-        <FontAwesomeIcon icon="check" />
+        <Check />
       </div>
       <div onClick={handleCancel} className="timetable-card__btn-edit btn-icon btn-icon--fail">
-        <FontAwesomeIcon icon="times" />
+        <Cross />
       </div>
     </>
   );

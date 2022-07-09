@@ -1,4 +1,12 @@
 {
-  "presets": ["next/babel", "@babel/preset-env", "@babel/preset-react"],
-  "plugins": ["superjson-next"]
+  "presets": ["@babel/preset-env", "@babel/preset-react", "next/babel"],
+  "plugins": [
+    "superjson-next",
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ]
 }

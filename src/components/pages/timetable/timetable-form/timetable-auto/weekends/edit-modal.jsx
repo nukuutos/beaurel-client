@@ -2,12 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '../../../../../base/modal/modal';
 import ModalHeading from '../../../../../base/modal/modal-heading';
+import getWeekdayData from '../../../utils/get-weekday-data';
 import weekdaysRU from '../../../utils/weekdays-ru';
-import getWeekdayData from './get-weekday-data';
 
 const EditModal = ({ values, handleClicks, ...fieldArrayProps }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
   const [handleEdit, handleCancel] = handleClicks;
+  const { weekends } = values.edit.auto;
 
   return (
     <Modal onClickClose={handleCancel}>
@@ -23,7 +24,7 @@ const EditModal = ({ values, handleClicks, ...fieldArrayProps }) => {
         <div className="weekends__days">
           {weekdaysRU.map((weekdayName, weekdayIndex) => {
             const { onClick, className } = getWeekdayData({
-              values,
+              weekends,
               weekdayIndex,
               ...fieldArrayProps,
             });

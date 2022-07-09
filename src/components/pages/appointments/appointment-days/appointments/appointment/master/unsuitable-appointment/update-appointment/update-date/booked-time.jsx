@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import React from 'react';
-import displayDuration from '../utils/display-duration';
+import Calendar from '../../../../../../../../../base/icons/calendar';
+import Time from '../../../../../../../../../base/icons/time.';
+import displayDuration from '../../../../../../../../utils/display-duration';
 
 const BookedTime = ({ appointment }) => {
   const { date, time } = appointment;
@@ -13,11 +14,11 @@ const BookedTime = ({ appointment }) => {
   return (
     <div className="booking-timetable__booked-time booked-time">
       <div className="booked-time__group">
-        <FontAwesomeIcon icon="calendar" />
+        <Calendar />
         <span>{formattedDate}</span>
       </div>
       <div className="booked-time__group">
-        <FontAwesomeIcon icon="clock" />
+        <Time />
         <span>{appointmentDuration}</span>
       </div>
     </div>

@@ -49,7 +49,7 @@ const customerAppointmentsAndMasters = (customerId, status) => [
             status,
           },
         },
-        { $sort: { date: 1, time: 1 } },
+        { $sort: { date: -1, time: 1 } },
         { $limit: limit },
         {
           $addFields: {
@@ -71,7 +71,7 @@ const customerAppointmentsAndMasters = (customerId, status) => [
                   username: 1,
                   firstName: 1,
                   lastName: 1,
-                  avatar: 1,
+                  isAvatar: 1,
                 },
               },
             ],

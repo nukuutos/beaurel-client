@@ -1,6 +1,6 @@
 import React from 'react';
 import Exceptions from './exceptions';
-import VisualTimetableAuto from './visual-timetable-auto/visual-timetable-auto';
+import VisualTimetableAuto from './visual-timetable-auto';
 import Weekends from './weekends/weekends';
 import WorkingDay from './working-day/working-day';
 

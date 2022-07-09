@@ -2,11 +2,13 @@
 @use '../../../abstracts/mixins' as *;
 
 .appointment-types {
-  padding: 1.6rem 0;
+  padding: 1.6rem;
   margin-top: 3.2rem;
   background: $color-white;
   text-align: center;
   font-size: 1.6rem;
+  display: flex;
+  justify-content: space-between;
 
   & > *:not(:last-child) {
     margin-right: 1.6rem;

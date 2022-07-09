@@ -1,12 +1,22 @@
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import dynamic from 'next/dynamic';
 import Layout from '../components/layout/layout';
-import FirstName from '../components/pages/settings/first-name/first-name';
-import Username from '../components/pages/settings/username/username';
-import TelephoneInput from '../components/pages/settings/telephone-input/telephone-input';
-import LastName from '../components/pages/settings/last-name/last-name';
+// import FirstName from '../components/pages/settings/first-name/first-name';
+// import Username from '../components/pages/settings/username/username';
+// import TelephoneInput from '../components/pages/settings/telephone-input';
+// import LastName from '../components/pages/settings/last-name/last-name';
+// import UpdatePassword from '../components/pages/settings/update-password/update-password';
 import getSettingsServerSideProps from '../server/get-server-side-props/settings';
-import UpdatePassword from '../components/pages/settings/update-password/update-password';
+
+// const Layout = dynamic(() => import('../components/layout/layout'));
+const FirstName = dynamic(() => import('../components/pages/settings/first-name/first-name'));
+const Username = dynamic(() => import('../components/pages/settings/username/username'));
+const TelephoneInput = dynamic(() => import('../components/pages/settings/telephone-input'));
+const LastName = dynamic(() => import('../components/pages/settings/last-name/last-name'));
+const UpdatePassword = dynamic(() =>
+  import('../components/pages/settings/update-password/update-password')
+);
 
 const Settings = () => {
   const router = useRouter();

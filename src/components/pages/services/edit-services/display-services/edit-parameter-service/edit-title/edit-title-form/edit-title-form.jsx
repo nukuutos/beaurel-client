@@ -1,12 +1,12 @@
 import React from 'react';
-import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { parameterServiceTitleSchema } from '../../../../../utils/schemas';
 import Textarea from '../../../../../../../base/form/textarea';
 import useOnSubmit from './use-on-submit';
-import Loading from '../../../utils/loading';
-import ButtonsForm from '../../../utils/buttons-form/buttons-form';
+import Loading from '../../../shared/loading';
+import ButtonsForm from '../../../shared/edit-form/buttons-form/buttons-form';
+import CaretLeft from '../../../../../../../base/icons/caret';
 
 const EditTitleForm = ({ title, setIsEdit }) => {
   const [handleSubmit, isLoading] = useOnSubmit(setIsEdit);
@@ -28,7 +28,7 @@ const EditTitleForm = ({ title, setIsEdit }) => {
 
           <div className="service__side service__side--right">
             <div className={`service-parameter__icon `}>
-              <FontAwesomeIcon icon="caret-left" />
+              <CaretLeft />
             </div>
           </div>
 

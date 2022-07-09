@@ -30,13 +30,16 @@ const useGetAppointments = (state) => {
     }
   }, [accessToken, asyncAction, profileId, dispatch, user, category]);
 
-  const isSameRole = role === user;
-  const isOnConfirmationCategory = category === 'onConfirmation';
-  const needToLoadCategory = !(isSameRole && isOnConfirmationCategory); // for SSR data
-
   useEffect(() => {
+    const isSameRole = role === user;
+    const isOnConfirmationCategory = category === 'onConfirmation';
+    const needToLoadCategory = !(isSameRole && isOnConfirmationCategory); // for SSR data
+
+    console.log(isLoaded, category, user);
+    console.log(needToLoadCategory);
+
     if (!isLoaded && needToLoadCategory) getAppointments();
-  }, [isLoaded, getAppointments, needToLoadCategory]);
+  }, [isLoaded, role, user, category, getAppointments]);
 
   return [appointments, isLoading];
 };

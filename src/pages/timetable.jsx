@@ -1,8 +1,17 @@
+import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
-import CreateTimetable from '../components/pages/timetable/create-timetable/create-timetable';
 import getTimetableServerSideProps from '../server/get-server-side-props/timetable';
-import DisplayTimetable from '../components/pages/timetable/display-timetable/display-timetable';
+
+// const Layout = dynamic(() => import('../components/layout/layout'));
+
+const DisplayTimetable = dynamic(() =>
+  import('../components/pages/timetable/display-timetable/display-timetable')
+);
+
+const CreateTimetable = dynamic(() =>
+  import('../components/pages/timetable/create-timetable/create-timetable')
+);
 
 const Timetable = () => {
   const { _id: isTimetable } = useSelector((state) => state.timetable);

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import displayDuration from './display-duration';
+import displayDuration from '../../utils/display-duration';
 
 const nineHours = 540;
 

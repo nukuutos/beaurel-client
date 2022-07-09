@@ -147,6 +147,11 @@
 
   &__delete-btn {
     line-height: 1;
+
+    @include respond(phone) {
+      padding-right: 1.6rem;
+      padding-left: 1.6rem;
+    }
   }
 
   &__error {

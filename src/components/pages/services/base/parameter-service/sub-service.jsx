@@ -1,6 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import displayDuration from '../../utils/display-duration';
+
+import displayDuration from '../../../utils/display-duration';
+import Ruble from '../../../../base/icons/ruble';
+import Time from '../../../../base/icons/time.';
 
 // Component needs wrapper for reusability
 const SubService = ({ subService }) => {
@@ -21,12 +23,12 @@ const SubService = ({ subService }) => {
 
       <span className="service__side service__side--right">
         <span className={durationClassName}>
-          <FontAwesomeIcon icon={['fas', 'clock']} />
+          <Time />
           {displayDuration(duration)}
         </span>
         <div className="service__horizontal-line" />
         <span className={priceClassName}>
-          <FontAwesomeIcon icon="ruble-sign" />
+          <Ruble />
           {price}
         </span>
       </span>

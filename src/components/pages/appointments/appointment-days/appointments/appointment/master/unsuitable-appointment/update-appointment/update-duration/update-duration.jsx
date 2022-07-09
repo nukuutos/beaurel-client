@@ -1,16 +1,13 @@
 import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../../../../../../base/modal/modal-heading';
-import UpdateServiceDuration from './update-service-duration/update-service-duration';
-import UpdateSubServiceDuration from './update-sub-service-duration/update-sub-service-duration';
+import UpdateServices from './update-services/update-services';
 import useGetDataForUpdate from './use-get-data-for-update';
 
 const UpdateDuration = ({ setStep, onClickClose }) => {
-  const [service, { isPhone }] = useSelector((state) => [
+  const { isPhone } = useSelector((state) => [
     state.appointments.booking.bookingAppointment.service,
     state.screenSize,
   ]);
-
-  const isServiceParameter = service?.parameter;
 
   useGetDataForUpdate();
 
@@ -22,11 +19,7 @@ const UpdateDuration = ({ setStep, onClickClose }) => {
         onClickClose={onClickClose}
       />
 
-      {isServiceParameter ? (
-        <UpdateSubServiceDuration setStep={setStep} />
-      ) : (
-        <UpdateServiceDuration setStep={setStep} />
-      )}
+      <UpdateServices setStep={setStep} />
     </div>
   );
 };

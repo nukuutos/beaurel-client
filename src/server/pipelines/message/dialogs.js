@@ -41,7 +41,7 @@ const dialogs = (profileId) => [
                   username: 1,
                   firstName: 1,
                   lastName: 1,
-                  avatar: 1,
+                  isAvatar: 1,
                   role: 1,
                   wasOnline: 1,
                 },

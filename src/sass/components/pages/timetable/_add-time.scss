@@ -40,8 +40,14 @@
   }
 
   @include respond(phone) {
-    &__button {
+    &__button,
+    &__error {
       grid-column: 1 / -1;
+    }
+
+    &__error {
+      margin-top: 0.8rem;
+      line-height: 1.6rem;
     }
 
     &__label {

@@ -1,12 +1,33 @@
+import 'regenerator-runtime/runtime';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import Layout from '../components/layout/layout';
-import AppointmentsCategoriesController from '../components/pages/appointments/appointment-categories-controller/appointments-categories-controller';
-import AppointmentController from '../components/pages/appointments/appointments-controller/appointments-controller';
+import dynamic from 'next/dynamic';
+
 import useGetAppointments from '../components/pages/appointments/use-get-appointments';
-import NoAppointments from '../components/pages/appointments/no-appointments';
 import getAppointmentsServerSideProps from '../server/get-server-side-props/appointments';
-import AppointmentsDays from '../components/pages/appointments/appointment-days/appointments-days';
+
+import Layout from '../components/layout/layout';
+// import AppointmentsCategoriesController from '../components/pages/appointments/appointment-categories-controller/appointments-categories-controller';
+// import AppointmentController from '../components/pages/appointments/appointments-controller/appointments-controller';
+// import NoAppointments from '../components/pages/appointments/no-appointments';
+// import AppointmentsDays from '../components/pages/appointments/appointment-days/appointments-days';
+
+// const Layout = dynamic(() => import('../components/layout/layout'));
+const NoAppointments = dynamic(() => import('../components/pages/appointments/no-appointments'));
+
+const AppointmentsCategoriesController = dynamic(() =>
+  import(
+    '../components/pages/appointments/appointment-categories-controller/appointments-categories-controller'
+  )
+);
+
+const AppointmentController = dynamic(() =>
+  import('../components/pages/appointments/appointments-controller/appointments-controller')
+);
+
+const AppointmentsDays = dynamic(() =>
+  import('../components/pages/appointments/appointment-days/appointments-days')
+);
 
 const Appointments = () => {
   const { role } = useSelector((state) => state.auth);

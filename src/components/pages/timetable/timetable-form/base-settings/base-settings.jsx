@@ -1,7 +1,7 @@
 import useEditState from './use-edit-state';
 import DisplaySessionTime from './display-session-time';
 import EditSessionTime from './edit-session-time/edit-session-time';
-import PossibleServiceDurations from './possible-service-durations';
+import PossibleServiceDurations from '../../shared/possible-service-durations';
 
 const BaseSettings = ({ values, setFieldValue, editState }) => {
   const [{ element }] = editState;
@@ -25,7 +25,7 @@ const BaseSettings = ({ values, setFieldValue, editState }) => {
         <DisplaySessionTime values={values} isDisabled={isDisabled} editState={editState} />
       )}
 
-      <PossibleServiceDurations values={values} className="mt-1" />
+      <PossibleServiceDurations values={values.edit} className="mt-1" />
     </div>
   );
 };

@@ -19,17 +19,22 @@ const TimetableType = ({ values, editState, resetForm }) => {
     <div className="timetable__timetable-card timetable-card mt-8 card">
       <div className="timetable-card__heading ">Тип расписания</div>
 
-      <span className="timetable-card__label mt-3">Автоматически:</span>
+      <label htmlFor="auto" className="timetable-card__label mt-3">
+        Автоматически:
+      </label>
       <RadioButton
         disabled={isDisabled}
         checked={type === 'auto'}
         className={`timetable-card__value mt-3 ml-1 ${disabledClassName}`}
         name="type"
         value="auto"
+        id="auto"
         onClick={autoHandleClick}
       />
 
-      <span className="timetable-card__value timetable-card__label mt-2">Вручную:</span>
+      <label htmlFor="manually" className="timetable-card__value timetable-card__label mt-2">
+        Вручную:
+      </label>
 
       <RadioButton
         disabled={isDisabled}
@@ -37,6 +42,7 @@ const TimetableType = ({ values, editState, resetForm }) => {
         name="type"
         checked={type === 'manually'}
         value="manually"
+        id="manually"
         onClick={manuallyHandleClick}
       />
     </div>

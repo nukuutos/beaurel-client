@@ -39,7 +39,7 @@
   }
 
   &__add-work {
-    color: $color-gray;
+    fill: $color-gray;
     transition: 0.2s background;
     background: rgba($color-black, 0.12);
     cursor: pointer;
@@ -49,14 +49,14 @@
 
     & > * {
       position: absolute;
-      height: 4rem;
-      transition: 0.2s color;
+      height: 3.6rem;
+      transition: 0.2s fill;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
 
       @include respond(phone) {
-        height: 3.2rem;
+        height: 2.8rem;
       }
     }
 
@@ -64,7 +64,7 @@
       background: rgba($color-primary-dark-2, 0.19);
 
       & > * {
-        color: $color-primary;
+        fill: $color-primary;
       }
     }
   }

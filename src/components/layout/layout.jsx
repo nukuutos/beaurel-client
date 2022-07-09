@@ -1,21 +1,33 @@
 import Head from 'next/head';
 
 import { useSelector } from 'react-redux';
-import Navigation from './navigation';
-import Alerts from './alerts';
 
-import City from './city/city';
-import Footer from './footer';
-import NoMasterTools from '../base/no-master-tools/no-master-tools';
+import dynamic from 'next/dynamic';
+
+import DisplayLayoutContent from './display-layout-content';
+
 import useHandleRouting from './hooks/use-handle-routing';
 import useHandleAndroidBackButton from './hooks/use-handle-android-back-button';
+// import useUpdateStatus from '../../hooks/use-update-status';
+// import useDetectTimezone from '../../hooks/use-detect-timezone';
+// import useSocket from '../../hooks/use-socket';
+import useScreenSize from '../../hooks/use-screen-size';
 import useMessengerClassName from './hooks/use-messenger-class-name';
-import DisplayLayoutContent from './display-layout-content';
+import usePageTitle from '../../hooks/use-page-title';
+
+const ComponentForHooks = dynamic(() => import('./component-for-hooks'));
+const Navigation = dynamic(() => import('./navigation'));
+const Alerts = dynamic(() => import('./alerts'));
+const City = dynamic(() => import('./city/city'));
+const NoMasterTools = dynamic(() => import('../base/no-master-tools/no-master-tools'));
+const Footer = dynamic(() => import('./footer'));
 
 const Layout = ({ children }) => {
   const [{ id: userId }, { isOpen }] = useSelector((state) => [state.auth, state.masterTools]);
   const messengerClassName = useMessengerClassName();
+  const { title, description } = usePageTitle();
 
+  useScreenSize();
   useHandleRouting();
   useHandleAndroidBackButton();
 
@@ -23,11 +35,11 @@ const Layout = ({ children }) => {
     <>
       <div className={`layout ${messengerClassName}`}>
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-            rel="stylesheet"
-          />
+          <title>{title}</title>
+          <meta name="description" content={description} />
         </Head>
+
+        <ComponentForHooks />
 
         {isOpen && <NoMasterTools timetableCase />}
 
@@ -36,7 +48,6 @@ const Layout = ({ children }) => {
         <DisplayLayoutContent>{children}</DisplayLayoutContent>
 
         <Navigation />
-
         <Footer />
       </div>
       <Alerts />

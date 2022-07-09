@@ -1,4 +1,4 @@
-import displayDuration from '../../services/utils/display-duration';
+import displayDuration from '../../utils/display-duration';
 import weekdaysRU from './weekdays-ru';
 
 const displayTimes = (week) => {

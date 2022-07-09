@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import MasterWorks from './master-works/master-works';
-import Booking from './booking/booking';
+import dynamic from 'next/dynamic';
 import cardsData from './utils/cards-data';
 import Card from './card';
+// import MasterWorks from './master-works/master-works';
+// import Booking from './booking/booking';
+
+const MasterWorks = dynamic(() => import('./master-works/master-works'));
+const Booking = dynamic(() => import('./booking/booking'));
 
 const SectionCards = () => {
   const [state, setState] = useState({

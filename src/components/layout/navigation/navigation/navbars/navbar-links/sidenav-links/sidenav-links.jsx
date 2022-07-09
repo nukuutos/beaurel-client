@@ -9,9 +9,9 @@ const SidenavLinks = () => {
     const isProfileLink = typeof link.path === 'object';
 
     return isProfileLink ? (
-      <ProfileLink isTabView className="mobile-navbar__icon" {...link} />
+      <ProfileLink isTabView className="mobile-navbar__icon" {...link} key={link.path[0]} />
     ) : (
-      <NotProfileLink isTabView className="mobile-navbar__icon" {...link} />
+      <NotProfileLink isTabView className="mobile-navbar__icon" {...link} key={link.path} />
     );
   });
 };
