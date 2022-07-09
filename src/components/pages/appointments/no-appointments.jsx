@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 const NoAppointments = () => (
-  <div className="appointments__no-appointments no-appointments card mt-8">
+  <div className="appointments__no-appointments no-appointments mt-8">
     <div className="no-appointments__svg">
       <Image
         priority
