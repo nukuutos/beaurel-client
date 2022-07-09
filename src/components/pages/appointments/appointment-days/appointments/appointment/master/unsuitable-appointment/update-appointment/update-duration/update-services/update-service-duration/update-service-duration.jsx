@@ -41,8 +41,8 @@ const UpdateServiceDuration = ({ setStep }) => {
             </div>
 
             <div className="add-service__price-and-duration mt-6">
-              <Price />
               <Duration values={values} />
+              <Price />
             </div>
 
             <button
