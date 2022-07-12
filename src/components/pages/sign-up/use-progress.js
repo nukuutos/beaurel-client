@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useProgress = () => {
+const useProgress = (disabledStep) => {
   const [state, setState] = useState({ current: 1, last: 1 });
 
   const resetProgress = () => setState(() => ({ current: 1, last: 1 }));
@@ -14,12 +14,13 @@ const useProgress = () => {
 
   const actions = { resetProgress, disableProgressBar, goToNextStep };
 
-  const setStateWrapper = () => {
+  const setStateWrapper = (cb) => {
     const getNull = () => null;
+    if (disabledStep && state.current === disabledStep) {
+      return getNull;
+    }
 
-    if (state.current === 3) return getNull;
-
-    return setState;
+    return setState(cb);
   };
 
   return [state, setStateWrapper, actions];
