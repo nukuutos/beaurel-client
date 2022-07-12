@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Stars from '../../../../base/stars/stars';
@@ -20,11 +21,16 @@ const FavoriteMasterCard = ({
 
   return (
     <div onClick={goToMaster} className="favorite-master-card card">
-      <img
-        src={getAvatarPath(_id, isAvatar)}
-        alt="Favorite master"
-        className="favorite-master-card__avatar"
-      />
+      <div className="favorite-master-card__avatar">
+        <Image
+          quality={100}
+          layout="fill"
+          src={getAvatarPath(_id, isAvatar)}
+          alt="Profile avatar"
+          className="favorite-master-card__image"
+          sizes="72px"
+        />
+      </div>
       <span className="favorite-master-card__name">{name}</span>
       <span className="favorite-master-card__specialization">{specialization}</span>
       <Stars className="favorite-master-card__stars stars--small" score={decimalFormat(rating)} />

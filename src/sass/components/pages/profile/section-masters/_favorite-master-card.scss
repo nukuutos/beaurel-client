@@ -19,9 +19,13 @@
   }
 
   &__avatar {
+    position: relative;
     $size: 7.2rem;
     width: $size;
     height: $size;
+  }
+
+  &__image {
     border-radius: 50%;
   }
 
