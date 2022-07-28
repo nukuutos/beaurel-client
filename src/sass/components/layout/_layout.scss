@@ -61,7 +61,7 @@
   @include respond(phone) {
     min-height: unset;
     width: 100vw;
-    padding: 0.8rem;
+    padding: 0.8rem 1.2rem;
     column-gap: 0.8rem;
     overflow-y: hidden;
 

@@ -18,7 +18,7 @@
   }
 }
 
-@keyframes appear {
+@keyframes showAlert {
   10% {
     transform: translateX(-100%);
     opacity: 0;
@@ -51,7 +51,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  animation: 4s appear forwards;
+  animation: 4s showAlert forwards;
 
   &::before {
     position: absolute;
@@ -84,7 +84,7 @@
   }
 
   @include respond(phone) {
-    padding: 0.4rem;
+    padding: 0.8rem 0.4rem;
     padding-right: 1.2rem;
     margin-top: 1.2rem;
 

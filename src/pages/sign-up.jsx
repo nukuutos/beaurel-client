@@ -21,7 +21,7 @@ const MasterCase = dynamic(() =>
 );
 
 const SignUp = () => {
-  const [isCustomer, setIsCustomer] = useState(true);
+  const [isCustomer, setIsCustomer] = useState(false);
   const [state, setState, actions] = useProgress();
 
   const { goToNextStep, resetProgress, disableProgressBar } = actions;

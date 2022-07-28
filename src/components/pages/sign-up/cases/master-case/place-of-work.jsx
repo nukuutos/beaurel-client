@@ -30,7 +30,7 @@ const PlaceOfWork = ({ goNext, errors, setFieldValue }) => {
         <div className="sign-up__group sign-up__group--horizontal  mt-5">
           <ErrorInput className="sign-up__group" name="placeOfWork.house" label="Дом" />
           <ErrorInput
-            className="sign-up__group mr-3 ml-3"
+            className="sign-up__group sign-up__group--optional mr-3 ml-3"
             name="placeOfWork.building"
             label="Корпус"
           />

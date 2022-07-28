@@ -18,8 +18,6 @@ const useOnSubmit = (goToNextStep) => {
 
     const data = await asyncAction(config);
 
-    console.log(data);
-
     if (data) goToNextStep();
   };
 

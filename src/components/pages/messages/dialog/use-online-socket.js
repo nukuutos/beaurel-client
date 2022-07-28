@@ -6,7 +6,9 @@ const useOnlineSocket = (interlocutorId) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = openSocket('http://localhost:5000');
+    const socket = openSocket(
+      `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_SERVER_URL}`
+    );
 
     const event = `${interlocutorId}-online`;
 

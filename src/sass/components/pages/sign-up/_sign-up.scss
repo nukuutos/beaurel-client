@@ -83,6 +83,10 @@
     &--horizontal {
       flex-direction: row;
     }
+
+    &--optional label {
+      color: $color-gray;
+    }
   }
 
   &__label--optional {

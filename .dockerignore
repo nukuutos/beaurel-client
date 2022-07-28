@@ -1,0 +1,12 @@
+.next
+
+node_modules
+npm-debug.log
+
+# .env*
+
+.eslintrc.json
+.prettierrc
+
+jsconfig.json
+

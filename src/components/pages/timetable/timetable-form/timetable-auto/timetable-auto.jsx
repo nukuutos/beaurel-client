@@ -6,7 +6,7 @@ import WorkingDay from './working-day/working-day';
 
 const TimetableAuto = ({ editState, ...formikProps }) => (
   <>
-    <div className="timetable__timetable-card timetable-card mt-8 card">
+    <div className="timetable__timetable-card timetable-card mt-6 card">
       <div className="timetable-card__heading">Настройки расписания</div>
       <Weekends {...formikProps} editState={editState} />
       <WorkingDay {...formikProps} editState={editState} />

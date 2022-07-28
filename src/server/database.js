@@ -1,8 +1,8 @@
 import { MongoClient } from 'mongodb';
 
-const { DB_USER, DB_CLUSTER, DB_PASSWORD, DB_NAME } = process.env;
+const { DB_USER, DB_CLUSTER, DB_PASSWORD, DB_NAME, DB_AUTH_SOURCE, DB_REPLICA_SET } = process.env;
 
-const MONGODB_URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority`;
+const MONGODB_URI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?authSource=${DB_AUTH_SOURCE}&replicaSet=${DB_REPLICA_SET}`;
 
 // if (!MONGODB_URI) {
 //   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');

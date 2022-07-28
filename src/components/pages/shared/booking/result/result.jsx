@@ -6,7 +6,7 @@ import displayDuration from '../../../utils/display-duration';
 import BackButton from './back-button';
 
 const displayAppointmentDuration = (time, serviceDuration) => {
-  const endAt = time + Number(serviceDuration);
+  const endAt = (time + Number(serviceDuration)) % (24 * 60);
   return `${displayDuration(time)} - ${displayDuration(endAt)}`;
 };
 

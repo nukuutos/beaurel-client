@@ -6,11 +6,6 @@
   width: 1.6rem;
   height: 1.6rem;
 
-  @include respond(phone) {
-    width: 2rem;
-    height: 2rem;
-  }
-
   &--disabled {
     .radio-button__input {
       cursor: default;

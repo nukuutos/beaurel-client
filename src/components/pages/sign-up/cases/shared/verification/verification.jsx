@@ -9,7 +9,7 @@ import useOnSubmit from './use-on-submit';
 
 const Verification = ({ phone }) => {
   const [timer, resendCode] = useTimer(phone, '/auth/sign-up/code');
-  const [handleChange, formRef] = useHandleMultipleInputChange();
+  const [handleChange, handleKeyPress, formRef] = useHandleMultipleInputChange();
   const [handleSubmit, isLoading] = useOnSubmit(phone);
 
   const getDisabledClassName = (errors) => {
@@ -46,6 +46,7 @@ const Verification = ({ phone }) => {
           <div className="sign-up__verification">
             <Input
               onChange={handleChange}
+              onKeyDown={handleKeyPress}
               className="input sign-up__input--verification mr-7"
               name="first"
               id="first"
@@ -54,6 +55,7 @@ const Verification = ({ phone }) => {
             />
             <Input
               onChange={handleChange}
+              onKeyDown={handleKeyPress}
               className="input sign-up__input--verification mr-7"
               name="second"
               id="second"
@@ -62,6 +64,7 @@ const Verification = ({ phone }) => {
             />
             <Input
               onChange={handleChange}
+              onKeyDown={handleKeyPress}
               className="input sign-up__input--verification mr-7"
               name="third"
               id="third"
@@ -70,6 +73,7 @@ const Verification = ({ phone }) => {
             />
             <Input
               onChange={handleChange}
+              onKeyDown={handleKeyPress}
               className="input sign-up__input--verification"
               name="fourth"
               id="fourth"

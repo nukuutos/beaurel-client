@@ -16,7 +16,7 @@ const TimetableType = ({ values, editState, resetForm }) => {
   const manuallyHandleClick = handleClick('manually');
 
   return (
-    <div className="timetable__timetable-card timetable-card mt-8 card">
+    <div className="timetable__timetable-card timetable-card mt-6 card">
       <div className="timetable-card__heading ">Тип расписания</div>
 
       <label htmlFor="auto" className="timetable-card__label mt-3">

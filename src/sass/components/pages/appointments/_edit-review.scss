@@ -21,25 +21,30 @@
   }
 
   &__star {
-    color: $color-gray-light-1;
+    fill: $color-gray-light-1;
     cursor: pointer;
-    transition: 0.2s color, 0.2s transform;
+    transition: 0.2s fill, 0.2s transform;
+    height: 4.4rem;
+
+    &:not(:first-of-type) {
+      margin-right: 0.8rem;
+    }
 
     &:hover {
-      color: $color-gold;
+      fill: $color-gold;
       transform: scale(1.2);
 
       & ~ .edit-review__star {
-        color: $color-gold;
+        fill: $color-gold;
       }
     }
 
     &--active {
-      color: $color-gold;
+      fill: $color-gold;
       transform: scale(1.2);
 
       & ~ .edit-review__star {
-        color: $color-gold;
+        fill: $color-gold;
       }
     }
   }

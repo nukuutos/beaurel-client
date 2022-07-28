@@ -18,7 +18,11 @@ const displayTimes = (week) => {
       if (i !== day.length - 1) text += ', ';
     });
 
-    output.push(<div key={dayIndex}>{text}</div>);
+    output.push(
+      <div className="timetable-card__appointment-time" key={dayIndex}>
+        {text}
+      </div>
+    );
   }
 
   return output;

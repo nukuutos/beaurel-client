@@ -14,7 +14,12 @@ const UnsuitableAppointment = ({ user, appointment, lastAppointmentRef = null })
   const closeModal = () => setIsUpdateModal(false);
 
   return (
-    <Appointment user={user} appointment={appointment} lastAppointmentRef={lastAppointmentRef}>
+    <Appointment
+      className="appointments__appointment-card"
+      user={user}
+      appointment={appointment}
+      lastAppointmentRef={lastAppointmentRef}
+    >
       {isUpdateModal && <UpdateAppointment appointment={appointment} onClickClose={closeModal} />}
       <div className="appointment-card__buttons">
         <div

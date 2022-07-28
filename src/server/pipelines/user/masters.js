@@ -1,8 +1,8 @@
 const masters = (city) => [
   {
     $match: {
-      role: 'master',
       city,
+      role: 'master',
       'tools.isServices': true,
       'tools.isTimetable': true,
     },

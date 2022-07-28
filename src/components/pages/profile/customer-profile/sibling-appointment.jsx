@@ -7,6 +7,7 @@ const SiblingAppointment = () => {
 
   return siblingAppointment ? (
     <Appointment
+      user="customer"
       isProfile
       className="profile__sibling-appointment sibling-appointment"
       appointment={siblingAppointment}

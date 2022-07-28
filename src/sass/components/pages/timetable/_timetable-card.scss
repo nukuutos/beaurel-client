@@ -18,16 +18,25 @@
     grid-template-columns: max-content 1fr;
   }
 
+  @include respond(phone) {
+    padding-bottom: 1.2rem;
+  }
+
   &--edit {
     grid-template-columns: max-content minmax(min-content, 7rem) repeat(10, 1fr);
 
     @include respond(tab-port) {
-      // grid-template-columns: max-content 1fr;
       grid-template-columns: max-content max-content;
+    }
+
+    @include respond(phone) {
+      grid-template-columns: max-content 1fr;
     }
   }
 
   @include respond(phone) {
+    margin-top: 1.2rem;
+
     &--timetable {
       padding: 1.6rem 0 0;
     }
@@ -85,6 +94,10 @@
       grid-column: 1 / 5;
       line-height: 1.6rem;
     }
+  }
+
+  &__appointment-time {
+    line-height: 2rem;
   }
 
   &__select {

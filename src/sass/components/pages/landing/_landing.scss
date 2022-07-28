@@ -11,8 +11,8 @@
 }
 
 .landing {
-  padding-top: 4.4rem;
-  padding-bottom: 4.4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   width: 100%;
   height: 100%;
   background: $color-primary-light-3;
@@ -36,10 +36,7 @@
   &__main {
     grid-column: content-start / content-end;
     background: $color-gray-light-3;
-    border-top-right-radius: 4rem;
-    border-top-left-radius: 4rem;
-    border-bottom-left-radius: 4rem;
-    border-bottom-right-radius: 4rem;
+    border-radius: 0.8rem;
     overflow: hidden;
 
     @include respond(tab-port) {
@@ -317,7 +314,8 @@
   }
 
   &__footer {
-    height: 10rem;
+    // height: 10rem;
+    padding: 3.6rem 0 2.4rem;
     width: 100%;
     background-color: $color-primary-dark-1;
     font-size: 4rem;
@@ -325,17 +323,64 @@
     color: $color-white;
     display: inline-block;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    // padding-left: 2rem;
   }
 
   &__footer-logo {
+    position: relative;
     opacity: 0;
     transition: 0.8s opacity;
 
     &--visible {
       opacity: 1;
+    }
+  }
+
+  &__rights {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-white;
+    margin-top: 0.4rem;
+  }
+
+  &__vk {
+    position: absolute;
+    top: 0;
+    right: 0;
+    fill: $color-white;
+    height: 2.4rem;
+    transition: 0.2s fill;
+    cursor: pointer;
+    transform: translate(120%, -100%);
+    height: 1.6rem;
+
+    &:hover {
+      fill: #0077ff;
+    }
+  }
+
+  &__spinner {
+    position: fixed;
+    bottom: 5rem;
+    right: 5rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    z-index: 2;
+    animation: 0.2s showUpSpinner both;
+
+    @keyframes showUpSpinner {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }

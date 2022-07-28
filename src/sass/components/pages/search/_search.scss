@@ -53,9 +53,10 @@
     position: relative;
     width: 36rem;
     height: 29rem;
-    margin-top: 5.6rem;
+    margin-top: 8rem;
 
     @include respond(phone) {
+      margin-top: 5.6rem;
       width: 28rem;
       height: 22rem;
     }

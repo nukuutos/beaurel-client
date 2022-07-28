@@ -13,16 +13,19 @@ const SomebodyHeader = () => {
   ]);
 
   return (
-    <header className="profile__header">
-      <Identity />
-      <Biography>
-        <MessageButton />
-      </Biography>
+    <>
+      <header className="profile__header">
+        <Identity />
+        <Biography>
+          <MessageButton />
+        </Biography>
 
-      {aboutText && <About />}
-      {isPhone && <MessageButton />}
-      {userId && <StarProfile />}
-    </header>
+        {aboutText && <About />}
+        {isPhone && <MessageButton />}
+        {userId && <StarProfile />}
+      </header>
+      <div className="profile__horizontal-line" />
+    </>
   );
 };
 

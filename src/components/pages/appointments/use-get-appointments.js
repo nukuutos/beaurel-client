@@ -35,9 +35,6 @@ const useGetAppointments = (state) => {
     const isOnConfirmationCategory = category === 'onConfirmation';
     const needToLoadCategory = !(isSameRole && isOnConfirmationCategory); // for SSR data
 
-    console.log(isLoaded, category, user);
-    console.log(needToLoadCategory);
-
     if (!isLoaded && needToLoadCategory) getAppointments();
   }, [isLoaded, role, user, category, getAppointments]);
 

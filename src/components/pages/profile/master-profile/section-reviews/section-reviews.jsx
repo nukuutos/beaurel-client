@@ -7,9 +7,12 @@ const SectionReviews = () => {
   const { reviews } = useSelector((state) => state.profile);
 
   return (
-    <section className="profile__reviews">
-      {reviews.length ? <DisplayReviews /> : <NoReviews />}
-    </section>
+    <>
+      <div className="profile__horizontal-line" />
+      <section className="profile__reviews">
+        {reviews.length ? <DisplayReviews /> : <NoReviews />}
+      </section>
+    </>
   );
 };
 

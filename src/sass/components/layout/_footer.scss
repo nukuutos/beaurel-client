@@ -2,50 +2,50 @@
 @use '../../abstracts/mixins' as *;
 
 .footer {
-  margin: 6.4rem 0 4.8rem;
+  margin: 3.2rem 0 2rem;
   background: $color-white;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 2.8rem 0 4rem;
+  padding: 2.4rem;
 
   @include respond(phone) {
     display: none;
   }
 
-  &__group {
-    color: $color-primary-dark-2;
-    fill: $color-primary-dark-2;
+  &__content {
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
-  &__about {
-    font-size: 2rem;
-    font-weight: 700;
-    border-bottom: 2px solid transparent;
-    transition: 0.2s border-color;
-    cursor: pointer;
-
-    &:hover {
-      border-color: $color-primary-dark-2;
-    }
+  &__group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 
-  &__instagram {
-    margin-left: 3.6rem;
-    height: 3.2rem;
+  &__rights {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-gray-dark-2;
+    margin-top: 1.6rem;
+  }
+
+  &__vk {
+    fill: $color-gray;
+    height: 2.4rem;
+    transition: 0.2s fill;
     cursor: pointer;
-    transition: 0.2s color;
 
     &:hover {
-      color: $color-primary;
+      fill: #0077ff;
     }
   }
 
   &__logo {
-    margin-top: 2.4rem;
-    font-size: 3.2rem;
+    font-size: 2.4rem;
 
     &:after {
       display: none;

@@ -72,7 +72,7 @@ const masterAppointmentsAndCustomers = (masterId, status) => [
             status,
           },
         },
-        { $sort: { date: 1, time: 1 } },
+        { $sort: { date: 1, 'time.startAt': 1 } },
         { $limit: limit },
         {
           $addFields: {

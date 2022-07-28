@@ -1,13 +1,17 @@
 import React from 'react';
-import Instagram from '../base/icons/instagram';
+import Vk from '../base/icons/vk';
 
 const Footer = () => (
   <footer className="footer card">
-    <div className="footer__group">
-      <span className="footer__about">О нас</span>
-      <Instagram className="footer__instagram" />
+    <div className="footer__content">
+      <div className="footer__group">
+        <h2 className="logo footer__logo">Beaurel</h2>
+        <a target="_blank" href="https://vk.com/beaurel" rel="noreferrer">
+          <Vk className="footer__vk" />
+        </a>
+      </div>
+      <span className="footer__rights">All rights reserved © 2022</span>
     </div>
-    <h1 className="logo footer__logo">Beaurel</h1>
   </footer>
 );
 

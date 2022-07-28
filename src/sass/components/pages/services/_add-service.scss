@@ -18,6 +18,7 @@
     height: 100%;
     max-height: none;
     border-radius: 0;
+    box-shadow: none;
   }
 
   // do scrollbar nicer ?
@@ -94,6 +95,7 @@
   &__price {
     &--disabled {
       color: $color-gray;
+      fill: $color-gray;
 
       & > * {
         border-color: $color-gray;

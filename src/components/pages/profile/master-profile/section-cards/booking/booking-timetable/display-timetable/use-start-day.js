@@ -1,21 +1,11 @@
-import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getToday } from './use-week/utils';
 
 const useStartDay = () => {
-  const [{ timezone, update }, { service }] = useSelector((state) => [
-    state.timetable,
-    state.appointments.booking.bookingAppointment,
-  ]);
+  const { timezone } = useSelector((state) => state.timetable);
 
-  let today;
-
-  if (service?.isAfterUpdate && update?.date) {
-    today = dayjs(update.date).tz(timezone).utc(true).subtract(1, 'day');
-  } else {
-    today = getToday(timezone);
-  }
+  const today = getToday(timezone);
 
   const [startDay, setStartDay] = useState(today.weekday(0));
 

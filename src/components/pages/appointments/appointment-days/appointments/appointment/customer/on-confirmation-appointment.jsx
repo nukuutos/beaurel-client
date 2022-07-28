@@ -11,7 +11,12 @@ const OnConfirmationAppointment = ({ user, appointment, lastAppointmentRef = nul
   const loadingClassName = isLoading ? 'btn--disabled btn--spinner' : '';
 
   return (
-    <Appointment user={user} appointment={appointment} lastAppointmentRef={lastAppointmentRef}>
+    <Appointment
+      className="appointments__appointment-card"
+      user={user}
+      appointment={appointment}
+      lastAppointmentRef={lastAppointmentRef}
+    >
       <div className="appointment-card__buttons">
         <div
           onClick={cancel}

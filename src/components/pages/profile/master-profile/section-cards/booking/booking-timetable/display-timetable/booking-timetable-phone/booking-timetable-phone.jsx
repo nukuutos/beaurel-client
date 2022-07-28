@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useGetAppointmentData from '../use-get-appointment-data';
 import useWeek from '../use-week/use-week';
 import Arrows from './arrows';
@@ -6,6 +6,7 @@ import Header from './header';
 import NoAppointments from './no-appointments';
 import useBookingTimetablePhone from './use-booking-timetable-phone';
 import useStartDay from '../use-start-day';
+import useFindFirstAppointment from './use-find-first-appointment';
 
 const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoading }) => {
   const [startDayData, setStartDay] = useStartDay();
@@ -16,12 +17,7 @@ const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoad
 
   const loadingOnGetAppointments = useGetAppointmentData(startDayData);
 
-  useEffect(() => {
-    const { today, startDay } = startDayData;
-    if (today.isBefore(startDay) && isUnavailableWeek) {
-      controllers.toNextWeek();
-    }
-  }, []);
+  useFindFirstAppointment({ day, toNextDay: controllers.toNextDay, weekdayIndex });
 
   return (
     <>

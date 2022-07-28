@@ -8,7 +8,9 @@ const useSocket = () => {
 
   useEffect(() => {
     if (id) {
-      const socket = openSocket('http://localhost:5000');
+      const socket = openSocket(
+        `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_SERVER_URL}`
+      );
       socket.on(id, (data) => {
         dispatch(data);
       });

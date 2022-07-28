@@ -18,7 +18,6 @@
 
   @include respond(phone) {
     padding-top: 0.8rem;
-    margin-top: 2rem;
   }
 
   &__new {
@@ -41,6 +40,10 @@
     align-items: center;
     padding-bottom: 0.8rem;
     cursor: pointer;
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__avatar {

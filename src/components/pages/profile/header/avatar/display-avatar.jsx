@@ -17,7 +17,7 @@ const DisplayAvatar = ({ setIsEdit, isEdit, editCounter }) => {
   return (
     <div onClick={() => setIsEdit(true)} className="avatar profile__avatar">
       <Image
-        sizes="(max-width: 600px) 68px, (max-width: 900px) 116px, 140px"
+        sizes="(max-width: 600px) 72px, (max-width: 900px) 116px, 140px"
         quality={100}
         objectFit="contain"
         layout="fill"

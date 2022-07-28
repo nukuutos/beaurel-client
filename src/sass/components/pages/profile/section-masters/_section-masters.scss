@@ -16,15 +16,4 @@
     justify-content: flex-start;
     margin-right: 1.6rem;
   }
-
-  &:before {
-    position: absolute;
-    content: '';
-    top: 0;
-    right: 0;
-    left: 0;
-    display: block;
-    height: 1px;
-    background: $color-gray;
-  }
 }

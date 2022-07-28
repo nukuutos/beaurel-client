@@ -9,6 +9,10 @@
     @include respond(tab-port) {
       grid-column: 2 / 12;
     }
+
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
   }
 
   &__add-service-indicator {

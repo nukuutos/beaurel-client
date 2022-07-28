@@ -6,7 +6,7 @@ import Navigation from './navigation';
 import NavigationPhone from './navigation-phone';
 
 const IntroSection = ({ toggleScroll }) => {
-  const { goToSignIn, goToSearch } = useGoTo();
+  const { goToSignUp, goToSearch } = useGoTo();
 
   const scrollToFeatures = () =>
     document.querySelector('.feature-section').scrollIntoView({ behavior: 'smooth' });
@@ -25,7 +25,7 @@ const IntroSection = ({ toggleScroll }) => {
           <h2 className="landing__people-types">Люди делятся на два типа</h2>
           <div className="landing__buttons">
             <button
-              onClick={goToSignIn}
+              onClick={goToSignUp}
               type="button"
               className="btn btn--primary landing__btn landing__btn--become-master"
             >

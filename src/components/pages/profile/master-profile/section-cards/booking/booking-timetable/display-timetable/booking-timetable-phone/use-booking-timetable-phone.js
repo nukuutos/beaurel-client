@@ -38,10 +38,10 @@ const useBookingTimetablePhone = (setWeekByDate) => {
     setWeekdayIndex(0);
   };
 
-  useEffect(() => {
-    if (!fromDate) toNextDay();
-    else setWeekdayIndex(fromDate.weekday());
-  }, [toNextDay, fromDate]);
+  // useEffect(() => {
+  //   if (!fromDate) toNextDay();
+  //   else setWeekdayIndex(fromDate.weekday());
+  // }, [toNextDay, fromDate]);
 
   const controllers = { toPrevDay, toNextDay, toNextWeek };
 

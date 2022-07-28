@@ -180,6 +180,7 @@
     @include respond(tab-port) {
       font-size: 1.6rem;
       margin-top: 2.8rem;
+      line-height: 2rem;
     }
 
     @include respond(phone) {

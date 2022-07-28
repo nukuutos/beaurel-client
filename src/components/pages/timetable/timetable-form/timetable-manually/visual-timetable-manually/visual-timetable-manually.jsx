@@ -8,7 +8,7 @@ const VisualTimetableManually = ({ values, editState, errors, setFieldError }) =
   const [{ isOpen }] = modalState;
 
   return (
-    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-8 card">
+    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-6 card">
       <div className="timetable-card__heading timetable-card__heading--timetable mb-2 ">
         Расписание
       </div>

@@ -4,6 +4,7 @@ import useWeek from '../use-week/use-week';
 import BackButton from './back-button';
 import BookingTimetableHeader from './header';
 import NoAppointments from './no-appointments';
+import useFindFirstAppointment from './use-find-first-appointment';
 
 const BookingTimetableDesktop = ({
   step,
@@ -13,16 +14,14 @@ const BookingTimetableDesktop = ({
   getHandleClickOnDay,
 }) => {
   const [startDayData, setStartDay] = useStartDay();
-
   const weekDays = useWeek({ startDayData, step, getHandleClickOnDay });
-
   const loadingOnGetAppointments = useGetAppointmentData(startDayData);
 
+  const isBackButton = step === 2;
+  const backButtonClassName = isBackButton ? 'booking-timetable--back' : '';
   const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
 
-  const isBackButton = step === 2;
-
-  const backButtonClassName = isBackButton ? 'booking-timetable--back' : '';
+  useFindFirstAppointment({ isUnavailableWeek, setStartDay });
 
   return (
     <div className={`booking-timetable ${backButtonClassName} card`}>

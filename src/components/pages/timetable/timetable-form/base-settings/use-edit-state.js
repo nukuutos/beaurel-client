@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import clearManuallyAppointments from '../../utils/clear-manually-appointments';
 import filterExceptions from '../../utils/filter-exceptions';
 
 const useEditState = ({ editState, values, setFieldValue }) => {
@@ -14,8 +15,12 @@ const useEditState = ({ editState, values, setFieldValue }) => {
 
   const handleEdit = () => {
     const filteredExceptions = filterExceptions(exceptions, sessionTime, startAt);
+    const clearedManuallyAppointments = clearManuallyAppointments();
+
     setFieldValue('auto.exceptions', filteredExceptions);
+    setFieldValue('manually.appointments', clearedManuallyAppointments);
     setFieldValue('sessionTime', sessionTime);
+
     setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
   };
 

@@ -13,7 +13,7 @@ const BaseSettings = ({ values, setFieldValue, editState }) => {
   });
 
   return (
-    <div className="timetable__timetable-card timetable-card timetable-card--edit mt-8 card">
+    <div className="timetable__timetable-card timetable-card timetable-card--edit mt-6 card">
       <div className="timetable-card__heading mb-1">Базовые настройки</div>
       <label htmlFor="sessionTime" className="timetable-card__label">
         Базовая длительность сеанса:

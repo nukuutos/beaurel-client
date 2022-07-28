@@ -11,7 +11,7 @@ const securityHeaders = [
   },
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self';",
+    value: `default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws://${process.env.NEXT_PUBLIC_SERVER_URL} ${process.env.NEXT_PUBLIC_SERVER_URL} storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/; img-src 'self' storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/ data:`,
   },
   {
     key: 'X-XSS-Protection',
@@ -40,12 +40,19 @@ let config = {
     imageSizes: [],
   },
   async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: securityHeaders,
-      },
-    ];
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    return isProduction
+      ? [
+          {
+            source: '/:path*',
+            headers: securityHeaders,
+          },
+        ]
+      : [];
+  },
+  experimental: {
+    outputStandalone: true,
   },
 };
 

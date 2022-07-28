@@ -28,6 +28,10 @@
 
   &__appointment-card {
     width: 100%;
+
+    @include respond(phone) {
+      margin-top: 2rem;
+    }
   }
 
   &__days {

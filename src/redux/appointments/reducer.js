@@ -273,7 +273,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
       const { status: currentStatus } = statusData;
 
       const appointmentsState = { ...state.appointments };
-      const stringDate = dayjs(date).format('DD-MM-YYYY');
+      const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
 
       // find index in current category
       const indexToDelete = appointmentsState[user][currentStatus].appointments[
@@ -336,7 +336,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
         return { ...state, isNotification };
       }
 
-      const stringDate = dayjs(date).format('DD-MM-YYYY');
+      const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
 
       if (appointmentsState[user][currentStatus].isLoaded) {
         // find index in current category
@@ -418,7 +418,7 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
         return { ...state, isNotification, appointments: appointmentsState };
       }
 
-      const stringDate = dayjs(date).format('DD-MM-YYYY');
+      const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
 
       if (appointmentsState.customer.unsuitable.appointments[stringDate]) {
         appointmentsState.customer.unsuitable.appointments[stringDate].push(appointment);

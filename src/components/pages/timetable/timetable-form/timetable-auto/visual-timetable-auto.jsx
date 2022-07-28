@@ -11,7 +11,7 @@ const VisualTimetableAuto = ({ editState, values }) => {
   const [{ isEditing }] = editState;
 
   return (
-    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-8 card">
+    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-6 card">
       <div className="timetable-card__heading timetable-card__heading--timetable">Расписание</div>
       <div className="timetable-visual mt-4">
         {weekdaysRU.map((weekdayName, weekdayIndex) => {

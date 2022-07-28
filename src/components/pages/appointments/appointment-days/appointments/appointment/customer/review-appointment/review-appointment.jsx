@@ -10,7 +10,12 @@ const ReviewAppointment = ({ user, appointment, lastAppointmentRef = null }) => 
   const openReviewEditor = () => setIsEditing(true);
 
   return (
-    <Appointment user={user} appointment={appointment} lastAppointmentRef={lastAppointmentRef}>
+    <Appointment
+      className="appointments__appointment-card"
+      user={user}
+      appointment={appointment}
+      lastAppointmentRef={lastAppointmentRef}
+    >
       {isEditing && <ModalReview appointment={appointment} onClickClose={closeReviewEditor} />}
 
       <div className="appointment-card__buttons">

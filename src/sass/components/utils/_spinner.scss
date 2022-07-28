@@ -64,4 +64,17 @@
     top: 50%;
     left: 50%;
   }
+
+  &--inverse {
+    background: $color-primary;
+
+    &::after {
+      border-right-color: $color-white;
+      border-top-color: $color-white;
+    }
+
+    @include respond(phone) {
+      background: #c471ed;
+    }
+  }
 }

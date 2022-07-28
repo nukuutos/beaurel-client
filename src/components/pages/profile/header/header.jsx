@@ -1,7 +1,5 @@
 import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
-// import SomebodyHeader from './somebody-header';
-// import OwnHeader from './own-header';
 
 const SomebodyHeader = dynamic(() => import('./somebody-header'));
 const OwnHeader = dynamic(() => import('./own-header'));

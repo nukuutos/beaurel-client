@@ -36,6 +36,9 @@ const CitySearch = ({ onClickClose }) => {
             <CityCard cityData={cityData} key={cityData.city + cityData.region} />
           )
         )}
+        <div onClick={onClickClose} className="btn  btn--primary city-search__btn">
+          Подтвердить
+        </div>
       </div>
     </Modal>
   );

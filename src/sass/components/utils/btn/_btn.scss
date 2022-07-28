@@ -33,6 +33,10 @@
   &--primary {
     color: $color-white;
     background: $color-primary;
+
+    &:hover {
+      background: $color-primary-dark-1;
+    }
   }
 
   &--secondary {

@@ -18,12 +18,15 @@
 
   &__hearts {
     display: inline-flex;
-    height: 2.4rem;
-    color: $color-secondary;
+    fill: $color-secondary;
     margin-top: 1.6rem;
 
-    & > *:not(:last-of-type) {
-      margin-right: 0.8rem;
+    & > * {
+      height: 2.4rem;
+
+      &:not(:last-of-type) {
+        margin-right: 0.4rem;
+      }
     }
   }
 

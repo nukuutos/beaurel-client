@@ -14,6 +14,16 @@ const useHandleMultipleInputChange = ({ handleChange: handleChangeFormik = null 
     }
   };
 
+  const handleKeyPress = (event) => {
+    const prevInput = event.target.previousElementSibling;
+    const isValue = event.target.value;
+    const isBackspace = event.key === 'Backspace';
+
+    if (!isValue && isBackspace && prevInput) {
+      prevInput.focus();
+    }
+  };
+
   const handleChange = (event) => {
     if (formRef.current) formRef.current.handleChange(event);
     else if (handleChangeFormik) handleChangeFormik(event);
@@ -21,7 +31,7 @@ const useHandleMultipleInputChange = ({ handleChange: handleChangeFormik = null 
     handleInputChange(event);
   };
 
-  return [handleChange, formRef];
+  return [handleChange, handleKeyPress, formRef];
 };
 
 export default useHandleMultipleInputChange;

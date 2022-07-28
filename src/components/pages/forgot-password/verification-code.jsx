@@ -4,7 +4,7 @@ import useTimer from '../hooks/use-timer/use-timer';
 import ResendCode from '../shared/resend-code';
 
 const VerificationCode = ({ goNext, errors, values, handleChange }) => {
-  const [handleInputChange] = useHandleMultipleInputChange({ handleChange });
+  const [handleInputChange, handleKeyPress] = useHandleMultipleInputChange({ handleChange });
   const [timer, resendCode] = useTimer(values.phone, '/auth/password/code');
 
   const getDisabledClassName = (errors) => {
@@ -32,6 +32,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
       <div className="sign-up__verification">
         <Input
           onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
           className="input sign-up__input--verification mr-7"
           name="code.first"
           id="first"
@@ -39,6 +40,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
           maxLength="1"
         />
         <Input
+          onKeyDown={handleKeyPress}
           onChange={handleInputChange}
           className="input sign-up__input--verification mr-7"
           name="code.second"
@@ -48,6 +50,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
         />
         <Input
           onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
           className="input sign-up__input--verification mr-7"
           name="code.third"
           id="third"
@@ -56,6 +59,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
         />
         <Input
           onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
           className="input sign-up__input--verification"
           name="code.fourth"
           id="fourth"

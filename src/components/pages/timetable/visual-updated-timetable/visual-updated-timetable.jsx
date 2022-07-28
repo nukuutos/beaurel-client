@@ -10,7 +10,7 @@ const VisualUpdatedTimetable = () => {
   const closeModal = () => setIsConfirmation(false);
 
   return (
-    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-8 card">
+    <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-6 card">
       <Header openModal={openModal} />
 
       <UpdatedTimetable />

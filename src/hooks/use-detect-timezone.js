@@ -46,19 +46,22 @@ const handleAuthCase = async (setCity, asyncAction, { accessToken, userId }) => 
 };
 
 const useDetectTimezone = () => {
-  const { accessToken, id: userId } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const [{ city }, { accessToken, id: userId }] = useSelector((state) => [
+    state.timezone,
+    state.auth,
+  ]);
   const [asyncAction, isLoading] = useAsyncAction();
+  const dispatch = useDispatch();
 
   const setCity = useCallback((data) => dispatch(setCityAndTimezone(data)), [dispatch]);
 
   useEffect(() => {
     if (userId) {
       handleAuthCase(setCity, asyncAction, { accessToken, userId });
-    } else {
+    } else if (!city) {
       handlePublicCase(setCity, asyncAction);
     }
-  }, [setCity, asyncAction, accessToken, userId]);
+  }, [setCity, asyncAction, accessToken, userId, city]);
 
   return isLoading;
 };

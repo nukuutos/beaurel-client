@@ -8,13 +8,16 @@ const OwnHeader = () => {
   const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
-    <header className="profile__header">
-      <Identity />
-      <Biography>
-        <About />
-      </Biography>
-      {isPhone && <About />}
-    </header>
+    <>
+      <header className="profile__header">
+        <Identity />
+        <Biography>
+          <About />
+        </Biography>
+        {isPhone && <About />}
+      </header>
+      <div className="profile__horizontal-line" />
+    </>
   );
 };
 

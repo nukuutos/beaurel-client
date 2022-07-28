@@ -30,10 +30,7 @@ const Appointment = ({
   return (
     <>
       {isCustomerProfile && <CustomerCard user={user} onClickClose={closeCustomerCard} />}
-      <div
-        ref={lastAppointmentRef}
-        className={`${className} appointments__appointment-card appointment-card card mt-8`}
-      >
+      <div ref={lastAppointmentRef} className={`${className} appointment-card card mt-8`}>
         <div onClick={openProfile} className="appointment-card__header">
           <div className="appointment-card__avatar">
             <Image
