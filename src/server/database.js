@@ -1,22 +1,10 @@
 import { MongoClient } from 'mongodb';
+import getURI from './utils/get-uri';
 
-const { DB_USER, DB_CLUSTER, DB_PASSWORD, DB_NAME, DB_AUTH_SOURCE, DB_REPLICA_SET } = process.env;
+const { DB_NAME } = process.env;
 
-const MONGODB_URI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?authSource=${DB_AUTH_SOURCE}&replicaSet=${DB_REPLICA_SET}`;
+const MONGODB_URI = getURI();
 
-// if (!MONGODB_URI) {
-//   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-// }
-
-// if (!MONGODB_DB) {
-//   throw new Error('Please define the MONGODB_DB environment variable inside .env.local');
-// }
-
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
 let cached = global.mongo;
 
 if (!cached) {
