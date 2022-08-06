@@ -11,7 +11,7 @@ const asyncCall = async (dispatch, config) => {
       ...configProps,
       headers: {
         ...addingHeaders,
-        Authorization: `Bearer ${accessToken}`,
+        [process.env.NEXT_PUBLIC_AUTH_HEADER]: `Bearer ${accessToken}`,
       },
     });
 

@@ -15,7 +15,7 @@ const handleUnauthorizedCall = async (dispatch, config) => {
     const { data } = await axios({
       ...confingProps,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        [process.env.NEXT_PUBLIC_AUTH_HEADER]: `Bearer ${accessToken}`,
       },
     });
 
