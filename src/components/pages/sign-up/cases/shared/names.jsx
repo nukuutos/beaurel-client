@@ -35,13 +35,10 @@ const Names = ({ goNext, validateField, errors }) => {
         </button>
       </div>
 
-      <span className="sign-up__agreement">
-        Нажимая «Продолжить», вы принимаете следующие{' '}
-        <span className="sign-up__agreement-rules">
-          <Link prefetch={false} href="/agreement">
-            <a>условия пользования</a>
-          </Link>
-        </span>
+      <span className="sign-up__disclaimer">
+        Данное приложение работает в ДЕМО целях, и не позволяет зарегистрироваться пользователями, а
+        также отправлять их персональные данные на обработку! Все пользователи веб-приложения
+        вымышлены, и используются для демонстрации работы веб-приложения, любые совпадения случайны.
       </span>
     </>
   );
