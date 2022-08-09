@@ -6,7 +6,7 @@ It’s a client side of beaurel project. Beaurel is a platform for beauty-master
 
 ## 💻 To see what it’s
 
-For demo purposes this project runs on [beaurel.com](https://bbaqnjr604s7kt90p7se.containers.yandexcloud.net) (there's a trick) with help of serverless containers(cheap). So if you want to try it you need to expect some latency. You can’t sign up but you can use fake accounts. Fake accounts in progress.
+For demo purposes this project runs on [beaurel.com](https://bbaqnjr604s7kt90p7se.containers.yandexcloud.net) (trick with url) with help of serverless containers(cheap). So if you want to try it you need to expect some latency. You can’t sign up but you can use fake accounts. Fake accounts in progress.
 
 ## 🔧 About tests
 
@@ -14,4 +14,4 @@ Client side is tested mostly by e2e tests (cypress) that are located on API repo
 
 ## 📜 License
 
-This repo is public and without license because I can’t run this project to commercial/society because of bureaucracy (needs money for documents) and in right moment I will run it. It’s exposed because I want to show my potential employ what I’m capable of and what kind of fruit am I :)
+I don't want to add license for this repo because I'm scared about my code can be stolen. I want to run it as commercial someday but now I don't have a possibility to do this(money). This repo is public because I want to show my potential employer what I’m capable of and what kind of fruit am I :)

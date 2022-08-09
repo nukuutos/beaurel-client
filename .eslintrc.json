@@ -11,12 +11,7 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    // "plugin:testing-library/react",
-    "prettier"
-  ],
+  "extends": ["airbnb", "airbnb/hooks", "prettier"],
   "rules": {
     "react/jsx-props-no-spreading": 0,
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
