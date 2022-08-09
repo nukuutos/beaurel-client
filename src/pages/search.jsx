@@ -8,6 +8,7 @@ import useMasterTools from '../components/pages/search/use-master-tools';
 import getSearchServerSideProps from '../server/get-server-side-props/search';
 
 import Layout from '../components/layout/layout';
+import useUpdateResults from '../components/pages/search/use-update-results';
 
 const SearchForm = dynamic(() => import('../components/pages/search/search-form'));
 const NoMasters = dynamic(() => import('../components/pages/search/no-masters'));
@@ -21,6 +22,8 @@ const Search = ({ masters }) => {
   const form = useRef();
   const [refToLoadData, { page, hasMore }, isLoadingOnScroll] = useSearch(form, setData);
   const [handleSubmit, isLoadingOnType, cancelSubmit] = useOnSubmit({ setData, hasMore, page });
+
+  useUpdateResults({ handleSubmit });
 
   const isLoading = isLoadingOnType || isLoadingOnScroll;
   const isData = !!data.length;
