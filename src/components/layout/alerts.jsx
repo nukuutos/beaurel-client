@@ -27,8 +27,8 @@ const Alerts = () => {
 
   return (
     <div className="alerts">
-      {alerts.map(({ message }) => (
-        <Alert message={message} />
+      {alerts.map(({ message, id }) => (
+        <Alert message={message} key={id} />
       ))}
     </div>
   );

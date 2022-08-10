@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { ADD_ALERT, DELETE_ALERT } from './types';
 
 const INITIAL_STATE = [];
@@ -8,7 +9,7 @@ const timezoneReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case ADD_ALERT: {
-      return [...state, payload];
+      return [...state, { ...payload, id: uuidv4() }];
     }
 
     case DELETE_ALERT: {
