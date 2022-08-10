@@ -6,7 +6,7 @@ It’s a client side of beaurel project. Beaurel is a platform for beauty-master
 
 ## 💻 To see what it’s
 
-For demo purposes this project runs on [beaurel.com](https://bbaqnjr604s7kt90p7se.containers.yandexcloud.net) (trick with url) with help of serverless containers(cheap). So if you want to try it you need to expect some latency. You can’t sign up but you can use fake accounts. Fake accounts in progress.
+You can go to this [repo](https://github.com/nukuutos/beaurel-demo) and by using docker run local version of this project.
 
 ## 🔧 About tests
 
