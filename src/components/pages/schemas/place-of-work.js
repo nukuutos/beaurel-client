@@ -21,7 +21,7 @@ const building = Yup.string().trim().max(6, 'Максимальная длина
 const roomValue = Yup.string()
   .trim()
   .required('Обязательно к заполнению!')
-  .min(2, 'Минимальная длина - 2 символа')
+  .min(1, 'Минимальная длина - 1 символ!')
   .max(32, 'Максимальная длина - 32 символа');
 
 const roomType = Yup.string().oneOf(['cabinet', 'salon', 'apartment']);
