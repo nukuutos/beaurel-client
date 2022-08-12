@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 const street = Yup.string()
   .trim()
   .required('Обязательно к заполнению!')
-  .min(2, 'Минимальная длина - 2 символа')
+  .min(2, 'Минимальная длина - 2 символа!')
   .max(148, 'Максимальная длина улицы - 148 символов!');
 
 const house = Yup.string()
@@ -16,13 +16,13 @@ const floor = Yup.number()
   .min(1, 'Минимальный этаж - 1!')
   .max(87, 'Максимальный этаж - 87!');
 
-const building = Yup.string().trim().max(6, 'Максимальная длина корпуса - 6 символов');
+const building = Yup.string().trim().max(6, 'Максимальная длина корпуса - 6 символов!');
 
 const roomValue = Yup.string()
   .trim()
   .required('Обязательно к заполнению!')
   .min(1, 'Минимальная длина - 1 символ!')
-  .max(32, 'Максимальная длина - 32 символа');
+  .max(32, 'Максимальная длина - 32 символа!');
 
 const roomType = Yup.string().oneOf(['cabinet', 'salon', 'apartment']);
 
