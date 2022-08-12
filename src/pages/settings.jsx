@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
 // import FirstName from '../components/pages/settings/first-name/first-name';
 // import Username from '../components/pages/settings/username/username';
@@ -19,6 +20,7 @@ const UpdatePassword = dynamic(() =>
 );
 
 const Settings = () => {
+  const { phone } = useSelector((state) => state.auth);
   const router = useRouter();
 
   const logout = () => {
@@ -38,7 +40,7 @@ const Settings = () => {
         </div>
         <div className="settings__setting-card setting-card card">
           <div className="setting-card__heading mb-2 ">Контактные данные</div>
-          <TelephoneInput data="+79243240760" />
+          <TelephoneInput data={phone} />
         </div>
         <UpdatePassword />
         <div className="settings__setting-card setting-card card">
