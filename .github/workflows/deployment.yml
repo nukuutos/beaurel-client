@@ -76,6 +76,7 @@ jobs:
           NODE_ENV: test
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
+          IS_SOCKET_IO: true
           CLIENT_URL: http://localhost:3000
           AUTH_HEADER: Authorization
           TWILIO_SID: ACsomething
