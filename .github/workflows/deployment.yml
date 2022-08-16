@@ -78,10 +78,6 @@ jobs:
           REDIS_PORT: 6379
           CLIENT_URL: http://localhost:3000
           AUTH_HEADER: Authorization
-          JWT_KEY_ACCESS: gjkhgkjgjhgjhkgjh
-          JWT_KEY_REFRESH: gtuytuyituiygmbjh
-          JWT_KEY_ACCESS_TIME: 15h
-          JWT_KEY_REFRESH_TIME: 604800000
           TWILIO_SID: ACsomething
           TWILIO_AUTH_TOKEN: something
           S3_KEY_ID: ${{ secrets.S3_KEY_ID }}
