@@ -164,3 +164,8 @@ jobs:
             NEXT_PUBLIC_S3_BUCKET=${{ secrets.S3_BUCKET_NAME_DEMO }}
             NEXT_PUBLIC_SERVER_URL=localhost:5000
             NEXT_PUBLIC_HTTP=http
+
+      # See: https://github.com/actions/setup-node/issues/317
+      - name: Workaround to avoid "Post Run actions/setup-node" failures
+        run: mkdir -p /home/runner/.npm
+        continue-on-error: true
