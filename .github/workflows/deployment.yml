@@ -96,6 +96,7 @@ jobs:
           start: npm start
           working-directory: ./api
           record: true
+          config: video=true
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
