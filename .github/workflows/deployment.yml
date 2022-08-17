@@ -33,6 +33,10 @@ jobs:
       JWT_REFRESH_KEY_TIME: 604800000
 
     steps:
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: 'Asia/Vladivostok'
       # setting up server side
       - name: Checkout api
         uses: actions/checkout@v3
