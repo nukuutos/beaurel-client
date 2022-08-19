@@ -20,24 +20,6 @@ RUN npm run build
 FROM node:16-alpine AS runner
 WORKDIR /app
 
-ENV NEXT_PUBLIC_NODE_ENV production
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./  
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-
-EXPOSE 80
-
-ENV PORT 80
-
 ARG DB_USER=null
 ARG DB_PASSWORD=null
 ARG DB_CLUSTER=null
@@ -63,5 +45,23 @@ ENV NEXT_PUBLIC_AUTH_HEADER $NEXT_PUBLIC_AUTH_HEADER
 ENV NEXT_PUBLIC_S3_BUCKET $NEXT_PUBLIC_S3_BUCKET
 ENV NEXT_PUBLIC_SERVER_URL $NEXT_PUBLIC_SERVER_URL
 ENV NEXT_PUBLIC_HTTP $NEXT_PUBLIC_HTTP
+ENV NEXT_PUBLIC_NODE_ENV production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./  
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 80
+
+ENV PORT 80
+
 
 CMD ["node", "server.js"]
