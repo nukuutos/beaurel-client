@@ -150,20 +150,20 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/beaurel-client
-          build-args: |
-            NODE_ENV=production
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            DB_CLUSTER=${{ secrets.DB_CLUSTER }}
-            DB_NAME=${{ secrets.DB_NAME }}
-            JWT_ACCESS_KEY=dfghjkpiuytrfvbnmloiuytfdvbnju
-            JWT_ACCESS_KEY_TIME=15h
-            JWT_REFRESH_KEY=dfgytresxcbiugoigiogoun
-            JWT_REFRESH_KEY_TIME=604800000
-            NEXT_PUBLIC_AUTH_HEADER=Authorization
-            NEXT_PUBLIC_S3_BUCKET=${{ secrets.S3_BUCKET_NAME_DEMO }}
-            NEXT_PUBLIC_SERVER_URL=localhost:5000
-            NEXT_PUBLIC_HTTP=http
+        env:
+          NODE_ENV: production
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_CLUSTER: ${{ secrets.DB_CLUSTER }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          JWT_ACCESS_KEY: dfghjkpiuytrfvbnmloiuytfdvbnju
+          JWT_ACCESS_KEY_TIME: 15h
+          JWT_REFRESH_KEY: dfgytresxcbiugoigiogoun
+          JWT_REFRESH_KEY_TIME: 604800000
+          NEXT_PUBLIC_AUTH_HEADER: Authorization
+          NEXT_PUBLIC_S3_BUCKET: ${{ secrets.S3_BUCKET_NAME_DEMO }}
+          NEXT_PUBLIC_SERVER_URL: localhost:5000
+          NEXT_PUBLIC_HTTP: http
 
       # See: https://github.com/actions/setup-node/issues/317
       - name: Workaround to avoid "Post Run actions/setup-node" failures
