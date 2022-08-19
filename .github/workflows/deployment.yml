@@ -167,6 +167,7 @@ jobs:
       - name: Build and push to dockerhub
         uses: docker/build-push-action@v3
         with:
+          context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/beaurel-client
 
