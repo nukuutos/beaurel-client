@@ -152,9 +152,6 @@ jobs:
           echo "NEXT_PUBLIC_SERVER_URL=localhost:5000" >> .env.production
           echo "NEXT_PUBLIC_HTTP=http" >> .env.production
 
-      - name: View .env.production
-        run: cat .env.production
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
