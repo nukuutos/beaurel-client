@@ -10,8 +10,10 @@ You can go to this [repo](https://github.com/nukuutos/beaurel-demo) and by using
 
 ## 🔧 About tests
 
-Client side is tested mostly by e2e tests (cypress) that are located on API repo. There is jest tests that testing main functionality of complex functions related to booking(needs refactoring).
+Client side is tested mostly by e2e tests (cypress) that are located on API repo. There is jest tests that testing main functionality of complex functions related to booking.
 
 ## 📜 License
 
-I don't want to add license for this repo because I'm scared about my code can be stolen. I want to run it as commercial someday but now I don't have a possibility to do this(money). This repo is public because I want to show my potential employer what I’m capable of and what kind of fruit am I :)
+There's no license 🤗. According to **github**:
+
+> without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
