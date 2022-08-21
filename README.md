@@ -12,6 +12,14 @@ You can go to this [repo](https://github.com/nukuutos/beaurel-demo) and by using
 
 Client side is tested mostly by e2e tests (cypress) that are located on API repo. There is jest tests that testing main functionality of complex functions related to booking.
 
+## 📈 Code statistic
+
+To show the size of this project, I want to note the statistics of the number of lines of code. Lines number of src <ins>**client**</ins> folder on commit [ece0713](https://github.com/nukuutos/beaurel-client/tree/ece0713cbaba69ea24e9247908f42e2ec7d2b102) is 28134:
+
+- 10620 .jsx
+- 9774 .js
+- 7740 .scss
+
 ## 📜 License
 
 There's no license 🤗. According to **github**:
