@@ -2,7 +2,7 @@
 
 <img src="./beaurel.png" alt="beaurel" align="right" />
 
-It’s a client side of beaurel project. Beaurel is a platform for beauty-masters and their customers. For beauty-masters it allows to create a flexible timetable and services, show to customer their works. Customers can book an appointments and review masters. Beaurel has some elements of social network like messenger, favorite masters (friends), etc.
+It’s a client side of beaurel project. Beaurel is a platform for beauty masters and their customers. For beauty masters, it allows creating a flexible timetable and services, showing customers their work. Customers can book appointments and review masters. Beaurel has some social network elements like messenger, favorite masters (friends), etc.
 
 ## 💻 To see what it’s
 
