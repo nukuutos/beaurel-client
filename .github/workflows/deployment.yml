@@ -143,6 +143,7 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.production
           echo "DB_CLUSTER=${{ secrets.DB_CLUSTER }}" >> .env.production
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env.production
+          echo "DB_AUTH_SOURCE=${{ secrets.DB_AUTH_SOURCE }}" >> .env.production
           echo "JWT_ACCESS_KEY=dfghjkpiuytrfvbnmloiuytfdvbnju" >> .env.production
           echo "JWT_ACCESS_KEY_TIME=15h" >> .env.production
           echo "JWT_REFRESH_KEY=dfgytresxcbiugoigiogoun" >> .env.production
