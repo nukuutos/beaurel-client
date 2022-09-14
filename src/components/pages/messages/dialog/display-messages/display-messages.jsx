@@ -26,7 +26,7 @@ const DisplayMessages = () => {
               refToLoad={messageToStartLoadData}
               messageData={messageObject}
               interlocutorId={interlocutorId}
-              key={messageObject._id}
+              key={messageObject.createdAt}
             />
           );
         }
@@ -44,7 +44,7 @@ const DisplayMessages = () => {
               interlocutorId={interlocutorId}
               nextMessageDate={messages[index + 1].createdAt}
               refToSetMessageVisibility={messageToSetIsRead}
-              key={messageObject._id}
+              key={messageObject.createdAt}
             />
           );
         }
@@ -54,7 +54,7 @@ const DisplayMessages = () => {
             messageData={messageObject}
             interlocutorId={interlocutorId}
             nextMessageDate={messages[index + 1].createdAt}
-            key={messageObject._id}
+            key={messageObject.createdAt}
           />
         );
       })}
