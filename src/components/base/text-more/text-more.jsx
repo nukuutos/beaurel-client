@@ -1,39 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { cutText } from './utils';
+import useTextMore from './use-text-more/use-text-more';
 
-const TextMore = ({ textClassName, moreClassName, children }) => {
-  const maxSymbs = 150;
+const TextMore = ({ textClassName, moreClassName, children: text }) => {
+  const [{ isExpand, isTextLong, shortText }, toggle] = useTextMore(text);
 
-  const [state, setState] = useState({
-    text: children,
-    isTextLong: children.length > maxSymbs,
-    shortText: children.length > maxSymbs ? cutText(children) : null,
-    isExpand: false,
-  });
-
-  useEffect(() => {
-    setState({
-      ...state,
-      text: children,
-      isTextLong: children.length > maxSymbs,
-      shortText: children.length > maxSymbs ? cutText(children) : null,
-    });
-  }, [children]);
+  const toggleButtonText = isExpand ? 'свернуть' : 'развернуть';
+  const textToDisplay = isTextLong && !isExpand ? `${shortText} ` : `${text} `;
 
   return (
     <>
-      <p
-        onClick={() => setState({ ...state, isExpand: !state.isExpand })}
-        className={textClassName}
-      >
-        {state.isTextLong && !state.isExpand ? `${state.shortText} ` : `${state.text} `}
+      <p onClick={toggle} className={textClassName}>
+        {textToDisplay}
       </p>
-      {state.isTextLong && (
-        <span
-          className={`text-more ${moreClassName}`}
-          onClick={() => setState({ ...state, isExpand: !state.isExpand })}
-        >
-          {state.isExpand ? 'свернуть' : 'развернуть'}
+      {isTextLong && (
+        <span className={`text-more ${moreClassName}`} onClick={toggle}>
+          {toggleButtonText}
         </span>
       )}
     </>
