@@ -1,35 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useResendCode from './use-resend-code';
 
 const useTimer = (phone, url) => {
-  const [state, setState] = useState({ timer: 60, isWorking: true });
   const resendCodeCall = useResendCode(phone, url);
-  const timerRef = useRef(null);
-  timerRef.current = state.timer;
+
+  const [timer, setTimer] = useState(60);
+  const decrement = () => setTimer((timer) => timer - 1);
+  const reset = () => setTimer(60);
 
   useEffect(() => {
     let interval;
 
-    if (state.isWorking) {
+    if (timer) {
       interval = setInterval(() => {
-        setState((state) => ({ ...state, timer: state.timer - 1 }));
-
-        if (!timerRef.current) {
-          clearInterval(interval);
-          setState((state) => ({ ...state, isWorking: false }));
-        }
+        decrement();
       }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [state.isWorking]);
+  }, [timer]);
 
   const resendCode = () => {
     resendCodeCall();
-    setState({ isWorking: true, timer: 60 });
+    reset();
   };
 
-  return [state.timer, resendCode];
+  return [timer, resendCode];
 };
 
 export default useTimer;
