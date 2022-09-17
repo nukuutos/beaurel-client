@@ -1,4 +1,4 @@
-import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
+import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 
 const useResendCode = (phone, url) => {
   const [asyncAction] = useAsyncAction();

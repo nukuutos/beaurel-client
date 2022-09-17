@@ -2,15 +2,22 @@ import { Form, Formik } from 'formik';
 import { useEffect } from 'react';
 import Input from '../../../../../base/form/input';
 import useHandleMultipleInputChange from '../../../../hooks/use-handle-multiple-input-change';
-import useTimer from '../../../../hooks/use-timer/use-timer';
+import useResendCode from '../../../../hooks/use-resend-code';
+import useTimer from '../../../../hooks/use-timer';
 import ResendCode from '../../../../shared/resend-code';
 import codeVerificationSchema from './schema';
 import useOnSubmit from './use-on-submit';
 
 const Verification = ({ phone }) => {
-  const [timer, resendCode] = useTimer(phone, '/auth/sign-up/code');
   const [handleChange, handleKeyPress, formRef] = useHandleMultipleInputChange();
   const [handleSubmit, isLoading] = useOnSubmit(phone);
+  const [timer, resetTimer] = useTimer();
+  const resendCode = useResendCode(phone, '/auth/sign-up/code');
+
+  const handleResendCode = () => {
+    resendCode();
+    resetTimer();
+  };
 
   const getDisabledClassName = (errors) => {
     const { first, seconde, third, fourth } = errors;
@@ -89,7 +96,7 @@ const Verification = ({ phone }) => {
             Подтвердить
           </button>
 
-          <ResendCode timer={timer} resendCode={resendCode} />
+          <ResendCode timer={timer} resendCode={handleResendCode} />
         </Form>
       )}
     </Formik>

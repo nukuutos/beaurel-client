@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-import useResendCode from './use-resend-code';
 
-const useTimer = (phone, url) => {
-  const resendCodeCall = useResendCode(phone, url);
-
+const useTimer = () => {
   const [timer, setTimer] = useState(60);
   const decrement = () => setTimer((timer) => timer - 1);
   const reset = () => setTimer(60);
@@ -20,12 +17,7 @@ const useTimer = (phone, url) => {
     return () => clearInterval(interval);
   }, [timer]);
 
-  const resendCode = () => {
-    resendCodeCall();
-    reset();
-  };
-
-  return [timer, resendCode];
+  return [timer, reset];
 };
 
 export default useTimer;

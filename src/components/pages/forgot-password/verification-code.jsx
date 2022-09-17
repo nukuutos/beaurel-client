@@ -1,11 +1,18 @@
 import Input from '../../base/form/input';
 import useHandleMultipleInputChange from '../hooks/use-handle-multiple-input-change';
-import useTimer from '../hooks/use-timer/use-timer';
+import useResendCode from '../hooks/use-resend-code';
+import useTimer from '../hooks/use-timer';
 import ResendCode from '../shared/resend-code';
 
 const VerificationCode = ({ goNext, errors, values, handleChange }) => {
   const [handleInputChange, handleKeyPress] = useHandleMultipleInputChange({ handleChange });
-  const [timer, resendCode] = useTimer(values.phone, '/auth/password/code');
+  const [timer, resetTimer] = useTimer();
+  const resendCode = useResendCode(values.phone, '/auth/password/code');
+
+  const handleResendCode = () => {
+    resendCode();
+    resetTimer();
+  };
 
   const getDisabledClassName = (errors) => {
     const { first, seconde, third, fourth } = errors.code || {};
@@ -76,7 +83,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
         Подтвердить
       </button>
 
-      <ResendCode timer={timer} resendCode={resendCode} />
+      <ResendCode timer={timer} resendCode={handleResendCode} />
     </>
   );
 };
