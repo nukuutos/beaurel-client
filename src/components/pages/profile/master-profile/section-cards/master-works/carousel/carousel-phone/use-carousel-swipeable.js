@@ -1,9 +1,9 @@
 import { useSwipeable } from 'react-swipeable';
 
-const useCarouselSwipeable = ({ toPrevWork, toNextWork }) => {
+const useCarouselSwipeable = ({ goToPrevWork, goToNextWork }) => {
   const handlers = useSwipeable({
-    onSwipedLeft: toPrevWork,
-    onSwipedRight: toNextWork,
+    onSwipedLeft: goToPrevWork,
+    onSwipedRight: goToNextWork,
     delta: 10,
   });
 

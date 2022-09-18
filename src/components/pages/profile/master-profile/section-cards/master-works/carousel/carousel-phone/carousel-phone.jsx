@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Chevrons from '../chevrons';
-import useGoToWork from '../use-go-to-work';
 import useCarouselSwipeable from './use-carousel-swipeable';
 import TitleSectionPhone from './title-section-phone';
+import useDeleteWork from '../use-delete-work';
 
-const CarouselPhone = ({ state }) => {
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [{ id: masterId }, { works }] = useSelector((state) => [state.profile, state.work]);
-  const [{ index }, setState] = state;
+const CarouselPhone = ({ state, goToPrevWork, goToNextWork, goToGallery, goToEditWork }) => {
+  const [{ id: masterId }, { works }] = useSelector((state) => [state.profile, state.works]);
 
-  const { toNextWork, toPrevWork } = useGoToWork(setState);
+  const [deleteWork, isDeleting] = useDeleteWork({ state, goToGallery });
 
-  const [handlers] = useCarouselSwipeable({ toPrevWork, toNextWork });
+  const { index, length } = state;
 
-  const isChevrons = works.length > 1;
+  const [handlers] = useCarouselSwipeable({ goToPrevWork, goToNextWork });
+
+  const isChevrons = length > 1;
 
   return (
     <>
       {isDeleting && <div className="spinner-with-background" />}
       <div {...handlers} className="carousel">
         <div className="carousel__main">
-          {isChevrons && <Chevrons toNextWork={toNextWork} toPrevWork={toPrevWork} />}
+          {isChevrons && <Chevrons toNextWork={goToNextWork} toPrevWork={goToPrevWork} />}
 
           <img
             src={`https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id}.webp`}
@@ -30,7 +29,7 @@ const CarouselPhone = ({ state }) => {
           />
         </div>
 
-        <TitleSectionPhone setIsDeleting={setIsDeleting} state={state} />
+        <TitleSectionPhone deleteWork={deleteWork} goToEditWork={goToEditWork} state={state} />
       </div>
     </>
   );

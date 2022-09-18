@@ -2,14 +2,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
 import { deleteWorkSuccess } from '../../../../../../../redux/work/actions';
 
-const useManipulateWork = (state, setIsDeleting) => {
-  const [{ index }, setState] = state;
-
-  const [asyncAction, isLoadingOnDelete, isCancelled] = useAsyncAction();
+const useDeleteWork = ({ state, goToGallery }) => {
   const [{ works }, { accessToken, id: profileId }] = useSelector((state) => [
     state.work,
     state.auth,
   ]);
+
+  const { index } = state;
+
+  const [asyncAction, isLoading] = useAsyncAction();
 
   const dispatch = useDispatch();
 
@@ -22,19 +23,13 @@ const useManipulateWork = (state, setIsDeleting) => {
 
     const data = await asyncAction(config);
 
-    setIsDeleting(true);
-
     if (data) {
-      setState((state) => ({ ...state, display: 'works' }));
+      goToGallery();
       dispatch(deleteWorkSuccess({ deletedId: works[index]._id }));
     }
-
-    if (!isCancelled.current) setIsDeleting(false);
   };
 
-  const editWork = () => setState((state) => ({ ...state, display: 'edit' }));
-
-  return [deleteWork, editWork, isLoadingOnDelete];
+  return [deleteWork, isLoading];
 };
 
-export default useManipulateWork;
+export default useDeleteWork;

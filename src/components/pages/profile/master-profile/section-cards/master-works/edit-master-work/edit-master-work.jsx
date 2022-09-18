@@ -8,23 +8,20 @@ import useOnSubmit from './use-on-submit';
 import ChangeButton from '../utils/change-button';
 import MasterWorkForm from '../utils/master-work-form';
 
-const EditMasterWork = ({ state }) => {
+const EditMasterWork = ({ state, goToCarousel, goToGallery }) => {
   const [{ id: masterId }, { works }, { isPhone }] = useSelector((state) => [
     state.auth,
     state.work,
     state.screenSize,
   ]);
 
-  const [{ index }, setParentState] = state;
+  const { index } = state;
 
   const initialSrc = `https://storage.yandexcloud.net/${process.env.NEXT_PUBLIC_S3_BUCKET}/${masterId}/${works[index]._id}.webp`;
 
   const { src, file, handleFileUpload } = useFileUpload(initialSrc);
 
-  const [handleSubmit, isLoading] = useOnSubmit(state, file);
-
-  const goToCarousel = () => setParentState((state) => ({ ...state, display: 'carousel' }));
-  const goToWorks = () => setParentState((state) => ({ ...state, display: 'works' }));
+  const [handleSubmit, isLoading] = useOnSubmit({ state, goToCarousel, file });
 
   const handleSubmitClick = (dirty, submitForm) => (event) => {
     event.preventDefault();
@@ -35,11 +32,7 @@ const EditMasterWork = ({ state }) => {
 
   return (
     <div className={`add-master-work ${isPhone ? '' : 'card'}`}>
-      <ModalHeading
-        title="Обновить работу"
-        // titleDesktopClassName="booking-services__heading"
-        onClickClose={goToCarousel}
-      />
+      <ModalHeading title="Обновить работу" onClickClose={goToCarousel} />
 
       {isLoading && <div className="spinner-with-background" />}
 
@@ -56,7 +49,7 @@ const EditMasterWork = ({ state }) => {
       >
         {({ submitForm, dirty }) => (
           <MasterWorkForm
-            onBackButtonClick={index ? goToCarousel : goToWorks}
+            onBackButtonClick={index ? goToCarousel : goToGallery}
             onSubmit={handleSubmitClick(dirty, submitForm)}
           />
         )}

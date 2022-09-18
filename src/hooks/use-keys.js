@@ -8,7 +8,7 @@ const useKeys = (getKeys) => {
       const keys = getKeys();
 
       keys.forEach(({ key, fn }) => {
-        if (pressedKey === key) fn();
+        if (pressedKey === key && fn) fn();
       });
     };
 

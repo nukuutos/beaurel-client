@@ -5,11 +5,9 @@ import Plus from '../../../../../../base/icons/plus';
 
 const MASTER_WORKS_LIMIT = 18;
 
-const DisplayMasterWorks = ({ setParentState, isLoading }) => {
+const DisplayMasterWorks = ({ goToAddWork, getClickOnWork, isLoading }) => {
   const [{ works }, { isPhone }] = useSelector((state) => [state.work, state.screenSize]);
 
-  const goToAddWork = () => setParentState((state) => ({ ...state, display: 'add' }));
-  const goToCarousel = (index) => () => setParentState({ index, display: 'carousel' });
   const isMasterWorksLimit = works.length >= MASTER_WORKS_LIMIT;
 
   return (
@@ -20,9 +18,10 @@ const DisplayMasterWorks = ({ setParentState, isLoading }) => {
     >
       {isLoading && <div className="spinner-with-background" />}
 
-      {works.map((work, index) => (
-        <MasterWork key={work.title} work={work} goToCarousel={goToCarousel(index)} />
-      ))}
+      {works.map((work, index) => {
+        const clickOnWork = getClickOnWork(index);
+        return <MasterWork key={work.title} work={work} goToCarousel={clickOnWork} />;
+      })}
 
       {!isMasterWorksLimit && (
         <div onClick={goToAddWork} className="master-works__add-work">

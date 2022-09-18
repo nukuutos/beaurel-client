@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
 import { updateWorkSuccess } from '../../../../../../../redux/work/actions';
 
-const useOnSubmit = (state, file) => {
+const useOnSubmit = ({ state, goToCarousel, file }) => {
   const [{ accessToken }, { id: profileId }, { works }] = useSelector((state) => [
     state.auth,
     state.profile,
@@ -11,7 +11,7 @@ const useOnSubmit = (state, file) => {
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
 
-  const [{ index }, setParentState] = state;
+  const { index } = state;
 
   const handleSubmit = async (values) => {
     const { title } = values;
@@ -35,7 +35,7 @@ const useOnSubmit = (state, file) => {
 
     if (data) {
       dispatch(updateWorkSuccess({ updatedWork: { _id: works[index]._id, title } }));
-      setParentState((state) => ({ ...state, display: 'carousel' }));
+      goToCarousel();
     }
   };
 

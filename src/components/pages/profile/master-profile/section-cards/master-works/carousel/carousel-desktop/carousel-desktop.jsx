@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Chevrons from '../chevrons';
 import useCarouselKeys from './use-carousel-keys';
-import useGoToWork from '../use-go-to-work';
 import Sidenav from '../sidenav';
+import useDeleteWork from '../use-delete-work';
 
-const CarouselDesktop = ({ state }) => {
-  const [isDeleting, setIsDeleting] = useState(false);
+const CarouselDesktop = ({ state, goToNextWork, goToPrevWork, goToGallery, goToEditWork }) => {
   const [{ works, masterId }, { id: userId }, { isPhone }] = useSelector((state) => [
     state.work,
     state.auth,
     state.screenSize,
   ]);
-  const [{ index }, setState] = state;
 
-  const { toNextWork, toPrevWork } = useGoToWork(setState);
+  const { index, length } = state;
 
-  useCarouselKeys({ toNextWork, toPrevWork });
-
-  const isChevrons = !isPhone && works.length > 1;
+  const isChevrons = !isPhone && length > 1;
   const isOwner = userId === masterId;
+
+  useCarouselKeys({ goToNextWork, goToPrevWork, isChevrons });
+
+  const [deleteWork, isDeleting] = useDeleteWork({ state, goToGallery });
 
   return (
     <div className="carousel">
       {isDeleting && <div className="spinner-with-background" />}
 
-      {isChevrons && <Chevrons toNextWork={toNextWork} toPrevWork={toPrevWork} />}
+      {isChevrons && <Chevrons toNextWork={goToNextWork} toPrevWork={goToPrevWork} />}
 
       <div className="carousel__main">
         {isOwner && (
-          <Sidenav className="carousel__sidenav" setIsDeleting={setIsDeleting} state={state} />
+          <Sidenav
+            className="carousel__sidenav"
+            deleteWork={deleteWork}
+            goToEditWork={goToEditWork}
+          />
         )}
 
         <img

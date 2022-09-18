@@ -1,11 +1,11 @@
 import useKeys from '../../../../../../../../hooks/use-keys';
 
-const useCarouselKeys = ({ toNextWork, toPrevWork }) => {
+const useCarouselKeys = ({ goToNextWork, goToPrevWork, isChevrons }) => {
   const keys = () => [
-    { key: 'ArrowRight', fn: toNextWork },
+    { key: 'ArrowRight', fn: isChevrons ? goToNextWork : null },
     {
       key: 'ArrowLeft',
-      fn: toPrevWork,
+      fn: isChevrons ? goToPrevWork : null,
     },
   ];
 
