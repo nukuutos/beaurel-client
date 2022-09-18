@@ -1,10 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { unsetAppointment } from '../../../../../../redux/appointments/actions';
+import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 
-const BookingSuccess = ({ onClickClose }) => {
-  const dispatch = useDispatch();
+const BookingSuccess = ({ close }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
@@ -18,10 +16,7 @@ const BookingSuccess = ({ onClickClose }) => {
       </p>
 
       <button
-        onClick={() => {
-          onClickClose();
-          dispatch(unsetAppointment());
-        }}
+        onClick={close}
         className="booking-success__button btn btn--primary mt-6"
         type="submit"
       >

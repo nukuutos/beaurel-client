@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import useGetAppointmentData from '../use-get-appointment-data';
 import useWeek from '../use-week/use-week';
 import Arrows from './arrows';
@@ -8,7 +7,7 @@ import useBookingTimetablePhone from './use-booking-timetable-phone';
 import useStartDay from '../use-start-day';
 import useFindFirstAppointment from './use-find-first-appointment';
 
-const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoading }) => {
+const BookingTimetablePhone = ({ step, getHandleClickOnDay, closeTimetable, isLoading }) => {
   const [startDayData, setStartDay] = useStartDay();
   const [weekdayIndex, controllers] = useBookingTimetablePhone(setStartDay);
   const weekDays = useWeek({ startDayData, step, getHandleClickOnDay });
@@ -23,7 +22,7 @@ const BookingTimetablePhone = ({ step, getHandleClickOnDay, onClickClose, isLoad
     <>
       {(isLoading || loadingOnGetAppointments) && <div className="spinner-with-background" />}
       <div className="booking-timetable">
-        <Header setDate={setStartDay} onClickBack={onClickClose} />
+        <Header setDate={setStartDay} onClickBack={closeTimetable} />
         {!isUnavailableWeek && (
           <Arrows step={step} startDayData={startDayData} day={day} controllers={controllers} />
         )}

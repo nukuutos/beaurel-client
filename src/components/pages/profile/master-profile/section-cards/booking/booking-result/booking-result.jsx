@@ -4,12 +4,12 @@ import useBookTime from './use-book-time';
 import Result from '../../../../../shared/booking/result/result';
 import Unauthorized from '../shared/unauthorized';
 
-const BookingResult = ({ setStep, onClickClose }) => {
+const BookingResult = ({ backFromBookingResult, goToSuccess, state }) => {
   const { accessToken } = useSelector((state) => state.auth);
-  const [bookTime, isLoading] = useBookTime(setStep);
+  const [bookTime, isLoading] = useBookTime(state, goToSuccess);
 
   return accessToken ? (
-    <Result isLoading={isLoading} onClickClose={onClickClose}>
+    <Result state={state} isLoading={isLoading} onClickClose={backFromBookingResult}>
       <button
         onClick={bookTime}
         disabled={isLoading}
@@ -20,7 +20,7 @@ const BookingResult = ({ setStep, onClickClose }) => {
       </button>
     </Result>
   ) : (
-    <Unauthorized onClickClose={onClickClose} title="Запись к мастеру">
+    <Unauthorized onClickClose={backFromBookingResult} title="Запись к мастеру">
       Необходимо зарегистрироваться, чтобы Вы смогли забронировать запись!
     </Unauthorized>
   );

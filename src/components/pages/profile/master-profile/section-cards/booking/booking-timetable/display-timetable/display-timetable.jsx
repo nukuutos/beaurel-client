@@ -1,18 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import useGetHandleClickOnDay from '../use-get-handle-click-on-day';
 import BookingTimetableDesktop from './booking-timetable-desktop/booking-timetable-desktop';
 import BookingTimetablePhone from './booking-timetable-phone/booking-timetable-phone';
 
-const DisplayTimetable = ({ stepState, ...props }) => {
+const DisplayTimetable = ({ state, getPickDate, ...props }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
-  const [{ step }, setStep] = stepState;
-  const getHandleClickOnDay = useGetHandleClickOnDay(setStep);
+  const { step } = state;
 
   return isPhone ? (
-    <BookingTimetablePhone step={step} getHandleClickOnDay={getHandleClickOnDay} {...props} />
+    <BookingTimetablePhone step={step} getHandleClickOnDay={getPickDate} {...props} />
   ) : (
-    <BookingTimetableDesktop step={step} getHandleClickOnDay={getHandleClickOnDay} {...props} />
+    <BookingTimetableDesktop step={step} getHandleClickOnDay={getPickDate} {...props} />
   );
 };
 

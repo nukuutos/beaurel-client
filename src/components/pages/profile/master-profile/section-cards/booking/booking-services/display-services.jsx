@@ -7,12 +7,15 @@ import getIsSuitableUpdate from './get-is-suitable-update';
 import BeforeAfterDate from './before-after-date';
 import BackButton from './back-button';
 
-const Services = ({ stepState, servicesSwitcher }) => {
+const Services = ({ state, getPickService, servicesSwitcher }) => {
   const { services } = useSelector((state) => state.services);
 
   return services.map((service) => {
+    const pickService = getPickService(service);
+
     const props = {
-      stepState,
+      state,
+      pickService,
       service,
       key: service.title,
       isAfterUpdate: servicesSwitcher === 'after',
@@ -26,11 +29,10 @@ const Services = ({ stepState, servicesSwitcher }) => {
   });
 };
 
-const DisplayServices = ({ stepState, onClickClose, isLoading }) => {
+const DisplayServices = ({ state, getPickService, onClickClose, isLoading }) => {
   const [{ services }, { isPhone }] = useSelector((state) => [state.services, state.screenSize]);
   const [servicesSwitcher, setServicesSwitcher] = useState('before'); // before & after update
-
-  const [{ step }] = stepState;
+  const { step } = state;
 
   return (
     <>
@@ -55,7 +57,11 @@ const DisplayServices = ({ stepState, onClickClose, isLoading }) => {
 
         <div className="services__container booking-services__container">
           {services.length ? (
-            <Services stepState={stepState} servicesSwitcher={servicesSwitcher} />
+            <Services
+              state={state}
+              getPickService={getPickService}
+              servicesSwitcher={servicesSwitcher}
+            />
           ) : (
             <p className="">Извините, услуги отсутствуют!</p>
           )}

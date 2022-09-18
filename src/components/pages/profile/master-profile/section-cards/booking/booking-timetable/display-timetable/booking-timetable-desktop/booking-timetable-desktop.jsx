@@ -8,7 +8,7 @@ import useFindFirstAppointment from './use-find-first-appointment';
 
 const BookingTimetableDesktop = ({
   step,
-  onClickClose,
+  closeTimetable,
   isLoading,
   children,
   getHandleClickOnDay,
@@ -26,7 +26,7 @@ const BookingTimetableDesktop = ({
   return (
     <div className={`booking-timetable ${backButtonClassName} card`}>
       {(isLoading || loadingOnGetAppointments) && <div className="spinner-with-background" />}
-      {isBackButton && <BackButton onClickClose={onClickClose} />}
+      {isBackButton && <BackButton onClickClose={closeTimetable} />}
       {children}
       <BookingTimetableHeader step={step} startDateState={[startDayData, setStartDay]} />
       {weekDays}

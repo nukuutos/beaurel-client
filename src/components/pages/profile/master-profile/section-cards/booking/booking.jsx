@@ -1,34 +1,21 @@
-import { useState } from 'react';
 import Modal from '../../../../../base/modal/modal';
 import BookingServices from './booking-services/booking-services';
 import BookingResult from './booking-result/booking-result';
 import BookingSuccess from './booking-success';
 import BookingTimetable from './booking-timetable/booking-timetable';
-import useCreateBackFunctions from './utils/use-create-back-functions';
+import useBookingState from './hooks/use-booking-state/use-booking-state';
 
 const Booking = ({ isService = false, isTimetable = false, onClickClose }) => {
-  const [step, setStep] = useState({
-    isService,
-    isTimetable,
-    isResult: false,
-    isSuccess: false,
-    step: 1,
-    lastStepName: null,
-  });
+  const [state, actions] = useBookingState({ isService, isTimetable, onClickClose });
 
-  const stepState = [step, setStep];
-
-  const { onClose, closeServices, closeTimetable, backFromBookingResult } = useCreateBackFunctions(
-    stepState,
-    onClickClose
-  );
+  const { close } = actions;
 
   return (
-    <Modal onClickClose={onClose}>
-      {step.isService && <BookingServices onClickClose={closeServices} stepState={stepState} />}
-      {step.isTimetable && <BookingTimetable onClickClose={closeTimetable} stepState={stepState} />}
-      {step.isResult && <BookingResult onClickClose={backFromBookingResult} setStep={setStep} />}
-      {step.isSuccess && <BookingSuccess onClickClose={onClose} />}
+    <Modal onClickClose={close}>
+      {state.isService && <BookingServices state={state} {...actions} />}
+      {state.isTimetable && <BookingTimetable state={state} {...actions} />}
+      {state.isResult && <BookingResult state={state} {...actions} />}
+      {state.isSuccess && <BookingSuccess {...actions} />}
     </Modal>
   );
 };

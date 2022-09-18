@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import SubService from '../../../../../services/base/parameter-service/sub-service';
 import ParameterServiceTitle from '../../../../../services/base/parameter-service/parameter-service-title';
 import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
-import goTo from './go-to';
 import ChevronRight from '../../../../../../base/icons/chevron-right';
 
-const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
-  const [{ bookingAppointment }, timetable] = useSelector((state) => [
-    state.appointments.booking,
-    state.timetable,
-  ]);
+const BookingParameterService = ({ service, state, pickService, isAfterUpdate }) => {
+  const [timetable] = useSelector((state) => [state.timetable]);
 
-  const [{ step }, setStep] = stepState;
-
-  const { date } = bookingAppointment;
-
-  const dispatch = useDispatch();
-
+  const { step, date, time, unavailableAppointments, availableAppointments } = state;
   const [isShown, setIsShown] = useState(false);
   const [isHoverSubService, setIsHoverSubService] = useState(false);
 
@@ -44,20 +35,17 @@ const BookingParameterService = ({ service, stepState, isAfterUpdate }) => {
             isAfterUpdate,
           });
 
-          const isDisabled = getIsDisabled(bookingAppointment, bookingSubService, timetable);
-
-          const handleOnClick = goTo({
-            setStep,
-            service: bookingSubService,
-            dispatch,
-            isAfterUpdate,
-          });
+          const isDisabled = getIsDisabled(
+            { date, time, unavailableAppointments, availableAppointments },
+            bookingSubService,
+            timetable
+          );
 
           return (
             <div
               onMouseLeave={() => setIsHoverSubService(false)}
               onMouseEnter={() => setIsHoverSubService(true)}
-              onClick={isDisabled ? null : handleOnClick}
+              onClick={isDisabled ? null : pickService}
               className={`service service--hover booking-service service-parameter__sub-service ${
                 isDisabled ? 'booking-service--disabled' : ''
               }`}

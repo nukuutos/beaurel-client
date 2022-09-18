@@ -2,13 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
 import { bookAppointmentSuccess } from '../../../../../../../redux/appointments/actions';
 
-const useBookTime = (setStep) => {
+const useBookTime = (state, goToSuccess) => {
   const dispatch = useDispatch();
-  const [{ id: profileId }, { date, time, service }, { accessToken }] = useSelector((state) => [
-    state.profile,
-    state.appointments.booking.bookingAppointment,
-    state.auth,
-  ]);
+  const [{ id: profileId }, { accessToken }] = useSelector((state) => [state.profile, state.auth]);
+
+  const { date, time, service } = state;
 
   const [asyncAction, isLoading] = useAsyncAction();
 
@@ -36,7 +34,7 @@ const useBookTime = (setStep) => {
         })
       );
 
-      setStep((state) => ({ ...state, isResult: false, isSuccess: true, step: state.step + 1 }));
+      goToSuccess();
     }
   };
 

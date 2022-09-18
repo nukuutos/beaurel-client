@@ -1,10 +1,10 @@
 import getIdsAndOrders from '../../../../components/pages/services/utils/get-ids-and-orders';
-import toDayjs from '../../utils/to-dayjs';
+import serializeService from '../../utils/serialize-service';
 
 const getServices = (state, payload) => {
   const { masterId, services } = payload;
 
-  const transformedServices = toDayjs(services);
+  const transformedServices = serializeService(services);
   const initialOrder = getIdsAndOrders(services);
 
   return {

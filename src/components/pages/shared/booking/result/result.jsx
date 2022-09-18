@@ -15,11 +15,13 @@ const displayDate = (date) => {
   return `${date.date()} ${month} ${date.year()}`;
 };
 
-const Result = ({ onClickClose, children, isLoading }) => {
-  const [{ date, time, service }, { isPhone }] = useSelector((state) => [
+const Result = ({ state, onClickClose, children, isLoading }) => {
+  const [{ isPhone }] = useSelector((state) => [
     state.appointments.booking.bookingAppointment,
     state.screenSize,
   ]);
+
+  const { date, time, service } = state;
 
   const duration = displayAppointmentDuration(time, service.duration);
   const formattedDate = displayDate(date);
