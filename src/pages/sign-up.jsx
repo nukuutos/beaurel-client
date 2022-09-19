@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
 
 import Layout from '../components/layout/layout';
 import useProgress from '../components/pages/sign-up/use-progress';
+import useSignUpState from '../components/pages/sign-up/use-sign-up-state';
 
 const ChoiceCards = dynamic(() => import('../components/pages/sign-up/choice-cards'));
 const Progress = dynamic(() => import('../components/pages/sign-up/progress/progress'));
@@ -14,10 +14,9 @@ const MasterCase = dynamic(() =>
 );
 
 const SignUp = () => {
-  const [isCustomer, setIsCustomer] = useState(false);
-  const [state, actions] = useProgress();
-
-  const stepsCount = isCustomer ? 5 : 6;
+  const [progressState, progressActions] = useProgress();
+  const [state, actions] = useSignUpState(progressActions);
+  const { steps, user } = state;
 
   return (
     <Layout>
@@ -25,15 +24,17 @@ const SignUp = () => {
         <div className="sign-up">
           <h1 className="logo">Beaurel</h1>
 
-          <Progress count={stepsCount} state={state} {...actions} />
+          <Progress count={steps} state={progressState} {...progressActions} />
 
-          {state.current === 1 && <ChoiceCards state={[isCustomer, setIsCustomer]} {...actions} />}
-
-          {isCustomer ? (
-            <CustomerCase current={state.current} {...actions} />
-          ) : (
-            <MasterCase current={state.current} {...actions} />
+          {progressState.current === 1 && (
+            <ChoiceCards state={state} {...actions} {...progressActions} />
           )}
+
+          {user === 'customer' && (
+            <CustomerCase current={progressState.current} {...progressActions} />
+          )}
+
+          {user === 'master' && <MasterCase current={progressState.current} {...progressActions} />}
         </div>
       </main>
     </Layout>

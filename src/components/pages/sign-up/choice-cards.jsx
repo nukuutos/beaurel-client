@@ -2,27 +2,17 @@ import React from 'react';
 import User from '../../base/icons/user';
 import UserCard from '../../base/icons/user-card';
 
-const ChoiceCards = ({ resetProgress, goToNextStep, state }) => {
-  const [isCustomer, setIsCustomer] = state;
+const ChoiceCards = ({ setMaster, setCustomer, goToNextStep, state }) => {
+  const { user } = state;
 
-  const getClassName = (state, value) => {
+  const getClassName = (user, value) => {
     let className = 'choice-card';
-    if (state === value) className += ' choice-card--active';
+    if (user === value) className += ' choice-card--active';
     return className;
   };
 
-  const customerClassName = getClassName(isCustomer, true);
-  const masterClassName = getClassName(isCustomer, false);
-
-  const setMaster = () => {
-    resetProgress();
-    setIsCustomer(false);
-  };
-
-  const setCustomer = () => {
-    resetProgress();
-    setIsCustomer(true);
-  };
+  const customerClassName = getClassName(user, 'customer');
+  const masterClassName = getClassName(user, 'master');
 
   return (
     <>
@@ -33,7 +23,7 @@ const ChoiceCards = ({ resetProgress, goToNextStep, state }) => {
           <h3 className="choice-card__heading mt-3">Мастер</h3>
           <p className="choice-card__description mt-3">Клиенты ждут ваших услуг!</p>
         </div>
-        <div onClick={setCustomer} className={`${customerClassName}`}>
+        <div onClick={setCustomer} className={customerClassName}>
           <User className="choice-card__icon" />
           <h3 className="choice-card__heading mt-3">Клиент</h3>
           <p className="choice-card__description mt-3">Находите мастеров и записывайтесь!</p>
