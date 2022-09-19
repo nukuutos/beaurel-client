@@ -4,7 +4,7 @@ import RadioButton from '../../../base/form/radio-button';
 
 const TimetableType = ({ values, editState, resetForm }) => {
   const { update } = useSelector((state) => state.timetable);
-  const [{ isEditing }] = editState;
+  const { isEditing } = editState;
   const { type } = values;
 
   const isDisabled = update.date || isEditing;

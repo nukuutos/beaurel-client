@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import EditManuallyAppointments from '../../../shared/edit-manually-appointments/edit-manually-appointments';
+import useVisualTimetableManuallyState from '../../../shared/use-visual-timetable-manually-state';
 import weekdaysRU from '../../../utils/weekdays-ru';
 import DisplayDay from './display-day';
 
 const VisualTimetableManually = ({ values, editState, errors, setFieldError }) => {
-  const modalState = useState({ isOpen: false, weekdayIndex: null });
-  const [{ isOpen }] = modalState;
+  const [state, actions] = useVisualTimetableManuallyState();
+  const { isOpen } = state;
 
   return (
     <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-6 card">
@@ -16,19 +16,20 @@ const VisualTimetableManually = ({ values, editState, errors, setFieldError }) =
         {weekdaysRU.map((weekdayName, index) => (
           <DisplayDay
             weekdayName={weekdayName}
-            modalState={modalState}
             index={index}
             editState={editState}
             values={values}
             key={weekdayName}
+            {...actions}
           />
         ))}
         {isOpen && (
           <EditManuallyAppointments
             errors={errors}
             setFieldError={setFieldError}
-            modalState={modalState}
+            state={state}
             values={values}
+            {...actions}
           />
         )}
       </div>

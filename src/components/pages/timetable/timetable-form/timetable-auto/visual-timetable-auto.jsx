@@ -8,7 +8,7 @@ import AutoTimetableWeekday from '../../shared/auto-timetable-weekday/auto-timet
 
 const VisualTimetableAuto = ({ editState, values }) => {
   const { update } = useSelector((state) => state.timetable);
-  const [{ isEditing }] = editState;
+  const { isEditing } = editState;
 
   return (
     <div className="timetable__timetable-card timetable-card timetable-card--timetable mt-6 card">

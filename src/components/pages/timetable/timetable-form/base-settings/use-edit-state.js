@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import clearManuallyAppointments from '../../utils/clear-manually-appointments';
 import filterExceptions from '../../utils/filter-exceptions';
 
-const useEditState = ({ editState, values, setFieldValue }) => {
+const useEditState = ({ editState, finishEditSessionTime, values, setFieldValue }) => {
   const { update } = useSelector((state) => state.timetable);
-  const [{ isEditing, element }, setEditState] = editState;
+  const { isEditing, element } = editState;
 
   const { auto, edit } = values;
   const { sessionTime } = edit;
@@ -21,12 +21,10 @@ const useEditState = ({ editState, values, setFieldValue }) => {
     setFieldValue('manually.appointments', clearedManuallyAppointments);
     setFieldValue('sessionTime', sessionTime);
 
-    setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
+    finishEditSessionTime();
   };
 
-  const handleCancel = () => {
-    setEditState({ isEditing: false, element: { ...editState, sessionTime: false } });
-  };
+  const handleCancel = () => finishEditSessionTime();
 
   const handleClicks = [handleEdit, handleCancel];
 

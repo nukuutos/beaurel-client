@@ -1,11 +1,9 @@
 import insertElementInSortedArrayWithSessionTimeCheck from './insert-element-in-sorted-array-with-session-time-check';
 import weekdaysRU from '../../../utils/weekdays-ru';
 
-const useHandleAdd = ({ modalState, setFieldError, values, index, insert }) => {
-  const [, setState] = modalState;
+const useHandleAdd = ({ closeModal, setFieldError, values, index, insert }) => {
   const { sessionTime, manually } = values;
   const { hours, mins, appointments } = manually;
-  const close = () => setState({ isOpen: false, weekdayIndex: null });
 
   const handleAdd = () => {
     const weekday = weekdaysRU[index].toUpperCase();
@@ -24,7 +22,7 @@ const useHandleAdd = ({ modalState, setFieldError, values, index, insert }) => {
         insert,
         Number(sessionTime),
         setFieldError,
-        close
+        closeModal
       );
     }
   };

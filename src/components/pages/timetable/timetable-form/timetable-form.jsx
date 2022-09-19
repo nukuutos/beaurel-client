@@ -8,6 +8,7 @@ import TimetableAuto from './timetable-auto/timetable-auto';
 import TimetableManually from './timetable-manually/timetable-manually';
 import TimetableType from './timetable-type';
 import UpdateModal from './update-modal/update-modal';
+import useEditState from './use-edit-state';
 import useGetInitialValues from './use-get-initial-values';
 import useOnSubmit from './use-on-submit';
 
@@ -20,16 +21,11 @@ const TimetableForm = () => {
     step: 0,
   });
 
-  const [state, setState] = useState({
-    isEditing: false,
-    element: { sessionTime: false, weekends: false, workingDay: false },
-  });
+  const [state, actions] = useEditState();
 
   const initialValues = useGetInitialValues();
 
   const [handleSubmit, isLoading] = useOnSubmit(setUpdateTimetable);
-
-  const editState = [state, setState];
 
   return (
     <Formik
@@ -43,19 +39,19 @@ const TimetableForm = () => {
 
         return (
           <Form className="timetable__form">
-            <BaseSettings {...formikProps} editState={editState} />
-            <TimetableType {...formikProps} editState={editState} />
+            <BaseSettings editState={state} {...actions} {...formikProps} />
+            <TimetableType editState={state} {...formikProps} />
 
             {type === 'auto' ? (
-              <TimetableAuto editState={editState} {...formikProps} />
+              <TimetableAuto editState={state} {...actions} {...formikProps} />
             ) : (
-              <TimetableManually editState={editState} {...formikProps} />
+              <TimetableManually editState={state} {...formikProps} />
             )}
 
             {!update.date && (
               <FormButtons
                 setUpdateTimetable={setUpdateTimetable}
-                editState={editState}
+                editState={state}
                 {...formikProps}
               />
             )}

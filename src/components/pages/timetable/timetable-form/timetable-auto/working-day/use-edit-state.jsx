@@ -1,22 +1,19 @@
 import { useSelector } from 'react-redux';
 
-const useEditState = ({ editState, values, setFieldValue }) => {
+const useEditState = ({ editState, values, setFieldValue, finishEditWorkingDay }) => {
   const { update } = useSelector((state) => state.timetable);
-  const [{ isEditing, element }, setEditState] = editState;
+  const { isEditing, element } = editState;
   const isDisabled = update.date || (isEditing && !element.workingDay);
 
   const { workingDay } = values.edit.auto;
 
-  const closeEditing = () =>
-    setEditState({ isEditing: false, element: { ...editState, workingDay: false } });
-
   const handleEdit = () => {
     setFieldValue('auto.workingDay', workingDay);
-    closeEditing();
+    finishEditWorkingDay();
   };
 
   const handleCancel = () => {
-    closeEditing();
+    finishEditWorkingDay();
   };
 
   const handleClicks = [handleEdit, handleCancel];

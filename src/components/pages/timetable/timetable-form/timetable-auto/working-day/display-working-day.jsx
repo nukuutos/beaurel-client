@@ -2,13 +2,8 @@ import React from 'react';
 import Pen from '../../../../../base/icons/pen';
 import displayDuration from '../../../../utils/display-duration';
 
-const DisplayWorkingDay = ({ editState, values, isDisabled }) => {
+const DisplayWorkingDay = ({ startEditWorkingDay, values, isDisabled }) => {
   const { startAt, endAt } = values.auto.workingDay;
-  const [state, setState] = editState;
-
-  const openEditModal = () => {
-    setState({ isEditing: true, element: { ...state.element, workingDay: true } });
-  };
 
   const stringStartAt = displayDuration(startAt);
   const stringEndAt = displayDuration(endAt);
@@ -18,7 +13,7 @@ const DisplayWorkingDay = ({ editState, values, isDisabled }) => {
       <span className="timetable-card__value ml-1 mt-5">{`${stringStartAt} - ${stringEndAt}`}</span>
       {!isDisabled && (
         <div
-          onClick={openEditModal}
+          onClick={startEditWorkingDay}
           className="timetable-card__btn-edit timetable-card__btn-edit--bottom btn-icon"
         >
           <Pen />

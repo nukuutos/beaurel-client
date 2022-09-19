@@ -7,13 +7,18 @@ import MinOptions from '../../utils/min-options';
 import weekdaysRU from '../../utils/weekdays-ru';
 import useHandleAdd from './use-handle-add/use-handle-add';
 
-const AddTime = ({ modalState, values, setFieldError, errors, ...fieldArrayProps }) => {
-  const [{ weekdayIndex: index }, setState] = modalState;
+const AddTime = ({ state, closeModal, values, setFieldError, errors, ...fieldArrayProps }) => {
+  const { weekdayIndex: index } = state;
   const { hours, mins } = values.manually;
 
-  const handleAdd = useHandleAdd({ values, setFieldError, modalState, index, ...fieldArrayProps });
+  const handleAdd = useHandleAdd({
+    closeModal,
+    values,
+    setFieldError,
+    index,
+    ...fieldArrayProps,
+  });
   const weekday = weekdaysRU[index].toUpperCase();
-  const closeModal = () => setState({ isOpen: false, weekdayIndex: null });
 
   return (
     <Modal onClickClose={closeModal}>

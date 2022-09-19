@@ -10,22 +10,22 @@ const filterExceptions = (exceptions, weekends) => {
   return filteredExceptions;
 };
 
-const useEditState = ({ values, editState, setFieldValue }) => {
+const useEditState = ({ values, editState, setFieldValue, finishEditWeekends }) => {
   const { update } = useSelector((state) => state.timetable);
   const { auto, edit } = values;
   const { exceptions } = auto;
   const { weekends } = edit.auto;
-  const [{ isEditing, element }, setEditState] = editState;
+  const { isEditing, element } = editState;
 
   const handleEdit = () => {
     const filteredExceptions = filterExceptions(exceptions, weekends);
     setFieldValue('auto.weekends', weekends);
     setFieldValue('auto.exceptions', filteredExceptions);
-    setEditState({ isEditing: false, element: { ...editState, weekends: false } });
+    finishEditWeekends();
   };
 
   const handleCancel = () => {
-    setEditState({ isEditing: false, element: { ...editState, weekends: false } });
+    finishEditWeekends();
   };
 
   const isDisabled = update.date || (isEditing && !element.weekends);

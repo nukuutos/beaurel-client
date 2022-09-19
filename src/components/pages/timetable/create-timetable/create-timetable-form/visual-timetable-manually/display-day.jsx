@@ -3,13 +3,11 @@ import React from 'react';
 import Plus from '../../../../../base/icons/plus';
 import displayDuration from '../../../../utils/display-duration';
 
-const DisplayDay = ({ modalState, values, weekdayName, index }) => {
-  const [, setState] = modalState;
-
+const DisplayDay = ({ getOpenModal, values, weekdayName, index }) => {
   const { appointments } = values.manually;
   const day = appointments[index];
 
-  const openModal = () => setState({ isOpen: true, weekdayIndex: index });
+  const openModal = getOpenModal(index);
 
   return (
     <FieldArray

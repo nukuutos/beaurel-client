@@ -5,10 +5,15 @@ import DisplayWeekends from './display-weekends';
 import EditButton from './edit-button';
 import EditModal from './edit-modal';
 
-const Weekends = ({ values, editState, setFieldValue }) => {
-  const [{ element }] = editState;
+const Weekends = ({ values, editState, setFieldValue, startEditWeekends, finishEditWeekends }) => {
+  const { element } = editState;
 
-  const { isDisabled, handleClicks } = useEditState({ values, editState, setFieldValue });
+  const { isDisabled, handleClicks } = useEditState({
+    values,
+    editState,
+    setFieldValue,
+    finishEditWeekends,
+  });
 
   useWeekendsKeys(handleClicks);
 
@@ -25,7 +30,7 @@ const Weekends = ({ values, editState, setFieldValue }) => {
         />
       )}
 
-      {!isDisabled && <EditButton editState={editState} />}
+      {!isDisabled && <EditButton startEditWeekends={startEditWeekends} />}
     </>
   );
 };

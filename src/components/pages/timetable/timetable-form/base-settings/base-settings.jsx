@@ -3,11 +3,18 @@ import DisplaySessionTime from './display-session-time';
 import EditSessionTime from './edit-session-time/edit-session-time';
 import PossibleServiceDurations from '../../shared/possible-service-durations';
 
-const BaseSettings = ({ values, setFieldValue, editState }) => {
-  const [{ element }] = editState;
+const BaseSettings = ({
+  values,
+  setFieldValue,
+  editState,
+  startEditSessionTime,
+  finishEditSessionTime,
+}) => {
+  const { sessionTime } = editState.element;
 
   const { isDisabled, handleClicks } = useEditState({
     editState,
+    finishEditSessionTime,
     values,
     setFieldValue,
   });
@@ -19,10 +26,14 @@ const BaseSettings = ({ values, setFieldValue, editState }) => {
         Базовая длительность сеанса:
       </label>
 
-      {element.sessionTime ? (
+      {sessionTime ? (
         <EditSessionTime handleClicks={handleClicks} values={values} />
       ) : (
-        <DisplaySessionTime values={values} isDisabled={isDisabled} editState={editState} />
+        <DisplaySessionTime
+          values={values}
+          isDisabled={isDisabled}
+          startEditSessionTime={startEditSessionTime}
+        />
       )}
 
       <PossibleServiceDurations values={values.edit} className="mt-1" />

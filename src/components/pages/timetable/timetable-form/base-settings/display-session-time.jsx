@@ -1,22 +1,14 @@
 import Pen from '../../../../base/icons/pen';
 
-const DisplaySessionTime = ({ values, editState, isDisabled }) => {
+const DisplaySessionTime = ({ values, isDisabled, startEditSessionTime }) => {
   const { sessionTime } = values;
-
-  const [state, setState] = editState;
-
-  const editSessionTime = () =>
-    setState(() => ({
-      isEditing: true,
-      element: { ...state.element, sessionTime: true },
-    }));
 
   return (
     <>
       <span className="timetable-card__value">{sessionTime} мин</span>
       {!isDisabled && (
         <div
-          onClick={editSessionTime}
+          onClick={startEditSessionTime}
           className="timetable-card__btn-edit timetable-card__btn-edit--absolute btn-icon"
         >
           <Pen />

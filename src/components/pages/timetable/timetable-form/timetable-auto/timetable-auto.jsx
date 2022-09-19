@@ -4,15 +4,15 @@ import VisualTimetableAuto from './visual-timetable-auto';
 import Weekends from './weekends/weekends';
 import WorkingDay from './working-day/working-day';
 
-const TimetableAuto = ({ editState, ...formikProps }) => (
+const TimetableAuto = ({ editState, ...props }) => (
   <>
     <div className="timetable__timetable-card timetable-card mt-6 card">
       <div className="timetable-card__heading">Настройки расписания</div>
-      <Weekends {...formikProps} editState={editState} />
-      <WorkingDay {...formikProps} editState={editState} />
-      <Exceptions {...formikProps} />
+      <Weekends editState={editState} {...props} />
+      <WorkingDay editState={editState} {...props} />
+      <Exceptions {...props} />
     </div>
-    <VisualTimetableAuto {...formikProps} editState={editState} />
+    <VisualTimetableAuto editState={editState} {...props} />
   </>
 );
 

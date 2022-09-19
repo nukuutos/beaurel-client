@@ -4,17 +4,15 @@ import { useSelector } from 'react-redux';
 import Plus from '../../../../../base/icons/plus';
 import displayDuration from '../../../../utils/display-duration';
 
-const DisplayDay = ({ editState, modalState, values, weekdayName, index }) => {
-  const [, setState] = modalState;
-  const [{ isEditing }] = editState;
+const DisplayDay = ({ editState, getOpenModal, values, weekdayName, index }) => {
+  const { isEditing } = editState;
 
   const { update } = useSelector((state) => state.timetable);
   const { appointments } = values.manually;
   const day = appointments[index];
   const isDisabled = update.date || isEditing;
   const disabledClassName = isDisabled ? 'btn--disabled' : '';
-
-  const openModal = () => setState({ isOpen: true, weekdayIndex: index });
+  const openModal = getOpenModal(index);
 
   return (
     <FieldArray

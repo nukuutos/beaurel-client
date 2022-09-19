@@ -1,15 +1,13 @@
 import { FieldArray } from 'formik';
 import AddTime from './add-time';
 
-const EditManuallyAppointments = ({ modalState, ...props }) => {
-  const [{ weekdayIndex }] = modalState;
+const EditManuallyAppointments = ({ state, ...props }) => {
+  const { weekdayIndex } = state;
 
   return (
     <FieldArray
       name={`manually.appointments[${weekdayIndex}]`}
-      render={(fieldArrayProps) => (
-        <AddTime modalState={modalState} {...props} {...fieldArrayProps} />
-      )}
+      render={(fieldArrayProps) => <AddTime state={state} {...props} {...fieldArrayProps} />}
     />
   );
 };
