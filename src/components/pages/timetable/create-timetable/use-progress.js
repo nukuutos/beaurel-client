@@ -1,19 +1,48 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
+
+const RESET = 'RESET';
+const GO_TO_NEXT_STEP = 'GO_TO_NEXT_STEP';
+const GO_TO_PICKED_STEP = 'GO_TO_PICKED_STEP';
+
+const reducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case GO_TO_NEXT_STEP: {
+      const { current, last } = state;
+
+      const newLast = current === last ? last + 1 : last;
+      const newCurrent = current + 1;
+
+      return { ...state, current: newCurrent, last: newLast };
+    }
+
+    case RESET: {
+      return { ...state, current: 2, last: 2 };
+    }
+
+    case GO_TO_PICKED_STEP: {
+      return { ...state, current: payload };
+    }
+
+    default:
+      return state;
+  }
+};
+
+const initialState = { current: 1, last: 1 };
 
 const useProgress = () => {
-  const [state, setState] = useState({ current: 1, last: 1 });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const resetProgress = () => setState(() => ({ current: 2, last: 2 }));
-  const goToNextStep = () =>
-    setState(() => {
-      const last = state.current === state.last ? state.last + 1 : state.last;
-      const current = state.current + 1;
-      return { current, last };
-    });
+  const resetProgress = () => dispatch({ type: RESET });
+  const goToNextStep = () => dispatch({ type: GO_TO_NEXT_STEP });
 
-  const actions = { resetProgress, goToNextStep };
+  const getGoToPickedStep = (index) => () => dispatch({ type: GO_TO_PICKED_STEP, payload: index });
 
-  return [state, setState, actions];
+  const actions = { resetProgress, goToNextStep, getGoToPickedStep };
+
+  return [state, actions];
 };
 
 export default useProgress;

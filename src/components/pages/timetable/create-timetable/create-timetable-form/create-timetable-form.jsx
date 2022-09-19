@@ -11,10 +11,10 @@ import useProgress from '../use-progress';
 import { createTimetableSchema } from '../../schema';
 
 const CreateTimetableForm = () => {
-  const [state, setState, actions] = useProgress();
+  const [state, actions] = useProgress();
 
   const { current } = state;
-  const { goNext, resetProgress } = actions;
+  const { goToNextStep, resetProgress } = actions;
 
   const [handleSubmit, isLoading] = useOnSubmit();
 
@@ -45,17 +45,17 @@ const CreateTimetableForm = () => {
 
         return (
           <>
-            <ProgressBar count={stepsCount} state={[state, setState]} />
+            <ProgressBar count={stepsCount} state={state} {...actions} />
             <Form className="create-timetable__form">
-              {current === 1 && <SessionTime goNext={goNext} {...props} />}
+              {current === 1 && <SessionTime goNext={goToNextStep} {...props} />}
               {current === 2 && (
-                <ChoiceCards resetProgress={resetProgress} goNext={goNext} {...props} />
+                <ChoiceCards resetProgress={resetProgress} goNext={goToNextStep} {...props} />
               )}
-              {type === 'auto' && current === 3 && <WorkingDay goNext={goNext} {...props} />}
-              {type === 'auto' && current === 4 && <Weekends goNext={goNext} {...props} />}
+              {type === 'auto' && current === 3 && <WorkingDay goNext={goToNextStep} {...props} />}
+              {type === 'auto' && current === 4 && <Weekends goNext={goToNextStep} {...props} />}
               {type === 'auto' && current === 5 && <TimetableAuto {...props} />}
               {type === 'manually' && current === 3 && (
-                <VisualTimetableManually goNext={goNext} {...props} />
+                <VisualTimetableManually goNext={goToNextStep} {...props} />
               )}
             </Form>
           </>
