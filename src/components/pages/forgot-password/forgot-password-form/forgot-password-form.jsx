@@ -6,9 +6,9 @@ import Progress from '../progress/progress';
 import schema from '../schema';
 import VerificationCode from '../verification-code';
 
-const ForgotPasswordForm = ({ goToNextStep, state, setState, handleSubmit }) => (
+const ForgotPasswordForm = ({ goToNextStep, state, getGoToPickedStep, handleSubmit }) => (
   <>
-    <Progress count={3} state={[state, setState]} />
+    <Progress count={3} state={state} getGoToPickedStep={getGoToPickedStep} />
     <Formik
       validationSchema={schema}
       initialValues={{
@@ -26,9 +26,9 @@ const ForgotPasswordForm = ({ goToNextStep, state, setState, handleSubmit }) => 
     >
       {(props) => (
         <Form className="sign-up__form">
-          {state.current === 1 && <Phone goNext={goToNextStep} {...props} />}
-          {state.current === 2 && <VerificationCode goNext={goToNextStep} {...props} />}
-          {state.current === 3 && <Passwords goNext={goToNextStep} {...props} />}
+          {state.current === 1 && <Phone goToNextStep={goToNextStep} {...props} />}
+          {state.current === 2 && <VerificationCode goToNextStep={goToNextStep} {...props} />}
+          {state.current === 3 && <Passwords goToNextStep={goToNextStep} {...props} />}
         </Form>
       )}
     </Formik>

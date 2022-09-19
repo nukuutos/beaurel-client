@@ -8,7 +8,7 @@ import { customerSchema } from '../schemas';
 import useOnSubmit from '../use-on-submit';
 import Verification from '../shared/verification/verification';
 
-const CustomerCase = ({ goNext, current, disableProgressBar }) => {
+const CustomerCase = ({ goToNextStep, current, disableProgressBar }) => {
   const [isVerification, setIsVerification] = useState(false);
   const phone = useRef(null);
 
@@ -30,10 +30,10 @@ const CustomerCase = ({ goNext, current, disableProgressBar }) => {
         >
           {(props) => (
             <>
-              {current === 2 && <Names goNext={goNext} {...props} />}
-              {current === 3 && <Passwords goNext={goNext} {...props} />}
-              {current === 4 && <CityCustomer goNext={goNext} {...props} />}
-              {current === 5 && <Phone goNext={goNext} {...props} />}
+              {current === 2 && <Names goToNextStep={goToNextStep} {...props} />}
+              {current === 3 && <Passwords goToNextStep={goToNextStep} {...props} />}
+              {current === 4 && <CityCustomer goToNextStep={goToNextStep} {...props} />}
+              {current === 5 && <Phone goToNextStep={goToNextStep} {...props} />}
             </>
           )}
         </Formik>

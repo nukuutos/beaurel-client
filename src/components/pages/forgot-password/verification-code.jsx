@@ -4,7 +4,7 @@ import useResendCode from '../hooks/use-resend-code';
 import useTimer from '../hooks/use-timer';
 import ResendCode from '../shared/resend-code';
 
-const VerificationCode = ({ goNext, errors, values, handleChange }) => {
+const VerificationCode = ({ goToNextStep, errors, values, handleChange }) => {
   const [handleInputChange, handleKeyPress] = useHandleMultipleInputChange({ handleChange });
   const [timer, resetTimer] = useTimer();
   const resendCode = useResendCode(values.phone, '/auth/password/code');
@@ -29,7 +29,7 @@ const VerificationCode = ({ goNext, errors, values, handleChange }) => {
 
     if (first || seconde || third || fourth) return;
 
-    goNext();
+    goToNextStep();
   };
 
   return (

@@ -9,7 +9,7 @@ import Specialization from './specialization';
 import useOnSubmit from '../use-on-submit';
 import Verification from '../shared/verification/verification';
 
-const MasterCase = ({ goNext, current, disableProgressBar }) => {
+const MasterCase = ({ goToNextStep, current, disableProgressBar }) => {
   const [isVerification, setIsVerification] = useState(false);
   const phone = useRef(null);
 
@@ -39,11 +39,11 @@ const MasterCase = ({ goNext, current, disableProgressBar }) => {
         >
           {(props) => (
             <Form className="sign-up__form">
-              {current === 2 && <Specialization goNext={goNext} {...props} />}
-              {current === 3 && <Names goNext={goNext} {...props} />}
-              {current === 4 && <Passwords goNext={goNext} {...props} />}
-              {current === 5 && <PlaceOfWork goNext={goNext} {...props} />}
-              {current === 6 && <Phone goNext={goNext} {...props} />}
+              {current === 2 && <Specialization goToNextStep={goToNextStep} {...props} />}
+              {current === 3 && <Names goToNextStep={goToNextStep} {...props} />}
+              {current === 4 && <Passwords goToNextStep={goToNextStep} {...props} />}
+              {current === 5 && <PlaceOfWork goToNextStep={goToNextStep} {...props} />}
+              {current === 6 && <Phone goToNextStep={goToNextStep} {...props} />}
             </Form>
           )}
         </Formik>

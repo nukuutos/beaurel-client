@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import specializations from '../../../../../config/specializations';
 import Select from '../../../../base/form/select';
 
-const Specialization = ({ values, goNext, errors, validateField }) => {
+const Specialization = ({ values, goToNextStep, errors, validateField }) => {
   const isDisabled = !!errors.specialization;
   const disabledClassName = isDisabled ? 'btn--disabled' : '';
 
@@ -36,7 +36,7 @@ const Specialization = ({ values, goNext, errors, validateField }) => {
 
         <button
           disabled={isDisabled}
-          onClick={goNext}
+          onClick={goToNextStep}
           type="button"
           className={`btn btn--primary ${disabledClassName} sign-up__btn mt-6`}
         >

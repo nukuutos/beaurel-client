@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useEffect } from 'react';
 import ErrorInput from '../../../../base/form/error-input';
 
-const Names = ({ goNext, validateField, errors }) => {
+const Names = ({ goToNextStep, validateField, errors }) => {
   const isDisabled = errors.firstName || errors.lastName;
   const disabledClassName = isDisabled ? 'btn--disabled' : '';
 
@@ -16,7 +16,7 @@ const Names = ({ goNext, validateField, errors }) => {
 
     if (errors.firstName || errors.lastName) return;
 
-    goNext();
+    goToNextStep();
   };
 
   return (

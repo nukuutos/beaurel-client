@@ -2,7 +2,7 @@ import React from 'react';
 import CircleNotch from '../../../base/icons/circle-notch';
 import Cogs from '../../../base/icons/cogs';
 
-const ChoiceCards = ({ resetProgress, goNext, values, setFieldValue }) => {
+const ChoiceCards = ({ resetProgress, goToNextStep, values, setFieldValue }) => {
   const { type } = values;
 
   const getClassName = (state, value) => {
@@ -45,7 +45,7 @@ const ChoiceCards = ({ resetProgress, goNext, values, setFieldValue }) => {
           </p>
         </div>
 
-        <div onClick={goNext} className="sign-up__btn btn btn--primary">
+        <div onClick={goToNextStep} className="sign-up__btn btn btn--primary">
           Продолжить
         </div>
       </div>

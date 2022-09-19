@@ -2,20 +2,21 @@ import React from 'react';
 import Indicator from './indicator';
 import Line from './line';
 
-const IndicatorsAndLines = ({ count, state }) => {
-  const [{ current, last }, setState] = state;
+const IndicatorsAndLines = ({ count, state, getGoToPickedStep }) => {
+  const { current, last } = state;
 
   const components = [];
 
   for (let i = 1; i <= count; i++) {
     const isPassed = i <= last;
     const isCurrent = i === current;
+    const goToPickedStep = getGoToPickedStep(i);
 
     components.push(
       <Indicator
         isPassed={isPassed}
         isCurrent={isCurrent}
-        setState={setState}
+        onClick={goToPickedStep}
         index={i}
         key={`indicator-${i}`}
       />

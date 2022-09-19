@@ -9,12 +9,12 @@ const translateRoomValues = {
   apartment: 'Квартира',
 };
 
-const PlaceOfWork = ({ goNext, errors, setFieldValue }) => {
+const PlaceOfWork = ({ goToNextStep, errors, setFieldValue }) => {
   const [value, setValue] = useState('cabinet');
 
   const handleNext = () => {
     if (errors.placeOfWork) return;
-    goNext();
+    goToNextStep();
   };
 
   const disabledClassName = errors.placeOfWork ? 'btn--disabled' : '';

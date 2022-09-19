@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ErrorInput from '../../../../base/form/error-input';
 
-const Passwords = ({ goNext, errors, validateField }) => {
+const Passwords = ({ goToNextStep, errors, validateField }) => {
   const isDisabled = errors.password || errors.confirmedPassword;
   const disabledClassName = isDisabled ? 'btn--disabled' : '';
 
@@ -15,7 +15,7 @@ const Passwords = ({ goNext, errors, validateField }) => {
 
     if (errors.password || errors.confirmedPassword) return;
 
-    goNext();
+    goToNextStep();
   };
 
   return (

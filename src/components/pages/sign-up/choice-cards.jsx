@@ -2,7 +2,7 @@ import React from 'react';
 import User from '../../base/icons/user';
 import UserCard from '../../base/icons/user-card';
 
-const ChoiceCards = ({ resetProgress, goNext, state }) => {
+const ChoiceCards = ({ resetProgress, goToNextStep, state }) => {
   const [isCustomer, setIsCustomer] = state;
 
   const getClassName = (state, value) => {
@@ -38,7 +38,7 @@ const ChoiceCards = ({ resetProgress, goNext, state }) => {
           <h3 className="choice-card__heading mt-3">Клиент</h3>
           <p className="choice-card__description mt-3">Находите мастеров и записывайтесь!</p>
         </div>
-        <div onClick={goNext} className="sign-up__btn btn btn--primary">
+        <div onClick={goToNextStep} className="sign-up__btn btn btn--primary">
           Продолжить
         </div>
       </div>

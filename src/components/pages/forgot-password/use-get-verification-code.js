@@ -1,6 +1,6 @@
 import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
 
-const useGetVerificationCode = ({ phone, goNext }) => {
+const useGetVerificationCode = ({ phone, goToNextStep }) => {
   const [asyncAction, isLoading] = useAsyncAction();
 
   const getVerificationCode = async () => {
@@ -15,7 +15,7 @@ const useGetVerificationCode = ({ phone, goNext }) => {
 
     const response = await asyncAction(config);
 
-    if (response) goNext();
+    if (response) goToNextStep();
   };
 
   return [getVerificationCode, isLoading];
