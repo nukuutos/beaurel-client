@@ -3,19 +3,7 @@ import useAsyncAction from '../../../../hooks/use-async-action/use-async-action'
 import { servicesToUnsuitable } from '../../../../redux/service/actions/service';
 import { setTimetableUpdate } from '../../../../redux/timetable/actions';
 
-const getHandleState = (unsuitableServices) => (state) => {
-  if (!unsuitableServices) return { ...state, isVisible: false };
-
-  const toUnsuitableServicesModal = {
-    ...state,
-    step: 1,
-    servicesCountToUpdate: unsuitableServices,
-  };
-
-  return toUnsuitableServicesModal;
-};
-
-const useOnSubmit = (setUpdateTimetable) => {
+const useOnSubmit = ({ closeModal, needToUpdateServices }) => {
   const [asyncAction, isLoading] = useAsyncAction();
   const dispatch = useDispatch();
   const [timetable, servicesState, { accessToken, id: profileId }] = useSelector((state) => [
@@ -54,9 +42,12 @@ const useOnSubmit = (setUpdateTimetable) => {
         dispatch(servicesToUnsuitable({ date, sessionTime }));
       }
 
-      const handleState = getHandleState(unsuitableServices);
+      if (unsuitableServices) {
+        needToUpdateServices(unsuitableServices);
+      } else {
+        closeModal();
+      }
 
-      setUpdateTimetable(handleState);
       dispatch(setTimetableUpdate({ update }));
       resetForm();
     }

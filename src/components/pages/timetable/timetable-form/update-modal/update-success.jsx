@@ -2,12 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../base/modal/modal-heading';
 
-const UpdateSuccess = ({ updateTimetableState }) => {
-  const [{ servicesCountToUpdate }, setUpdateTimetable] = updateTimetableState;
+const UpdateSuccess = ({ goToUpdateServices, closeModal, updateState }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
-
-  const closeModal = () => setUpdateTimetable((state) => ({ ...state, isVisible: false, step: 0 }));
-  const nextStep = () => setUpdateTimetable((state) => ({ ...state, step: 2 }));
+  const { servicesCountToUpdate } = updateState;
 
   return (
     <div className={`update-success ${isPhone ? '' : 'card'}`}>
@@ -20,7 +17,7 @@ const UpdateSuccess = ({ updateTimetableState }) => {
       <p className="mt-6">Необходимо обновить длительность услуг!</p>
       <p className="mt-2">Количество услуг: {servicesCountToUpdate}</p>
       <p className="update-success__danger mt-2">Иначе услуги будут недоступны!</p>
-      <div onClick={nextStep} className="update-success__btn btn btn--primary mt-6">
+      <div onClick={goToUpdateServices} className="update-success__btn btn btn--primary mt-6">
         Обновить услуги
       </div>
     </div>

@@ -11,21 +11,18 @@ import UpdateModal from './update-modal/update-modal';
 import useEditState from './use-edit-state';
 import useGetInitialValues from './use-get-initial-values';
 import useOnSubmit from './use-on-submit';
+import useUpdateTimetableState from './use-update-timetable-state';
 
 const TimetableForm = () => {
   const { update } = useSelector((state) => state.timetable);
 
-  const [updateTimetable, setUpdateTimetable] = useState({
-    isVisible: false,
-    servicesCountToUpdate: null,
-    step: 0,
-  });
+  const [updateState, updateActions] = useUpdateTimetableState();
 
   const [state, actions] = useEditState();
 
   const initialValues = useGetInitialValues();
 
-  const [handleSubmit, isLoading] = useOnSubmit(setUpdateTimetable);
+  const [handleSubmit, isLoading] = useOnSubmit(updateActions);
 
   return (
     <Formik
@@ -48,19 +45,14 @@ const TimetableForm = () => {
               <TimetableManually editState={state} {...formikProps} />
             )}
 
-            {!update.date && (
-              <FormButtons
-                setUpdateTimetable={setUpdateTimetable}
-                editState={state}
-                {...formikProps}
-              />
-            )}
+            {!update.date && <FormButtons editState={state} {...updateActions} {...formikProps} />}
 
-            {updateTimetable.isVisible && (
+            {updateState.isVisible && (
               <UpdateModal
-                {...formikProps}
+                updateState={updateState}
                 isLoading={isLoading}
-                updateTimetableState={[updateTimetable, setUpdateTimetable]}
+                {...updateActions}
+                {...formikProps}
               />
             )}
           </Form>

@@ -1,9 +1,5 @@
-import React from 'react';
-
-const FormButtons = ({ setUpdateTimetable, editState, dirty, resetForm }) => {
+const FormButtons = ({ openModal, editState, dirty, resetForm }) => {
   const { isEditing } = editState;
-
-  const openModal = () => setUpdateTimetable((state) => ({ ...state, isVisible: true }));
 
   const disabledClassName = !isEditing && dirty ? '' : 'btn--disabled';
 
