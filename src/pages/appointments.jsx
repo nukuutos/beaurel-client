@@ -7,6 +7,7 @@ import useGetAppointments from '../components/pages/appointments/use-get-appoint
 import getAppointmentsServerSideProps from '../server/get-server-side-props/appointments';
 
 import Layout from '../components/layout/layout';
+import useAppointmentsState from '../components/pages/appointments/use-appointments-state';
 // import AppointmentsCategoriesController from '../components/pages/appointments/appointment-categories-controller/appointments-categories-controller';
 // import AppointmentController from '../components/pages/appointments/appointments-controller/appointments-controller';
 // import NoAppointments from '../components/pages/appointments/no-appointments';
@@ -31,7 +32,8 @@ const AppointmentsDays = dynamic(() =>
 
 const Appointments = () => {
   const { role } = useSelector((state) => state.auth);
-  const [state, setState] = useState({ user: role, category: 'onConfirmation' });
+  // const [state, setState] = useState({ user: role, category: 'onConfirmation' });
+  const [state, actions] = useAppointmentsState();
   const [appointments, isLoading] = useGetAppointments(state);
 
   const isAppointments = Object.keys(appointments).length;
@@ -40,8 +42,8 @@ const Appointments = () => {
     <Layout>
       <main className="content">
         {role === 'customer' && <h1 className="appointments__heading heading mt-8">Ваши записи</h1>}
-        {role === 'master' && <AppointmentController userState={[state.user, setState]} />}
-        <AppointmentsCategoriesController categoryState={[state, setState]} />
+        {role === 'master' && <AppointmentController state={state} {...actions} />}
+        <AppointmentsCategoriesController state={state} {...actions} />
         {isLoading || isAppointments ? (
           <AppointmentsDays isLoading={isLoading} state={state} />
         ) : (

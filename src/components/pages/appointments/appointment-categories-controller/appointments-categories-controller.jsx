@@ -1,29 +1,31 @@
 import { useSelector } from 'react-redux';
 import getClassNames from './get-class-names';
-import getToCategories from './get-to-categories';
 
-const AppointmentsCategoriesController = ({ categoryState }) => {
+const AppointmentsCategoriesController = ({
+  state,
+  setOnConfirmation,
+  setConfirmed,
+  setUnsuitable,
+  setHistory,
+}) => {
   const { isNotification } = useSelector((state) => state.appointments);
-  const [{ user, category }, setState] = categoryState;
+  const { user, category } = state;
 
   const { onConfirmationClassName, confirmedClassName, unsuitableClassName, historyClassName } =
     getClassNames(category, isNotification[user]);
 
-  const { goToOnConfirmation, goToConfirmed, goToUnsuitable, goToHistory } =
-    getToCategories(setState);
-
   return (
     <h2 className="appointments__appointment-types appointment-types card">
-      <span onClick={goToOnConfirmation} className={onConfirmationClassName}>
+      <span onClick={setOnConfirmation} className={onConfirmationClassName}>
         ожидают
       </span>
-      <span onClick={goToConfirmed} className={confirmedClassName}>
+      <span onClick={setConfirmed} className={confirmedClassName}>
         подтверждены
       </span>
-      <span onClick={goToUnsuitable} className={unsuitableClassName}>
+      <span onClick={setUnsuitable} className={unsuitableClassName}>
         неподходящие
       </span>
-      <span onClick={goToHistory} className={historyClassName}>
+      <span onClick={setHistory} className={historyClassName}>
         история
       </span>
     </h2>
