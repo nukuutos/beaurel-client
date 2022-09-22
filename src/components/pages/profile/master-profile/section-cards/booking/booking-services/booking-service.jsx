@@ -8,12 +8,13 @@ import ChevronRight from '../../../../../../base/icons/chevron-right';
 // bookingAppointment.date is utc 00:00:00!!!
 
 // service that can be disabled
-const BookingService = ({ service, state, pickService, isAfterUpdate }) => {
+const BookingService = ({ service, state, getPickService, isAfterUpdate }) => {
   const timetable = useSelector((state) => state.timetable);
 
   const { step, date, time, unavailableAppointments, availableAppointments } = state;
 
   const bookingService = getCorrectService({ step, service, today: date, isAfterUpdate });
+  const pickService = getPickService({ ...bookingService, isAfterUpdate });
 
   const isDisabled = getIsDisabled(
     { time, unavailableAppointments, availableAppointments, date },

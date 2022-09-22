@@ -5,8 +5,7 @@ import TitleSectionPhone from './title-section-phone';
 import useDeleteWork from '../use-delete-work';
 
 const CarouselPhone = ({ state, goToPrevWork, goToNextWork, goToGallery, goToEditWork }) => {
-  const [{ id: masterId }, { works }] = useSelector((state) => [state.profile, state.works]);
-
+  const [{ id: masterId }, { works }] = useSelector((state) => [state.profile, state.work]);
   const [deleteWork, isDeleting] = useDeleteWork({ state, goToGallery });
 
   const { index, length } = state;

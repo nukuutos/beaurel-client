@@ -5,12 +5,22 @@ import BookingTimetablePhone from './booking-timetable-phone/booking-timetable-p
 
 const DisplayTimetable = ({ state, getPickDate, ...props }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
-  const { step } = state;
+  const { step, service } = state;
 
   return isPhone ? (
-    <BookingTimetablePhone step={step} getHandleClickOnDay={getPickDate} {...props} />
+    <BookingTimetablePhone
+      step={step}
+      service={service}
+      getHandleClickOnDay={getPickDate}
+      {...props}
+    />
   ) : (
-    <BookingTimetableDesktop step={step} getHandleClickOnDay={getPickDate} {...props} />
+    <BookingTimetableDesktop
+      step={step}
+      service={service}
+      getHandleClickOnDay={getPickDate}
+      {...props}
+    />
   );
 };
 

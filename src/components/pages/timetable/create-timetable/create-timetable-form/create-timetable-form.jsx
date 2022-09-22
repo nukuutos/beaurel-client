@@ -47,16 +47,18 @@ const CreateTimetableForm = () => {
           <>
             <ProgressBar count={stepsCount} state={state} {...actions} />
             <Form className="create-timetable__form">
-              {current === 1 && <SessionTime goNext={goToNextStep} {...props} />}
+              {current === 1 && <SessionTime goToNextStep={goToNextStep} {...props} />}
               {current === 2 && (
-                <ChoiceCards resetProgress={resetProgress} goNext={goToNextStep} {...props} />
+                <ChoiceCards resetProgress={resetProgress} goToNextStep={goToNextStep} {...props} />
               )}
-              {type === 'auto' && current === 3 && <WorkingDay goNext={goToNextStep} {...props} />}
-              {type === 'auto' && current === 4 && <Weekends goNext={goToNextStep} {...props} />}
+              {type === 'auto' && current === 3 && (
+                <WorkingDay goToNextStep={goToNextStep} {...props} />
+              )}
+              {type === 'auto' && current === 4 && (
+                <Weekends goToNextStep={goToNextStep} {...props} />
+              )}
               {type === 'auto' && current === 5 && <TimetableAuto {...props} />}
-              {type === 'manually' && current === 3 && (
-                <VisualTimetableManually goNext={goToNextStep} {...props} />
-              )}
+              {type === 'manually' && current === 3 && <VisualTimetableManually {...props} />}
             </Form>
           </>
         );

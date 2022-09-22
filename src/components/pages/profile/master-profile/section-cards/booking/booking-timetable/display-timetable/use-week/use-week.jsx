@@ -10,7 +10,7 @@ import handleManuallyCase from './utils/handle-cases/handle-manually-case';
 import handleTimeFrame from './utils/handle-cases/handle-time-frame';
 import { getIsWithinTimeFrame } from './utils/time-frame';
 
-const useWeek = ({ step, startDayData, getHandleClickOnDay }) => {
+const useWeek = ({ step, startDayData, getHandleClickOnDay, service }) => {
   const [timetableState, appointmentsState] = useSelector((state) => [
     state.timetable,
     state.appointments,
@@ -20,7 +20,7 @@ const useWeek = ({ step, startDayData, getHandleClickOnDay }) => {
 
   const { startDayOfWeek, endDayOfWeek, month, year } = getDataForUseWeek(startDay);
 
-  const timeFrame = useTimeFrame();
+  const timeFrame = useTimeFrame(service);
 
   const weekDays = [];
 

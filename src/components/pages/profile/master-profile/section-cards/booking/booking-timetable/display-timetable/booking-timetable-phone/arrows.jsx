@@ -3,10 +3,10 @@ import ChevronRight from '../../../../../../../../base/icons/chevron-right';
 import useTimeFrame from '../use-week/use-time-frame';
 import { getIsFromDate, getIsUntilDate } from '../use-week/utils/time-frame';
 
-const Arrows = ({ controllers, startDayData, day, step }) => {
+const Arrows = ({ service, controllers, startDayData, day, step }) => {
   const { toPrevDay, toNextDay } = controllers;
   const { today } = startDayData;
-  const { untilDate, fromDate } = useTimeFrame();
+  const { untilDate, fromDate } = useTimeFrame(service);
 
   const isDayAfterToday =
     day.props.date.isAfter(today.add(1, 'd')) &&

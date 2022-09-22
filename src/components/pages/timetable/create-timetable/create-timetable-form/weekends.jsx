@@ -2,7 +2,7 @@ import { FieldArray } from 'formik';
 import getWeekdayData from '../../utils/get-weekday-data';
 import weekdaysRU from '../../utils/weekdays-ru';
 
-const Passwords = ({ values, goNext }) => (
+const Passwords = ({ values, goToNextStep }) => (
   <>
     <h2 className="sign-up__heading">Отметьте выходные дни</h2>
 
@@ -35,7 +35,7 @@ const Passwords = ({ values, goNext }) => (
     />
 
     <div className="sign-up__group">
-      <button onClick={goNext} type="button" className="btn btn--primary sign-up__btn mt-6">
+      <button onClick={goToNextStep} type="button" className="btn btn--primary sign-up__btn mt-6">
         Продолжить
       </button>
     </div>

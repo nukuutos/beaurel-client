@@ -12,9 +12,10 @@ const BookingTimetableDesktop = ({
   isLoading,
   children,
   getHandleClickOnDay,
+  service,
 }) => {
   const [startDayData, setStartDay] = useStartDay();
-  const weekDays = useWeek({ startDayData, step, getHandleClickOnDay });
+  const weekDays = useWeek({ startDayData, step, getHandleClickOnDay, service });
   const loadingOnGetAppointments = useGetAppointmentData(startDayData);
 
   const isBackButton = step === 2;
@@ -28,7 +29,11 @@ const BookingTimetableDesktop = ({
       {(isLoading || loadingOnGetAppointments) && <div className="spinner-with-background" />}
       {isBackButton && <BackButton onClickClose={closeTimetable} />}
       {children}
-      <BookingTimetableHeader step={step} startDateState={[startDayData, setStartDay]} />
+      <BookingTimetableHeader
+        service={service}
+        step={step}
+        startDateState={[startDayData, setStartDay]}
+      />
       {weekDays}
       {isUnavailableWeek && <NoAppointments setDate={setStartDay} />}
     </div>

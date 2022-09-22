@@ -11,12 +11,10 @@ const Services = ({ state, getPickService, servicesSwitcher }) => {
   const { services } = useSelector((state) => state.services);
 
   return services.map((service) => {
-    const pickService = getPickService(service);
-
     const props = {
       state,
-      pickService,
       service,
+      getPickService,
       key: service.title,
       isAfterUpdate: servicesSwitcher === 'after',
     };

@@ -7,7 +7,7 @@ import getIsDisabled from './utils/get-is-disabled';
 import getCorrectService from './utils/get-correct-service';
 import ChevronRight from '../../../../../../base/icons/chevron-right';
 
-const BookingParameterService = ({ service, state, pickService, isAfterUpdate }) => {
+const BookingParameterService = ({ service, state, getPickService, isAfterUpdate }) => {
   const [timetable] = useSelector((state) => [state.timetable]);
 
   const { step, date, time, unavailableAppointments, availableAppointments } = state;
@@ -34,6 +34,8 @@ const BookingParameterService = ({ service, state, pickService, isAfterUpdate })
             today: date,
             isAfterUpdate,
           });
+
+          const pickService = getPickService(bookingSubService);
 
           const isDisabled = getIsDisabled(
             { date, time, unavailableAppointments, availableAppointments },

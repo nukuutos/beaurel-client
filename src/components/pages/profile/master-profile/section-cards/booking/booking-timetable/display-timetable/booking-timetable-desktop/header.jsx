@@ -5,14 +5,14 @@ import { getIsUntilDate } from '../use-week/utils/time-frame';
 import ChevronLeft from '../../../../../../../../base/icons/chevron-left';
 import ChevronRight from '../../../../../../../../base/icons/chevron-right';
 
-const BookingTimetableHeader = ({ step, startDateState }) => {
+const BookingTimetableHeader = ({ step, startDateState, service }) => {
   const [startDayData, setStartDay] = startDateState;
 
   const prevWeek = () => setStartDay((today) => today.weekday(-7));
   const nextWeek = () => setStartDay((today) => today.weekday(7));
 
   const { today, startDay } = startDayData;
-  const { untilDate } = useTimeFrame();
+  const { untilDate } = useTimeFrame(service);
 
   const isStartDayBeforeOrSameToday = startDay.isSameOrBefore(today);
 

@@ -1,12 +1,7 @@
 import { useSelector } from 'react-redux';
 
-const useTimeFrame = () => {
-  const [{ update }, { service }] = useSelector((state) => [
-    state.timetable,
-    state.appointments.booking.bookingAppointment,
-  ]);
-
-  // const isStatus = service?.status;
+const useTimeFrame = (service) => {
+  const { update } = useSelector((state) => state.timetable);
 
   if (!update) return { fromDate: false, untilDate: false };
   if (service?.isAfterUpdate) return { fromDate: update.date, untilDate: false };

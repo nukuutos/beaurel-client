@@ -7,10 +7,16 @@ import useBookingTimetablePhone from './use-booking-timetable-phone';
 import useStartDay from '../use-start-day';
 import useFindFirstAppointment from './use-find-first-appointment';
 
-const BookingTimetablePhone = ({ step, getHandleClickOnDay, closeTimetable, isLoading }) => {
+const BookingTimetablePhone = ({
+  step,
+  service,
+  getHandleClickOnDay,
+  closeTimetable,
+  isLoading,
+}) => {
   const [startDayData, setStartDay] = useStartDay();
   const [weekdayIndex, controllers] = useBookingTimetablePhone(setStartDay);
-  const weekDays = useWeek({ startDayData, step, getHandleClickOnDay });
+  const weekDays = useWeek({ startDayData, step, getHandleClickOnDay, service });
   const isUnavailableWeek = weekDays.every(({ props }) => !props.availableAppointments);
   const day = weekDays[weekdayIndex];
 
@@ -24,7 +30,13 @@ const BookingTimetablePhone = ({ step, getHandleClickOnDay, closeTimetable, isLo
       <div className="booking-timetable">
         <Header setDate={setStartDay} onClickBack={closeTimetable} />
         {!isUnavailableWeek && (
-          <Arrows step={step} startDayData={startDayData} day={day} controllers={controllers} />
+          <Arrows
+            service={service}
+            step={step}
+            startDayData={startDayData}
+            day={day}
+            controllers={controllers}
+          />
         )}
         {day}
         {!day.props.availableAppointments && !isUnavailableWeek && (

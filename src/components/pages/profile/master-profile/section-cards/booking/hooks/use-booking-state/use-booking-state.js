@@ -26,9 +26,9 @@ const useBookingState = ({ isService, isTimetable, onClickClose }) => {
   const goToSuccess = () => dispatch({ type: GO_TO_SUCCESS });
 
   const getPickService =
-    ({ id, title, duration }) =>
+    ({ id, title, duration, isAfterUpdate }) =>
     () => {
-      dispatch({ type: PICK_SERVICE, payload: { id, title, duration } });
+      dispatch({ type: PICK_SERVICE, payload: { id, title, duration, isAfterUpdate } });
     };
 
   const getPickDate =

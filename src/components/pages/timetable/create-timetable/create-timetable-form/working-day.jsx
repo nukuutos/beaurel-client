@@ -1,7 +1,7 @@
 import Select from '../../../../base/form/select';
 import DurationOptions from '../../utils/duration-options';
 
-const WorkingDay = ({ goNext, handleChange, validateField, errors }) => {
+const WorkingDay = ({ goToNextStep, handleChange, validateField, errors }) => {
   const { endAt: endAtError } = errors.auto?.workingDay || {};
 
   const disabledClassName = endAtError ? 'btn--disabled' : '';
@@ -39,7 +39,7 @@ const WorkingDay = ({ goNext, handleChange, validateField, errors }) => {
       {endAtError ? <div className="error mt-1">{endAtError}</div> : null}
 
       <button
-        onClick={endAtError ? null : goNext}
+        onClick={endAtError ? null : goToNextStep}
         type="button"
         className={`btn btn--primary ${disabledClassName} sign-up__btn mt-6`}
       >
