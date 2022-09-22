@@ -3,11 +3,8 @@ import ModalHeading from '../../../../../../../../../base/modal/modal-heading';
 import UpdateServices from './update-services/update-services';
 import useGetDataForUpdate from './use-get-data-for-update';
 
-const UpdateDuration = ({ setStep, onClickClose }) => {
-  const { isPhone } = useSelector((state) => [
-    state.appointments.booking.bookingAppointment.service,
-    state.screenSize,
-  ]);
+const UpdateDuration = ({ state, updateDuration, close }) => {
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   useGetDataForUpdate();
 
@@ -16,10 +13,10 @@ const UpdateDuration = ({ setStep, onClickClose }) => {
       <ModalHeading
         titleDesktopClassName="add-service__heading"
         title="Изменить длительность"
-        onClickClose={onClickClose}
+        onClickClose={close}
       />
 
-      <UpdateServices setStep={setStep} />
+      <UpdateServices state={state} updateDuration={updateDuration} />
     </div>
   );
 };

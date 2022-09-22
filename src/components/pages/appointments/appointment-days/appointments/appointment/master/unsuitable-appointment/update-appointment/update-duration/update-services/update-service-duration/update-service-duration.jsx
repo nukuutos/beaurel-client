@@ -1,32 +1,27 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { useSelector } from 'react-redux';
 import { updateServiceDurationSchema } from '../../../../../../../../../../services/utils/schemas';
 import Input from '../../../../../../../../../../../base/form/input';
 import getDisabledClassName from './get-disabled-class-name';
 import useSessionTime from '../../use-session-time';
-import useHandleSubmit from '../../use-handle-submit';
 import Price from '../price';
 import Duration from '../duration/duration';
 
-const UpdateServiceDuration = ({ setStep }) => {
-  const service = useSelector((state) => state.appointments.booking.bookingAppointment.service);
-
+const UpdateServiceDuration = ({ service, updateDuration }) => {
   const { correctSessionTime } = useSessionTime();
-  const handleSubmit = useHandleSubmit(setStep);
 
   const schema = updateServiceDurationSchema(correctSessionTime);
 
   return (
     <Formik
       initialValues={{
-        title: service?.title,
-        duration: service?.duration,
-        price: service?.price,
+        title: service?.title || '',
+        duration: service?.duration || 0,
+        price: service?.price || 0,
       }}
       enableReinitialize
       validationSchema={schema}
-      onSubmit={handleSubmit}
+      onSubmit={updateDuration}
     >
       {({ values }) => {
         const disabledClassName = getDisabledClassName(values.duration, correctSessionTime);

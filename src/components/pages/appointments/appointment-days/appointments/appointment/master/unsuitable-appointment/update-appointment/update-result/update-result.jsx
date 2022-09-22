@@ -2,11 +2,11 @@ import React from 'react';
 import Result from '../../../../../../../../shared/booking/result/result';
 import useUpdateAppointment from './use-update-appointment';
 
-const UpdateResult = ({ appointment, setStep, onClickClose }) => {
-  const [bookTime, isLoading] = useUpdateAppointment(appointment, setStep);
+const UpdateResult = ({ state, appointment, goToSuccess, backToTimetable }) => {
+  const [bookTime, isLoading] = useUpdateAppointment({ state, appointment, goToSuccess });
 
   return (
-    <Result isLoading={isLoading} onClickClose={onClickClose}>
+    <Result state={state} isLoading={isLoading} onClickClose={backToTimetable}>
       <button
         disabled={isLoading}
         onClick={bookTime}

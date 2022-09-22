@@ -1,16 +1,14 @@
 import BookedTime from './booked-time';
 import BookingTimetableDesktop from '../../../../../../../../profile/master-profile/section-cards/booking/booking-timetable/display-timetable/booking-timetable-desktop/booking-timetable-desktop';
-import useGetHandleClickOnDay from './use-get-handle-click-on-day';
 
-const UpdateDateDesktop = ({ appointment, stepState, onClickClose }) => {
-  const [step, setStep] = stepState;
-  const getHandleClickOnDay = useGetHandleClickOnDay(setStep);
+const UpdateDateDesktop = ({ appointment, state, backToServices, getPickDate }) => {
+  const { step } = state;
 
   return (
     <BookingTimetableDesktop
       step={step}
-      getHandleClickOnDay={getHandleClickOnDay}
-      onClickClose={onClickClose}
+      getHandleClickOnDay={getPickDate}
+      closeTimetable={backToServices}
     >
       <BookedTime appointment={appointment} />
     </BookingTimetableDesktop>

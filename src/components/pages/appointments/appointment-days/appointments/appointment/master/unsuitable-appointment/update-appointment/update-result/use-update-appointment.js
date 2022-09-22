@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../../../hooks/use-async-action/use-async-action';
 import { updateUnsuitableAppointment } from '../../../../../../../../../../redux/appointments/actions';
 
-const useUpdateAppointment = (appointment, setStep) => {
-  const dispatch = useDispatch();
-  const [{ date, time, service }, { accessToken, id: masterId }] = useSelector((state) => [
-    state.appointments.booking.bookingAppointment,
-    state.auth,
-  ]);
-
+const useUpdateAppointment = ({ state, appointment, goToSuccess }) => {
+  const { accessToken, id: masterId } = useSelector((state) => state.auth);
   const [asyncAction, isLoading] = useAsyncAction();
+  const dispatch = useDispatch();
 
+  const { date, time, service } = state;
   const { _id: appointmentId, date: prevDate } = appointment;
 
   const bookTime = async () => {
@@ -41,7 +38,7 @@ const useUpdateAppointment = (appointment, setStep) => {
         })
       );
 
-      setStep(4);
+      goToSuccess();
     }
   };
 
