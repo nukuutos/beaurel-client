@@ -28,6 +28,7 @@ const securityHeaders = [
 ];
 
 let config = {
+  reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/sass')],
   },
