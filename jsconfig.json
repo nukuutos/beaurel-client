@@ -3,7 +3,11 @@
     "module": "ES6",
     "target": "es2021",
     "jsx": "react",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "@styles/*": ["./src/sass/abstracts/*"]
+    }
   },
   "include": ["./src/**/*"]
 }
