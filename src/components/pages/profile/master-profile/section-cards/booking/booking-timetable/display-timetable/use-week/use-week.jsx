@@ -33,8 +33,13 @@ const useWeek = ({ step, startDayData, getHandleClickOnDay, service }) => {
     if (data.isContinue) continue;
 
     const timetable = Timetable.getCorrectTimetable(timetableState, date);
-    const dataForBooking = Timetable.getDataFromAppointmentState(appointmentsState, date);
-    const dataForCases = { addEmptyDay, date, timetable, dataForBooking };
+    const bookedAppointments = Timetable.getDataFromAppointmentState(appointmentsState, date);
+    const dataForCases = {
+      addEmptyDay,
+      date,
+      timetable,
+      dataForBooking: { bookedAppointments, service },
+    };
 
     if (timetable.type === 'auto') {
       data = handleAutoCase(dataForCases);

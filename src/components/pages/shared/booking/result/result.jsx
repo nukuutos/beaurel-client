@@ -16,10 +16,7 @@ const displayDate = (date) => {
 };
 
 const Result = ({ state, onClickClose, children, isLoading }) => {
-  const [{ isPhone }] = useSelector((state) => [
-    state.appointments.booking.bookingAppointment,
-    state.screenSize,
-  ]);
+  const { isPhone } = useSelector((state) => state.screenSize);
 
   const { date, time, service } = state;
 

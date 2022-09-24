@@ -4,8 +4,8 @@ import Time from '../../../../../../../../../../../base/icons/time.';
 import DurationOptions from '../../../../../../../../../../services/duration-options/duration-options';
 import useDuration from './use-duration';
 
-const Duration = ({ values }) => {
-  const { durationClassName, initialDuration, isUpdateSessionTime } = useDuration(values);
+const Duration = ({ values, service }) => {
+  const { durationClassName, initialDuration, isUpdateSessionTime } = useDuration(service, values);
 
   return (
     <div className="add-service__duration mr-4">

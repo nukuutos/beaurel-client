@@ -33,7 +33,7 @@ const UpdateSubServiceDuration = ({ service, updateDuration }) => {
             <Parameter />
 
             <div className="add-service__price-and-duration mt-6">
-              <Duration values={values} />
+              <Duration service={service} values={values} />
               <Price />
             </div>
 

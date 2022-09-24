@@ -3,11 +3,6 @@ import cloneDeep from 'lodash.clonedeep';
 import {
   GET_APPOINTMENTS_ON_SCROLL,
   GET_APPOINTMENTS_SUCCESS,
-  SET_APPOINTMENT_DATE,
-  SET_APPOINTMENT_SERVICE,
-  UNSET_APPOINTMENT,
-  UNSET_APPOINTMENT_DATE,
-  UNSET_APPOINTMENT_SERVICE,
   BOOK_APPOINTMENT_SUCCESS,
   SET_APPOINTMENTS,
   CHANGE_APPOINTMENT_STATUS,
@@ -52,19 +47,9 @@ const INITIAL_STATE = {
     customer: { onConfirmation: false, confirmed: false, unsuitable: false },
   },
 
-  // booking
-  // other reducer??(booking reducer)
-  // every property below for booking
   booking: {
     masterId: null,
     bookedAppointments: {},
-    bookingAppointment: {
-      date: null,
-      time: null,
-      service: null,
-      availableAppointments: [],
-      unavailableAppointments: [],
-    },
   },
 };
 
@@ -95,63 +80,6 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
-
-    case SET_APPOINTMENT_DATE:
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          bookingAppointment: { ...state.booking.bookingAppointment, ...payload },
-        },
-      };
-
-    case UNSET_APPOINTMENT_DATE:
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          bookingAppointment: {
-            ...state.booking.bookingAppointment,
-            date: null,
-            time: null,
-            availableAppointments: [],
-            unavailableAppointments: [],
-          },
-        },
-      };
-
-    case SET_APPOINTMENT_SERVICE:
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          bookingAppointment: { ...state.booking.bookingAppointment, service: { ...payload } },
-        },
-      };
-
-    case UNSET_APPOINTMENT_SERVICE:
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          bookingAppointment: { ...state.booking.bookingAppointment, service: null },
-        },
-      };
-
-    case UNSET_APPOINTMENT:
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          bookingAppointment: {
-            date: null,
-            time: null,
-            availableAppointments: [],
-            unavailableAppointments: [],
-            service: null,
-          },
-        },
-      };
 
     case BOOK_APPOINTMENT_SUCCESS: {
       const { time, date } = payload;

@@ -14,13 +14,11 @@ class Timetable {
   }
 
   static getDataFromAppointmentState(appointmentsState, date) {
-    const { bookedAppointments, bookingAppointment } = appointmentsState.booking; // appointments from appointmentsState
+    const { bookedAppointments } = appointmentsState.booking; // appointments from appointmentsState
     const stringDate = date.format('DD-MM-YYYY');
     const appointments = bookedAppointments[stringDate] || []; // get booked appointments from server for this date
 
-    const { service } = bookingAppointment;
-
-    return { bookedAppointments: appointments, service };
+    return appointments;
   }
 
   static getDate({ month, year, day }) {
