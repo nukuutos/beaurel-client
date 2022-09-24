@@ -2,6 +2,8 @@
 @use '../../../../abstracts/mixins' as *;
 
 .no-masters {
+  @include card;
+
   grid-column: 3 / 11;
   padding: 2.8rem 0rem 2rem;
   text-align: center;

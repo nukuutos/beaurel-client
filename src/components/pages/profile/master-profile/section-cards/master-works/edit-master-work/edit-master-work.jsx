@@ -9,11 +9,7 @@ import ChangeButton from '../utils/change-button';
 import MasterWorkForm from '../utils/master-work-form';
 
 const EditMasterWork = ({ state, goToCarousel, goToGallery }) => {
-  const [{ id: masterId }, { works }, { isPhone }] = useSelector((state) => [
-    state.auth,
-    state.work,
-    state.screenSize,
-  ]);
+  const [{ id: masterId }, { works }] = useSelector((state) => [state.auth, state.work]);
 
   const { index } = state;
 
@@ -31,7 +27,7 @@ const EditMasterWork = ({ state, goToCarousel, goToGallery }) => {
   };
 
   return (
-    <div className={`add-master-work ${isPhone ? '' : 'card'}`}>
+    <div className="add-master-work">
       <ModalHeading title="Обновить работу" onClickClose={goToCarousel} />
 
       {isLoading && <div className="spinner-with-background" />}

@@ -1,7 +1,9 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .update-success {
+  @include card;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;

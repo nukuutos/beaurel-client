@@ -1,18 +1,15 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import Modal from '../../../../../base/modal/modal';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import getWeekdayData from '../../../utils/get-weekday-data';
 import weekdaysRU from '../../../utils/weekdays-ru';
 
 const EditModal = ({ values, handleClicks, ...fieldArrayProps }) => {
-  const { isPhone } = useSelector((state) => state.screenSize);
   const [handleEdit, handleCancel] = handleClicks;
   const { weekends } = values.edit.auto;
 
   return (
     <Modal onClickClose={handleCancel}>
-      <div className={`weekends weekends--mobile ${isPhone ? '' : 'card'}`}>
+      <div className="weekends weekends--mobile">
         <ModalHeading
           titleDesktopClassName="weekends__heading"
           onClickClose={handleCancel}

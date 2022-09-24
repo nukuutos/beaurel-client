@@ -10,7 +10,7 @@ const Unauthorized = ({ onClickClose, title, children }) => {
   const goToSignUp = () => router.push('/sign-up');
 
   return (
-    <div className={`no-master-tools unauthorized ${isPhone ? '' : 'card'}`}>
+    <div className="no-master-tools unauthorized">
       {isPhone && <MobileModalHeading title={title} onClickClose={onClickClose} />}
 
       <img className="no-master-tools__svg" alt="Unauthorized action" src="/svg/unauthorized.svg" />

@@ -2,6 +2,8 @@
 @use '../../../../../../abstracts/mixins' as *;
 
 .booking-services {
+  @include card;
+
   position: relative;
   // width: 76.8rem;
   height: 64.8rem;

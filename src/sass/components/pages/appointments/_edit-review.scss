@@ -2,8 +2,8 @@
 @use '../../../abstracts/mixins' as *;
 
 .edit-review {
-  // display: grid;
-  // grid-template-columns: repeat(12, 1fr);
+  @include card;
+
   display: flex;
   flex-direction: column;
   padding: 0 2.4rem 2.4rem;

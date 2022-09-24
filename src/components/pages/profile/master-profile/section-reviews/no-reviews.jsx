@@ -2,11 +2,7 @@ import { useSelector } from 'react-redux';
 import Stars from '../../../../base/stars/stars';
 
 const NoReviews = () => {
-  const [{ id: profileId }, { id: userId }, { isPhone }] = useSelector((state) => [
-    state.profile,
-    state.auth,
-    state.screenSize,
-  ]);
+  const [{ id: profileId }, { id: userId }] = useSelector((state) => [state.profile, state.auth]);
 
   const customerText =
     'Будь первым, кто оставит свой отзыв! Но для начала тебе нужно побывать на приёме у Мастера, удачи!';
@@ -19,7 +15,7 @@ const NoReviews = () => {
   const textOwnerClassName = isProfileOwner ? 'noreview__text--owner' : '';
 
   return (
-    <div className={`profile__noreview noreview ${isPhone ? '' : 'card'}`}>
+    <div className="profile__noreview noreview">
       <p className={`noreview__text ${textOwnerClassName}`}>
         {isProfileOwner ? ownerText : customerText}
       </p>

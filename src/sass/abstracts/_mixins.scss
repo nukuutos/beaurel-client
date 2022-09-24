@@ -31,3 +31,16 @@
     box-shadow: 0 0 0.5rem rgba($color-black, 0.2);
   }
 }
+
+@mixin card {
+  position: relative;
+  box-shadow: 0 1px 0.5rem rgba($color-black, 0.25);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  @include respond(phone) {
+    box-shadow: none;
+    border-radius: 0;
+    overflow: initial;
+  }
+}

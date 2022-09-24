@@ -7,10 +7,7 @@ import AvatarCropper from './avatar-cropper/avatar-cropper';
 import NoAvatar from './no-avatar';
 
 const EditAvatar = ({ closeModal, editCounterRef }) => {
-  const [{ isAvatar, id: userId }, { isPhone }] = useSelector((state) => [
-    state.profile,
-    state.screenSize,
-  ]);
+  const { isAvatar, id: userId } = useSelector((state) => state.profile);
   const [updateAvatar, isLoading] = useUpdateAvatar(closeModal, editCounterRef);
 
   const { src, isUploaded, handleFileUpload } = useFileUpload(
@@ -21,7 +18,7 @@ const EditAvatar = ({ closeModal, editCounterRef }) => {
 
   return (
     <Modal onClickClose={closeModal}>
-      <div className={`upload-avatar ${isPhone ? '' : 'card'}`}>
+      <div className="upload-avatar">
         {isLoading && <div className="spinner-with-background" />}
         <ModalHeading title="Фото профиля" onClickClose={closeModal} />
 

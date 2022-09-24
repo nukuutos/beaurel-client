@@ -27,7 +27,7 @@ const Result = ({ state, onClickClose, children, isLoading }) => {
     <>
       {isLoading && isPhone && <div className="spinner-with-background" />}
 
-      <div className={`booking-result ${isPhone ? '' : 'card'}`}>
+      <div className="booking-result">
         {isLoading && !isPhone && <div className="spinner-with-background" />}
 
         {!isPhone && <BackButton onClickClose={onClickClose} />}

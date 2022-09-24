@@ -1,13 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../base/modal/modal-heading';
 
 const UpdateSuccess = ({ goToUpdateServices, closeModal, updateState }) => {
-  const { isPhone } = useSelector((state) => state.screenSize);
   const { servicesCountToUpdate } = updateState;
 
   return (
-    <div className={`update-success ${isPhone ? '' : 'card'}`}>
+    <div className="update-success">
       <ModalHeading
         title="Успешно"
         onClickClose={closeModal}

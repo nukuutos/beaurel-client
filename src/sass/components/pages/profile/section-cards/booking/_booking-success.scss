@@ -2,6 +2,8 @@
 @use '../../../../../abstracts/mixins' as *;
 
 .booking-success {
+  @include card;
+
   width: 36rem;
   background: $color-white;
   display: flex;

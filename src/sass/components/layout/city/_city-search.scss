@@ -2,6 +2,8 @@
 @use '../../../abstracts/mixins' as *;
 
 .city-search {
+  @include card;
+
   width: 45.8rem;
   padding: 0 3.2rem;
   background: $color-white;

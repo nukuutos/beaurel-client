@@ -8,7 +8,7 @@ import CityCard from './city-card';
 import CitySearchForm from './city-search-form/city-search-form';
 
 const CitySearch = ({ onClickClose }) => {
-  const [{ city }, { isPhone }] = useSelector((state) => [state.timezone, state.screenSize]);
+  const { city } = useSelector((state) => state.timezone);
   const [data, setData] = useState([]);
 
   const form = useRef();
@@ -17,7 +17,7 @@ const CitySearch = ({ onClickClose }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      <div className={`city-search ${isPhone ? '' : 'card'}`}>
+      <div className="city-search">
         <ModalHeading
           titleDesktopClassName="city-search__heading"
           title="Выбрать город"

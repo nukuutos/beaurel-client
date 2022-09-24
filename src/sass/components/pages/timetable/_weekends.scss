@@ -1,7 +1,9 @@
-@use "../../../abstracts/colors" as *;
-@use "../../../abstracts/mixins" as *;
+@use '../../../abstracts/colors' as *;
+@use '../../../abstracts/mixins' as *;
 
 .weekends {
+  @include card;
+
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: min-content;

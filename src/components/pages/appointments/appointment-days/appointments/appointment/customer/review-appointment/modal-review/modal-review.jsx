@@ -11,8 +11,6 @@ import getInitialValues from './utils/get-initial-values';
 import reviewSchema from './utils/schema';
 
 const ModalReview = ({ onClickClose, appointment }) => {
-  const { isPhone } = useSelector((state) => state.screenSize);
-
   const { review } = appointment;
 
   const [handleSubmit, isLoading] = useOnSubmit(appointment, onClickClose);
@@ -23,7 +21,7 @@ const ModalReview = ({ onClickClose, appointment }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      <section className={`edit-review ${isPhone ? '' : 'card'}`}>
+      <section className="edit-review">
         <ModalHeading title="Отзыв" onClickClose={onClickClose} />
         <Formik
           validationSchema={reviewSchema}

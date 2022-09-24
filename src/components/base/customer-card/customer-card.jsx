@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveInterlocutor } from '../../../redux/messages/actions';
 import getAvatarPath from '../../pages/utils/get-avatar-path';
@@ -30,7 +29,7 @@ const CustomerCard = ({ user, onClickClose }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      <div className={`customer-card ${className} ${isPhone ? '' : 'card'}`}>
+      <div className={`customer-card ${className}`}>
         {isLoading && <div className="spinner-with-background" />}
         {isPhone && <ModalHeading title="Информация о клиенте" onClickClose={onClickClose} />}
 

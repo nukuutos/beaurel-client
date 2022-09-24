@@ -6,16 +6,12 @@ import Plus from '../../../../../../base/icons/plus';
 const MASTER_WORKS_LIMIT = 18;
 
 const DisplayMasterWorks = ({ goToAddWork, getClickOnWork, isLoading }) => {
-  const [{ works }, { isPhone }] = useSelector((state) => [state.work, state.screenSize]);
+  const { works } = useSelector((state) => state.work);
 
   const isMasterWorksLimit = works.length >= MASTER_WORKS_LIMIT;
 
   return (
-    <div
-      className={`master-works ${isLoading ? 'master-works--loading' : ''} ${
-        isPhone ? '' : 'card'
-      }`}
-    >
+    <div className={`master-works ${isLoading ? 'master-works--loading' : ''}`}>
       {isLoading && <div className="spinner-with-background" />}
 
       {works.map((work, index) => {

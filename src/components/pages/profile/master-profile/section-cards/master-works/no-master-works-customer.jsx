@@ -7,7 +7,7 @@ const NoMasterWorksCustomer = ({ onClickClose }) => {
 
   return (
     <Modal onClickClose={onClickClose}>
-      <div className={`no-master-tools ${isPhone ? '' : 'card'}`}>
+      <div className="no-master-tools">
         {isPhone && <MobileModalHeading title="Записаться" onClickClose={onClickClose} />}
 
         <img

@@ -2,6 +2,8 @@
 @use '../../../abstracts/mixins' as *;
 
 .update-cancellation {
+  @include card;
+
   display: flex;
   flex-direction: column;
   width: 33.2rem;

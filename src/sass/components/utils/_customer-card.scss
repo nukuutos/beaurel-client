@@ -1,6 +1,9 @@
+@use '@styles/mixins' as *;
 @use '../../abstracts/colors' as *;
 
 .customer-card {
+  @include card;
+
   min-width: 36rem;
   display: flex;
   background: $color-white;

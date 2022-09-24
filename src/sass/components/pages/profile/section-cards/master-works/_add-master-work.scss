@@ -1,7 +1,9 @@
-@use "../../../../../abstracts/colors" as *;
-@use "../../../../../abstracts/mixins" as *;
+@use '../../../../../abstracts/colors' as *;
+@use '../../../../../abstracts/mixins' as *;
 
 .add-master-work {
+  @include card;
+
   width: 40rem;
   background: $color-white;
 

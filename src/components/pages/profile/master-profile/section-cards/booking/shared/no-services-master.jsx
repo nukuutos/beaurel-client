@@ -11,7 +11,7 @@ const NoServicesMaster = ({ onClickClose }) => {
   const goToServices = () => router.push('/services');
 
   return (
-    <div className={`no-master-tools ${isPhone ? '' : 'card'}`}>
+    <div className="no-master-tools">
       {isPhone && <MobileModalHeading title="Услуги" onClickClose={onClickClose} />}
 
       <img

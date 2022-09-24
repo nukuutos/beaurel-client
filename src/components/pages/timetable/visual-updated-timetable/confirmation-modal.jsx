@@ -1,16 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Modal from '../../../base/modal/modal';
 import ModalHeading from '../../../base/modal/modal-heading';
 import useDeleteUpdate from './use-delete-update';
 
 const ConfirmationModal = ({ closeModal }) => {
-  const { isPhone } = useSelector((state) => state.screenSize);
   const [deleteUpdate, isLoading] = useDeleteUpdate();
 
   return (
     <Modal onClickClose={closeModal}>
-      <div className={`update-cancellation ${isPhone ? '' : 'card'}`}>
+      <div className="update-cancellation">
         {isLoading && <div className="spinner-with-background" />}
 
         <ModalHeading title="Предупреждение" onClickClose={closeModal} />

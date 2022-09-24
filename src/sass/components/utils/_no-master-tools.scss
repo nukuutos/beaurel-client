@@ -2,6 +2,8 @@
 @use '../../abstracts/mixins' as *;
 
 .no-master-tools {
+  @include card;
+
   padding: 6.4rem 9.2rem;
   background: $color-white;
   display: flex;

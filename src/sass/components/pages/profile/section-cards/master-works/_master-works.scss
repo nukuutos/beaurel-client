@@ -2,6 +2,8 @@
 @use '../../../../../abstracts/mixins' as *;
 
 .master-works {
+  @include card;
+
   position: relative;
   background: $color-gray-light-3;
   max-width: 81rem + 1.7rem; // 82.7 - 1.7rem

@@ -4,10 +4,7 @@ import Heart from '../../../../base/icons/heart';
 import FavoriteMasterCard from './favorite-master-card';
 
 const SectionMasters = () => {
-  const [favoriteMasters, { isPhone }] = useSelector((state) => [
-    state.favorites,
-    state.screenSize,
-  ]);
+  const favoriteMasters = useSelector((state) => state.favorites);
 
   return (
     <>
@@ -23,7 +20,7 @@ const SectionMasters = () => {
           </div>
         </div>
       ) : (
-        <div className={`no-masters ${isPhone ? '' : 'card'}`}>
+        <div className="no-masters">
           <p className="no-masters__text">
             Добавьте вашего первого мастера
             <br />и он отобразится

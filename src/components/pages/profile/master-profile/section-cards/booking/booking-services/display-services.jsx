@@ -35,7 +35,7 @@ const DisplayServices = ({ state, getPickService, onClickClose, isLoading }) => 
   return (
     <>
       {isLoading && isPhone && <div className="spinner-with-background" />}
-      <div className={`booking-services ${isPhone ? '' : 'card'}`}>
+      <div className="booking-services">
         {isLoading && !isPhone && <div className="spinner-with-background" />}
 
         {!isPhone && step === 2 && <BackButton onClickClose={onClickClose} />}

@@ -6,7 +6,7 @@ const NoToolCustomer = ({ title, svgSrc, onClickClose, children }) => {
   const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
-    <div className={`no-master-tools ${isPhone ? '' : 'card'}`}>
+    <div className="no-master-tools">
       {isPhone && <MobileModalHeading title={title} onClickClose={onClickClose} />}
 
       <img className="no-master-tools__svg" alt="Not able to book time" src={svgSrc} />

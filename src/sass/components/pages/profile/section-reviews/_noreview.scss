@@ -2,6 +2,8 @@
 @use '../../../../abstracts/mixins' as *;
 
 .noreview {
+  @include card;
+
   background: $color-white;
 
   display: flex;

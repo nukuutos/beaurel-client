@@ -1,5 +1,4 @@
 import { Formik } from 'formik';
-import { useSelector } from 'react-redux';
 import ModalHeading from '../../../../../base/modal/modal-heading';
 import useServicesForUpdate from './use-services-for-update';
 import useOnSubmit from './use-on-submit/use-on-submit';
@@ -9,11 +8,10 @@ import Modal from '../../../../../base/modal/modal';
 const UpdateServicesFromServices = ({ close }) => {
   const [handleSubmit, isLoading] = useOnSubmit(close);
   const services = useServicesForUpdate();
-  const { isPhone } = useSelector((state) => state.screenSize);
 
   return (
     <Modal onClickClose={close}>
-      <div className={`booking-services booking-services--update ${isPhone ? '' : 'card'}`}>
+      <div className="booking-services booking-services--update">
         <ModalHeading
           titleDesktopClassName="services__heading"
           title="Обновить услуги"

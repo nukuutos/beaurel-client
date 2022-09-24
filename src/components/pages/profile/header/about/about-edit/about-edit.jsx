@@ -10,12 +10,12 @@ import useOnSubmit from './use-on-submit';
 import submit from './submit';
 
 const AboutEdit = ({ onClickClose }) => {
-  const [{ aboutText }, { isPhone }] = useSelector((state) => [state.profile, state.screenSize]);
+  const { aboutText } = useSelector((state) => state.profile);
   const [onSubmit] = useOnSubmit(onClickClose);
 
   return (
     <Modal onClickClose={onClickClose}>
-      <section className={`edit-about ${isPhone ? '' : 'card'}`}>
+      <section className="edit-about">
         <ModalHeading title="O себе" onClickClose={onClickClose} />
         <Formik
           validationSchema={aboutTextSchema}

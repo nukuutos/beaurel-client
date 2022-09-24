@@ -2,6 +2,8 @@
 @use '../../../../../abstracts/mixins' as *;
 
 .upload-avatar {
+  @include card;
+
   background: $color-white;
   padding: 0 4rem 2rem;
 

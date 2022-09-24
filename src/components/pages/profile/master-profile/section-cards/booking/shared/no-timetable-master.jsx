@@ -10,7 +10,7 @@ const NoTimetableMaster = ({ onClickClose }) => {
   const goToTimetable = () => router.push('/timetable');
 
   return (
-    <div className={`no-master-tools ${isPhone ? '' : 'card'}`}>
+    <div className="no-master-tools">
       {isPhone && <MobileModalHeading title="Расписание" onClickClose={onClickClose} />}
 
       <img
