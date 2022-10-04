@@ -2,11 +2,9 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '../components/layout/layout';
-// import SignInForm from '../components/pages/sign-in/sign-in-form';
 import { signOut } from '../redux/auth/actions';
 import getSignInServerSideProps from '../server/get-server-side-props/sign-in';
 
-// const Layout = dynamic(() => import('../components/layout/layout'));
 const SignInForm = dynamic(() => import('../components/pages/sign-in/sign-in-form'));
 
 const SignIn = () => {

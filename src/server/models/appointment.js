@@ -42,7 +42,8 @@ class Appointment {
     daysWithAppointments = daysWithAppointments.map(({ date, appointments }) => ({
       date: dayjs(date).utc().add(1, 'day'), // prevent utc +0.:00
       appointments: appointments.map(({ date, ...rest }) => {
-        date = dayjs(date).utc().add(1, 'day').toDate();
+        // date = dayjs(date).utc().add(1, 'day').toDate();
+        date = dayjs(date).utc().add(1, 'day').toString();
         return { ...rest, date };
       }),
     }));
@@ -57,7 +58,6 @@ class Appointment {
       const { date, appointments } = day;
       const stringDate = date.format('DD-MM-YYYY');
       formattedAppointments[stringDate] = appointments;
-      // console.log(date.format(), stringDate);
     }
 
     return formattedAppointments;

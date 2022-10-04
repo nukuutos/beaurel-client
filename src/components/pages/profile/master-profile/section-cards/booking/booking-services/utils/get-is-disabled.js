@@ -37,7 +37,9 @@ const getIsServiceUnsuitable = (service, today) => {
 
   const { update } = service;
   if (!update || !update.date || !today) return false;
-  const { date: updateDate } = update;
+
+  const updateDate = dayjs(update.date).utc(true);
+
   if (updateDate.isSameOrBefore(today) && update.status === 'unsuitable') return true;
   return false;
 };
@@ -53,7 +55,11 @@ const getIsDisabled = (bookingAppointment, correctService, timetable) => {
 
   const { update } = timetable;
 
-  if (update?.date?.isSameOrBefore(date)) timetable = update;
+  const updateDate = dayjs(update.date).utc(true);
+
+  if (update?.date && updateDate.isSameOrBefore(date)) {
+    timetable = update;
+  }
 
   const { type } = timetable;
 

@@ -1,9 +1,10 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 const Header = ({ openModal }) => {
   const { update } = useSelector((state) => state.timetable);
-  const { date } = update;
+  const date = dayjs(update.date).utc(true);
 
   return (
     <div className="timetable-card__heading timetable-card__heading--timetable">

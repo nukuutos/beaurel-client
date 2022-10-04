@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import 'regenerator-runtime/runtime';
 import Vk from '../components/base/icons/vk';
 import useHandleRouting from '../components/layout/hooks/use-handle-routing';
 import ActionSection from '../components/pages/landing/action-section';

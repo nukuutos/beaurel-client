@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import Message from './message/message';
 import useGetMessages from './use-get-messages';
@@ -19,6 +20,7 @@ const DisplayMessages = () => {
     <>
       {messages.map((messageObject, index) => {
         const isLastMessage = index === messages.length - 1;
+        messageObject.createdAt = dayjs(messageObject.createdAt).utc(true);
 
         if (isLastMessage) {
           return (
@@ -31,6 +33,8 @@ const DisplayMessages = () => {
           );
         }
 
+        const nextMessageDate = dayjs(messages[index + 1].createdAt).utc(true);
+
         if (
           !wasFirstRecipientMessage &&
           messageObject.senderId === interlocutorId &&
@@ -42,7 +46,7 @@ const DisplayMessages = () => {
             <Message
               messageData={messageObject}
               interlocutorId={interlocutorId}
-              nextMessageDate={messages[index + 1].createdAt}
+              nextMessageDate={nextMessageDate}
               refToSetMessageVisibility={messageToSetIsRead}
               key={messageObject.createdAt}
             />
@@ -53,7 +57,7 @@ const DisplayMessages = () => {
           <Message
             messageData={messageObject}
             interlocutorId={interlocutorId}
-            nextMessageDate={messages[index + 1].createdAt}
+            nextMessageDate={nextMessageDate}
             key={messageObject.createdAt}
           />
         );

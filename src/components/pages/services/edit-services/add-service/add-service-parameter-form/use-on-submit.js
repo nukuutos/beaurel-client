@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
 import { addServiceParameterSuccess } from '../../../../../../redux/service/actions/service-parameter';
@@ -38,7 +39,7 @@ const useOnSubmit = (onClickClose) => {
           subService.update = {
             status: 'suitable',
             duration: updateDuration,
-            date: update.date.clone(),
+            date: dayjs(update.date).utc(true).clone(),
           };
         }
         return subService;

@@ -29,10 +29,11 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        dialogs: dialogs.map(({ createdAt, ...rest }) => ({
-          createdAt: dayjs(createdAt),
-          ...rest,
-        })),
+        dialogs,
+        // dialogs: dialogs.map(({ createdAt, ...rest }) => ({
+        //   createdAt: dayjs(createdAt),
+        //   ...rest,
+        // })),
       };
     }
 
@@ -43,10 +44,11 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         dialogs: [
           ...state.dialogs,
-          ...dialogs.map(({ createdAt, ...rest }) => ({
-            createdAt: dayjs(createdAt),
-            ...rest,
-          })),
+          ...dialogs,
+          // ...dialogs.map(({ createdAt, ...rest }) => ({
+          //   createdAt: dayjs(createdAt),
+          //   ...rest,
+          // })),
         ],
       };
     }
@@ -56,10 +58,11 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
       const dialogsMessages = { ...state.dialogsMessages };
 
       dialogsMessages[interlocutorId] = {
-        messages: messages.map(({ createdAt, ...rest }) => ({
-          createdAt: dayjs(createdAt),
-          ...rest,
-        })),
+        // messages: messages.map(({ createdAt, ...rest }) => ({
+        //   createdAt: dayjs(createdAt),
+        //   ...rest,
+        // })),
+        messages,
         isLoaded: true,
       };
 
@@ -78,12 +81,13 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
       const { interlocutorId, messages } = payload;
       const dialogsMessages = { ...state.dialogsMessages };
 
-      const messagesByDayjs = messages.map(({ createdAt, ...rest }) => ({
-        createdAt: dayjs(createdAt),
-        ...rest,
-      }));
+      // const messagesByDayjs = messages.map(({ createdAt, ...rest }) => ({
+      //   createdAt: dayjs(createdAt),
+      //   ...rest,
+      // }));
 
-      const newMessages = [...dialogsMessages[interlocutorId].messages, ...messagesByDayjs];
+      // const newMessages = [...dialogsMessages[interlocutorId].messages, ...messagesByDayjs];
+      const newMessages = [...dialogsMessages[interlocutorId].messages, ...messages];
 
       dialogsMessages[interlocutorId].messages = newMessages;
 
@@ -115,7 +119,7 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
     case GET_MESSAGE_FROM_INTERLOCUTOR: {
       const { message } = payload;
 
-      message.createdAt = dayjs(message.createdAt);
+      // message.createdAt = dayjs(message.createdAt);
 
       const dialogsMessages = { ...state.dialogsMessages };
       // set new message to dialog

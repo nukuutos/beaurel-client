@@ -109,6 +109,7 @@ const customerProfile = (matchQuery) => [
                 },
               },
               { $project: { _id: 0 } },
+              { $addFields: { date: { $convert: { input: '$date', to: 'string' } } } },
               {
                 $lookup: {
                   from: 'users',

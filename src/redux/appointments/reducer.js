@@ -384,7 +384,8 @@ const appointmentsReducer = (state = INITIAL_STATE, action) => {
 
       const confirmedAppointment = {
         ...appointment,
-        date: dayjs(date, 'DD-MM-YYYY'),
+        // date: dayjs(date, 'DD-MM-YYYY'),
+        date,
         time,
         status: 'confirmed',
         service: { ...appointment.service, duration },

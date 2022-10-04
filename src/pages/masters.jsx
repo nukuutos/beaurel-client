@@ -1,12 +1,9 @@
 import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
-// import DisplayMasters from '../components/pages/masters/display-masters';
-// import NoMasters from '../components/pages/masters/no-masters';
 
 import getMastersServerSideProps from '../server/get-server-side-props/masters';
 
-// const Layout = dynamic(() => import('../components/layout/layout'));
 const DisplayMasters = dynamic(() => import('../components/pages/masters/display-masters'));
 const NoMasters = dynamic(() => import('../components/pages/masters/no-masters'));
 

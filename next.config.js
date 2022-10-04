@@ -28,6 +28,7 @@ const securityHeaders = [
 ];
 
 let config = {
+  swcMinify: true,
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/sass')],
@@ -52,9 +53,9 @@ let config = {
         ]
       : [];
   },
-  experimental: {
-    outputStandalone: true,
-  },
+  // experimental: {
+  // outputStandalone: true,
+  // },
 };
 
 if (process.env.ANALYZE) {

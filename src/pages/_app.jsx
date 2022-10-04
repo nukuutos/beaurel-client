@@ -1,7 +1,6 @@
 import React from 'react';
 
 import '../utils/dayjs-plugins';
-import '../utils/super-json/dayjs';
 
 import { wrapper } from '../redux/store';
 

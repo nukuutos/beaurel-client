@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime';
 import dynamic from 'next/dynamic';
 
 import useProgress from '../components/pages/sign-up/use-progress';

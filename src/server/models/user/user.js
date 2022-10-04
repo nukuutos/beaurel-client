@@ -56,6 +56,8 @@ class User {
       .aggregate(customerProfile(customerMatchQuery))
       .next();
 
+    console.log(profile);
+
     return profile;
   }
 

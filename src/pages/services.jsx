@@ -1,11 +1,8 @@
 import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 import Layout from '../components/layout/layout';
-// import ServicesCase from '../components/pages/services/services-case';
-// import NoTimetableCase from '../components/pages/services/no-timetable';
 import getServicesServerSideProps from '../server/get-server-side-props/services';
 
-// const Layout = dynamic(() => import('../components/layout/layout'));
 const ServicesCase = dynamic(() => import('../components/pages/services/services-case'));
 const NoTimetableCase = dynamic(() => import('../components/pages/services/no-timetable'));
 

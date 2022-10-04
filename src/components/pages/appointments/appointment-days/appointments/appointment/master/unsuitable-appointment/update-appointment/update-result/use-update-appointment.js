@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../../../hooks/use-async-action/use-async-action';
 import { updateUnsuitableAppointment } from '../../../../../../../../../../redux/appointments/actions';

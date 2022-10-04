@@ -6,8 +6,8 @@ const transform = (service) => {
   if (!isUpdate) return service;
 
   service.update.duration = Number(service.update.duration);
-  const { date } = service.update;
-  service.update.date = dayjs(date).utc(true);
+  // const { date } = service.update;
+  // service.update.date = dayjs(date).utc(true);
 
   return service;
 };

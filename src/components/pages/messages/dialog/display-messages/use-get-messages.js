@@ -29,7 +29,6 @@ const useGetMessages = (interlocutorId) => {
   const messageToStartLoadData = useCallback(
     (node) => {
       const needToLoad = messagesLength >= MESSAGES_LIMIT_TO_LOAD;
-      // console.log(needToLoad, messagesLength, dialogsMessages[interlocutorId]);
       // if we have already loading
       if (isLoading || !needToLoad) return;
 

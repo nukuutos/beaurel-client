@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { GET_TIMETABLE_SUCCESS, SET_TIMETABLE_UPDATE, UNSET_TIMETABLE_UPDATE } from './types';
 
 const INITIAL_STATE = {
@@ -47,19 +46,11 @@ const timetableReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case GET_TIMETABLE_SUCCESS: {
-      const {
-        timetable: { update, ...currentTimetable },
-      } = payload;
-
-      if (update?.date) update.date = dayjs(update.date).utc(true);
+      const { timetable } = payload;
 
       return {
         ...state,
-        ...currentTimetable,
-        update: {
-          ...state.update,
-          ...update,
-        },
+        ...timetable,
       };
     }
 

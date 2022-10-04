@@ -9,7 +9,15 @@ class Timetable {
 
   static getCorrectTimetable(timetable, date) {
     const { update } = timetable;
-    if (update?.date?.isSameOrBefore(date)) return timetable.update;
+
+    if (!update?.date) return timetable;
+
+    const updateDate = dayjs(update.date).utc(true);
+
+    if (updateDate.isSameOrBefore(date)) {
+      return timetable.update;
+    }
+
     return timetable;
   }
 

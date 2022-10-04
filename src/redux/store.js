@@ -1,7 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import { serialize, deserialize } from 'superjson';
-import logger from 'redux-logger';
 
 import combinedReducer from './reducer';
 import hydrateState from './hydrate-state';
@@ -49,7 +47,9 @@ const rootReducer = (state, action) => {
 // const initStore = () => createStore(rootReducer, bindMiddleware([logger]));
 const initStore = () => createStore(rootReducer, bindMiddleware([]));
 
-export const wrapper = createWrapper(initStore, {
-  deserializeState: (state) => deserialize(state),
-  serializeState: (state) => serialize(state),
-});
+// export const wrapper = createWrapper(initStore, {
+//   deserializeState: (state) => deserialize(state),
+//   serializeState: (state) => serialize(state),
+// });
+
+export const wrapper = createWrapper(initStore);

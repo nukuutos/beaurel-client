@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 
 const useUpdateDate = () => {
@@ -38,7 +39,7 @@ const useUpdateDate = () => {
     updateDate = services[serviceIndex].update.date;
   }
 
-  return updateDate.format('DD.MM.YY');
+  return dayjs(updateDate).utc(true).format('DD.MM.YY');
 };
 
 export default useUpdateDate;

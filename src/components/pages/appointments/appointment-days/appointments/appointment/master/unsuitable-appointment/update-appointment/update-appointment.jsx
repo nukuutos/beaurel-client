@@ -19,7 +19,6 @@ const UpdateAppointment = ({ onClickClose, appointment }) => {
   const { title, duration, price, parameter } = appointment.service;
 
   useEffect(() => {
-    console.log(title, duration, price, parameter);
     dispatch(getProfileSuccess({ profile: { id } })); // for getting booked appointments. be careful with profile page
     setService({ title, duration, price, parameter });
   }, [dispatch, title, duration, price, parameter, id, setService]);
