@@ -1,4 +1,4 @@
-import { getProfileSuccess } from '../../redux/profile/actions';
+import { getProfile } from '../../redux/slices/profile';
 import { wrapper } from '../../redux/store';
 import handlePublicAndAuthPage from '../../utils/auth/handle-public-and-auth-page/handle-public-and-auth-page';
 import User from '../models/user/user';
@@ -20,29 +20,32 @@ const createGetProfile = (profileId) => async (user) => {
 
 const handleProfile = ({ profileData, master, store }) => {
   const profile = { profile: { ...(master || {}), ...profileData } };
-  store.dispatch(getProfileSuccess(profile));
+  store.dispatch(getProfile(profile));
 };
 
-const getProfileServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { id: profileId } = query;
+const getProfileServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req, res, query }) => {
+      const { id: profileId } = query;
 
-  const getProfile = createGetProfile(profileId);
+      const getProfile = createGetProfile(profileId);
 
-  const { data, user } = await handlePublicAndAuthPage(getProfile, { req, res, store });
+      const { data, user } = await handlePublicAndAuthPage(getProfile, { req, res, store });
 
-  const { globalData, master, ...profileData } = data;
+      const { globalData, master, ...profileData } = data;
 
-  // return 404
-  if (!master?.id && !profileData?.id) {
-    res.statusCode = 302;
-    res.setHeader('Location', `/not-found`); // Replace <link> with your url link
-    return;
-  }
+      // return 404
+      if (!master?.id && !profileData?.id) {
+        res.statusCode = 302;
+        res.setHeader('Location', `/not-found`); // Replace <link> with your url link
+        return;
+      }
 
-  handleGlobalState({ user, globalData, store });
-  handleProfile({ profileData, master, store });
+      handleGlobalState({ user, globalData, store });
+      handleProfile({ profileData, master, store });
 
-  return { props: {} };
-});
+      return { props: {} };
+    }
+);
 
 export default getProfileServerSideProps;

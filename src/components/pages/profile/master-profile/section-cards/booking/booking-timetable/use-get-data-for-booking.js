@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { getAppointmentsSuccess } from '../../../../../../../redux/appointments/actions';
-import { getTimetableSuccess } from '../../../../../../../redux/timetable/actions';
+import { getAppointments } from '../../../../../../../redux/slices/appointments';
+import { getTimetable } from '../../../../../../../redux/slices/timetable';
 
 const useGetDataForBooking = () => {
   const [{ id: masterId }, timetableState, appointmentsState] = useSelector((state) => [
@@ -31,8 +31,8 @@ const useGetDataForBooking = () => {
       const { timetable, appointments, isServices } = data || {};
 
       if (timetable) {
-        dispatch(getTimetableSuccess({ timetable: { masterId, isServices, ...timetable } }));
-        dispatch(getAppointmentsSuccess({ appointments, masterId }));
+        dispatch(getTimetable({ timetable: { masterId, isServices, ...timetable } }));
+        dispatch(getAppointments({ appointments, masterId }));
       }
     };
 

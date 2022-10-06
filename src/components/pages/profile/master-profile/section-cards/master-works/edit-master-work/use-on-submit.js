@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { updateWorkSuccess } from '../../../../../../../redux/work/actions';
+import { updateWork } from '../../../../../../../redux/slices/work';
 
 const useOnSubmit = ({ state, goToCarousel, file }) => {
   const [{ accessToken }, { id: profileId }, { works }] = useSelector((state) => [
@@ -34,7 +34,7 @@ const useOnSubmit = ({ state, goToCarousel, file }) => {
     const data = await asyncAction(config);
 
     if (data) {
-      dispatch(updateWorkSuccess({ updatedWork: { _id: works[index]._id, title } }));
+      dispatch(updateWork({ updatedWork: { _id: works[index]._id, title } }));
       goToCarousel();
     }
   };

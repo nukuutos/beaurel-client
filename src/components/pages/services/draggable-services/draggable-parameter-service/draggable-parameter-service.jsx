@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import DraggableTitle from './draggable-title/draggable-title';
 import DraggableSubService from './draggable-sub-service/draggable-sub-service';
-import { reorderSubServices } from '../../../../../redux/service/actions/service';
+import { reorderSubServices } from '../../../../../redux/slices/service/service';
 import useIsHover from '../../hooks/use-is-hover';
 import getHoverServiceParameterClassName from '../../utils/get-hover-service-parameter-class-name';
 

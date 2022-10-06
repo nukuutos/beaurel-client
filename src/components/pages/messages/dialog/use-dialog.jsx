@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setDialogMessages } from '../../../../redux/messages/actions';
+import { setDialogMessages } from '../../../../redux/slices/messages';
 
 const useDialog = (interlocutorId) => {
   const dialogRef = useRef(null);

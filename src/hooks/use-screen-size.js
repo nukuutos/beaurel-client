@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeScreenSize } from '../redux/screen-size/actions';
+import { changeScreenSize } from '../redux/slices/screen-size';
 
 const useScreenSize = () => {
   const screenSize = useSelector((state) => state.screenSize);

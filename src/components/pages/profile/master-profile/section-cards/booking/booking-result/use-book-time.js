@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { bookAppointmentSuccess } from '../../../../../../../redux/appointments/actions';
+import { bookAppointment } from '../../../../../../../redux/slices/appointments';
 
 const useBookTime = (state, goToSuccess) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const useBookTime = (state, goToSuccess) => {
       // add this appointment to booking appointments this
       const stringDate = date.format('DD-MM-YYYY');
       dispatch(
-        bookAppointmentSuccess({
+        bookAppointment({
           date: stringDate,
           time: { startAt: time, endAt: time + service.duration },
         })

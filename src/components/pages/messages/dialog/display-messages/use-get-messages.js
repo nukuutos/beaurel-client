@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
-import { getDialogMessages } from '../../../../../redux/messages/actions';
+import { getDialogMessages } from '../../../../../redux/slices/messages';
 
 const MESSAGES_LIMIT_TO_LOAD = 20;
 

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import handleUnauthorizedCall from './utils/handle-unauthorized-call';
 import axios from '../../../utils/axios';
-import { addAlert } from '../../../redux/alerts/actions';
+import { addAlert } from '../../../redux/slices/alerts';
 
 const asyncCall = async (dispatch, config) => {
   const { accessToken, addingHeaders, ...configProps } = config;

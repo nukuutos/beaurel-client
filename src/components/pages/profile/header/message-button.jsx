@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveInterlocutor } from '../../../../redux/messages/actions';
+import { setActiveInterlocutor } from '../../../../redux/slices/messages';
 import Modal from '../../../base/modal/modal';
 import Unauthorized from '../master-profile/section-cards/booking/shared/unauthorized';
 

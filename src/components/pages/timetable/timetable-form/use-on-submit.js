@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { servicesToUnsuitable } from '../../../../redux/service/actions/service';
-import { setTimetableUpdate } from '../../../../redux/timetable/actions';
+import { servicesToUnsuitable } from '../../../../redux/slices/service/service';
+import { setTimetableUpdate } from '../../../../redux/slices/timetable';
 
 const useOnSubmit = ({ closeModal, needToUpdateServices }) => {
   const [asyncAction, isLoading] = useAsyncAction();

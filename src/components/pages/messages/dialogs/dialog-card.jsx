@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveInterlocutor } from '../../../../redux/messages/actions';
+import { setActiveInterlocutor } from '../../../../redux/slices/messages';
 import getAvatarPath from '../../utils/get-avatar-path';
 import getLastMessage from './get-last-message';
 import getTime from './get-time';

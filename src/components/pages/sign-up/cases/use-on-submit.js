@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { addAlert } from '../../../../redux/alerts/actions';
+import { addAlert } from '../../../../redux/slices/alerts';
 
 const useOnSubmit = ({ phone, setIsVerification, disableProgressBar }) => {
   const { city } = useSelector((state) => state.timezone);

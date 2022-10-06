@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { getFavorites } from '../../../../redux/favorites/actions';
+import { getFavorites } from '../../../../redux/slices/favorites';
 
 const useGetFavoriteMasters = () => {
   const { id: profileId, accessToken } = useSelector((state) => state.auth);

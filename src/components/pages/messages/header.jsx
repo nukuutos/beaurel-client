@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setActiveInterlocutor } from '../../../redux/messages/actions';
+import { setActiveInterlocutor } from '../../../redux/slices/messages';
 import Plus from '../../base/icons/plus';
 import ArrowLeft from '../../base/icons/arrow-left';
 

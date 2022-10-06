@@ -5,7 +5,7 @@ import UpdateDuration from './update-duration/update-duration';
 import UpdateResult from './update-result/update-result';
 import UpdateSuccess from './update-success';
 import UpdateDate from './update-date/update-date';
-import { getProfileSuccess } from '../../../../../../../../../redux/profile/actions';
+import { getProfile } from '../../../../../../../../../redux/slices/profile';
 import useUpdateAppointmentState from './use-update-appointment-state';
 
 const UpdateAppointment = ({ onClickClose, appointment }) => {
@@ -19,7 +19,7 @@ const UpdateAppointment = ({ onClickClose, appointment }) => {
   const { title, duration, price, parameter } = appointment.service;
 
   useEffect(() => {
-    dispatch(getProfileSuccess({ profile: { id } })); // for getting booked appointments. be careful with profile page
+    dispatch(getProfile({ profile: { id } })); // for getting booked appointments. be careful with profile page
     setService({ title, duration, price, parameter });
   }, [dispatch, title, duration, price, parameter, id, setService]);
 

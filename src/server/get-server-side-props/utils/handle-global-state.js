@@ -1,7 +1,7 @@
-import { setAppointmentsNotifications } from '../../../redux/appointments/actions';
-import { getFavorites } from '../../../redux/favorites/actions';
-import { setMasterTools } from '../../../redux/master-tools/actions';
-import { setMessageNotification } from '../../../redux/messages/actions';
+import { setAppointmentsNotifications } from '../../../redux/slices/appointments';
+import { getFavorites } from '../../../redux/slices/favorites';
+import { setMasterTools } from '../../../redux/slices/master-tools';
+import { setMessageNotification } from '../../../redux/slices/messages';
 
 const handleNotifications = (notifications, store) => {
   if (!notifications) return;

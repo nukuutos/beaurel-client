@@ -1,25 +1,25 @@
 import { combineReducers } from 'redux';
 
-import profileReducer from './profile/reducer';
-import authReducer from './auth/reducer';
-import serviceReducer from './service/reducer/reducer';
-import timetableReducer from './timetable/reducer';
-import workReducer from './work/reducer';
-import appointmentsReducer from './appointments/reducer';
-import screenSizeReducer from './screen-size/reducer';
-import favoritesReducer from './favorites/reducer';
-import messagesReducer from './messages/reducer';
-import masterToolsReducer from './master-tools/reducer';
-import timezoneReducer from './timezone/reducer';
-import routingReducer from './routing/reducer';
-import modalReducer from './modal/reducer';
-import alertsReducer from './alerts/reducer';
+// import profileReducer from './profile/reducer';
+// import authReducer from './auth/reducer';
+// import timetableReducer from './timetable/reducer';
+import serviceReducer from './slices/service/service';
+import workReducer from './slices/work';
+import appointmentsReducer from './slices/appointments';
+import screenSizeReducer from './slices/screen-size';
+import favoritesReducer from './slices/favorites';
+import messagesReducer from './slices/messages';
+import masterToolsReducer from './slices/master-tools';
+import timezoneReducer from './slices/timezone';
+import routingReducer from './slices/routing';
+import modalReducer from './slices/modal';
+import alertsReducer from './slices/alerts';
 
 export default combineReducers({
-  profile: profileReducer,
-  auth: authReducer,
+  // profile: profileReducer,
+  // auth: authReducer,
+  // timetable: timetableReducer,
   services: serviceReducer,
-  timetable: timetableReducer,
   work: workReducer,
   appointments: appointmentsReducer,
   screenSize: screenSizeReducer,

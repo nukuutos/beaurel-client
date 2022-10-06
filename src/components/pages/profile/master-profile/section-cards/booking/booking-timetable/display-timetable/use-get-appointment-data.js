@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../hooks/use-async-action/use-async-action';
-import { getAppointmentsSuccess } from '../../../../../../../../redux/appointments/actions';
+import { getAppointments } from '../../../../../../../../redux/slices/appointments';
 
 const useGetAppointmentData = ({ startDay, today }) => {
   const [{ id: masterId }, { timezone }] = useSelector((state) => [state.profile, state.timetable]);
@@ -23,7 +23,7 @@ const useGetAppointmentData = ({ startDay, today }) => {
       const appointments = await asyncAction(config);
 
       if (appointments) {
-        dispatch(getAppointmentsSuccess({ appointments, masterId }));
+        dispatch(getAppointments({ appointments, masterId }));
       }
     };
 

@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '../components/layout/layout';
-import { signOut } from '../redux/auth/actions';
+import { signOut } from '../redux/slices/auth';
 import getSignInServerSideProps from '../server/get-server-side-props/sign-in';
 
 const SignInForm = dynamic(() => import('../components/pages/sign-in/sign-in-form'));

@@ -1,10 +1,10 @@
-import { setDialogs } from '../../redux/messages/actions';
+import { setDialogs } from '../../redux/slices/messages';
 import { wrapper } from '../../redux/store';
 import handleAuthPage from '../../utils/auth/handle-auth-page/handle-auth-page';
 import Message from '../models/message';
 import handleGlobalState from './utils/handle-global-state';
 
-const getMessagesServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getMessagesServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const user = await handleAuthPage(req, res, store);
 
   const data = await Message.getDialogs(user.id);

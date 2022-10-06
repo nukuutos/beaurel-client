@@ -8,7 +8,7 @@ const getNotifications = async (user) => {
   return { data, user };
 };
 
-const getNotFoundServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getNotFoundServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const { data, user } = await handlePublicAndAuthPage(getNotifications, { req, res, store });
   const { globalData } = data || {};
 

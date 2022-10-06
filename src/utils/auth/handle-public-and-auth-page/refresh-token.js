@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { refreshTokenSuccess } from '../../../redux/auth/actions';
+import { refreshTokenSuccess } from '../../../redux/slices/auth';
 import verifyRefreshToken from '../utils/verify-refresh-token';
 import User from '../../../server/models/user/user';
 import { createAccessToken, createRefreshToken } from '../utils/create-tokens';

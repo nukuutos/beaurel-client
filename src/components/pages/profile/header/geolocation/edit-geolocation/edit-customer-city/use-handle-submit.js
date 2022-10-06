@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { updateProfileCity } from '../../../../../../../redux/profile/actions';
-import { setCityAndTimezone } from '../../../../../../../redux/timezone/actions';
+import { updateProfileCity } from '../../../../../../../redux/slices/profile';
+import { setCityAndTimezone } from '../../../../../../../redux/slices/timezone';
 
 const useHandleSubmit = (closeModal) => {
   const { id: userId, accessToken } = useSelector((state) => state.auth);

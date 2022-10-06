@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
-import { setTimetableTool } from '../../../../../redux/master-tools/actions';
-import { getTimetableSuccess } from '../../../../../redux/timetable/actions';
+import { setTimetableTool } from '../../../../../redux/slices/master-tools';
+import { getTimetable } from '../../../../../redux/slices/timetable';
 
 const initialAutoValues = {
   auto: {
@@ -39,7 +39,7 @@ const useOnSubmit = () => {
     const response = await asyncAction(config);
 
     if (response) {
-      dispatch(getTimetableSuccess({ timetable: { ...data, _id: response._id } }));
+      dispatch(getTimetable({ timetable: { ...data, _id: response._id } }));
       dispatch(setTimetableTool());
     }
   };

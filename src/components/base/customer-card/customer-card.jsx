@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveInterlocutor } from '../../../redux/messages/actions';
+import { setActiveInterlocutor } from '../../../redux/slices/messages';
 import getAvatarPath from '../../pages/utils/get-avatar-path';
 import MapMarker from '../icons/map-marker';
 import Modal from '../modal/modal';

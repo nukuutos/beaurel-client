@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { getWorksSuccess } from '../../../../../../../redux/work/actions';
+import { getWorks } from '../../../../../../../redux/slices/work';
 
 const useGetWorks = () => {
   const [{ id: masterId }, workState] = useSelector((state) => [state.profile, state.work]);
@@ -9,7 +9,7 @@ const useGetWorks = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getWorks = async () => {
+    const getData = async () => {
       const config = {
         method: 'get',
         url: `/master/${masterId}/work`,
@@ -18,12 +18,12 @@ const useGetWorks = () => {
 
       const data = await asyncAction(config);
 
-      if (data) dispatch(getWorksSuccess({ works: data.works, masterId }));
+      if (data) dispatch(getWorks({ works: data.works, masterId }));
     };
 
     const isWorks = workState.masterId === masterId;
 
-    if (!isWorks) getWorks();
+    if (!isWorks) getData();
   }, [masterId, asyncAction, dispatch, workState.masterId]);
 
   return isLoading;

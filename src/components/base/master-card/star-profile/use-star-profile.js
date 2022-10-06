@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { addFavorite, deleteFavorite } from '../../../../redux/favorites/actions';
+import { addFavorite, deleteFavorite } from '../../../../redux/slices/favorites';
 
 const useStarProfile = (masterData) => {
   const [asyncAction, isLoading] = useAsyncAction();

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setAuthData } from '../../../../redux/auth/actions';
+import { setAuthData } from '../../../../redux/slices/auth';
 
 const useOnSubmit = (setIsEdit) => {
   const { id: profileId, accessToken } = useSelector((state) => state.auth);

@@ -23,7 +23,7 @@ const createGetMasters = (req, res) => async (user) => {
   return { data, user };
 };
 
-const getSearchServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getSearchServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const getMasters = createGetMasters(req, res);
   const { data, user } = await handlePublicAndAuthPage(getMasters, { req, res, store });
   const { masters, globalData } = data;

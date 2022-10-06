@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { getFavoritesOnScroll } from '../../../../redux/favorites/actions';
+import { getFavoritesOnScroll } from '../../../../redux/slices/favorites';
 
 const minFavoritesToLoad = 10;
 

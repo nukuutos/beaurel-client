@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeMasterTools } from '../../../redux/master-tools/actions';
+import { closeMasterTools } from '../../../redux/slices/master-tools';
 import Modal from '../modal/modal';
 import MobileModalHeading from '../modal/mobile-modal-heading';
 import ChevronRight from '../icons/chevron-right';

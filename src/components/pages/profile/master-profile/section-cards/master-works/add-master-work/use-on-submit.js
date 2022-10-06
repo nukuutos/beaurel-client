@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { addWorkSuccess } from '../../../../../../../redux/work/actions';
+import { addWork } from '../../../../../../../redux/slices/work';
 
 const useOnSubmit = (file, goToWorks) => {
   const { accessToken, id: masterId } = useSelector((state) => state.auth);
@@ -29,7 +29,7 @@ const useOnSubmit = (file, goToWorks) => {
 
     if (data) {
       const { _id } = data;
-      dispatch(addWorkSuccess({ work: { _id, title } }));
+      dispatch(addWork({ work: { _id, title } }));
       goToWorks();
     }
   };

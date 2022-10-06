@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { pushMessage } from '../../../../redux/messages/actions';
+import { pushMessage } from '../../../../redux/slices/messages';
 
 const useOnSubmit = () => {
   const [{ activeInterlocutor }, { id: profileId, accessToken }] = useSelector((state) => [

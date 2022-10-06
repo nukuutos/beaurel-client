@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCityAndTimezone } from '../redux/timezone/actions';
+import { setCityAndTimezone } from '../redux/slices/timezone';
 import useAsyncAction from './use-async-action/use-async-action';
 
 const handlePublicCase = (setCity, asyncAction) => {

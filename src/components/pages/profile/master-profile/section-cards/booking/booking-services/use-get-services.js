@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { getServicesSuccess } from '../../../../../../../redux/service/actions/service';
+import { getServices } from '../../../../../../../redux/slices/service/service';
 
 const useGetServices = () => {
   const [{ id: profileId }, { masterId }] = useSelector((state) => [state.profile, state.services]);
@@ -9,7 +9,7 @@ const useGetServices = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getServices = async () => {
+    const getServicesCall = async () => {
       const config = {
         method: 'get',
         url: `/master/${profileId}/service`,
@@ -19,13 +19,13 @@ const useGetServices = () => {
       const { services } = await asyncAction(config);
 
       if (services) {
-        dispatch(getServicesSuccess({ masterId: profileId, services }));
+        dispatch(getServices({ masterId: profileId, services }));
       }
     };
 
     const isServices = masterId === profileId;
 
-    if (!isServices) getServices();
+    if (!isServices) getServicesCall();
   }, [profileId, masterId, dispatch, asyncAction]);
 
   return isLoading;

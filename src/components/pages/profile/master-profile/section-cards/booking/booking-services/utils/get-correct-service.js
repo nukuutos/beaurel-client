@@ -1,5 +1,6 @@
 const serviceIsFirstStep = (service, isAfterUpdate) => {
   if (isAfterUpdate) {
+    console.log(service);
     const newService = { ...service };
     newService.duration = newService.update.duration;
     return newService;

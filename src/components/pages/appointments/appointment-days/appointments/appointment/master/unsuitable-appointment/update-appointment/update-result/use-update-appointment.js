@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../../../hooks/use-async-action/use-async-action';
-import { updateUnsuitableAppointment } from '../../../../../../../../../../redux/appointments/actions';
+import { updateUnsuitableAppointment } from '../../../../../../../../../../redux/slices/appointments';
 
 const useUpdateAppointment = ({ state, appointment, goToSuccess }) => {
   const { accessToken, id: masterId } = useSelector((state) => state.auth);

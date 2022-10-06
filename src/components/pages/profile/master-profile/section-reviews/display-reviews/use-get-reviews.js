@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { getReviewsOnScroll } from '../../../../../../redux/profile/actions';
+import { getReviewsOnScroll } from '../../../../../../redux/slices/profile';
 
 const REVIEWS_LIMIT_TO_LOAD = 10;
 

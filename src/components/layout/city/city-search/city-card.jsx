@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCityAndTimezone } from '../../../../redux/timezone/actions';
+import { setCityAndTimezone } from '../../../../redux/slices/timezone';
 
 const CityCard = ({ cityRef, cityData }) => {
   const { city: currentCity } = useSelector((state) => state.timezone);

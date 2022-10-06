@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { deleteServicesUpdate } from '../../../../redux/service/actions/service';
-import { unsetTimetableUpdate } from '../../../../redux/timetable/actions';
+import { deleteServicesUpdate } from '../../../../redux/slices/service/service';
+import { unsetTimetableUpdate } from '../../../../redux/slices/timetable';
 
 const useDeleteUpdate = () => {
   const [{ accessToken, id: profileId }, servicesState, { _id: timetableId }] = useSelector(

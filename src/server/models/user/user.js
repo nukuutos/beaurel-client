@@ -56,8 +56,6 @@ class User {
       .aggregate(customerProfile(customerMatchQuery))
       .next();
 
-    console.log(profile);
-
     return profile;
   }
 
@@ -80,7 +78,9 @@ class User {
   static async getDataForTokens(userId) {
     const { db } = await connectToDatabase();
     const projection = { _id: 0, role: 1, username: 1 };
-    const userData = await db.collection('users').findOne({ _id: userId }, { projection });
+    const userData = await db
+      .collection('users')
+      .findOne({ _id: new ObjectId(userId) }, { projection });
 
     if (!userData) throw new Error('Invalid token!');
     return { _id: userId, ...userData };

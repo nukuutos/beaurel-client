@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { changePageFinish, changePageStart } from '../../../redux/routing/actions';
+import { changePageFinish, changePageStart } from '../../../redux/slices/routing';
 
 const useHandleRouting = () => {
   const router = useRouter();

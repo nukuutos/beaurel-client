@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useKey from '../../../hooks/use-key';
-import { setModalCloseFunction } from '../../../redux/modal/actions';
+import { setModalCloseFunction } from '../../../redux/slices/modal';
 import Cross from '../icons/cross';
 import useBlockScroll from '../use-block-scroll';
 

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { signInSuccess } from '../../../../../../redux/auth/actions';
+import { signIn } from '../../../../../../redux/slices/auth';
 
 const useOnSubmit = (phone) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const useOnSubmit = (phone) => {
 
     if (data) {
       const { id, accessToken, role, username } = data;
-      dispatch(signInSuccess({ id, accessToken, role, username }));
+      dispatch(signIn({ id, accessToken, role, username }));
       router.push('/[id]', `/${id}`);
     }
   };

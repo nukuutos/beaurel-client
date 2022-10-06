@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getIdsAndOrders from '../utils/get-ids-and-orders';
 import areOrdersEqual from '../utils/are-orders-equal';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setInitialOrder } from '../../../../redux/service/actions/service';
+import { setInitialOrder } from '../../../../redux/slices/service/service';
 
 const useSaveBeforeUnload = () => {
   const [{ services, initialOrder }, { accessToken, id: profileId }] = useSelector((state) => [

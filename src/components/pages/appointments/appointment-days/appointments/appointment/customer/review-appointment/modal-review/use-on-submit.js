@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../../hooks/use-async-action/use-async-action';
-import { upsertAppointmentReview } from '../../../../../../../../../redux/appointments/actions';
+import { upsertAppointmentReview } from '../../../../../../../../../redux/slices/appointments';
 
 const useOnSubmit = (appointment, onClickClose) => {
   const { accessToken } = useSelector((state) => state.auth);

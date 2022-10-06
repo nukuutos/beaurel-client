@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { reorderServices } from '../../../../redux/service/actions/service';
+import { reorderServices } from '../../../../redux/slices/service/service';
 import DraggableService from './draggable-service';
 import DraggableParameterService from './draggable-parameter-service/draggable-parameter-service';
 

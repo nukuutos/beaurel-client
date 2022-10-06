@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { putUpdateToServices } from '../../../../../../../redux/service/actions/service';
+import { putUpdateToServices } from '../../../../../../../redux/slices/service/service';
 import prepareDataForApi from './prepare-data-for-api';
 
 const useOnSubmit = (close) => {

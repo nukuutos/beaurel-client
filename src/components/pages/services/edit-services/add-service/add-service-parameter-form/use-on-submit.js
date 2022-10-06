@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { addServiceParameterSuccess } from '../../../../../../redux/service/actions/service-parameter';
+import { addServiceParameter } from '../../../../../../redux/slices/service/service';
 
 const useOnSubmit = (onClickClose) => {
   const [{ accessToken, id: profileId }, { update }] = useSelector((state) => [
@@ -47,7 +47,7 @@ const useOnSubmit = (onClickClose) => {
 
       const serviceParameter = { title, subServices: subServicesToReducer };
 
-      dispatch(addServiceParameterSuccess({ ids, serviceParameter }));
+      dispatch(addServiceParameter({ ids, serviceParameter }));
       resetForm();
       onClickClose();
     }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteAlert } from '../../redux/alerts/actions';
+import { deleteAlert } from '../../redux/slices/alerts';
 import ExclamationTriangle from '../base/icons/exclamation-triangle';
 
 const Alert = ({ message }) => (
@@ -18,16 +18,20 @@ const Alerts = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const time = setTimeout(() => {
-      dispatch(deleteAlert());
-    }, 4000);
+    let time;
+
+    if (alerts.length) {
+      time = setTimeout(() => {
+        dispatch(deleteAlert());
+      }, 4000);
+    }
 
     return () => clearTimeout(time);
   }, [alerts.length, dispatch]);
 
   return (
     <div className="alerts">
-      {alerts.map(({ message, id }) => (
+      {alerts?.map(({ message, id }) => (
         <Alert message={message} key={id} />
       ))}
     </div>

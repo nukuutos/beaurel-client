@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../hooks/use-async-action/use-async-action';
-import { setMessagesViewed } from '../../../../../redux/messages/actions';
+import { setMessagesViewed } from '../../../../../redux/slices/messages';
 
 const useSetViewed = (interlocutorId) => {
   const [{ id: profileId, accessToken }, { dialogsMessages }] = useSelector((state) => [

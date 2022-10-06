@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../hooks/use-async-action/use-async-action';
-import { setOnlineStatus } from '../../../../redux/messages/actions';
+import { setOnlineStatus } from '../../../../redux/slices/messages';
 
 const useGetStatus = (interlocutorId) => {
   const { accessToken } = useSelector((state) => state.auth);

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { deleteServiceSuccess } from '../../../../../../../redux/service/actions/service';
+import { deleteService } from '../../../../../../../redux/slices/service/service';
 
 const useDeleteService = (service) => {
   const [asyncAction, isLoading] = useAsyncAction();
@@ -19,7 +19,7 @@ const useDeleteService = (service) => {
     const data = await asyncAction(config);
 
     if (data) {
-      dispatch(deleteServiceSuccess({ serviceId: id, order }));
+      dispatch(deleteService({ serviceId: id, order }));
     }
   };
 

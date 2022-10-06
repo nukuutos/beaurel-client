@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { refreshTokenSuccess } from '../../../../redux/auth/actions';
+import { refreshTokenSuccess } from '../../../../redux/slices/auth';
 import axios from '../../../../utils/axios';
 
 const handleUnauthorizedCall = async (dispatch, config) => {

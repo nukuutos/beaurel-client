@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { updateAboutSuccess } from '../../../../../../redux/profile/actions';
+import { updateAbout } from '../../../../../../redux/slices/profile';
 
 const useOnSubmit = (onClickClose) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const useOnSubmit = (onClickClose) => {
     const alert = await asyncAction(config);
 
     if (alert) {
-      dispatch(updateAboutSuccess(values.aboutText.trim()));
+      dispatch(updateAbout(values.aboutText.trim()));
       onClickClose();
     }
   };

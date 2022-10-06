@@ -35,7 +35,7 @@ const handleLogOut = async ({ res, store }) => {
   ]);
 };
 
-const getSignInServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getSignInServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const { headers } = req;
   const { isLogOut, refreshToken: isRefreshToken } = cookie.parse(headers.cookie || ' ');
 

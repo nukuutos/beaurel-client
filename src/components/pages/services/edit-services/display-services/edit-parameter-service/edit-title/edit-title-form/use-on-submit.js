@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../hooks/use-async-action/use-async-action';
-import { updateServiceParameterTitleSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
+import { updateServiceParameterTitle } from '../../../../../../../../redux/slices/service/service';
 
 const useOnSubmit = (setIsEdit) => {
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
@@ -20,7 +20,7 @@ const useOnSubmit = (setIsEdit) => {
     const data = await asyncAction(config);
 
     if (data) {
-      dispatch(updateServiceParameterTitleSuccess(values));
+      dispatch(updateServiceParameterTitle(values));
       setIsEdit(false);
     }
   };

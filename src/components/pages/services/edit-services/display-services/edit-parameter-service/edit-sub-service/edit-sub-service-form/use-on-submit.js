@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../../hooks/use-async-action/use-async-action';
-import { updateSubServiceSuccess } from '../../../../../../../../redux/service/actions/service-parameter';
+import { updateSubService } from '../../../../../../../../redux/slices/service/service';
 
 const useOnSubmit = ({ subService, title, setIsEdit }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const useOnSubmit = ({ subService, title, setIsEdit }) => {
     const data = await asyncAction(config);
 
     if (data) {
-      dispatch(updateSubServiceSuccess({ updatedSubService: { title, subOrder, ...values } }));
+      dispatch(updateSubService({ updatedSubService: { title, subOrder, ...values } }));
       setIsEdit(false);
     }
   };

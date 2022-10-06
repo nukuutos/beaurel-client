@@ -24,7 +24,6 @@ const handlePublicAndAuthPage = async (cb, ctx) => {
   const { req, res } = ctx;
 
   const accessToken = getAccessToken(req, res);
-
   if (accessToken) return await thereIsToken(accessToken, cb, ctx);
   return await thereIsNoToken(cb, ctx);
 };

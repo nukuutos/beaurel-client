@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
-import { setAppointments } from '../../../redux/appointments/actions';
+import { setAppointments } from '../../../redux/slices/appointments';
 
 const useGetAppointments = (state) => {
   const [{ appointments: appointmentsState }, { id: profileId, accessToken, role }] = useSelector(

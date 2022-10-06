@@ -1,11 +1,11 @@
-import { getServicesSuccess } from '../../redux/service/actions/service';
+import { getServices } from '../../redux/slices/service/service';
 import { wrapper } from '../../redux/store';
-import { getTimetableSuccess } from '../../redux/timetable/actions';
+import { getTimetable } from '../../redux/slices/timetable';
 import handleAuthPage from '../../utils/auth/handle-auth-page/handle-auth-page';
 import Service from '../models/service';
 import handleGlobalState from './utils/handle-global-state';
 
-const getServicesServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getServicesServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const user = await handleAuthPage(req, res, store);
 
   if (user?.role !== 'master') {
@@ -15,8 +15,8 @@ const getServicesServerSideProps = wrapper.getServerSideProps(async ({ store, re
   }
 
   const { services, timetable, globalData } = await Service.getServices(user.id);
-  store.dispatch(getServicesSuccess({ services, masterId: user.id }));
-  store.dispatch(getTimetableSuccess({ timetable }));
+  store.dispatch(getServices({ services, masterId: user.id }));
+  store.dispatch(getTimetable({ timetable }));
 
   handleGlobalState({ user, globalData, store });
 

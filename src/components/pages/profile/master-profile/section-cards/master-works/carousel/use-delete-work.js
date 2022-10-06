@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../../hooks/use-async-action/use-async-action';
-import { deleteWorkSuccess } from '../../../../../../../redux/work/actions';
+import { deleteWork } from '../../../../../../../redux/slices/work';
 
 const useDeleteWork = ({ state, goToGallery }) => {
   const [{ works }, { accessToken, id: profileId }] = useSelector((state) => [
@@ -14,7 +14,7 @@ const useDeleteWork = ({ state, goToGallery }) => {
 
   const dispatch = useDispatch();
 
-  const deleteWork = async () => {
+  const deleteAction = async () => {
     const config = {
       method: 'delete',
       url: `/master/${profileId}/work/${works[index]._id}`,
@@ -25,11 +25,11 @@ const useDeleteWork = ({ state, goToGallery }) => {
 
     if (data) {
       goToGallery();
-      dispatch(deleteWorkSuccess({ deletedId: works[index]._id }));
+      dispatch(deleteWork({ deletedId: works[index]._id }));
     }
   };
 
-  return [deleteWork, isLoading];
+  return [deleteAction, isLoading];
 };
 
 export default useDeleteWork;

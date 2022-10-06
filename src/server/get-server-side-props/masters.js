@@ -3,7 +3,7 @@ import handleAuthPage from '../../utils/auth/handle-auth-page/handle-auth-page';
 import User from '../models/user/user';
 import handleGlobalState from './utils/handle-global-state';
 
-const getMastersServerSideProps = wrapper.getServerSideProps(async ({ store, req, res }) => {
+const getMastersServerSideProps = wrapper.getServerSideProps((store) => async ({ req, res }) => {
   const user = await handleAuthPage(req, res, store);
   const globalData = await User.getFavoriteMasters(user.id);
 

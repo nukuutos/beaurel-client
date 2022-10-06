@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../../../../hooks/use-async-action/use-async-action';
-import { updateAvatarSuccess } from '../../../../../../redux/profile/actions';
+import { updateAvatar } from '../../../../../../redux/slices/profile';
 
 const useUpdateAvatar = (closeModal, editCounterRef) => {
   const { isAvatar } = useSelector((state) => state.profile);
@@ -21,7 +21,7 @@ const useUpdateAvatar = (closeModal, editCounterRef) => {
     const data = await asyncAction(config);
 
     if (data && !isAvatar) {
-      dispatch(updateAvatarSuccess());
+      dispatch(updateAvatar());
     }
 
     editCounterRef.current++;

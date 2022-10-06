@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAsyncAction from '../../../hooks/use-async-action/use-async-action';
-import { getAppointmentsOnScroll } from '../../../redux/appointments/actions';
+import { getAppointmentsOnScroll } from '../../../redux/slices/appointments';
 
 const useGetAppointmentsOnScroll = ({ user, category }) => {
   const { id: profileId, accessToken } = useSelector((state) => state.auth);
