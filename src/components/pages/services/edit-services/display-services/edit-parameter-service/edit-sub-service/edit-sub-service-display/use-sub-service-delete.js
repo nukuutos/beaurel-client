@@ -9,7 +9,7 @@ const useSubServiceDelete = ({ subService, title, order }) => {
   const dispatch = useDispatch();
   const { id, subOrder } = subService;
 
-  const deleteSubService = async () => {
+  const deleteSubServiceCall = async () => {
     const config = {
       method: 'delete',
       url: `/master/${profileId}/service-parameter/${title}/sub-service/${id}`,
@@ -23,7 +23,7 @@ const useSubServiceDelete = ({ subService, title, order }) => {
     }
   };
 
-  return [deleteSubService, isLoading];
+  return [deleteSubServiceCall, isLoading];
 };
 
 export default useSubServiceDelete;

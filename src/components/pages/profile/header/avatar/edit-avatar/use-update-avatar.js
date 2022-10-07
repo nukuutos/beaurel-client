@@ -9,7 +9,7 @@ const useUpdateAvatar = (closeModal, editCounterRef) => {
 
   const { accessToken, id: profileId } = useSelector((state) => state.auth);
 
-  const updateAvatar = async (formData) => {
+  const updateAvatarCall = async (formData) => {
     const config = {
       method: 'put',
       url: `/profile/${profileId}/avatar`,
@@ -29,7 +29,7 @@ const useUpdateAvatar = (closeModal, editCounterRef) => {
     closeModal();
   };
 
-  return [updateAvatar, isLoading];
+  return [updateAvatarCall, isLoading];
 };
 
 export default useUpdateAvatar;

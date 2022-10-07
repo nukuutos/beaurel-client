@@ -34,10 +34,14 @@ const slice = createSlice({
   },
 
   extraReducers: {
-    [HYDRATE]: (state, action) => ({
-      ...state,
-      ...action.payload.masterTools,
-    }),
+    [HYDRATE]: (state, action) => {
+      if (state.isViewed) return state;
+
+      return {
+        ...state,
+        ...action.payload.masterTools,
+      };
+    },
   },
 });
 

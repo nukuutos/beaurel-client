@@ -48,7 +48,7 @@ const profileSlice = createSlice({
       city: action.payload,
     }),
 
-    getReviewOnScroll: (state, action) => {
+    getReviewsOnScroll: (state, action) => {
       const newReviews = [...state.reviews, ...action.payload];
 
       return {
@@ -74,7 +74,7 @@ export const {
   updateAvatar,
   updatePlaceOfWork,
   updateProfileCity,
-  getReviewOnScroll,
+  getReviewsOnScroll,
 } = actions;
 
 export default reducer;

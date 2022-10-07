@@ -9,7 +9,7 @@ const useDeleteService = (service) => {
 
   const { id, order } = service;
 
-  const deleteService = async () => {
+  const deleteServiceCall = async () => {
     const config = {
       method: 'delete',
       url: `/master/${profileId}/service/${id}`,
@@ -23,7 +23,7 @@ const useDeleteService = (service) => {
     }
   };
 
-  return [deleteService, isLoading];
+  return [deleteServiceCall, isLoading];
 };
 
 export default useDeleteService;

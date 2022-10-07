@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
-import cloneDeep from 'lodash.clonedeep';
 import { HYDRATE } from 'next-redux-wrapper';
 
 // group state like appointments and booking ?
@@ -42,6 +41,8 @@ const initialState = {
   },
 };
 
+const categories = ['onConfirmation', 'confirmed', 'unsuitable', 'history'];
+
 // ???? in bookingAppointment.availableAppointments and availableAppointments. same unavailableAppointments
 
 // availableAppointments, unavailableAppointments only for client
@@ -53,135 +54,82 @@ const slice = createSlice({
     getAppointments: (state, action) => {
       const { appointments, masterId } = action.payload;
 
-      let appointmentsToState;
-      if (masterId === state.booking.masterId) {
-        appointmentsToState = { ...state.booking.bookedAppointments, ...appointments };
-      } else {
-        appointmentsToState = appointments;
-      }
+      const { booking } = state;
 
-      return {
-        ...state,
-        booking: {
-          ...state.booking,
-          masterId,
-          bookedAppointments: appointmentsToState,
-        },
-      };
+      if (masterId === booking.masterId) {
+        booking.bookedAppointments = { ...booking.bookedAppointments, ...appointments };
+      } else {
+        booking.bookedAppointments = appointments;
+      }
     },
 
     bookAppointment: (state, action) => {
       const { time, date } = action.payload;
 
-      const bookedAppointments = { ...state.booking.bookedAppointments };
+      const { bookedAppointments } = state.booking;
 
-      if (bookedAppointments[date]) bookedAppointments[date].push(time);
-      else bookedAppointments[date] = [time];
-
-      return { ...state, booking: { ...state.booking, bookedAppointments } };
+      if (bookedAppointments[date]) {
+        bookedAppointments[date].push(time);
+      } else {
+        bookedAppointments[date] = [time];
+      }
     },
 
     setAppointments: (state, action) => {
       const { type, appointments, user } = action.payload;
 
-      const appointmentsState = { ...state.appointments };
-      const userAppointments = { ...appointmentsState[user] };
-      const userAppointmentsCategory = { ...userAppointments[type], isLoaded: true, appointments };
+      const userAppointments = state.appointments[user];
+      userAppointments[type] = { isLoaded: true, appointments };
 
-      userAppointments[type] = userAppointmentsCategory;
-      appointmentsState[user] = userAppointments;
-
-      // userAppointmentsCategory = { isLoaded: true, appointments };
-
-      // notification
-      const isNotification = { ...state.isNotification };
-      const isNotificationUser = { ...isNotification[user] };
-      isNotificationUser[type] = false;
-      isNotification[user] = isNotificationUser;
-
-      return { ...state, isNotification, appointments: appointmentsState };
+      state.isNotification[user][type] = false;
     },
 
     getAppointmentsOnScroll: (state, action) => {
       const { appointments, user, category } = action.payload;
 
-      const appointmentsState = { ...state.appointments };
-      const userAppointments = { ...appointmentsState[user] };
-      const userAppointmentsCategory = { ...userAppointments[category] };
-      const userAppointmentsCategoryAppointments = {
-        ...userAppointmentsCategory.appointments,
-      };
+      const { appointments: categoryAppointments } = state.appointments[user][category];
 
       for (const date in appointments) {
-        if (userAppointmentsCategoryAppointments[date]) {
-          userAppointmentsCategoryAppointments[date] = [
-            ...userAppointmentsCategoryAppointments[date],
-            ...appointments[date],
-          ];
+        if (categoryAppointments[date]) {
+          categoryAppointments[date] = [...categoryAppointments[date], ...appointments[date]];
         } else {
-          userAppointmentsCategoryAppointments[date] = [...appointments[date]];
+          categoryAppointments[date] = [...appointments[date]];
         }
       }
-
-      userAppointmentsCategory.appointments = userAppointmentsCategoryAppointments;
-      userAppointments[category] = userAppointmentsCategory;
-      appointmentsState[user] = userAppointments;
-      // get appointment on scroll
-
-      // if(date) push to date
-      // if no date create date
-      return { ...state, appointments: appointmentsState };
     },
 
     setAppointmentsNotifications: (state, action) => {
       const { notifications } = action.payload;
 
-      const isNotification = { ...initialState.isNotification };
-      const isNotificationMaster = { ...isNotification.master };
-      const isNotificationCustomer = { ...isNotification.customer };
+      const { master, customer } = state.isNotification;
 
-      for (const status in isNotificationMaster) {
+      for (const status in master) {
         if (notifications.master?.includes(status)) {
-          isNotificationMaster[status] = true;
+          master[status] = true;
         }
       }
 
-      for (const status in isNotificationCustomer) {
+      for (const status in customer) {
         if (notifications.customer?.includes(status)) {
-          isNotificationCustomer[status] = true;
+          customer[status] = true;
         }
       }
-
-      const newIsNotification = { master: isNotificationMaster, customer: isNotificationCustomer };
-
-      return { ...state, isNotification: newIsNotification };
     },
 
     bookAppointmentByCustomer: (state, action) => {
       const { appointment } = action.payload;
       const date = dayjs(appointment.date).format('DD-MM-YYYY');
-      const appointmentsState = { ...state.appointments };
-      const masterAppointments = { ...appointmentsState.master };
-      const masterAppointmentsOnConfirmation = { ...masterAppointments.onConfirmation };
-      const masterAppointmentsOnConfirmationAppointments = {
-        ...masterAppointmentsOnConfirmation.appointments,
-      };
+
+      const { appointments } = state.appointments.master.onConfirmation;
+
       // sort
-      let appointments;
-      if (masterAppointmentsOnConfirmationAppointments[date]) {
-        appointments = [...masterAppointmentsOnConfirmationAppointments[date], appointment];
-      } else appointments = [appointment];
+      if (appointments[date]) {
+        appointments[date] = [...appointments[date], appointment];
+      } else {
+        appointments[date] = [appointment];
+      }
 
-      masterAppointmentsOnConfirmationAppointments[date] = appointments;
-      masterAppointmentsOnConfirmation.appointments = masterAppointmentsOnConfirmationAppointments;
-      masterAppointments.onConfirmation = masterAppointmentsOnConfirmation;
-      appointmentsState.master = masterAppointments;
-      // notification
-      const isNotification = { ...state.isNotification };
-      const isNotificationMaster = { ...isNotification.master, onConfirmation: true };
-      isNotification.master = isNotificationMaster;
-
-      return { ...state, isNotification, appointments: appointmentsState };
+      state.isNotification.master.onConfirmation = true;
     },
 
     changeAppointmentStatus: (state, action) => {
@@ -189,50 +137,53 @@ const slice = createSlice({
       const { status: statusData, _id: appointmentId, date } = appointment;
       const { status: currentStatus } = statusData;
 
-      const appointmentsState = { ...state.appointments };
       const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
+      const oldAppointmentsCategory = state.appointments[user][currentStatus].appointments;
+      const oldAppointments = oldAppointmentsCategory[stringDate];
 
       // find index in current category
-      const indexToDelete = appointmentsState[user][currentStatus].appointments[
-        stringDate
-      ].findIndex((appointment) => appointment._id === appointmentId);
+      const indexToDelete = oldAppointments.findIndex(
+        (appointment) => appointment._id === appointmentId
+      );
 
-      appointmentsState[user][currentStatus].appointments[stringDate].splice(indexToDelete, 1);
-      if (!appointmentsState[user][currentStatus].appointments[stringDate].length) {
-        delete appointmentsState[user][currentStatus].appointments[stringDate];
+      oldAppointments.splice(indexToDelete, 1);
+
+      if (!oldAppointments.length) {
+        delete oldAppointmentsCategory[stringDate];
       }
-
-      const { isLoaded: isConfirmedLoaded } = appointmentsState.master.confirmed;
 
       // get notification
       let isNotificationInCategory;
-      for (const date in appointmentsState[user][currentStatus].appointments) {
-        isNotificationInCategory = appointmentsState[user][currentStatus].appointments[date].some(
+      for (const stringDate in oldAppointmentsCategory) {
+        isNotificationInCategory = oldAppointmentsCategory[stringDate].some(
           (appointment) => !appointment.isViewed[user]
         );
+
         if (isNotificationInCategory) break;
       }
 
-      const isNotification = { ...state.isNotification };
-      const isNotificationUser = { ...state.isNotification[user] };
-      isNotificationUser[currentStatus] = isNotificationInCategory;
-      isNotification[user] = isNotificationUser;
+      state.isNotification[user][currentStatus] = isNotificationInCategory;
+
+      const { isLoaded: isConfirmedLoaded } = state.appointments.master.confirmed;
 
       if (user === 'customer' || nextStatus !== 'confirmed' || !isConfirmedLoaded) {
-        return { ...state, isNotification, appointments: appointmentsState };
+        return;
       }
 
       // next code only for master appointments, confirming appointments and confirmed appointments is not Loaded
-
       appointment.status = 'confirmed';
+
+      const confirmedMasterAppointmentsState =
+        state.appointments.master.confirmed.appointments[stringDate];
+
+      const confirmedMasterAppointments = confirmedMasterAppointmentsState[stringDate];
       // find index to insert;
       // not push, inserted it correctly
-      // appointmentsState.master.confirmed.appointments.push(appointment);
-      if (appointmentsState.master.confirmed.appointments[stringDate]) {
-        appointmentsState.master.confirmed.appointments[stringDate].push(appointment);
-      } else appointmentsState.master.confirmed.appointments[stringDate] = [appointment];
-
-      return { ...state, isNotification, appointments: appointmentsState };
+      if (confirmedMasterAppointments) {
+        confirmedMasterAppointments.push(appointment);
+      } else {
+        confirmedMasterAppointmentsState[stringDate] = [appointment];
+      }
     },
     // change appointment status and change appointment socket join?
     changeAppointmentStatusSocket: (state, action) => {
@@ -240,108 +191,111 @@ const slice = createSlice({
       const { status: statusData, _id: appointmentId, date } = appointment;
       const { status: currentStatus } = statusData;
 
-      const appointmentsState = { ...state.appointments };
+      // const appointmentsState = { ...state.appointments };
+      const { isLoaded: isNextCategoryLoaded } = state.appointments[user][nextStatus];
+      const { isLoaded: isCurrentCategoryLoaded } = state.appointments[user][currentStatus];
 
-      const isNotification = { ...state.isNotification };
-      isNotification[user][nextStatus] = true;
+      console.log('wtfuck');
+
+      state.isNotification[user][nextStatus] = true;
 
       // for socket connection
-      if (
-        !appointmentsState[user][nextStatus].isLoaded &&
-        !appointmentsState[user][currentStatus].isLoaded
-      ) {
-        return { ...state, isNotification };
+      if (!isNextCategoryLoaded && !isCurrentCategoryLoaded) {
+        return;
       }
 
       const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
 
-      if (appointmentsState[user][currentStatus].isLoaded) {
-        // find index in current category
-        const indexToDelete = appointmentsState[user][currentStatus].appointments[
-          stringDate
-        ].findIndex((appointment) => appointment._id === appointmentId);
+      const { appointments } = state.appointments[user][currentStatus];
+      const appointmentsDate = appointments[stringDate];
 
-        appointmentsState[user][currentStatus].appointments[stringDate].splice(indexToDelete, 1);
-        if (!appointmentsState[user][currentStatus].appointments[stringDate].length) {
-          delete appointmentsState[user][currentStatus].appointments[stringDate];
+      if (isCurrentCategoryLoaded) {
+        // find index in current category
+        const indexToDelete = appointmentsDate.findIndex(
+          (appointment) => appointment._id === appointmentId
+        );
+
+        appointmentsDate.splice(indexToDelete, 1);
+
+        if (!appointmentsDate.length) {
+          delete appointments[stringDate];
         }
 
-        const { isLoaded: isConfirmedLoaded } = appointmentsState.master.confirmed;
+        const { isLoaded: isConfirmedLoaded } = state.appointments.master.confirmed;
+
         if (user === 'customer' || nextStatus !== 'confirmed' || !isConfirmedLoaded) {
-          return { ...state, isNotification, appointments: appointmentsState };
+          return;
         }
       }
       // next code only for master appointments, confirming appointments and confirmed appointments is Loaded
 
+      const confirmedAppointments = state.appointments.master.confirmed.appointments;
+      const confirmedAppointmentsDate = confirmedAppointments[stringDate];
+
       appointment.status = 'confirmed';
       // find index to insert;
       // not push, inserted it correctly
-      // appointmentsState.master.confirmed.appointments.push(appointment);
-      if (appointmentsState.master.confirmed.appointments[stringDate]) {
-        appointmentsState.master.confirmed.appointments[stringDate].push(appointment);
-      } else appointmentsState.master.confirmed.appointments[stringDate] = [appointment];
-
-      return { ...state, isNotification, appointments: appointmentsState };
+      if (confirmedAppointmentsDate) {
+        confirmedAppointmentsDate.push(appointment);
+      } else {
+        confirmedAppointments[stringDate] = [appointment];
+      }
     },
     // change appointment status and change appointment socket join?
     updateAppointmentToUnsuitableSocket: (state, action) => {
       const { appointment } = action.payload;
       const { _id: appointmentId, date } = appointment;
 
-      const appointmentsState = { ...state.appointments };
+      state.isNotification.customer.unsuitable = true;
 
-      const isNotification = { ...state.isNotification };
-      isNotification.customer.unsuitable = true;
+      const customerAppointments = state.appointments.customer;
 
-      const customerAppointments = { ...appointmentsState.customer };
+      const loadedCategories = categories.filter(
+        (category) => customerAppointments[category].isLoaded
+      );
 
-      const categories = Object.keys(customerAppointments).filter((category) => {
-        const appointments = Object.keys(customerAppointments[category].appointments);
-        return !!appointments.length;
-      });
-
-      for (const category of categories) {
-        const categoryAppointments = { ...customerAppointments[category].appointments };
+      // remove stale appointment
+      for (const category of loadedCategories) {
+        const categoryAppointments = customerAppointments[category].appointments;
         const dates = Object.keys(categoryAppointments);
 
         let isUnsuitableAppointment;
         for (const date of dates) {
-          const dateAppointments = [...categoryAppointments[date]];
-          // eslint-disable-next-line no-loop-func
-          const filteredAppointments = dateAppointments.filter((appointment) => {
-            const isFound = appointment._id === appointmentId;
-            if (isFound) isUnsuitableAppointment = true;
-            return !isFound;
-          });
+          const dateAppointments = categoryAppointments[date];
 
-          if (isUnsuitableAppointment && filteredAppointments.length) {
+          isUnsuitableAppointment = dateAppointments.some(
+            (appointment) => appointment._id === appointmentId
+          );
+
+          const filteredAppointments = dateAppointments.filter(
+            (appointment) => appointment._id !== appointmentId
+          );
+
+          if (filteredAppointments.length) {
             categoryAppointments[date] = filteredAppointments;
-            customerAppointments[category].appointments = categoryAppointments;
-            break;
-          } else if (isUnsuitableAppointment) {
+          } else {
             delete categoryAppointments[date];
-            customerAppointments[category].appointments = categoryAppointments;
           }
+
+          if (isUnsuitableAppointment) break;
         }
 
         if (isUnsuitableAppointment) break;
       }
 
-      appointmentsState.customer = customerAppointments;
+      // appointmentsState.customer = customerAppointments;
+      // push appointment to unsuitable
+      const { appointments, isLoaded } = customerAppointments.unsuitable;
 
-      const { isLoaded: isUnsuitableLoaded } = appointmentsState.customer.unsuitable;
-
-      if (!isUnsuitableLoaded) {
-        return { ...state, isNotification, appointments: appointmentsState };
-      }
+      if (!isLoaded) return;
 
       const stringDate = dayjs(date).utc().format('DD-MM-YYYY');
 
-      if (appointmentsState.customer.unsuitable.appointments[stringDate]) {
-        appointmentsState.customer.unsuitable.appointments[stringDate].push(appointment);
-      } else appointmentsState.customer.unsuitable.appointments[stringDate] = [appointment];
-
-      return { ...state, isNotification, appointments: appointmentsState };
+      if (appointments[stringDate]) {
+        appointments[stringDate].push(appointment);
+      } else {
+        appointments[stringDate] = [appointment];
+      }
     },
 
     updateUnsuitableAppointment: (state, action) => {
@@ -351,67 +305,53 @@ const slice = createSlice({
 
       const prevStringDate = dayjs(prevDate).utc().format('DD-MM-YYYY');
 
+      const { appointments } = appointmentsState.master.unsuitable;
+      const appointmentsDate = appointments[prevStringDate];
+
       // find index in current category
-      const index = appointmentsState.master.unsuitable.appointments[prevStringDate].findIndex(
-        (appointment) => appointment._id === appointmentId
-      );
+      const index = appointmentsDate.findIndex((appointment) => appointment._id === appointmentId);
 
-      const appointment = cloneDeep(
-        appointmentsState.master.unsuitable.appointments[prevStringDate][index]
-      );
+      const [appointment] = appointmentsDate.splice(index, 1);
 
-      appointmentsState.master.unsuitable.appointments[prevStringDate].splice(index, 1);
-      if (!appointmentsState.master.unsuitable.appointments[prevStringDate].length) {
-        delete appointmentsState.master.unsuitable.appointments[prevStringDate];
+      if (!appointmentsDate.length) {
+        delete appointments[prevStringDate];
       }
 
       const { isLoaded: isConfirmedLoaded } = appointmentsState.master.confirmed;
 
-      if (!isConfirmedLoaded) {
-        return { ...state, appointments: appointmentsState };
-      }
+      if (!isConfirmedLoaded) return;
 
       const confirmedAppointment = {
         ...appointment,
-        // date: dayjs(date, 'DD-MM-YYYY'),
         date,
         time,
         status: 'confirmed',
         service: { ...appointment.service, duration },
       };
 
-      // next code only for master appointments, confirming appointments and confirmed appointments is not Loaded
+      const confirmedDateAppointments = appointmentsState.master.confirmed.appointments;
+      const confirmedDateAppointmentsDate = confirmedDateAppointments[date];
 
-      appointment.status = 'confirmed';
-      // find index to insert;
       // not push, inserted it correctly
-      // appointmentsState.master.confirmed.appointments.push(appointment);
-      if (appointmentsState.master.confirmed.appointments[date]) {
-        appointmentsState.master.confirmed.appointments[date].push(confirmedAppointment);
-      } else appointmentsState.master.confirmed.appointments[date] = [confirmedAppointment];
-
-      return { ...state, appointments: appointmentsState };
+      if (confirmedDateAppointmentsDate) {
+        confirmedDateAppointmentsDate.push(confirmedAppointment);
+      } else {
+        confirmedDateAppointments[date] = [confirmedAppointment];
+      }
     },
 
     upsertAppointmentReview: (state, action) => {
       const { appointmentId, review, stringDate } = action.payload;
-      const appointments = { ...state.appointments };
-      const customerHistoryAppointments = appointments.customer.history.appointments[stringDate];
 
-      const indexToUpdate = customerHistoryAppointments.findIndex(
+      const historyAppointments = state.appointments.customer.history.appointments[stringDate];
+
+      const indexToUpdate = historyAppointments.findIndex(
         (appointment) => appointment._id === appointmentId
       );
 
-      const appointmentToUpdate = customerHistoryAppointments[indexToUpdate];
+      const historyAppointment = historyAppointments[indexToUpdate];
 
-      const updatedAppointment = {
-        ...appointmentToUpdate,
-        review: { ...appointmentToUpdate.review, ...review },
-      };
-
-      customerHistoryAppointments[indexToUpdate] = updatedAppointment;
-
-      return { ...state, appointments };
+      historyAppointment.review = { ...historyAppointment.review, ...review };
     },
   },
 

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
+import hydrateState from '../hydrate-state';
 
 const initialState = {
   dialogs: [],
@@ -14,178 +15,121 @@ const slice = createSlice({
   reducers: {
     setDialogs: (state, action) => {
       const { dialogs } = action.payload;
-
-      return {
-        ...state,
-        dialogs,
-        // dialogs: dialogs.map(({ createdAt, ...rest }) => ({
-        //   createdAt: dayjs(createdAt),
-        //   ...rest,
-        // })),
-      };
+      state.dialogs = dialogs;
     },
 
     getDialogsOnScroll: (state, action) => {
       const { dialogs } = action.payload;
-
-      return {
-        ...state,
-        dialogs: [
-          ...state.dialogs,
-          ...dialogs,
-          // ...dialogs.map(({ createdAt, ...rest }) => ({
-          //   createdAt: dayjs(createdAt),
-          //   ...rest,
-          // })),
-        ],
-      };
+      state.dialogs = [...state.dialogs, ...dialogs];
     },
 
     setDialogMessages: (state, action) => {
       const { interlocutorId, messages } = action.payload;
-      const dialogsMessages = { ...state.dialogsMessages };
 
-      dialogsMessages[interlocutorId] = {
-        // messages: messages.map(({ createdAt, ...rest }) => ({
-        //   createdAt: dayjs(createdAt),
-        //   ...rest,
-        // })),
+      state.dialogsMessages[interlocutorId] = {
         messages,
         isLoaded: true,
       };
 
-      // set read state to messages
-      const dialogs = [...state.dialogs];
-
-      for (const dialog of dialogs) {
+      for (const dialog of state.dialogs) {
         if (dialog._id !== interlocutorId) continue;
         dialog.isUnread = false;
       }
-
-      return { ...state, dialogsMessages, dialogs };
     },
 
     getDialogMessages: (state, action) => {
       const { interlocutorId, messages } = action.payload;
-      const dialogsMessages = { ...state.dialogsMessages };
 
-      // const messagesByDayjs = messages.map(({ createdAt, ...rest }) => ({
-      //   createdAt: dayjs(createdAt),
-      //   ...rest,
-      // }));
-
-      // const newMessages = [...dialogsMessages[interlocutorId].messages, ...messagesByDayjs];
-      const newMessages = [...dialogsMessages[interlocutorId].messages, ...messages];
-
-      dialogsMessages[interlocutorId].messages = newMessages;
-
-      return { ...state, dialogsMessages };
+      state.dialogsMessages[interlocutorId].messages = [
+        ...state.dialogsMessages[interlocutorId].messages,
+        ...messages,
+      ];
     },
 
     pushMessage: (state, action) => {
       const { message } = action.payload;
-      const dialogsMessages = { ...state.dialogsMessages };
+
       // set new message to dialog
+      const currentDialog = state.dialogsMessages[message._id]?.messages;
+
       let newDialog = [message];
-      const currentDialog = dialogsMessages[message._id]?.messages;
+
       if (currentDialog) {
         newDialog = [message, ...currentDialog];
       }
-      dialogsMessages[message._id].messages = newDialog;
+
+      state.dialogsMessages[message._id].messages = newDialog;
+
       // change dialog card data
       const dialogs = [...state.dialogs];
       const filteredDialogs = dialogs.filter((dialog) => dialog._id !== message._id);
-      const newDialogs = [message, ...filteredDialogs];
-
-      return {
-        ...state,
-        dialogs: newDialogs,
-        dialogsMessages,
-      };
+      state.dialogs = [message, ...filteredDialogs]; // ?
     },
 
     getMessageFromInterlocutor: (state, action) => {
       const { message } = action.payload;
-
-      // message.createdAt = dayjs(message.createdAt);
-
-      const dialogsMessages = { ...state.dialogsMessages };
       // set new message to dialog
+      const currentDialog = state.dialogsMessages[message.senderId]?.messages;
+
       let newDialog = [message];
-      const currentDialog = dialogsMessages[message.senderId]?.messages;
+
       if (currentDialog) {
         newDialog = [message, ...currentDialog];
       }
-      dialogsMessages[message.senderId] = {
+
+      state.dialogsMessages[message.senderId] = {
         messages: newDialog,
-        isLoaded: dialogsMessages[message.senderId]?.isLoaded,
+        isLoaded: state.dialogsMessages[message.senderId]?.isLoaded,
       };
+
       // change dialog card data
       const dialogs = [...state.dialogs];
       const filteredDialogs = dialogs.filter((dialog) => dialog._id !== message.senderId);
-      const newDialogs = [{ ...message, _id: message.senderId }, ...filteredDialogs];
-      // notifications
-      let isNotification = false;
-      if (state.activeInterlocutor._id !== message.senderId) {
-        isNotification = true;
-      }
+      state.dialogs = [{ ...message, _id: message.senderId }, ...filteredDialogs];
 
-      return {
-        ...state,
-        dialogs: newDialogs,
-        dialogsMessages,
-        isNotification,
-      };
+      // notifications
+      state.isNotification = false;
+      if (state.activeInterlocutor._id !== message.senderId) {
+        state.isNotification = true;
+      }
     },
 
     setMessagesViewed: (state, action) => {
       const { interlocutorId } = action.payload;
 
-      const dialogsMessages = { ...state.dialogsMessages };
       // read messages
-      const currentDialog = dialogsMessages[interlocutorId].messages;
+      const currentDialog = state.dialogsMessages[interlocutorId].messages;
+
       const viewedDialog = currentDialog.map((message) => {
         const { senderId, isUnread } = message;
         if (senderId === interlocutorId && isUnread) return { ...message, isUnread: false };
         return message;
       });
-      dialogsMessages[interlocutorId].messages = viewedDialog;
+
+      state.dialogsMessages[interlocutorId].messages = viewedDialog;
 
       // change dialog card data (read last message)
-      const dialogs = [...state.dialogs];
-      const dialogIndex = dialogs.findIndex((dialog) => dialog._id === interlocutorId);
-      dialogs[dialogIndex].isUnread = false;
+      const dialogIndex = state.dialogs.findIndex((dialog) => dialog._id === interlocutorId);
+      state.dialogs[dialogIndex].isUnread = false;
 
       // check notifications
-      const isNotification = dialogs.some(
+      state.isNotification = state.dialogs.some(
         (dialog) => dialog.isUnread && dialog.senderId === interlocutorId
       );
-
-      return {
-        ...state,
-        dialogs,
-        dialogsMessages,
-        isNotification,
-      };
     },
 
     setMessagesViewedByRecipient: (state, action) => {
       const { recipientId } = action.payload;
 
-      const dialogsMessages = { ...state.dialogsMessages };
       // read messages
-      const currentDialog = dialogsMessages[recipientId].messages;
+      const currentDialog = state.dialogsMessages[recipientId].messages;
       const viewedDialog = currentDialog.map((message) => {
         const { isUnread } = message;
         if (message.recipientId === recipientId && isUnread) return { ...message, isUnread: false };
         return message;
       });
-      dialogsMessages[recipientId].messages = viewedDialog;
 
-      return {
-        ...state,
-        dialogsMessages,
-      };
+      state.dialogsMessages[recipientId].messages = viewedDialog;
     },
 
     setActiveInterlocutor: (state, action) => ({
@@ -196,25 +140,37 @@ const slice = createSlice({
     setOnlineStatus: (state, action) => {
       const { wasOnline } = action.payload;
 
-      const activeInterlocutor = { ...state.activeInterlocutor, wasOnline };
-
-      return {
-        ...state,
-        activeInterlocutor,
-      };
+      state.activeInterlocutor.wasOnline = wasOnline;
     },
 
-    setMessageNotification: (state, action) => ({
+    setMessageNotification: (state) => ({
       ...state,
       isNotification: true,
     }),
   },
 
   extraReducers: {
-    [HYDRATE]: (state, action) => ({
-      ...state,
-      ...action.payload.messages,
-    }),
+    [HYDRATE]: (state, action) => {
+      const nextState = {
+        ...state,
+        ...action.payload.messages,
+      };
+
+      // console.log(current(state), action.payload);
+
+      const newActiveInterlocutor = hydrateState(
+        state.activeInterlocutor,
+        nextState.activeInterlocutor
+      );
+
+      nextState.activeInterlocutor = newActiveInterlocutor;
+
+      // return {
+      //   ...state,
+      //   ...action.payload.messages,
+      // };
+      return nextState;
+    },
   },
 });
 

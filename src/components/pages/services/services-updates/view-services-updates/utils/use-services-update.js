@@ -12,10 +12,13 @@ const useServicesUpdate = () => {
       const { subServices } = copiedService;
 
       copiedService.subServices = subServices.map((subService) => {
-        if (subService.update?.date) {
-          subService.duration = subService.update.duration;
+        const updatedSubService = { ...subService };
+
+        if (updatedSubService.update?.date) {
+          updatedSubService.duration = updatedSubService.update.duration;
         }
-        return subService;
+
+        return updatedSubService;
       });
     } else if (copiedService.update?.date) {
       copiedService.duration = copiedService.update.duration;

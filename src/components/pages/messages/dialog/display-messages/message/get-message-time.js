@@ -1,5 +1,9 @@
+import dayjs from 'dayjs';
+
 const getMessageTime = (createdAt) => {
-  const [hour, minute] = [createdAt.hour(), createdAt.minute()];
+  const dateDayjs = dayjs(createdAt).utc(true);
+
+  const [hour, minute] = [dateDayjs.hour(), dateDayjs.minute()];
 
   const stringMinutes = minute < 10 ? `0${minute}` : minute;
   const stringHours = hour < 10 ? `0${hour}` : hour;

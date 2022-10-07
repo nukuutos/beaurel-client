@@ -19,8 +19,10 @@ const DisplayMessages = () => {
   return (
     <>
       {messages.map((messageObject, index) => {
+        const messageData = { ...messageObject };
+
         const isLastMessage = index === messages.length - 1;
-        messageObject.createdAt = dayjs(messageObject.createdAt).utc(true);
+        messageData.createdAt = dayjs(messageData.createdAt).utc(true);
 
         if (isLastMessage) {
           return (

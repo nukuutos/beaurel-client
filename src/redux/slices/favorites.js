@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
 const initialState = [];
@@ -7,7 +7,10 @@ const slice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    getFavorites: (state, action) => action.payload,
+    getFavorites: (state, action) => {
+      state = [...action.payload];
+      return state;
+    },
 
     addFavorite: (state, action) => {
       const { newFavoriteMaster } = action.payload;
@@ -23,10 +26,7 @@ const slice = createSlice({
   },
 
   extraReducers: {
-    [HYDRATE]: (state, action) => ({
-      ...state,
-      ...action.payload.favorites,
-    }),
+    [HYDRATE]: (state, action) => action.payload.favorites,
   },
 });
 

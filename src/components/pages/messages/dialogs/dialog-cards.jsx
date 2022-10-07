@@ -9,8 +9,9 @@ const DialogCards = () => {
   const [refToLoadData, isLoading] = useOnScroll();
 
   return dialogs.map((dialog, i) => {
+    const dialogToProps = { ...dialog };
     const isPreLast = dialogs.length - 2 === i;
-    dialog.createdAt = dayjs(dialog.createdAt).utc(true);
+    dialogToProps.createdAt = dayjs(dialogToProps.createdAt).utc(true);
 
     return isPreLast ? (
       <DialogCard dialogCardToRef={refToLoadData} dialog={dialog} key={dialog._id} />

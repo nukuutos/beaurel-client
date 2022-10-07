@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import CustomerCard from '../../../base/customer-card/customer-card';
+import useGetOnlineStatus from './use-get-online-status';
 import useOnlineStatus from './use-online-status';
 import useProfile from './use-profile';
 import useUserData from './use-user-data';
@@ -11,6 +12,8 @@ const ActiveUser = () => {
 
   const [isCustomerProfile, handleClicks] = useProfile();
   const { openProfile, closeCustomerCard } = handleClicks;
+
+  useGetOnlineStatus(activeInterlocutor._id);
 
   const status = useOnlineStatus();
 

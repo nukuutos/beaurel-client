@@ -34,7 +34,7 @@ const useOnSubmit = () => {
       user,
       senderId: profileId,
       recipientId: interlocutorId,
-      createdAt: dayjs(),
+      createdAt: dayjs().utc(true).toString(),
       message,
     };
 
